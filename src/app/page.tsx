@@ -26,11 +26,40 @@ export default function Home() {
   return (
     <div className="bg-gray-900 text-white min-h-screen font-sans">
       <Head>
-        <title>Ashwin Sathian | Full Stack Developer</title>
+        <title>Ashwin Sathian</title>
         <meta
           name="description"
           content="Ashwin Sathian - Full Stack Developer specializing in Angular, Node.js, and NestJS with 6+ years of SaaS experience."
         />
+        {/* Canonical */}
+        <link rel="canonical" href="https://ashwin-smoky.vercel.app/" />
+
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="Ashwin Sathian" />
+        <meta
+          property="og:description"
+          content="SaaS-focused Full Stack Developer (Angular, Node.js, NestJS). Minimal portfolio with experience, skills, and contact."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://ashwin-smoky.vercel.app/" />
+        <meta property="og:image" content="/preview.png" />
+        <meta
+          property="og:image:alt"
+          content="Full Stack Developer • SaaS Specialist • Angular • Node.js • NestJS • MongoDB • Typescript"
+        />
+        <meta property="og:site_name" content="Ashwin Sathian" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Ashwin Sathian" />
+        <meta
+          name="twitter:description"
+          content="Full Stack Developer • SaaS Specialist • Angular • Node.js • NestJS • MongoDB • Typescript"
+        />
+        <meta name="twitter:image" content="/preview.png" />
+
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
       </Head>
 
       {/* Hero Section */}

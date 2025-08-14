@@ -1,102 +1,202 @@
-import Image from "next/image";
+import React from "react";
+import Head from "next/head";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="bg-gray-900 text-white min-h-screen font-sans">
+      <Head>
+        <title>Ashwin Sathian | Full Stack Developer</title>
+        <meta
+          name="description"
+          content="Ashwin Sathian - Full Stack Developer specializing in Angular, Node.js, and NestJS with 6+ years of SaaS experience."
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+      </Head>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center text-center min-h-screen px-6">
+        <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight">
+          Ashwin Sathian
+        </h1>
+        <p className="text-xl sm:text-2xl mt-4 text-gray-400">
+          Full Stack Developer • SaaS Specialist
+        </p>
+        <div className="flex gap-6 mt-6 text-blue-400 text-lg">
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:ashwinsathyan19@gmail.com"
+            className="hover:underline"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+            Email
           </a>
           <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://linkedin.com/in/ashwinsathian"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noreferrer"
+            className="hover:underline"
           >
-            Read our docs
+            LinkedIn
+          </a>
+          <a
+            href="https://github.com/AshwinSathian"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            GitHub
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      </section>
+
+      {/* Summary */}
+      <section className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800">
+        <h2 className="text-3xl font-semibold mb-4">About Me</h2>
+        <p className="leading-relaxed text-gray-300 text-lg">
+          Results-driven Full Stack Developer with 6+ years in SaaS application
+          development, specializing in Angular, Node.js, and NestJS. Adept at
+          building scalable web applications and cloud-based solutions, leading
+          engineering teams, and delivering impactful, customer-focused
+          products.
+        </p>
+      </section>
+
+      {/* Skills */}
+      <section className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800">
+        <h2 className="text-3xl font-semibold mb-8">Skills</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-gray-300">
+          <div>
+            <h3 className="font-semibold text-white mb-1">Frontend</h3>
+            <p>Angular, React.js, Next.js</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white mb-1">Backend</h3>
+            <p>Node.js, NestJS, Express.js</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white mb-1">Database</h3>
+            <p>MongoDB, AWS DynamoDB</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white mb-1">Languages</h3>
+            <p>TypeScript, JavaScript, HTML, CSS, Python</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white mb-1">Cloud & DevOps</h3>
+            <p>AWS, GCP</p>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white mb-1">Tools</h3>
+            <p>Git, Docker, Postman, Jira, CI/CD</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience */}
+      <section className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800">
+        <h2 className="text-3xl font-semibold mb-8">Experience</h2>
+        <div className="space-y-8">
+          {[
+            {
+              role: "Lead Engineer",
+              company: "Penny Software",
+              period: "Jan 2024 – Present",
+              points: [
+                "Led product development, defining technical strategy and roadmap.",
+                "Architected scalable systems using Angular, NestJS, and MongoDB.",
+                "Implemented RBAC and optimized multi-tenant security.",
+                "Mentored engineers to foster a high-performance culture.",
+              ],
+            },
+            {
+              role: "Product Specialist",
+              company: "Penny Software",
+              period: "Apr 2022 – Dec 2023",
+              points: [
+                "Managed feature development aligned with business goals.",
+                "Led collaboration across engineering, QA, DevOps, and business teams.",
+                "Optimized database queries and API performance.",
+              ],
+            },
+            {
+              role: "Full Stack Developer",
+              company: "Penny Software",
+              period: "Jun 2020 – Mar 2022",
+              points: [
+                "Built and enhanced SaaS features across the full stack.",
+                "Designed responsive UI components using Angular.",
+              ],
+            },
+            {
+              role: "Senior Full Stack Developer",
+              company: "Manaraah",
+              period: "Jan 2020 – Jun 2020",
+              points: [
+                "Delivered end-to-end development of business applications.",
+                "Translated client requirements into scalable technical solutions.",
+              ],
+            },
+            {
+              role: "Software Development Engineer",
+              company: "WeCP",
+              period: "Jan 2019 – Jan 2020",
+              points: [
+                "Built SaaS-based assessment platforms.",
+                "Mentored junior developers.",
+              ],
+            },
+            {
+              role: "Junior Programmer",
+              company: "Reubro International",
+              period: "Aug 2018 – Jan 2019",
+              points: ["Developed and maintained flagship SaaS products."],
+            },
+          ].map((job, idx) => (
+            <div
+              key={idx}
+              className="hover:bg-gray-800 p-6 rounded-lg transition-colors"
+            >
+              <h3 className="font-semibold text-white text-xl">
+                {job.role} | {job.company}
+              </h3>
+              <p className="text-sm text-gray-400">{job.period}</p>
+              <ul className="list-disc pl-5 mt-2 text-gray-300 space-y-1">
+                {job.points.map((pt, i) => (
+                  <li key={i}>{pt}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Education */}
+      <section className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800">
+        <h2 className="text-3xl font-semibold mb-8">Education</h2>
+        <div className="text-gray-300 space-y-4">
+          <div>
+            <p className="font-semibold text-white">
+              National Institute of Technology Calicut
+            </p>
+            <p>
+              B.Tech., Electronics & Communication Engineering | 2014 – 2018
+            </p>
+          </div>
+          <div>
+            <p className="font-semibold text-white">Indian School Darsait</p>
+            <p>Class XII (PCM + CS) | 2012 – 2014</p>
+            <p>Class X | 2010 – 2012</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 px-6 text-center border-t border-gray-800 text-gray-500 text-sm">
         <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/Ashwin_Sathian_Resume.pdf"
+          download
+          className="text-blue-400 hover:underline"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+          Download Resume (PDF)
         </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+        <p className="mt-2">© {new Date().getFullYear()} Ashwin Sathian</p>
       </footer>
     </div>
   );

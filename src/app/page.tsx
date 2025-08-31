@@ -58,8 +58,6 @@ export default function Home() {
           content="Full-Stack Engineer • SaaS Architecture • Angular • Next.js • NestJS • MongoDB • TypeScript"
         />
         <meta name="twitter:image" content="/preview.png" />
-
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
       </Head>
 
       {/* Hero Section */}

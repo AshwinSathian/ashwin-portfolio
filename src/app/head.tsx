@@ -1,4 +1,3 @@
-// app/head.tsx
 export default function Head() {
   const person = {
     "@context": "https://schema.org",
@@ -25,12 +24,19 @@ export default function Head() {
     ],
   };
 
+  // ✅ Add SearchAction so RRT detects a supported rich result (“Sitelinks searchbox”)
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     url: "https://ashwin-smoky.vercel.app/",
     name: "Ashwin Sathian — Portfolio",
     publisher: { "@type": "Person", name: "Ashwin Sathian" },
+    potentialAction: {
+      "@type": "SearchAction",
+      target:
+        "https://www.google.com/search?q=site%3Aashwin-smoky.vercel.app%20{search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
   };
 
   const profilePage = {
@@ -46,13 +52,10 @@ export default function Head() {
         "https://github.com/AshwinSathian",
       ],
     },
-    // Optional: if you later add a profile image at /ashwin.jpg
-    // primaryImageOfPage: "https://ashwin-smoky.vercel.app/ashwin.jpg"
   };
 
   return (
     <>
-      {/* Keep any meta from layout.tsx; this only adds JSON-LD */}
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger

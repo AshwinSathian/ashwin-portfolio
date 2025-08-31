@@ -29,10 +29,10 @@ export default function Image() {
             flexDirection: "column",
           }}
         >
-          <div style={{ fontSize: 28, opacity: 0.7, marginBottom: 12 }}>
+          <div style={{ fontSize: 36, fontWeight: 700, marginBottom: 12 }}>
             Ashwin Sathian
           </div>
-          <div style={{ fontWeight: 700 }}>
+          <div style={{ fontSize: 28, opacity: 0.7 }}>
             Full-Stack Engineer • SaaS Architecture
           </div>
         </div>
@@ -41,9 +41,8 @@ export default function Image() {
           <img
             src="https://ashwin-smoky.vercel.app/favicon.svg"
             alt=""
-            width={96}
-            height={96}
-            // no extra styles required
+            width={104}
+            height={104}
           />
         </div>
       </div>

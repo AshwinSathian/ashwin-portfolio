@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -15,15 +15,54 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://ashwin-smoky.vercel.app";
-const title = "Ashwin Sathian";
-const description =
-  "Full Stack Developer • SaaS Specialist • Angular • Node.js • NestJS • MongoDB • Typescript";
-
-export const metadata = {
-  title: "Ashwin Sathian — Full-Stack Engineer (Angular • NestJS • Nx)",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://ashwin-smoky.vercel.app"),
+  title: {
+    default: "Ashwin Sathian — Full-Stack Engineer (Angular • NestJS • Nx)",
+    template: "%s — Ashwin Sathian",
+  },
   description:
-    "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, $1B+ GTV). Angular, Next.js, NestJS, MongoDB. Clean architecture, multi-tenancy, RBAC, CI/CD.",
+    "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "https://ashwin-smoky.vercel.app/",
+    title: "Ashwin Sathian — Full-Stack Engineer",
+    description:
+      "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD.",
+    siteName: "Ashwin Sathian — Portfolio",
+    images: [
+      {
+        url: "/preview.png",
+        width: 1200,
+        height: 630,
+        alt: "Ashwin Sathian portfolio preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ashwin Sathian — Full-Stack Engineer",
+    description:
+      "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD.",
+    images: ["/preview.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/apple-touch-icon.png", // add this file if you want
+  },
   keywords: [
     "Ashwin Sathian",
     "Full-Stack Engineer",
@@ -37,21 +76,6 @@ export const metadata = {
     "Multi-tenant",
     "CI/CD",
   ],
-  robots: { index: true, follow: true },
-  openGraph: {
-    title: "Ashwin Sathian — Full-Stack Engineer",
-    description:
-      "Engineering leader with 7+ years building and scaling SaaS platforms. Angular • NestJS • Next.js • MongoDB • Nx • CI/CD.",
-    url: "https://ashwin-smoky.vercel.app/",
-    siteName: "Ashwin Sathian — Portfolio",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Ashwin Sathian — Full-Stack Engineer",
-    description:
-      "Angular • NestJS • Next.js • MongoDB • Nx • CI/CD. 7+ years building modular SaaS platforms.",
-  },
 };
 
 export default function RootLayout({

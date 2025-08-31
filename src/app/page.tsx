@@ -29,7 +29,7 @@ export default function Home() {
         <title>Ashwin Sathian</title>
         <meta
           name="description"
-          content="Ashwin Sathian — Full-Stack Engineer with 7+ years building and scaling SaaS platforms. Angular, Next.js, NestJS, MongoDB, Nx, CI/CD."
+          content="Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD."
         />
         {/* Canonical */}
         <link rel="canonical" href="https://ashwin-smoky.vercel.app/" />
@@ -60,6 +60,50 @@ export default function Home() {
         <meta name="twitter:image" content="/preview.png" />
 
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Ashwin Sathian",
+              jobTitle: "Full-Stack Engineer",
+              url: "https://ashwin-smoky.vercel.app/",
+              email: "mailto:ashwinsathyan19@gmail.com",
+              sameAs: [
+                "https://www.linkedin.com/in/ashwinsathian",
+                "https://github.com/AshwinSathian",
+              ],
+              knowsAbout: [
+                "Angular",
+                "Next.js",
+                "NestJS",
+                "Node.js",
+                "TypeScript",
+                "MongoDB",
+                "Nx",
+                "CI/CD",
+                "AWS",
+                "GCP",
+              ],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              url: "https://ashwin-smoky.vercel.app/",
+              name: "Ashwin Sathian — Portfolio",
+              publisher: { "@type": "Person", name: "Ashwin Sathian" },
+            }),
+          }}
+        />
       </Head>
 
       {/* Hero Section */}

@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 
+export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -10,17 +11,24 @@ export default function Image() {
         style={{
           height: "100%",
           width: "100%",
-          display: "flex",
+          display: "flex", // multiple children -> must be flex
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
           background: "#0b1020",
           color: "white",
           padding: "64px",
           fontSize: 52,
           lineHeight: 1.2,
-          justifyContent: "space-between",
-          alignItems: "flex-end",
         }}
       >
-        <div style={{ maxWidth: 760 }}>
+        <div
+          style={{
+            maxWidth: 760,
+            display: "flex", // multiple children -> must be flex
+            flexDirection: "column",
+          }}
+        >
           <div style={{ fontSize: 28, opacity: 0.7, marginBottom: 12 }}>
             Ashwin Sathian
           </div>
@@ -28,13 +36,16 @@ export default function Image() {
             Full-Stack Engineer • SaaS Architecture
           </div>
         </div>
-        <img
-          src={`https://ashwin-smoky.vercel.app/favicon.svg`}
-          alt=""
-          width={96}
-          height={96}
-          style={{ opacity: 0.9 }}
-        />
+
+        <div style={{ display: "flex" }}>
+          <img
+            src="https://ashwin-smoky.vercel.app/favicon.svg"
+            alt=""
+            width={96}
+            height={96}
+            // no extra styles required
+          />
+        </div>
       </div>
     ),
     size

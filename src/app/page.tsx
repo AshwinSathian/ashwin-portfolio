@@ -29,7 +29,7 @@ export default function Home() {
         <title>Ashwin Sathian</title>
         <meta
           name="description"
-          content="Ashwin Sathian - Full Stack Developer specializing in Angular, Node.js, and NestJS with 6+ years of SaaS experience."
+          content="Ashwin Sathian — Full-Stack Engineer with 7+ years building and scaling SaaS platforms. Angular, Next.js, NestJS, MongoDB, Nx, CI/CD."
         />
         {/* Canonical */}
         <link rel="canonical" href="https://ashwin-smoky.vercel.app/" />
@@ -41,21 +41,21 @@ export default function Home() {
         <meta property="og:title" content="Ashwin Sathian" />
         <meta
           property="og:description"
-          content="SaaS-focused Full Stack Developer (Angular, Node.js, NestJS). Minimal portfolio with experience, skills, and contact."
+          content="Engineering leader focused on SaaS architecture — Angular • Next.js • NestJS • MongoDB • Nx • CI/CD."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://ashwin-smoky.vercel.app/" />
         <meta property="og:image" content="/preview.png" />
         <meta
           property="og:image:alt"
-          content="Full Stack Developer • SaaS Specialist • Angular • Node.js • NestJS • MongoDB • Typescript"
+          content="Full-Stack Engineer • SaaS Architecture • Angular • Next.js • NestJS • MongoDB • TypeScript"
         />
         <meta property="og:site_name" content="Ashwin Sathian" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Ashwin Sathian" />
         <meta
           name="twitter:description"
-          content="Full Stack Developer • SaaS Specialist • Angular • Node.js • NestJS • MongoDB • Typescript"
+          content="Full-Stack Engineer • SaaS Architecture • Angular • Next.js • NestJS • MongoDB • TypeScript"
         />
         <meta name="twitter:image" content="/preview.png" />
 
@@ -79,7 +79,7 @@ export default function Home() {
           transition={{ delay: 0.15, duration: 0.5 }}
           className="text-xl sm:text-2xl mt-4 text-gray-400"
         >
-          Full Stack Developer • SaaS Specialist
+          Full-Stack Engineer • SaaS Architecture
         </motion.p>
 
         {/* Contact Card */}
@@ -157,11 +157,13 @@ export default function Home() {
           <FaUser className="text-blue-400" /> About Me
         </h2>
         <p className="leading-relaxed text-gray-300 text-lg">
-          Results-driven Full Stack Developer with 6+ years in SaaS application
-          development, specializing in Angular, Node.js, and NestJS. Adept at
-          building scalable web applications and cloud-based solutions, leading
-          engineering teams, and delivering impactful, customer-focused
-          products.
+          Engineering leader with 7+ years building and scaling SaaS platforms
+          serving thousands of users and millions of records, contributing to
+          ~$1B+ in GTV. I specialize in Angular, Next.js, NestJS, and MongoDB,
+          and care deeply about clean architecture, multi-tenancy, RBAC, and
+          reliable CI/CD. I’ve delivered consistent sub-200&nbsp;ms query paths,
+          accelerated release cadence by ~1.5×, and led cross-functional teams
+          to land business-critical features pragmatically.
         </p>
       </motion.section>
 
@@ -195,7 +197,7 @@ export default function Home() {
           </div>
           <div>
             <h3 className="font-semibold text-white mb-1">Cloud & DevOps</h3>
-            <p>AWS, GCP</p>
+            <p>AWS, GCP, Docker, GitHub Actions</p>
           </div>
           <div>
             <h3 className="font-semibold text-white mb-1">Tools</h3>
@@ -222,10 +224,10 @@ export default function Home() {
               company: "Penny Software",
               period: "Jan 2024 – Present",
               points: [
-                "Led product development, defining technical strategy and roadmap.",
-                "Architected scalable systems using Angular, NestJS, and MongoDB.",
-                "Implemented RBAC and optimized multi-tenant security.",
-                "Mentored engineers to foster a high-performance culture.",
+                "Drove platform architecture for a modular procurement SaaS (millions of records; ~$1B+ GTV).",
+                "Established Angular + NestJS + MongoDB patterns delivering consistent sub-200 ms queries.",
+                "Hardened multi-tenant security and standardized enterprise-grade RBAC.",
+                "Mentored a ~12-member team; uplifted code quality and review rigor.",
               ],
             },
             {
@@ -233,9 +235,9 @@ export default function Home() {
               company: "Penny Software",
               period: "Apr 2022 – Dec 2023",
               points: [
-                "Managed feature development aligned with business goals.",
-                "Led collaboration across engineering, QA, DevOps, and business teams.",
-                "Optimized database queries and API performance.",
+                "Owned feature lifecycles end-to-end with business-aligned delivery.",
+                "Optimized APIs and queries, improving response times 40%+ and speeding releases by ~1.5×.",
+                "Coordinated across engineering, QA, and product for iterative wins.",
               ],
             },
             {
@@ -243,8 +245,8 @@ export default function Home() {
               company: "Penny Software",
               period: "Jun 2020 – Mar 2022",
               points: [
-                "Built and enhanced SaaS features across the full stack.",
-                "Designed responsive UI components using Angular.",
+                "Shipped features across the stack with high uptime and reliability.",
+                "Improved frontend scalability via modularization and lazy-loading.",
               ],
             },
             {
@@ -252,8 +254,8 @@ export default function Home() {
               company: "Manaraah",
               period: "Jan 2020 – Jun 2020",
               points: [
-                "Delivered end-to-end development of business applications.",
-                "Translated client requirements into scalable technical solutions.",
+                "Built and deployed cloud-native business applications.",
+                "Translated requirements into robust, maintainable implementations.",
               ],
             },
             {
@@ -261,15 +263,15 @@ export default function Home() {
               company: "WeCP",
               period: "Jan 2019 – Jan 2020",
               points: [
-                "Built SaaS-based assessment platforms.",
-                "Mentored junior developers.",
+                "Contributed to a SaaS assessments platform at scale.",
+                "Streamlined onboarding and mentored interns/junior developers.",
               ],
             },
             {
               role: "Junior Programmer",
               company: "Reubro International",
               period: "Aug 2018 – Jan 2019",
-              points: ["Developed and maintained flagship SaaS products."],
+              points: ["Delivered improvements to a flagship SaaS product."],
             },
           ].map((job, idx) => (
             <div
@@ -321,7 +323,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-8 px-6 text-center border-t border-gray-800 text-gray-500 text-sm">
         <a
-          href="/Ashwin_Sathian_Resume.pdf"
+          href="/Resume.pdf"
           download
           className="text-blue-400 hover:underline"
         >

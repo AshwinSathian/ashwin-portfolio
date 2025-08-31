@@ -20,40 +20,38 @@ const title = "Ashwin Sathian";
 const description =
   "Full Stack Developer • SaaS Specialist • Angular • Node.js • NestJS • MongoDB • Typescript";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title,
-  description,
-  applicationName: "Ashwin Sathian",
-  alternates: { canonical: siteUrl },
-  icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml", rel: "icon" }],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-  },
+export const metadata = {
+  title: "Ashwin Sathian — Full-Stack Engineer (Angular • NestJS • Nx)",
+  description:
+    "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, $1B+ GTV). Angular, Next.js, NestJS, MongoDB. Clean architecture, multi-tenancy, RBAC, CI/CD.",
+  keywords: [
+    "Ashwin Sathian",
+    "Full-Stack Engineer",
+    "Angular",
+    "NestJS",
+    "Next.js",
+    "Nx Monorepo",
+    "MongoDB",
+    "SaaS",
+    "RBAC",
+    "Multi-tenant",
+    "CI/CD",
+  ],
+  robots: { index: true, follow: true },
   openGraph: {
+    title: "Ashwin Sathian — Full-Stack Engineer",
+    description:
+      "Engineering leader with 7+ years building and scaling SaaS platforms. Angular • NestJS • Next.js • MongoDB • Nx • CI/CD.",
+    url: "https://ashwin-smoky.vercel.app/",
+    siteName: "Ashwin Sathian — Portfolio",
     type: "website",
-    url: siteUrl,
-    siteName: "Ashwin Sathian",
-    title,
-    description,
-    images: [
-      {
-        url: "/preview.png",
-        width: 1200,
-        height: 630,
-        alt: "Ashwin Sathian",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description,
-    images: ["/preview.png"],
+    title: "Ashwin Sathian — Full-Stack Engineer",
+    description:
+      "Angular • NestJS • Next.js • MongoDB • Nx • CI/CD. 7+ years building modular SaaS platforms.",
   },
-  themeColor: "#0b1220",
-  viewport: { width: "device-width", initialScale: 1, maximumScale: 5 },
-  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

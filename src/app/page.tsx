@@ -60,50 +60,6 @@ export default function Home() {
         <meta name="twitter:image" content="/preview.png" />
 
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
-
-        <script
-          type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Ashwin Sathian",
-              jobTitle: "Full-Stack Engineer",
-              url: "https://ashwin-smoky.vercel.app/",
-              email: "mailto:ashwinsathyan19@gmail.com",
-              sameAs: [
-                "https://www.linkedin.com/in/ashwinsathian",
-                "https://github.com/AshwinSathian",
-              ],
-              knowsAbout: [
-                "Angular",
-                "Next.js",
-                "NestJS",
-                "Node.js",
-                "TypeScript",
-                "MongoDB",
-                "Nx",
-                "CI/CD",
-                "AWS",
-                "GCP",
-              ],
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              url: "https://ashwin-smoky.vercel.app/",
-              name: "Ashwin Sathian — Portfolio",
-              publisher: { "@type": "Person", name: "Ashwin Sathian" },
-            }),
-          }}
-        />
       </Head>
 
       {/* Hero Section */}

@@ -39,11 +39,16 @@ export default function Experience() {
           <TimelineMarker index={(item as TimelineItem).timelineIndex} />
         )}
         content={(item) => (
-          <div className="w-full">
+          <div className="w-full flex-1">
             <ExperienceCard item={item as ExperienceItemType} />
           </div>
         )}
-        className="!gap-4"
+        className="!gap-4 w-full"
+        pt={{
+          event: { className: "flex items-stretch w-full" },
+          content: { className: "flex-1 w-full" },
+          separator: { className: "min-h-full" },
+        }}
       />
     </motion.div>
   );

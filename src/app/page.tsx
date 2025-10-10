@@ -57,16 +57,6 @@ export default function Page() {
         >
           <Hero />
         </PageSection>
-
-        <PageSection
-          id="contact"
-          labelledBy="contact-heading"
-          className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
-        >
-          <SectionHeading id="contact-heading" title="Contact" className="mb-6" />
-          <ContactCard />
-        </PageSection>
-
         <PageSection
           id="about"
           labelledBy="about-heading"
@@ -117,6 +107,15 @@ export default function Page() {
             className="mb-8"
           />
           <Education />
+        </PageSection>
+
+        <PageSection
+          id="contact"
+          labelledBy="contact-heading"
+          className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
+        >
+          <SectionHeading id="contact-heading" title="Contact" className="mb-6" />
+          <ContactCard />
         </PageSection>
 
         <SiteFooter />

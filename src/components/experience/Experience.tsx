@@ -28,7 +28,7 @@ export default function Experience() {
 
   return (
     <motion.div
-      className="mx-auto max-w-6xl px-3 sm:px-4"
+      className="w-full mx-auto px-3 sm:px-6 lg:px-8"
       variants={prefersReducedMotion ? undefined : fadeUp}
     >
       <Timeline
@@ -39,7 +39,7 @@ export default function Experience() {
           <TimelineMarker index={(item as TimelineItem).timelineIndex} />
         )}
         content={(item) => (
-          <div className="w-full md:max-w-[720px] xl:max-w-[760px]">
+          <div className="w-full">
             <ExperienceCard item={item as ExperienceItemType} />
           </div>
         )}

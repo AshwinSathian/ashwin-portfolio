@@ -64,3 +64,5 @@ export const EXPERIENCE: ExperienceItem[] = [
     bullets: ["Delivered improvements to a flagship SaaS product."],
   },
 ];
+
+export const EXPERIENCE_HEADING = "Experience" as const;

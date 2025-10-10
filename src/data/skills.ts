@@ -15,3 +15,5 @@ export const SKILLS: Skills = {
   cloudAndDevops: ["AWS", "GCP", "Docker", "GitHub Actions"],
   tools: ["Git", "Docker", "Postman", "Jira", "CI/CD"],
 };
+
+export const SKILLS_HEADING = "Skills" as const;

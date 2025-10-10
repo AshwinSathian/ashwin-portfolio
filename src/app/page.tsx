@@ -2,15 +2,19 @@
 
 import React from "react";
 import Head from "next/head";
-import Hero from "@/components/hero/Hero";
-import ContactCard from "@/components/hero/ContactCard";
 import About from "@/components/about/About";
-import Skills from "@/components/skills/Skills";
-import Experience from "@/components/experience/Experience";
 import Education from "@/components/education/Education";
+import Experience from "@/components/experience/Experience";
 import SiteFooter from "@/components/footer/SiteFooter";
+import ContactCard from "@/components/hero/ContactCard";
+import Hero from "@/components/hero/Hero";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeading from "@/components/layout/SectionHeading";
+import Skills from "@/components/skills/Skills";
+import { ABOUT } from "@/data/about";
+import { EDUCATION_HEADING } from "@/data/education";
+import { EXPERIENCE_HEADING } from "@/data/experience";
+import { SKILLS_HEADING } from "@/data/skills";
 
 export default function Page() {
   return (
@@ -60,7 +64,11 @@ export default function Page() {
           labelledBy="about-heading"
           className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
         >
-          <SectionHeading id="about-heading" title="About Me" className="mb-4" />
+          <SectionHeading
+            id="about-heading"
+            title={ABOUT.heading}
+            className="mb-4"
+          />
           <About />
         </PageSection>
 
@@ -69,7 +77,11 @@ export default function Page() {
           labelledBy="skills-heading"
           className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
         >
-          <SectionHeading id="skills-heading" title="Skills" className="mb-8" />
+          <SectionHeading
+            id="skills-heading"
+            title={SKILLS_HEADING}
+            className="mb-8"
+          />
           <Skills />
         </PageSection>
 
@@ -80,7 +92,7 @@ export default function Page() {
         >
           <SectionHeading
             id="experience-heading"
-            title="Experience"
+            title={EXPERIENCE_HEADING}
             className="mb-8"
           />
           <Experience />
@@ -93,7 +105,7 @@ export default function Page() {
         >
           <SectionHeading
             id="education-heading"
-            title="Education"
+            title={EDUCATION_HEADING}
             className="mb-8"
           />
           <Education />

@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
+import { SITE } from "@/data/site";
 
 const stagger = {
   hidden: { opacity: 0, y: 6 },
@@ -13,18 +14,20 @@ const stagger = {
   }),
 };
 
+const firstName = SITE.name.split(" ")[0];
+
 const contactLinks = [
   {
-    href: "mailto:ashwinsathyan19@gmail.com",
-    ariaLabel: "Email Ashwin Sathian",
+    href: `mailto:${SITE.email}`,
+    ariaLabel: `Email ${SITE.name}`,
     className:
       "inline-flex items-center gap-2 rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400",
     label: "Email",
     icon: <FaEnvelope aria-hidden suppressHydrationWarning />,
   },
   {
-    href: "https://linkedin.com/in/ashwinsathian",
-    ariaLabel: "Open Ashwin's LinkedIn",
+    href: SITE.linkedin,
+    ariaLabel: `Open ${firstName}'s LinkedIn`,
     className:
       "inline-flex items-center gap-2 rounded-md border border-blue-400/40 px-4 py-2 text-sm font-medium text-blue-300 transition-all hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400/60",
     label: "LinkedIn",
@@ -33,8 +36,8 @@ const contactLinks = [
     rel: "noopener noreferrer",
   },
   {
-    href: "https://github.com/AshwinSathian",
-    ariaLabel: "Open Ashwin's GitHub",
+    href: SITE.github,
+    ariaLabel: `Open ${firstName}'s GitHub`,
     className:
       "inline-flex items-center gap-2 rounded-md border border-gray-600 px-4 py-2 text-sm font-medium text-gray-200 transition-all hover:-translate-y-0.5 hover:border-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500/60",
     label: "GitHub",

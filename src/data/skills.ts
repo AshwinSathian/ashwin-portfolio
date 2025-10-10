@@ -17,3 +17,12 @@ export const SKILLS = {
 } as const satisfies Skills;
 
 export const SKILLS_HEADING = "Skills" as const;
+
+export const TOP_SKILLS = [
+  "Angular",
+  "NestJS",
+  "Next.js",
+  "TypeScript",
+  "MongoDB",
+  "AWS",
+] as const;

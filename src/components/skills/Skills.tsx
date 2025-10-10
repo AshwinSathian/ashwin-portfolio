@@ -1,24 +1,76 @@
 import React from "react";
-import { SKILLS, type Skills as SkillsType } from "@/data/skills";
+import { Chip } from "primereact/chip";
+import { Tag } from "primereact/tag";
+import { Divider } from "primereact/divider";
+import { SKILLS, TOP_SKILLS } from "@/data/skills";
 
-const sections: Array<{ label: string; key: keyof SkillsType }> = [
-  { label: "Frontend", key: "frontend" },
-  { label: "Backend", key: "backend" },
-  { label: "Database", key: "database" },
-  { label: "Languages", key: "languages" },
-  { label: "Cloud & DevOps", key: "cloudAndDevops" },
-  { label: "Tools", key: "tools" },
-];
+type SkillGroupKey = keyof typeof SKILLS;
+
+const skillEntries = Object.entries(SKILLS) as Array<
+  [SkillGroupKey, (typeof SKILLS)[SkillGroupKey]]
+>;
 
 export default function Skills() {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-gray-300">
-      {sections.map(({ label, key }) => (
-        <div key={label}>
-          <h3 className="font-semibold text-white mb-1">{label}</h3>
-          <p>{SKILLS[key].join(", ")}</p>
+    <div className="max-w-5xl mx-auto text-gray-200">
+      <div aria-label="Top skills" className="mb-6">
+        <h3 className="text-sm font-semibold tracking-wide uppercase opacity-80">
+          Top Skills
+        </h3>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {TOP_SKILLS.map((skill) => (
+            <Tag
+              key={skill}
+              value={skill}
+              rounded
+              className="px-3 py-2 text-sm bg-gray-800/60 border border-gray-700 text-gray-100"
+            />
+          ))}
         </div>
-      ))}
+      </div>
+
+      <Divider className="border-gray-800" />
+
+      <div className="grid gap-8 md:grid-cols-2">
+        {skillEntries.map(([group, items], index) => (
+          <section
+            key={group}
+            aria-labelledby={`skills-${group}`}
+            className="space-y-3"
+          >
+            <h4
+              id={`skills-${group}`}
+              className="text-sm font-semibold uppercase tracking-wide text-gray-300"
+            >
+              {formatGroupTitle(group)}
+            </h4>
+
+            <div className="flex flex-wrap gap-2">
+              {items.map((item) => (
+                <Chip
+                  key={item}
+                  label={item}
+                  aria-label={item}
+                  className="px-3 py-2 text-sm bg-gray-800/40 border border-gray-700 text-gray-100 hover:shadow-sm transition-shadow"
+                />
+              ))}
+            </div>
+
+            {index % 2 === 1 ? (
+              <Divider className="hidden md:block border-gray-800 mt-4" />
+            ) : null}
+          </section>
+        ))}
+      </div>
     </div>
   );
+}
+
+function formatGroupTitle(key: SkillGroupKey) {
+  switch (key) {
+    case "cloudAndDevops":
+      return "Cloud & DevOps";
+    default:
+      return key.charAt(0).toUpperCase() + key.slice(1);
+  }
 }

@@ -10,27 +10,18 @@ export default function About() {
   return (
     <Card className="max-w-3xl mx-auto bg-gray-900/60 border-gray-800 shadow-lg">
       <div className="flex flex-col gap-6">
-        <header className="flex items-center gap-4">
+        <div className="flex items-start gap-4">
           <Avatar
             label="AS"
             shape="circle"
-            className="bg-blue-500 text-white font-semibold"
+            className="bg-blue-500 text-white font-semibold shrink-0 shadow-sm"
             aria-label="Ashwin Sathian"
           />
 
-          <div>
-            <h3 className="text-lg font-semibold text-white tracking-tight">
-              {ABOUT.heading}
-            </h3>
-            <p className="text-sm text-gray-400">Engineering leader & mentor</p>
-          </div>
-        </header>
-
-        <section className="space-y-4 text-gray-300">
-          <p className="text-base leading-relaxed text-balance">
+          <p className="text-base leading-relaxed text-gray-300 text-balance">
             {ABOUT.body}
           </p>
-        </section>
+        </div>
 
         <Accordion className="border-0 bg-transparent" multiple>
           <AccordionTab header="Focus Areas" headerClassName="text-white" contentClassName="bg-transparent">

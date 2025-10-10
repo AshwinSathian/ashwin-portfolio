@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React, { useRef } from 'react';
-import { Card } from 'primereact/card';
-import { Button } from 'primereact/button';
-import { Toast } from 'primereact/toast';
-import { Tooltip } from 'primereact/tooltip';
-import { SITE } from '@/data/site';
+import React, { useRef } from "react";
+import { Card } from "primereact/card";
+import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
+import { Tooltip } from "primereact/tooltip";
+import { SITE } from "@/data/site";
 
 export default function ContactCard() {
   const toastRef = useRef<Toast>(null);
@@ -14,16 +14,16 @@ export default function ContactCard() {
     try {
       await navigator.clipboard.writeText(SITE.email);
       toastRef.current?.show({
-        severity: 'success',
-        summary: 'Copied',
-        detail: 'Email address copied',
+        severity: "success",
+        summary: "Copied",
+        detail: "Email address copied",
         life: 1600,
       });
     } catch {
       toastRef.current?.show({
-        severity: 'warn',
-        summary: 'Unable to copy',
-        detail: 'Please copy manually',
+        severity: "warn",
+        summary: "Unable to copy",
+        detail: "Please copy manually",
         life: 1600,
       });
     }
@@ -42,6 +42,7 @@ export default function ContactCard() {
             className="has-tip focus-visible:ring-2 focus-visible:ring-blue-400"
             aria-label={`Email ${SITE.name}`}
             data-pr-tooltip="Email me"
+            outlined={true}
             onClick={() => {
               window.location.href = `mailto:${SITE.email}`;
             }}
@@ -53,8 +54,9 @@ export default function ContactCard() {
             className="has-tip focus-visible:ring-2 focus-visible:ring-blue-400"
             aria-label={`Open ${SITE.name}'s LinkedIn profile`}
             data-pr-tooltip="View LinkedIn"
+            outlined={true}
             onClick={() => {
-              window.open(SITE.linkedin, '_blank', 'noopener,noreferrer');
+              window.open(SITE.linkedin, "_blank", "noopener,noreferrer");
             }}
           />
 
@@ -64,8 +66,9 @@ export default function ContactCard() {
             className="has-tip focus-visible:ring-2 focus-visible:ring-blue-400"
             aria-label={`Open ${SITE.name}'s GitHub profile`}
             data-pr-tooltip="View GitHub"
+            outlined={true}
             onClick={() => {
-              window.open(SITE.github, '_blank', 'noopener,noreferrer');
+              window.open(SITE.github, "_blank", "noopener,noreferrer");
             }}
           />
 

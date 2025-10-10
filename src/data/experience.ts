@@ -12,7 +12,7 @@ export const EXPERIENCE = [
   {
     role: "Lead Engineer",
     company: "Penny Software",
-    period: "Jan 2024 – Present",
+    period: "Jan 2024 – Aug 2925",
     bullets: [
       "Drove platform architecture for a modular procurement SaaS (millions of records; ~$1B+ GTV).",
       "Established Angular + NestJS + MongoDB patterns delivering consistent sub-200 ms queries.",

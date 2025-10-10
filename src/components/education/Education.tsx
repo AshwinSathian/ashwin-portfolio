@@ -1,78 +1,75 @@
 "use client";
 
-import { EDUCATION } from "@/data/education";
 import { motion, useReducedMotion } from "framer-motion";
-import { Timeline } from "primereact/timeline";
+import { Card } from "primereact/card";
+import { Tag } from "primereact/tag";
+import { EDUCATION } from "@/data/education";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5 },
-  },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
 };
 
 type EducationItem = (typeof EDUCATION)[number];
 
 export default function Education() {
-  const prefersReducedMotion = useReducedMotion();
+  const shouldReduceMotion = Boolean(useReducedMotion());
 
   return (
-    <motion.div
-      className="w-full mx-auto px-3 sm:px-6 lg:px-8"
-      variants={prefersReducedMotion ? undefined : fadeUp}
-    >
-      <Timeline
-        value={EDUCATION}
-        layout="vertical"
-        align="left"
-        marker={() => (
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-700 bg-gray-900 shadow-sm">
-            <span
-              className="pi pi-graduation-cap text-sm text-sky-300"
-              aria-hidden
-            />
-          </span>
-        )}
-        content={(item) => (
-          <div className="w-full">
-            <EducationEntry item={item as EducationItem} />
-          </div>
-        )}
-        className="!gap-4 w-full"
-        pt={{
-          event: { className: "flex items-stretch w-full" },
-          content: { className: "flex-1 w-full" },
-          separator: { className: "min-h-full" },
-        }}
-      />
-    </motion.div>
+    <section className="w-full mx-auto px-3 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-5xl space-y-5">
+        {EDUCATION.map((item) => (
+          <EducationCard
+            key={`${item.school}-${item.period}`}
+            item={item}
+            shouldReduceMotion={shouldReduceMotion}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
 
-function EducationEntry({ item }: { item: EducationItem }) {
+function EducationCard({
+  item,
+  shouldReduceMotion,
+}: {
+  item: EducationItem;
+  shouldReduceMotion: boolean;
+}) {
   return (
-    <div className="w-full">
-      <div className="mx-auto max-w-[72ch] rounded-lg border border-gray-800/60 bg-gray-900/70 p-5 shadow-sm">
-        <h3 className="text-base sm:text-lg font-semibold text-white">
-          {item.school}
-        </h3>
-        <div className="mt-2 flex flex-wrap items-center gap-2 uppercase text-white tracking-wide text-sm">
-          {item.credential}
-          <span className="text-xs sm:text-sm text-gray-400">
-            {item.period}
-          </span>
-        </div>
+    <motion.div
+      variants={shouldReduceMotion ? undefined : fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+    >
+      <Card className="w-full border border-surface-300/20 shadow-none bg-gray-900/70">
+        <div className="mx-auto max-w-[72ch]">
+          <h3 className="text-base sm:text-lg font-semibold text-white">
+            {item.school}
+          </h3>
 
-        {item.details?.length ? (
-          <ul className="mt-3 list-disc ml-5 space-y-1 text-sm leading-relaxed text-gray-300">
-            {item.details.map((detail, index) => (
-              <li key={`${item.school}-detail-${index}`}>{detail}</li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
-    </div>
+          <div className="mt-2 flex flex-wrap items-center gap-2 text-gray-300">
+            <Tag
+              value={item.credential}
+              rounded
+              className="px-3 py-1 text-xs bg-gray-800/60 border border-gray-700 text-gray-100"
+            />
+            <span className="text-xs sm:text-sm text-gray-400">
+              {item.period}
+            </span>
+          </div>
+
+          {item.details?.length ? (
+            <ul className="mt-3 list-disc ml-5 space-y-1 text-sm leading-relaxed text-gray-300">
+              {item.details.map((detail, index) => (
+                <li key={`${item.school}-detail-${index}`}>{detail}</li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+      </Card>
+    </motion.div>
   );
 }

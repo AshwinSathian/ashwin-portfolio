@@ -16,18 +16,10 @@ type SectionHeadingProps = {
 
 const iconMap: Record<string, React.ReactNode> = {
   "about-heading": (
-    <FaUser
-      className="text-blue-400"
-      aria-hidden
-      suppressHydrationWarning
-    />
+    <FaUser className="text-blue-400" aria-hidden suppressHydrationWarning />
   ),
   "skills-heading": (
-    <FaTools
-      className="text-blue-400"
-      aria-hidden
-      suppressHydrationWarning
-    />
+    <FaTools className="text-blue-400" aria-hidden suppressHydrationWarning />
   ),
   "experience-heading": (
     <FaBriefcase
@@ -61,7 +53,9 @@ export default function SectionHeading({
   const icon = iconMap[id];
   const headingClasses = [
     "text-3xl",
-    "font-semibold",
+    "font-normal",
+    "uppercase",
+    "tracking-wider",
     "flex",
     "items-center",
     "gap-3",
@@ -73,8 +67,8 @@ export default function SectionHeading({
   return (
     <div>
       <h2 id={id} className={headingClasses}>
-        {icon}
-        {title}
+        {icon ? <span className="text-2xl sm:text-3xl">{icon}</span> : null}
+        <span>{title}</span>
       </h2>
       {subtitle ? (
         <p className="mt-2 text-gray-400 text-lg">{subtitle}</p>

@@ -14,7 +14,7 @@ export default function Skills() {
   return (
     <div className="max-w-5xl mx-auto text-gray-200">
       <div aria-label="Top skills" className="mb-6">
-        <h3 className="text-sm font-semibold tracking-wide uppercase opacity-80">
+        <h3 className="text-sm font-semibold uppercase tracking-wide opacity-80">
           Top Skills
         </h3>
         <div className="mt-3 flex flex-wrap gap-2">

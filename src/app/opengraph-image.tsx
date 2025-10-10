@@ -16,23 +16,29 @@ export default function Image() {
           justifyContent: "space-between",
           alignItems: "flex-end",
           background: "#0b1020",
-          color: "white",
           padding: "64px",
-          fontSize: 52,
           lineHeight: 1.2,
         }}
       >
         <div
           style={{
-            maxWidth: 760,
             display: "flex", // multiple children -> must be flex
             flexDirection: "column",
           }}
         >
-          <div style={{ fontSize: 42, fontWeight: 700, marginBottom: 12 }}>
-            Ashwin Sathian
+          <div
+            style={{
+              fontSize: 42,
+              fontWeight: 700,
+              marginBottom: 12,
+              color: "white",
+            }}
+          >
+            ASHWIN SATHIAN
           </div>
-          <div style={{ fontSize: 28, opacity: 0.7 }}>
+          <div
+            style={{ fontSize: 28, color: "gray", textTransform: "uppercase" }}
+          >
             Full-Stack Engineer • SaaS Architecture
           </div>
         </div>

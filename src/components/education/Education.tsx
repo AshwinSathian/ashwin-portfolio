@@ -1,10 +1,8 @@
 "use client";
 
-import React from "react";
+import { EDUCATION } from "@/data/education";
 import { motion, useReducedMotion } from "framer-motion";
 import { Timeline } from "primereact/timeline";
-import { Tag } from "primereact/tag";
-import { EDUCATION } from "@/data/education";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -31,7 +29,10 @@ export default function Education() {
         align="left"
         marker={() => (
           <span className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-700 bg-gray-900 shadow-sm">
-            <span className="pi pi-graduation-cap text-sm text-sky-300" aria-hidden />
+            <span
+              className="pi pi-graduation-cap text-sm text-sky-300"
+              aria-hidden
+            />
           </span>
         )}
         content={(item) => (
@@ -57,13 +58,11 @@ function EducationEntry({ item }: { item: EducationItem }) {
         <h3 className="text-base sm:text-lg font-semibold text-white">
           {item.school}
         </h3>
-        <div className="mt-2 flex flex-wrap items-center gap-2">
-          <Tag
-            value={item.credential}
-            rounded
-            className="px-3 py-1 text-xs bg-gray-800/60 border border-gray-700 text-gray-100"
-          />
-          <span className="text-xs sm:text-sm text-gray-400">{item.period}</span>
+        <div className="mt-2 flex flex-wrap items-center gap-2 uppercase text-white tracking-wide text-sm">
+          {item.credential}
+          <span className="text-xs sm:text-sm text-gray-400">
+            {item.period}
+          </span>
         </div>
 
         {item.details?.length ? (

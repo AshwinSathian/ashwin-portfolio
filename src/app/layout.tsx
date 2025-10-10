@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Open_Sans } from "next/font/google";
 import "./globals.css";
-import "primereact/resources/themes/lara-dark-teal/theme.css";
+import "primereact/resources/themes/md-dark-deeppurple/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import PrimeProvider from "@/components/providers/PrimeProvider";

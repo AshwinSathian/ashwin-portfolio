@@ -28,7 +28,7 @@ export default function Experience() {
 
   return (
     <motion.div
-      className="max-w-4xl mx-auto"
+      className="mx-auto max-w-6xl px-3 sm:px-4"
       variants={prefersReducedMotion ? undefined : fadeUp}
     >
       <Timeline
@@ -39,9 +39,11 @@ export default function Experience() {
           <TimelineMarker index={(item as TimelineItem).timelineIndex} />
         )}
         content={(item) => (
-          <ExperienceCard item={item as ExperienceItemType} />
+          <div className="w-full md:max-w-[720px] xl:max-w-[760px]">
+            <ExperienceCard item={item as ExperienceItemType} />
+          </div>
         )}
-        className="!gap-6"
+        className="!gap-4"
       />
     </motion.div>
   );

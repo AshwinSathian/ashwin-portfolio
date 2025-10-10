@@ -10,7 +10,7 @@ type ExperienceCardProps = {
 
 export default function ExperienceCard({ item }: ExperienceCardProps) {
   return (
-    <Card className="border border-gray-800/60 bg-gray-900/70 shadow-sm">
+    <Card className="w-full border border-gray-800/60 bg-gray-900/70 shadow-sm">
       <header className="mb-2">
         <h3 className="text-base sm:text-lg font-semibold text-white">
           {item.role} <span className="opacity-80">• {item.company}</span>

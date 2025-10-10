@@ -1,6 +1,7 @@
 import React from "react";
 import {
   FaBriefcase,
+  FaEnvelope,
   FaGraduationCap,
   FaTools,
   FaUser,
@@ -37,6 +38,13 @@ const iconMap: Record<string, React.ReactNode> = {
   ),
   "education-heading": (
     <FaGraduationCap
+      className="text-blue-400"
+      aria-hidden
+      suppressHydrationWarning
+    />
+  ),
+  "contact-heading": (
+    <FaEnvelope
       className="text-blue-400"
       aria-hidden
       suppressHydrationWarning

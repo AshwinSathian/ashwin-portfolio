@@ -6,7 +6,7 @@ import About from "@/components/about/About";
 import Education from "@/components/education/Education";
 import Experience from "@/components/experience/Experience";
 import SiteFooter from "@/components/footer/SiteFooter";
-import ContactCard from "@/components/hero/ContactCard";
+import ContactCard from "@/components/contact/ContactCard";
 import Hero from "@/components/hero/Hero";
 import PageSection from "@/components/layout/PageSection";
 import SectionHeading from "@/components/layout/SectionHeading";
@@ -56,6 +56,14 @@ export default function Page() {
           className="flex flex-col items-center justify-center text-center min-h-screen px-6"
         >
           <Hero />
+        </PageSection>
+
+        <PageSection
+          id="contact"
+          labelledBy="contact-heading"
+          className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
+        >
+          <SectionHeading id="contact-heading" title="Contact" className="mb-6" />
           <ContactCard />
         </PageSection>
 

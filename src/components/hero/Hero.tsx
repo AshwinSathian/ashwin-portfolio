@@ -18,29 +18,45 @@ type CtaButton = {
   outlined?: boolean;
 };
 
-const ctaButtons: CtaButton[] = [
+const createCtaButtons = (handlers: {
+  onResumeClick: () => void;
+  onContactClick: () => void;
+}): CtaButton[] => [
   {
     key: "resume",
     label: "Download Résumé",
     icon: "pi pi-download",
     ariaLabel: "Download résumé as PDF",
-    onClick: () =>
-      window.open(SITE.resumePath, "_blank", "noopener,noreferrer"),
+    severity: "primary" as ButtonProps["severity"],
+    onClick: handlers.onResumeClick,
   },
   {
     key: "contact",
     label: "Contact",
     icon: "pi pi-envelope",
     outlined: true,
-    ariaLabel: `Contact ${SITE.name} via email`,
-    onClick: () => {
-      window.location.href = `mailto:${SITE.email}`;
-    },
+    ariaLabel: `Contact ${SITE.name}`,
+    onClick: handlers.onContactClick,
   },
 ];
 
 export default function Hero() {
   const heroContent: HeroContent = HERO;
+
+  const scrollToContact = () => {
+    const section = document.getElementById("contact");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    window.location.hash = "#contact";
+  };
+
+  const ctaButtons = createCtaButtons({
+    onResumeClick: () =>
+      window.open(SITE.resumePath, "_blank", "noopener,noreferrer"),
+    onContactClick: scrollToContact,
+  });
 
   return (
     <>

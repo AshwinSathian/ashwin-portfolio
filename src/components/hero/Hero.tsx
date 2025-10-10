@@ -12,7 +12,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: -18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55 }}
-        className="text-5xl sm:text-6xl font-extrabold tracking-tight"
+        className="text-5xl sm:text-6xl font-normal tracking-tight uppercase"
       >
         {HERO.title}
       </motion.h1>
@@ -21,7 +21,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.15, duration: 0.5 }}
-        className="text-xl sm:text-2xl mt-4 text-gray-400"
+        className="text-xl sm:text-2xl mt-4 text-gray-400 tracking-wide uppercase"
       >
         {HERO.subtitle}
       </motion.p>

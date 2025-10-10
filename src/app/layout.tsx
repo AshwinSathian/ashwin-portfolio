@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Geist_Mono, Open_Sans } from "next/font/google";
 import "./globals.css";
 import "primereact/resources/themes/lara-dark-teal/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import PrimeProvider from "@/components/providers/PrimeProvider";
 
-const plusJakarta = Plus_Jakarta_Sans({
+const plusJakarta = Open_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],

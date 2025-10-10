@@ -15,7 +15,11 @@ export const EDUCATION: EducationItem[] = [
     school: "Indian School Darsait",
     credential: "Class XII (PCM + CS)",
     period: "2012 – 2014",
-    details: ["Class X | 2010 – 2012"],
+  },
+  {
+    school: "Indian School Darsait",
+    credential: "Class X",
+    period: "2010 – 2012",
   },
 ];
 

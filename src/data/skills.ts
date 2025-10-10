@@ -7,13 +7,13 @@ export type Skills = {
   tools: string[];
 };
 
-export const SKILLS: Skills = {
+export const SKILLS = {
   frontend: ["Angular", "React.js", "Next.js"],
   backend: ["Node.js", "NestJS", "Express.js"],
   database: ["MongoDB", "AWS DynamoDB"],
   languages: ["TypeScript", "JavaScript", "HTML", "CSS", "Python"],
   cloudAndDevops: ["AWS", "GCP", "Docker", "GitHub Actions"],
   tools: ["Git", "Docker", "Postman", "Jira", "CI/CD"],
-};
+} as const satisfies Skills;
 
 export const SKILLS_HEADING = "Skills" as const;

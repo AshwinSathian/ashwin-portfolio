@@ -8,7 +8,7 @@ export type ExperienceItem = {
   link?: string;
 };
 
-export const EXPERIENCE: ExperienceItem[] = [
+export const EXPERIENCE = [
   {
     role: "Lead Engineer",
     company: "Penny Software",
@@ -63,6 +63,6 @@ export const EXPERIENCE: ExperienceItem[] = [
     period: "Aug 2018 – Jan 2019",
     bullets: ["Delivered improvements to a flagship SaaS product."],
   },
-];
+] as const satisfies ExperienceItem[];
 
 export const EXPERIENCE_HEADING = "Experience" as const;

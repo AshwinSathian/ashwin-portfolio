@@ -2,42 +2,27 @@
 
 import React from "react";
 import Head from "next/head";
-import { motion } from "framer-motion";
-import {
-  FaBriefcase,
-  FaGraduationCap,
-  FaTools,
-  FaUser,
-  FaEnvelope,
-  FaLinkedin,
-  FaGithub,
-} from "react-icons/fa";
+import Hero from "@/components/hero/Hero";
+import ContactCard from "@/components/hero/ContactCard";
+import About from "@/components/about/About";
+import Skills from "@/components/skills/Skills";
+import Experience from "@/components/experience/Experience";
+import Education from "@/components/education/Education";
+import SiteFooter from "@/components/footer/SiteFooter";
+import PageSection from "@/components/layout/PageSection";
+import SectionHeading from "@/components/layout/SectionHeading";
 
-const stagger = {
-  hidden: { opacity: 0, y: 6 },
-  visible: (i = 1) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.15 * i, duration: 0.35 },
-  }),
-};
-
-export default function Home() {
+export default function Page() {
   return (
-    <div className="bg-gray-900 text-white min-h-screen font-sans">
+    <>
       <Head>
         <title>Ashwin Sathian</title>
         <meta
           name="description"
           content="Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD."
         />
-        {/* Canonical */}
         <link rel="canonical" href="https://ashwin-smoky.vercel.app/" />
-
-        {/* Favicon */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
-
-        {/* Open Graph */}
         <meta property="og:title" content="Ashwin Sathian" />
         <meta
           property="og:description"
@@ -60,275 +45,62 @@ export default function Home() {
         <meta name="twitter:image" content="/preview.png" />
       </Head>
 
-      {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center text-center min-h-screen px-6">
-        <motion.h1
-          initial={{ opacity: 0, y: -18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          className="text-5xl sm:text-6xl font-extrabold tracking-tight"
+      <main className="bg-gray-900 text-white min-h-screen font-sans">
+        <PageSection
+          id="home"
+          labelledBy="hero-heading"
+          className="flex flex-col items-center justify-center text-center min-h-screen px-6"
         >
-          Ashwin Sathian
-        </motion.h1>
+          <Hero />
+          <ContactCard />
+        </PageSection>
 
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.5 }}
-          className="text-xl sm:text-2xl mt-4 text-gray-400"
+        <PageSection
+          id="about"
+          labelledBy="about-heading"
+          className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
         >
-          Full-Stack Engineer • SaaS Architecture
-        </motion.p>
+          <SectionHeading id="about-heading" title="About Me" className="mb-4" />
+          <About />
+        </PageSection>
 
-        {/* Contact Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="mt-8 rounded-xl border border-gray-800 bg-gray-800/50 backdrop-blur px-5 py-4"
+        <PageSection
+          id="skills"
+          labelledBy="skills-heading"
+          className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
         >
-          <ul className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-            <motion.li
-              variants={stagger}
-              initial="hidden"
-              animate="visible"
-              custom={1}
-            >
-              <a
-                href="mailto:ashwinsathyan19@gmail.com"
-                aria-label="Email Ashwin Sathian"
-                className="inline-flex items-center gap-2 rounded-md bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                <FaEnvelope aria-hidden />
-                Email
-              </a>
-            </motion.li>
+          <SectionHeading id="skills-heading" title="Skills" className="mb-8" />
+          <Skills />
+        </PageSection>
 
-            <motion.li
-              variants={stagger}
-              initial="hidden"
-              animate="visible"
-              custom={2}
-            >
-              <a
-                href="https://linkedin.com/in/ashwinsathian"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open Ashwin's LinkedIn"
-                className="inline-flex items-center gap-2 rounded-md border border-blue-400/40 px-4 py-2 text-sm font-medium text-blue-300 transition-all hover:-translate-y-0.5 hover:border-blue-400 hover:text-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400/60"
-              >
-                <FaLinkedin aria-hidden />
-                LinkedIn
-              </a>
-            </motion.li>
-
-            <motion.li
-              variants={stagger}
-              initial="hidden"
-              animate="visible"
-              custom={3}
-            >
-              <a
-                href="https://github.com/AshwinSathian"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open Ashwin's GitHub"
-                className="inline-flex items-center gap-2 rounded-md border border-gray-600 px-4 py-2 text-sm font-medium text-gray-200 transition-all hover:-translate-y-0.5 hover:border-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-gray-500/60"
-              >
-                <FaGithub aria-hidden />
-                GitHub
-              </a>
-            </motion.li>
-          </ul>
-        </motion.div>
-      </section>
-
-      {/* About Me */}
-      <motion.section
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
-      >
-        <h2 className="text-3xl font-semibold mb-4 flex items-center gap-3">
-          <FaUser className="text-blue-400" /> About Me
-        </h2>
-        <p className="leading-relaxed text-gray-300 text-lg">
-          Engineering leader with 7+ years building and scaling SaaS platforms
-          serving thousands of users and millions of records, contributing to
-          ~$1B+ in GTV. I specialize in Angular, Next.js, NestJS, and MongoDB,
-          and care deeply about clean architecture, multi-tenancy, RBAC, and
-          reliable CI/CD. I’ve delivered consistent sub-200&nbsp;ms query paths,
-          accelerated release cadence by ~1.5×, and led cross-functional teams
-          to land business-critical features pragmatically.
-        </p>
-      </motion.section>
-
-      {/* Skills */}
-      <motion.section
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
-      >
-        <h2 className="text-3xl font-semibold mb-8 flex items-center gap-3">
-          <FaTools className="text-blue-400" /> Skills
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-gray-300">
-          <div>
-            <h3 className="font-semibold text-white mb-1">Frontend</h3>
-            <p>Angular, React.js, Next.js</p>
-          </div>
-          <div>
-            <h3 className="font-semibold text-white mb-1">Backend</h3>
-            <p>Node.js, NestJS, Express.js</p>
-          </div>
-          <div>
-            <h3 className="font-semibold text-white mb-1">Database</h3>
-            <p>MongoDB, AWS DynamoDB</p>
-          </div>
-          <div>
-            <h3 className="font-semibold text-white mb-1">Languages</h3>
-            <p>TypeScript, JavaScript, HTML, CSS, Python</p>
-          </div>
-          <div>
-            <h3 className="font-semibold text-white mb-1">Cloud & DevOps</h3>
-            <p>AWS, GCP, Docker, GitHub Actions</p>
-          </div>
-          <div>
-            <h3 className="font-semibold text-white mb-1">Tools</h3>
-            <p>Git, Docker, Postman, Jira, CI/CD</p>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Experience */}
-      <motion.section
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
-      >
-        <h2 className="text-3xl font-semibold mb-8 flex items-center gap-3">
-          <FaBriefcase className="text-blue-400" /> Experience
-        </h2>
-        <div className="space-y-8">
-          {[
-            {
-              role: "Lead Engineer",
-              company: "Penny Software",
-              period: "Jan 2024 – Present",
-              points: [
-                "Drove platform architecture for a modular procurement SaaS (millions of records; ~$1B+ GTV).",
-                "Established Angular + NestJS + MongoDB patterns delivering consistent sub-200 ms queries.",
-                "Hardened multi-tenant security and standardized enterprise-grade RBAC.",
-                "Mentored a ~12-member team; uplifted code quality and review rigor.",
-              ],
-            },
-            {
-              role: "Product Specialist",
-              company: "Penny Software",
-              period: "Apr 2022 – Dec 2023",
-              points: [
-                "Owned feature lifecycles end-to-end with business-aligned delivery.",
-                "Optimized APIs and queries, improving response times 40%+ and speeding releases by ~1.5×.",
-                "Coordinated across engineering, QA, and product for iterative wins.",
-              ],
-            },
-            {
-              role: "Full Stack Developer",
-              company: "Penny Software",
-              period: "Jun 2020 – Mar 2022",
-              points: [
-                "Shipped features across the stack with high uptime and reliability.",
-                "Improved frontend scalability via modularization and lazy-loading.",
-              ],
-            },
-            {
-              role: "Senior Full Stack Developer",
-              company: "Manaraah",
-              period: "Jan 2020 – Jun 2020",
-              points: [
-                "Built and deployed cloud-native business applications.",
-                "Translated requirements into robust, maintainable implementations.",
-              ],
-            },
-            {
-              role: "Software Development Engineer",
-              company: "WeCP",
-              period: "Jan 2019 – Jan 2020",
-              points: [
-                "Contributed to a SaaS assessments platform at scale.",
-                "Streamlined onboarding and mentored interns/junior developers.",
-              ],
-            },
-            {
-              role: "Junior Programmer",
-              company: "Reubro International",
-              period: "Aug 2018 – Jan 2019",
-              points: ["Delivered improvements to a flagship SaaS product."],
-            },
-          ].map((job, idx) => (
-            <div
-              key={idx}
-              className="hover:bg-gray-800 p-6 rounded-lg transition-colors"
-            >
-              <h3 className="font-semibold text-white text-xl">
-                {job.role} | {job.company}
-              </h3>
-              <p className="text-sm text-gray-400">{job.period}</p>
-              <ul className="list-disc pl-5 mt-2 text-gray-300 space-y-1">
-                {job.points.map((pt, i) => (
-                  <li key={i}>{pt}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Education */}
-      <motion.section
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
-      >
-        <h2 className="text-3xl font-semibold mb-8 flex items-center gap-3">
-          <FaGraduationCap className="text-blue-400" /> Education
-        </h2>
-        <div className="text-gray-300 space-y-4">
-          <div>
-            <p className="font-semibold text-white">
-              National Institute of Technology Calicut
-            </p>
-            <p>
-              B.Tech., Electronics & Communication Engineering | 2014 – 2018
-            </p>
-          </div>
-          <div>
-            <p className="font-semibold text-white">Indian School Darsait</p>
-            <p>Class XII (PCM + CS) | 2012 – 2014</p>
-            <p>Class X | 2010 – 2012</p>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Footer */}
-      <footer className="py-8 px-6 text-center border-t border-gray-800 text-gray-500 text-sm">
-        <a
-          href="/Resume.pdf"
-          download
-          className="text-blue-400 hover:underline"
+        <PageSection
+          id="experience"
+          labelledBy="experience-heading"
+          className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
         >
-          Download Resume (PDF)
-        </a>
-        <p className="mt-2">© {new Date().getFullYear()} Ashwin Sathian</p>
-      </footer>
-    </div>
+          <SectionHeading
+            id="experience-heading"
+            title="Experience"
+            className="mb-8"
+          />
+          <Experience />
+        </PageSection>
+
+        <PageSection
+          id="education"
+          labelledBy="education-heading"
+          className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
+        >
+          <SectionHeading
+            id="education-heading"
+            title="Education"
+            className="mb-8"
+          />
+          <Education />
+        </PageSection>
+
+        <SiteFooter />
+      </main>
+    </>
   );
 }

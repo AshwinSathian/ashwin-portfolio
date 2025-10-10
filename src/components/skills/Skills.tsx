@@ -13,24 +13,6 @@ const skillEntries = Object.entries(SKILLS) as Array<
 export default function Skills() {
   return (
     <div className="max-w-5xl mx-auto text-gray-200">
-      <div aria-label="Top skills" className="mb-6">
-        <h3 className="text-sm font-semibold uppercase tracking-wide opacity-80">
-          Top Skills
-        </h3>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {TOP_SKILLS.map((skill) => (
-            <Tag
-              key={skill}
-              value={skill}
-              rounded
-              className="px-3 py-2 text-sm bg-gray-800/60 border border-gray-700 text-gray-100"
-            />
-          ))}
-        </div>
-      </div>
-
-      <Divider className="border-gray-800" />
-
       <div className="grid gap-8 md:grid-cols-2">
         {skillEntries.map(([group, items], index) => (
           <section

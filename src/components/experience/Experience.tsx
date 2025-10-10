@@ -15,8 +15,8 @@ export default function Experience() {
   const shouldReduceMotion = Boolean(useReducedMotion());
 
   return (
-    <section className="w-full mx-auto px-3 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-5xl space-y-6">
+    <section className="w-full mx-auto px-3">
+      <div className="w-full flex flex-col gap-2">
         {EXPERIENCE.map((item, index) => (
           <motion.div
             key={`${item.company}-${item.role}-${item.period}-${index}`}
@@ -25,27 +25,29 @@ export default function Experience() {
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <Card className="w-full border border-surface-300/20 shadow-none bg-gray-900/70">
-              <div className="mx-auto max-w-[72ch]">
-                <header className="mb-1">
-                  <h3 className="text-base sm:text-lg font-semibold text-white">
-                    {item.role} <span className="opacity-80">• {item.company}</span>
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-400">
-                    {item.period}
-                    {"location" in item && item.location ? ` • ${item.location}` : ""}
-                  </p>
-                </header>
+            <Card className="w-full rounded-xl bg-gray-900/60 shadow-lg">
+              <header className="mb-1">
+                <h3 className="text-base sm:text-lg font-semibold text-white">
+                  {item.role}{" "}
+                  <span className="opacity-80">• {item.company}</span>
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-400">
+                  {item.period}
+                  {"location" in item && item.location
+                    ? ` • ${item.location}`
+                    : ""}
+                </p>
+              </header>
 
-                <ul className="list-disc ml-5 space-y-1 text-sm leading-relaxed text-gray-300">
-                  {item.bullets.map((bullet, bulletIndex) => (
-                    <li key={bulletIndex}>{bullet}</li>
-                  ))}
-                </ul>
+              <ul className="list-disc ml-5 space-y-1 text-sm leading-relaxed text-gray-300">
+                {item.bullets.map((bullet, bulletIndex) => (
+                  <li key={bulletIndex}>{bullet}</li>
+                ))}
+              </ul>
 
-                {(() => {
-                  const techStack = "tech" in item ? item.tech : undefined;
-                  return Array.isArray(techStack) && techStack.length ? (
+              {(() => {
+                const techStack = "tech" in item ? item.tech : undefined;
+                return Array.isArray(techStack) && techStack.length ? (
                   <div className="mt-3 flex flex-wrap gap-2">
                     {techStack.map((tech) => (
                       <Tag
@@ -56,23 +58,26 @@ export default function Experience() {
                       />
                     ))}
                   </div>
-                  ) : null;
-                })()}
+                ) : null;
+              })()}
 
-                {"link" in item && item.link ? (
-                  <div className="mt-3">
-                    <Button
-                      label="View"
-                      icon="pi pi-external-link"
-                      text
-                      aria-label={`Open ${item.company}`}
-                      onClick={() =>
-                        window.open(item.link as string, "_blank", "noopener,noreferrer")
-                      }
-                    />
-                  </div>
-                ) : null}
-              </div>
+              {"link" in item && item.link ? (
+                <div className="mt-3">
+                  <Button
+                    label="View"
+                    icon="pi pi-external-link"
+                    text
+                    aria-label={`Open ${item.company}`}
+                    onClick={() =>
+                      window.open(
+                        item.link as string,
+                        "_blank",
+                        "noopener,noreferrer"
+                      )
+                    }
+                  />
+                </div>
+              ) : null}
             </Card>
           </motion.div>
         ))}

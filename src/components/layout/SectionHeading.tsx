@@ -67,7 +67,6 @@ export default function SectionHeading({
   return (
     <div>
       <h2 id={id} className={headingClasses}>
-        {icon ? <span className="text-2xl sm:text-3xl">{icon}</span> : null}
         <span>{title}</span>
       </h2>
       {subtitle ? (

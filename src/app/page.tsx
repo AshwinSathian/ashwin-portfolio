@@ -25,7 +25,7 @@ export default function Page() {
           name="description"
           content="Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD."
         />
-        <link rel="canonical" href="https://ashwin-smoky.vercel.app/" />
+        <link rel="canonical" href="https://ashwinsathian.com/" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
         <meta property="og:title" content="Ashwin Sathian" />
         <meta
@@ -33,7 +33,7 @@ export default function Page() {
           content="Engineering leader focused on SaaS architecture — Angular • Next.js • NestJS • MongoDB • Nx • CI/CD."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://ashwin-smoky.vercel.app/" />
+        <meta property="og:url" content="https://ashwinsathian.com/" />
         <meta property="og:image" content="/preview.png" />
         <meta
           property="og:image:alt"
@@ -114,7 +114,11 @@ export default function Page() {
           labelledBy="contact-heading"
           className="px-6 py-16 max-w-4xl mx-auto border-t border-gray-800"
         >
-          <SectionHeading id="contact-heading" title="Contact" className="mb-6" />
+          <SectionHeading
+            id="contact-heading"
+            title="Contact"
+            className="mb-6"
+          />
           <ContactCard />
         </PageSection>
 

@@ -45,7 +45,7 @@ export default function Image() {
 
         <div style={{ display: "flex" }}>
           <img
-            src="https://ashwin-smoky.vercel.app/favicon.svg"
+            src="https://ashwinsathian.com/favicon.svg"
             alt=""
             width={120}
             height={120}

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    url: "https://ashwin-smoky.vercel.app/",
+    url: "https://ashwinsathian.com/",
     title: "Ashwin Sathian — Full-Stack Engineer",
     description:
       "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD.",

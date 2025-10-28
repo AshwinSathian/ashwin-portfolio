@@ -4,7 +4,7 @@ export default function Head() {
     "@type": "Person",
     name: "Ashwin Sathian",
     jobTitle: "Full-Stack Engineer",
-    url: "https://ashwin-smoky.vercel.app/",
+    url: "https://ashwinsathian.com/",
     email: "mailto:ashwinsathyan19@gmail.com",
     sameAs: [
       "https://www.linkedin.com/in/ashwinsathian",
@@ -28,7 +28,7 @@ export default function Head() {
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    url: "https://ashwin-smoky.vercel.app/",
+    url: "https://ashwinsathian.com/",
     name: "Ashwin Sathian — Portfolio",
     publisher: { "@type": "Person", name: "Ashwin Sathian" },
     potentialAction: {
@@ -42,11 +42,11 @@ export default function Head() {
   const profilePage = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    url: "https://ashwin-smoky.vercel.app/",
+    url: "https://ashwinsathian.com/",
     about: {
       "@type": "Person",
       name: "Ashwin Sathian",
-      url: "https://ashwin-smoky.vercel.app/",
+      url: "https://ashwinsathian.com/",
       sameAs: [
         "https://www.linkedin.com/in/ashwinsathian",
         "https://github.com/AshwinSathian",

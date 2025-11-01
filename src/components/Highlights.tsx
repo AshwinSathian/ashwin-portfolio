@@ -56,14 +56,10 @@ export default function Highlights() {
               <Card className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-bg-glass p-6 shadow-glass backdrop-blur-soft">
                 <motion.span
                   aria-hidden
-                  className="absolute inset-0 opacity-0"
+                  className="absolute inset-0 opacity-0 bg-[radial-gradient(400px_at_20%_20%,rgba(139,92,246,0.35),transparent)]"
                   initial={{ opacity: 0 }}
                   whileHover={{ opacity: 0.25 }}
                   transition={{ duration: 0.35 }}
-                  style={{
-                    background:
-                      "radial-gradient(400px at 20% 20%, rgba(139,92,246,0.35), transparent)",
-                  }}
                 />
                 <div className="relative space-y-5">
                   <div className="flex items-center gap-3 text-accent">

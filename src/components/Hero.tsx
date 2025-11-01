@@ -61,7 +61,7 @@ export default function Hero() {
       aria-labelledby="hero-heading"
       className="relative overflow-hidden bg-bg py-24 md:py-32"
     >
-      {isMounted ? (
+      {isMounted && (
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 -top-40 h-[640px] rounded-full"
@@ -75,19 +75,9 @@ export default function Hero() {
           }
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
-      ) : (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -top-40 h-[640px] rounded-full"
-          style={{
-            opacity: 0.65,
-            background:
-              "radial-gradient(400px at 20% 20%, rgba(124,58,237,0.28), transparent), radial-gradient(480px at 80% 10%, rgba(59,130,246,0.22), transparent)",
-          }}
-        />
       )}
 
-      {isMounted ? (
+      {isMounted && (
         <motion.div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
@@ -95,15 +85,6 @@ export default function Hero() {
             background: `radial-gradient(circle at ${springX.get() * 100}% ${
               springY.get() * 100
             }%, rgba(139,92,246,0.28), transparent 55%)`,
-          }}
-        />
-      ) : (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at 50% 50%, rgba(139,92,246,0.28), transparent 55%)",
           }}
         />
       )}

@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 import { HERO } from "@/app/data/hero";
-import { SITE } from "@/app/data/site";
 
 export const runtime = "edge";
 
@@ -10,8 +9,6 @@ export const size = {
 };
 
 export const contentType = "image/png";
-
-export const alt = `${SITE.name} — ${SITE.heroSubhead}`;
 
 export async function GET() {
   return new ImageResponse(

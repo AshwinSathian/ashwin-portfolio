@@ -108,6 +108,8 @@ export default function Highlights() {
         onHide={() => setActiveHighlight(null)}
         className="max-w-2xl"
         breakpoints={{ "960px": "75vw", "640px": "90vw" }}
+        dismissableMask={true}
+        closeOnEscape={true}
       >
         <div className="space-y-4 p-4">
           <p className="text-base text-text-secondary">

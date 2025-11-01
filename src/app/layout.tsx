@@ -5,6 +5,8 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "./globals.css";
 import PrimeProvider from "@/components/providers/PrimeProvider";
+import BreathingBackground from "@/components/BreathingBackground";
+import ScrollProgress from "@/components/ScrollProgress";
 
 const siteUrl = "https://ashwinsathian.com";
 
@@ -23,20 +25,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Ashwin Sathian | Full-Stack Engineer & SaaS Architect",
+  title: "Ashwin Sathian | Engineering Leader • SaaS Architecture",
   description:
-    "Engineering leader building scalable SaaS systems powering $1B+ GTV. Angular, NestJS, cloud, and pragmatic delivery.",
+    "Building scalable, human-centered SaaS systems powering $1B+ GTV. Calm leadership, fast systems.",
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Ashwin Sathian — Full-Stack Engineer & SaaS Architect",
-    description: "Building calm, scalable SaaS with empathy and rigor.",
+    title: "Ashwin Sathian — Engineering Leader • SaaS Architecture",
+    description: "Scalable SaaS with calm precision and measurable impact.",
     url: siteUrl,
     siteName: "Ashwin Sathian Portfolio",
     images: [
       {
-        url: "/og.png",
+        url: "/og-2026.png",
         width: 1200,
         height: 630,
         alt: "Ashwin Sathian Portfolio Preview",
@@ -47,9 +49,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ashwin Sathian — Full-Stack Engineer & SaaS Architect",
-    description: "Building calm, scalable SaaS with empathy and rigor.",
-    images: ["/og.png"],
+    title: "Ashwin Sathian — Engineering Leader • SaaS Architecture",
+    description: "Scalable SaaS with calm precision and measurable impact.",
+    images: ["/og-2026.png"],
   },
   robots: {
     index: true,
@@ -112,8 +114,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="min-h-screen bg-bg text-text-primary">
-        <PrimeProvider>{children}</PrimeProvider>
+      <body className="relative min-h-screen overflow-x-hidden bg-bg text-text-primary">
+        <PrimeProvider>
+          <BreathingBackground />
+          <ScrollProgress />
+          <main className="relative z-10">{children}</main>
+        </PrimeProvider>
       </body>
     </html>
   );

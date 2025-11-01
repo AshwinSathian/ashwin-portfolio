@@ -11,29 +11,29 @@ import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 import { HERO } from "@/app/data/hero";
 import { SITE } from "@/app/data/site";
+import { useIsMounted } from "@/lib/hooks";
 import { fadeInUp, stagger } from "@/lib/motion";
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion();
-  const parallaxX = useMotionValue(0);
-  const parallaxY = useMotionValue(0);
+  const isMounted = useIsMounted();
+  const parallaxX = useMotionValue(0.5);
+  const parallaxY = useMotionValue(0.5);
 
-  const springX = useSpring(parallaxX, { stiffness: 60, damping: 20 });
-  const springY = useSpring(parallaxY, { stiffness: 60, damping: 20 });
+  const springX = useSpring(parallaxX, { stiffness: 90, damping: 26 });
+  const springY = useSpring(parallaxY, { stiffness: 90, damping: 26 });
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      parallaxX.set(0);
-      parallaxY.set(0);
+      parallaxX.set(0.5);
+      parallaxY.set(0.5);
       return;
     }
 
     const handlePointerMove = (event: PointerEvent) => {
       const { innerWidth, innerHeight } = window;
-      const x = ((event.clientX - innerWidth / 2) / (innerWidth / 2)) * 40;
-      const y = ((event.clientY - innerHeight / 2) / (innerHeight / 2)) * 22;
-      parallaxX.set(x);
-      parallaxY.set(y);
+      parallaxX.set(event.clientX / innerWidth);
+      parallaxY.set(event.clientY / innerHeight);
     };
 
     window.addEventListener("pointermove", handlePointerMove);
@@ -59,13 +59,54 @@ export default function Hero() {
     <section
       id="hero"
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden bg-[radial-gradient(1000px_600px_at_60%_-10%,rgba(139,92,246,.22),transparent)] bg-bg py-24 md:py-32"
+      className="relative overflow-hidden bg-bg py-24 md:py-32"
     >
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 mx-auto h-[560px] w-[560px] rounded-full bg-accent/15 blur-3xl"
-        style={{ x: springX, y: springY }}
-      />
+      {isMounted ? (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -top-40 h-[640px] rounded-full"
+          style={{
+            opacity: prefersReducedMotion ? 0.5 : 0.65,
+            background:
+              "radial-gradient(400px at 20% 20%, rgba(124,58,237,0.28), transparent), radial-gradient(480px at 80% 10%, rgba(59,130,246,0.22), transparent)",
+          }}
+          animate={
+            prefersReducedMotion ? undefined : { opacity: [0.5, 0.7, 0.5] }
+          }
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ) : (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 -top-40 h-[640px] rounded-full"
+          style={{
+            opacity: 0.65,
+            background:
+              "radial-gradient(400px at 20% 20%, rgba(124,58,237,0.28), transparent), radial-gradient(480px at 80% 10%, rgba(59,130,246,0.22), transparent)",
+          }}
+        />
+      )}
+
+      {isMounted ? (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background: `radial-gradient(circle at ${springX.get() * 100}% ${
+              springY.get() * 100
+            }%, rgba(139,92,246,0.28), transparent 55%)`,
+          }}
+        />
+      ) : (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 50% 50%, rgba(139,92,246,0.28), transparent 55%)",
+          }}
+        />
+      )}
 
       <div className="relative mx-auto flex max-w-6xl flex-col gap-12 px-6 md:px-8">
         <motion.div
@@ -78,7 +119,7 @@ export default function Hero() {
             variants={fadeInUp}
             className="text-sm uppercase tracking-[0.4em] text-text-muted"
           >
-            SENIOR ENGINEERING LEADERSHIP
+            Engineering Leadership · SaaS Architecture
           </motion.p>
           <motion.h1
             id="hero-heading"
@@ -105,17 +146,13 @@ export default function Hero() {
           >
             <Button
               label={HERO.primaryCta.label}
-              icon={HERO.primaryCta.icon}
-              severity="primary"
-              className="min-w-[200px] justify-center shadow-soft"
+              className="min-w-[200px] justify-center rounded-full bg-accent px-6 py-3 text-base font-semibold shadow-glow transition-transform duration-200 ease-out hover:shadow-[0_0_45px_rgba(139,92,246,0.35)] active:scale-95"
               onClick={resumeClick}
             />
             <Button
               label={HERO.secondaryCta.label}
-              iconPos="right"
-              icon={HERO.secondaryCta.icon}
               outlined
-              className="min-w-[200px] justify-center text-text-secondary hover:text-text-primary"
+              className="min-w-[200px] justify-center rounded-full border-accent/50 px-6 py-3 text-text-secondary transition-transform duration-200 ease-out hover:border-accent hover:text-text-primary active:scale-95"
               onClick={() => scrollToSelector(HERO.secondaryCta.href)}
             />
           </motion.div>
@@ -125,14 +162,14 @@ export default function Hero() {
           variants={fadeInUp}
           initial="hidden"
           animate="show"
-          className="grid gap-3 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-stretch lg:gap-4"
+          className="grid gap-3 sm:grid-cols-3"
         >
           {metrics.map((metric) => (
             <Tag
               key={metric.label}
               value={
                 <span className="flex items-center gap-3 text-left">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 text-accent">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent">
                     <i className={metric.icon} aria-hidden="true" />
                   </span>
                   <span className="flex flex-col">
@@ -145,7 +182,7 @@ export default function Hero() {
                   </span>
                 </span>
               }
-              className="w-full rounded-xl bg-bg-soft/40 px-4 py-3 shadow-soft"
+              className="w-full rounded-xl bg-bg-glass px-4 py-3 shadow-glass backdrop-blur-soft"
             />
           ))}
         </motion.div>

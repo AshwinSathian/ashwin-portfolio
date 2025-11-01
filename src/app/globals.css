@@ -9,9 +9,9 @@
   --p-primary-color: #8b5cf6;
   --p-primary-contrast-color: #ffffff;
 
-  --p-surface-card: #0f1530;
+  --p-surface-card: rgba(15, 21, 48, 0.45);
   --p-surface-ground: #0b1020;
-  --p-content-border-color: #1e263a;
+  --p-content-border-color: rgba(255, 255, 255, 0.06);
 
   --p-text-color: #e9ecf2;
   --p-text-muted-color: #b4bdd1;
@@ -22,15 +22,18 @@
 @theme {
   --color-bg: #0b1020;
   --color-bg-soft: #0f1530;
+  --color-bg-glass: rgba(15, 21, 48, 0.4);
   --color-text-primary: #e9ecf2;
   --color-text-secondary: #b4bdd1;
   --color-text-muted: #8c94aa;
   --color-accent: #8b5cf6;
   --color-accent-hover: #7c3aed;
   --color-accent-soft: #a78bfa;
+  --color-accent-warm: #fcd34d;
   --color-outline: #23304e;
-  --color-success: #10b981;
   --shadow-soft: 0 8px 24px rgba(139, 92, 246, 0.15);
+  --shadow-glass: 0 4px 30px rgba(139, 92, 246, 0.15);
+  --shadow-glow: 0 0 30px rgba(139, 92, 246, 0.2);
 }
 
 body {

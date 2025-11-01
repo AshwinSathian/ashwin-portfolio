@@ -10,7 +10,7 @@ import { fadeInUp, stagger } from "@/lib/motion";
 
 export default function Highlights() {
   const [activeHighlight, setActiveHighlight] = useState<Highlight | null>(
-    null,
+    null
   );
 
   return (
@@ -34,7 +34,7 @@ export default function Highlights() {
             Highlights
           </h2>
           <p className="text-sm uppercase tracking-[0.3em] text-text-muted">
-            IMPACT SNAPSHOTS
+            Signals of impact
           </p>
         </motion.div>
 
@@ -43,14 +43,33 @@ export default function Highlights() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
+          className="grid gap-6 sm:grid-cols-2 md:grid-cols-4"
         >
-          {HIGHLIGHTS.map((highlight) => (
-            <motion.div key={highlight.id} variants={fadeInUp}>
-              <Card className="flex h-full flex-col justify-between rounded-2xl bg-bg-soft/40 p-6 shadow-soft transition hover:shadow-lg">
-                <div className="space-y-4">
+          {HIGHLIGHTS.slice(0, 4).map((highlight) => (
+            <motion.div
+              key={highlight.id}
+              variants={fadeInUp}
+              whileHover={{ y: -6 }}
+              transition={{ type: "spring", stiffness: 180, damping: 20 }}
+              className="relative"
+            >
+              <Card className="group relative flex h-full flex-col justify-between overflow-hidden rounded-3xl bg-bg-glass p-6 shadow-glass backdrop-blur-soft">
+                <motion.span
+                  aria-hidden
+                  className="absolute inset-0 opacity-0"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 0.25 }}
+                  transition={{ duration: 0.35 }}
+                  style={{
+                    background:
+                      "radial-gradient(400px at 20% 20%, rgba(139,92,246,0.35), transparent)",
+                  }}
+                />
+                <div className="relative space-y-5">
                   <div className="flex items-center gap-3 text-accent">
-                    <i className={`${highlight.icon} text-2xl`} aria-hidden="true" />
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 text-accent">
+                      <i className={highlight.icon} aria-hidden="true" />
+                    </span>
                     <span className="text-xs font-semibold uppercase tracking-[0.4em]">
                       {highlight.metric}
                     </span>
@@ -58,7 +77,7 @@ export default function Highlights() {
                   <h3 className="font-[var(--font-heading)] text-2xl font-semibold text-text-primary">
                     {highlight.title}
                   </h3>
-                  <p className="text-base text-text-secondary">
+                  <p className="text-base text-text-secondary line-clamp-3">
                     {highlight.summary}
                   </p>
                 </div>
@@ -68,7 +87,7 @@ export default function Highlights() {
                     icon="pi pi-arrow-right"
                     iconPos="right"
                     outlined
-                    className="w-full justify-between"
+                    className="w-full justify-between border-accent/40 text-text-secondary transition-colors group-hover:border-accent"
                     onClick={() => setActiveHighlight(highlight)}
                   />
                 </div>
@@ -80,8 +99,8 @@ export default function Highlights() {
 
       <Dialog
         header={
-          <div className="flex flex-col gap-1">
-            <span className="text-sm uppercase tracking-widest text-text-muted">
+          <div className="flex flex-col gap-1 m-4">
+            <span className="text-sm uppercase tracking-[0.35em] text-text-muted">
               {activeHighlight?.metric}
             </span>
             <span className="font-[var(--font-heading)] text-2xl text-text-primary">
@@ -94,7 +113,7 @@ export default function Highlights() {
         className="max-w-2xl"
         breakpoints={{ "960px": "75vw", "640px": "90vw" }}
       >
-        <div className="space-y-4">
+        <div className="space-y-4 p-4">
           <p className="text-base text-text-secondary">
             {activeHighlight?.summary}
           </p>

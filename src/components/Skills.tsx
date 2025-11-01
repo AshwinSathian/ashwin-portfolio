@@ -14,7 +14,7 @@ export default function Skills() {
       aria-labelledby="skills-heading"
       className="py-16 md:py-24"
     >
-      <Tooltip target=".skill-tag" position="top" showDelay={150} />
+      <Tooltip target=".skill-chip" position="top" showDelay={150} />
       <div className="mx-auto max-w-6xl px-6 md:px-8">
         <motion.div
           variants={fadeInUp}
@@ -30,7 +30,7 @@ export default function Skills() {
             Skills
           </h2>
           <p className="text-sm uppercase tracking-[0.3em] text-text-muted">
-            SYSTEMS & TOOLING
+            Systems & tooling
           </p>
         </motion.div>
 
@@ -43,22 +43,26 @@ export default function Skills() {
         >
           {SKILL_GROUPS.map((group) => (
             <motion.div key={group.title} variants={fadeInUp}>
-              <Card className="h-full rounded-2xl bg-bg-soft/30 p-6 shadow-soft">
-                <div className="space-y-4">
-                  <h3 className="font-[var(--font-heading)] text-xl text-text-primary">
-                    {group.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {group.items.map((skill) => (
+              <Card className="h-full rounded-3xl bg-bg-glass p-6 shadow-glass backdrop-blur-soft">
+                <h3 className="font-[var(--font-heading)] text-xl text-text-primary">
+                  {group.title}
+                </h3>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {group.items.map((skill) => (
+                    <motion.div
+                      key={skill.name}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="skill-chip"
+                      data-pr-tooltip={skill.note}
+                    >
                       <Tag
-                        key={skill.name}
                         value={skill.name}
                         severity={skill.severity}
-                        className="skill-tag bg-bg px-3 py-2 text-sm text-text-secondary"
-                        data-pr-tooltip={skill.note}
+                        className="rounded-full bg-bg px-4 py-2 text-sm text-text-secondary shadow-soft/30"
                       />
-                    ))}
-                  </div>
+                    </motion.div>
+                  ))}
                 </div>
               </Card>
             </motion.div>

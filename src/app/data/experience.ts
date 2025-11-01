@@ -19,7 +19,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
       "Standardized multi-tenant RBAC, tenancy isolation, and compliance-ready audit trails.",
       "Mentored a 12-person squad across frontend, backend, and QA, raising review rigor and delivery confidence.",
     ],
-    tech: ["Angular", "NestJS", "MongoDB", "Nx", "AWS"],
+    tech: ["Angular", "NestJS", "MongoDB", "Nx", "GCP", "JIRA"],
   },
   {
     role: "Product Specialist",
@@ -44,9 +44,6 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     ],
     tech: ["Angular", "NestJS", "MongoDB"],
   },
-] as const;
-
-export const EARLIER_EXPERIENCE: ExperienceItem[] = [
   {
     role: "Senior Full Stack Developer",
     company: "Manaraah",
@@ -56,18 +53,19 @@ export const EARLIER_EXPERIENCE: ExperienceItem[] = [
       "Translated ambiguous requirements into maintainable, production-grade features.",
       "Partnered with stakeholders to de-risk deployments and support adoption.",
     ],
-    tech: ["Angular", "Node.js", "AWS"],
+    tech: ["Angular", "Node.js", "MongoDB", "AWS"],
   },
   {
     role: "Software Development Engineer",
     company: "WeCP",
     dates: "Jan 2019 – Jan 2020",
-    metric: "Strengthened a SaaS assessments platform serving global customers.",
+    metric:
+      "Strengthened a SaaS assessments platform serving global customers.",
     bullets: [
       "Enhanced onboarding flows and stabilized critical evaluation journeys.",
       "Guided interns and juniors through architecture, reviews, and delivery.",
     ],
-    tech: ["Angular", "Node.js", "MongoDB"],
+    tech: ["Angular", "Node.js", "MongoDB", "AWS"],
   },
   {
     role: "Junior Programmer",
@@ -77,11 +75,6 @@ export const EARLIER_EXPERIENCE: ExperienceItem[] = [
     bullets: [
       "Shipped incremental enhancements while learning enterprise release discipline.",
     ],
-    tech: ["AngularJS", "Node.js"],
+    tech: ["Angular", "Node.js"],
   },
-] as const;
-
-export const EXPERIENCE: ExperienceItem[] = [
-  ...RECENT_EXPERIENCE,
-  ...EARLIER_EXPERIENCE,
 ] as const;

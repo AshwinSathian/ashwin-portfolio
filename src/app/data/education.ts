@@ -10,14 +10,4 @@ export const EDUCATION: EducationItem[] = [
     credential: "B.Tech., Electronics & Communication Engineering",
     period: "2014 – 2018",
   },
-  {
-    school: "Indian School Darsait",
-    credential: "Class XII (PCM + CS)",
-    period: "2012 – 2014",
-  },
-  {
-    school: "Indian School Darsait",
-    credential: "Class X",
-    period: "2010 – 2012",
-  },
 ];

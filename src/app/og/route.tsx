@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { HERO } from "@/app/data/hero";
 import { SITE } from "@/app/data/site";
 
 export const runtime = "edge";
@@ -22,40 +23,38 @@ export async function GET() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          padding: "72px 96px",
-          backgroundImage:
-            "radial-gradient(1200px 600px at 80% -100px, rgba(139,92,246,0.38), transparent), radial-gradient(800px 400px at -10% -50px, rgba(59,130,246,0.2), transparent)",
+          padding: "80px",
           backgroundColor: "#0B1020",
+          backgroundImage:
+            "radial-gradient(1200px 600px at 20% 10%, rgba(139,92,246,0.38), transparent), radial-gradient(1000px 600px at 80% 0%, rgba(59,130,246,0.25), transparent)",
           color: "#E9ECF2",
           fontFamily: "Space Grotesk, Inter, sans-serif",
         }}
       >
         <div
           style={{
-            fontSize: 24,
-            letterSpacing: "0.5em",
             textTransform: "uppercase",
+            letterSpacing: "0.5em",
+            fontSize: 28,
             color: "#A78BFA",
           }}
         >
-          Full-Stack Engineer · SaaS Architect
+          Engineering Leader • SaaS Architecture
         </div>
         <div
           style={{
-            marginTop: 24,
-            fontSize: 84,
+            marginTop: 28,
+            fontSize: 96,
             fontWeight: 600,
-            letterSpacing: "-0.02em",
-            lineHeight: 1.05,
-            maxWidth: "920px",
+            lineHeight: 1,
           }}
         >
-          {SITE.name}
+          {HERO.title}
         </div>
         <div
           style={{
-            marginTop: 16,
-            width: "220px",
+            marginTop: 18,
+            width: "240px",
             height: "6px",
             borderRadius: "999px",
             background: "linear-gradient(90deg, #8B5CF6, rgba(139,92,246,0))",
@@ -63,29 +62,31 @@ export async function GET() {
         />
         <div
           style={{
-            marginTop: 28,
-            fontSize: 34,
+            marginTop: 32,
+            fontSize: 36,
             color: "#B4BDD1",
             maxWidth: "820px",
             lineHeight: 1.3,
           }}
         >
-          Building calm, scalable SaaS with empathy and rigor.
+          Building scalable, human-centered SaaS systems powering $1B+ GTV.
         </div>
         <div
           style={{
-            marginTop: 40,
+            marginTop: 48,
             display: "flex",
-            gap: "18px",
-            fontSize: 24,
-            color: "#8C94AA",
+            gap: "22px",
+            fontSize: 28,
             textTransform: "uppercase",
-            letterSpacing: "0.4em",
+            letterSpacing: "0.32em",
+            color: "#8C94AA",
           }}
         >
-          <span>$1B+ GTV</span>
-          <span>Sub-200 ms latency</span>
-          <span>1.5× release cadence</span>
+          {HERO.metrics.map((metric) => (
+            <span key={metric.label}>
+              {metric.value} {metric.label}
+            </span>
+          ))}
         </div>
       </div>
     ),

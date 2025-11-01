@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card } from "primereact/card";
 import { EDUCATION } from "@/app/data/education";
-import { fadeInUp, stagger } from "@/lib/motion";
+import { fadeInUp } from "@/lib/motion";
+
+const [bachelors] = EDUCATION;
 
 export default function Education() {
   return (
@@ -18,7 +19,7 @@ export default function Education() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="mb-8 space-y-3"
+          className="mb-6 space-y-3"
         >
           <h2
             id="education-heading"
@@ -27,31 +28,29 @@ export default function Education() {
             Education
           </h2>
           <p className="text-sm uppercase tracking-[0.3em] text-text-muted">
-            FOUNDATIONS
+            Foundations
           </p>
         </motion.div>
 
-        <motion.div
-          variants={stagger}
+        <motion.p
+          variants={fadeInUp}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid gap-6 md:grid-cols-3"
+          className="rounded-full bg-bg-glass px-6 py-4 text-sm text-center text-text-secondary shadow-glass backdrop-blur-soft md:text-base p-5"
         >
-          {EDUCATION.map((item) => (
-            <motion.div key={`${item.school}-${item.credential}`} variants={fadeInUp}>
-              <Card className="h-full rounded-2xl bg-bg-soft/30 p-6 shadow-soft">
-                <h3 className="font-[var(--font-heading)] text-xl text-text-primary">
-                  {item.school}
-                </h3>
-                <p className="mt-3 text-sm text-text-muted">{item.period}</p>
-                <p className="mt-4 text-base text-text-secondary">
-                  {item.credential}
-                </p>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
+          <strong className="font-semibold text-text-primary uppercase tracking-[0.35em]">
+            {`${bachelors.school}`}
+          </strong>
+          <br />
+          <span className="font-normal text-text-primary">
+            {`${bachelors.credential}`}
+          </span>
+          <br />
+          <span className="font-normal text-text-primary">
+            {`${bachelors.period}`}
+          </span>
+        </motion.p>
       </div>
     </section>
   );

@@ -2,7 +2,6 @@ export type EducationItem = {
   school: string;
   credential: string;
   period: string;
-  details?: string[];
 };
 
 export const EDUCATION: EducationItem[] = [
@@ -22,5 +21,3 @@ export const EDUCATION: EducationItem[] = [
     period: "2010 – 2012",
   },
 ];
-
-export const EDUCATION_HEADING = "Education" as const;

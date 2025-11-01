@@ -1,55 +1,55 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Open_Sans } from "next/font/google";
-import "./globals.css";
-import "primereact/resources/themes/md-dark-deeppurple/theme.css";
+import { Inter, Space_Grotesk } from "next/font/google";
+import "primereact/resources/themes/lara-dark-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import "./globals.css";
 import PrimeProvider from "@/components/providers/PrimeProvider";
 
-const plusJakarta = Open_Sans({
-  variable: "--font-sans",
+const siteUrl = "https://ashwinsathian.com";
+
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ashwin-smoky.vercel.app"),
-  title: {
-    default: "Ashwin Sathian — Full-Stack Engineer (Angular • NestJS • Nx)",
-    template: "%s — Ashwin Sathian",
-  },
+  metadataBase: new URL(siteUrl),
+  title: "Ashwin Sathian | Full-Stack Engineer & SaaS Architect",
   description:
-    "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD.",
-  alternates: { canonical: "/" },
+    "Engineering leader building scalable SaaS systems powering $1B+ GTV. Angular, NestJS, cloud, and pragmatic delivery.",
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
-    type: "website",
-    url: "https://ashwinsathian.com/",
-    title: "Ashwin Sathian — Full-Stack Engineer",
-    description:
-      "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD.",
-    siteName: "Ashwin Sathian — Portfolio",
+    title: "Ashwin Sathian — Full-Stack Engineer & SaaS Architect",
+    description: "Building calm, scalable SaaS with empathy and rigor.",
+    url: siteUrl,
+    siteName: "Ashwin Sathian Portfolio",
     images: [
       {
-        url: "/preview.png",
+        url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Ashwin Sathian portfolio preview",
+        alt: "Ashwin Sathian Portfolio Preview",
       },
     ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ashwin Sathian — Full-Stack Engineer",
-    description:
-      "Engineering leader with 7+ years building and scaling SaaS platforms (thousands of users, millions of records, ~$1B+ GTV). Angular, Next.js, NestJS, MongoDB, Nx, CI/CD.",
-    images: ["/preview.png"],
+    title: "Ashwin Sathian — Full-Stack Engineer & SaaS Architect",
+    description: "Building calm, scalable SaaS with empathy and rigor.",
+    images: ["/og.png"],
   },
   robots: {
     index: true,
@@ -65,20 +65,35 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
-    apple: "/apple-touch-icon.png", // add this file if you want
+    apple: "/apple-touch-icon.png",
   },
-  keywords: [
-    "Ashwin Sathian",
-    "Full-Stack Engineer",
-    "Angular",
-    "NestJS",
-    "Next.js",
-    "Nx Monorepo",
-    "MongoDB",
-    "SaaS",
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ashwin Sathian",
+  jobTitle: "Engineering Leader",
+  url: siteUrl,
+  email: "mailto:ashwinsathyan19@gmail.com",
+  worksFor: {
+    "@type": "Organization",
+    name: "Penny Software",
+  },
+  sameAs: [
+    "https://www.linkedin.com/in/ashwinsathian",
+    "https://github.com/AshwinSathian",
+  ],
+  knowsAbout: [
+    "SaaS architecture",
     "RBAC",
-    "Multi-tenant",
-    "CI/CD",
+    "Multi-tenant platforms",
+    "Angular",
+    "Next.js",
+    "NestJS",
+    "MongoDB",
+    "AWS",
+    "GCP",
   ],
 };
 
@@ -88,10 +103,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakarta.variable} ${geistMono.variable}`}
+      className={`${spaceGrotesk.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
-      <body className="bg-gray-900 text-white antialiased min-h-screen font-sans">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      </head>
+      <body className="min-h-screen bg-bg text-text-primary">
         <PrimeProvider>{children}</PrimeProvider>
       </body>
     </html>

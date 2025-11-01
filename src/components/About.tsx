@@ -51,7 +51,7 @@ export default function About() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.1 }}
-              className="mt-8 flex gap-3 overflow-x-auto pb-2"
+              className="mt-8 flex gap-3 flex-wrap pb-2"
             >
               {(ABOUT.focusAreas ?? []).map((item) => (
                 <motion.div key={item} variants={fadeInUp}>

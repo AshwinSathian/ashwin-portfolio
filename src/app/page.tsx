@@ -5,6 +5,7 @@ import Experience from "@/components/Experience";
 import Hero from "@/components/Hero";
 import Highlights from "@/components/Highlights";
 import Skills from "@/components/Skills";
+import Footer from "@/components/Footer";
 
 export default function Page() {
   return (
@@ -16,6 +17,7 @@ export default function Page() {
       <Experience />
       <Education />
       <Contact />
+      <Footer />
     </main>
   );
 }

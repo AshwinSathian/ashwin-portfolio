@@ -18,7 +18,7 @@ export const SKILL_GROUPS: SkillGroup[] = [
       {
         name: "Angular",
         note: "Primary enterprise frontend; architected modular workspace shells.",
-        severity: "primary",
+        severity: "info",
       },
       {
         name: "React",

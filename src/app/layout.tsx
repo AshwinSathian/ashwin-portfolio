@@ -1,27 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
 import "primereact/resources/themes/lara-dark-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "./globals.css";
-import PrimeProvider from "@/components/providers/PrimeProvider";
 import BreathingBackground from "@/components/BreathingBackground";
 import ScrollProgress from "@/components/ScrollProgress";
+import PrimeProvider from "@/components/providers/PrimeProvider";
 
 const siteUrl = "https://ashwinsathian.com";
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -105,7 +91,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
       <head>

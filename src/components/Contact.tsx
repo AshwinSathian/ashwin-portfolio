@@ -58,7 +58,6 @@ export default function Contact() {
                 key={action.label}
                 label={action.label}
                 icon={action.icon}
-                severity={action.severity}
                 outlined={action.outlined}
                 className="group min-w-[160px] justify-center rounded-full px-6 py-3 transition-transform duration-200 ease-out hover:scale-105"
                 onClick={action.onClick}

@@ -2,8 +2,8 @@
 
 :root {
   color-scheme: dark;
-  --font-heading: var(--font-space-grotesk);
-  --font-body: var(--font-inter);
+  --font-heading: "Space Grotesk", "Inter", "Manrope", system-ui, sans-serif;
+  --font-body: "Inter", "Manrope", system-ui, sans-serif;
 
   /* PrimeReact / PrimeOne theme variables (Lara Dark overrides) */
   --p-primary-color: #8b5cf6;

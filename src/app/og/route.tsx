@@ -3,8 +3,6 @@ import { HERO } from "@/app/data/hero";
 
 export const runtime = "edge";
 
-export const contentType = "image/png";
-
 export async function GET() {
   return new ImageResponse(
     (

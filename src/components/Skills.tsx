@@ -58,7 +58,6 @@ export default function Skills() {
                     >
                       <Tag
                         value={skill.name}
-                        severity={skill.severity}
                         className="rounded-full bg-bg px-4 py-2 text-sm text-text-secondary shadow-soft/30"
                       />
                     </motion.div>

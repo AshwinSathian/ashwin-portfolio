@@ -138,35 +138,6 @@ export default function Hero() {
             />
           </motion.div>
         </motion.div>
-
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          animate="show"
-          className="grid gap-3 sm:grid-cols-3"
-        >
-          {metrics.map((metric) => (
-            <Tag
-              key={metric.label}
-              value={
-                <span className="flex items-center gap-3 text-left">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-accent">
-                    <i className={metric.icon} aria-hidden="true" />
-                  </span>
-                  <span className="flex flex-col">
-                    <span className="text-base font-semibold text-text-primary">
-                      {metric.value}
-                    </span>
-                    <span className="text-[11px] uppercase tracking-[0.35em] text-text-muted">
-                      {metric.label}
-                    </span>
-                  </span>
-                </span>
-              }
-              className="w-full rounded-xl bg-bg-glass px-4 py-3 shadow-glass backdrop-blur-soft"
-            />
-          ))}
-        </motion.div>
       </div>
     </section>
   );

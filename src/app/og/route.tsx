@@ -61,28 +61,11 @@ export async function GET() {
         >
           Building scalable, human-centered SaaS systems powering $1B+ GTV.
         </div>
-        <div
-          style={{
-            marginTop: 48,
-            display: "flex",
-            gap: "22px",
-            fontSize: 28,
-            textTransform: "uppercase",
-            letterSpacing: "0.32em",
-            color: "#8C94AA",
-          }}
-        >
-          {HERO.metrics.map((metric) => (
-            <span key={metric.label}>
-              {metric.value} {metric.label}
-            </span>
-          ))}
-        </div>
       </div>
     ),
     {
       width: 1200,
       height: 630,
-    },
+    }
   );
 }

@@ -39,12 +39,9 @@ export function ProjectCard({
       <div className="flex flex-col gap-6">
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-3">
-            <Link
-              href={`/projects/${owner}/${repo}`}
-              className="font-[var(--font-heading)] text-xl font-semibold text-text-primary underline-offset-4 hover:underline focus-visible:underline"
-            >
+            <span className="font-[var(--font-heading)] text-xl font-semibold text-text-primary">
               {displayTitle}
-            </Link>
+            </span>
             <p className="text-xs uppercase tracking-[0.25em] text-text-muted">
               {ownerRepoLabel}
             </p>

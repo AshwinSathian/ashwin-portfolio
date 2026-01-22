@@ -8,4 +8,8 @@ export const TOP_PROJECTS: Array<{ name: string; url: string }> = [
     name: "API Sandbox",
     url: "https://github.com/AshwinSathian/apiSandbox",
   },
+  {
+    name: "GitHub Issues Analyzer",
+    url: "https://github.com/AshwinSathian/github-issue-analyzer",
+  },
 ];

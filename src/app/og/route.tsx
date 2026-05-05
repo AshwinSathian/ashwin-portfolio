@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import { HERO } from "@/app/data/hero";
 
 export const runtime = "edge";
 
@@ -14,52 +13,46 @@ export async function GET() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          backgroundColor: "#0B1020",
-          backgroundImage:
-            "radial-gradient(1200px 600px at 20% 10%, rgba(139,92,246,0.38), transparent), radial-gradient(1000px 600px at 80% 0%, rgba(59,130,246,0.25), transparent)",
-          color: "#E9ECF2",
-          fontFamily: "Space Grotesk, Inter, sans-serif",
+          backgroundColor: "#000000",
+          color: "#F5F5F7",
+          fontFamily: "Inter, -apple-system, sans-serif",
         }}
       >
         <div
           style={{
+            fontSize: 13,
+            fontWeight: 500,
+            letterSpacing: "0.08em",
             textTransform: "uppercase",
-            letterSpacing: "0.5em",
-            fontSize: 28,
-            color: "#A78BFA",
+            color: "#6E6E73",
           }}
         >
-          Engineering Leader • SaaS Architecture
+          Engineering Leader
         </div>
-        <div
-          style={{
-            marginTop: 28,
-            fontSize: 96,
-            fontWeight: 600,
-            lineHeight: 1,
-          }}
-        >
-          {HERO.title}
-        </div>
-        <div
-          style={{
-            marginTop: 18,
-            width: "240px",
-            height: "6px",
-            borderRadius: "999px",
-            background: "linear-gradient(90deg, #8B5CF6, rgba(139,92,246,0))",
-          }}
-        />
         <div
           style={{
             marginTop: 32,
-            fontSize: 36,
-            color: "#B4BDD1",
-            maxWidth: "820px",
-            lineHeight: 1.3,
+            fontSize: 88,
+            fontWeight: 200,
+            lineHeight: 1.05,
+            letterSpacing: "-0.04em",
+            color: "#F5F5F7",
           }}
         >
-          Building scalable, human-centered SaaS systems powering $1B+ GTV.
+          Engineering.
+          <br />
+          At scale.
+        </div>
+        <div
+          style={{
+            marginTop: 40,
+            fontSize: 22,
+            fontWeight: 400,
+            color: "#A1A1A6",
+            letterSpacing: "-0.01em",
+          }}
+        >
+          Ashwin Sathian · $1B+ GTV · 12 engineers · &lt;200ms
         </div>
       </div>
     ),

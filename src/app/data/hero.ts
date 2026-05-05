@@ -1,28 +1,16 @@
 import { SITE } from "./site";
 
-export type HeroMetric = {
-  label: string;
-  value: string;
-  icon: string;
-};
-
 export const HERO = {
-  title: SITE.name,
-  subhead: SITE.heroSubhead,
-  tagline: SITE.heroTagline,
+  eyebrow: "Engineering Leader",
+  headline: ["Engineering.", "At scale."],
+  identity: `${SITE.name} · Open to engineering leadership roles`,
+  metricsLine: "$1B+ GTV  ·  12 engineers  ·  <200ms",
   primaryCta: {
-    label: "Download Resume",
-    href: SITE.resumePath,
-    icon: "pi pi-download",
+    label: "View Work",
+    href: "#experience",
   },
   secondaryCta: {
-    label: "See My Work",
-    href: "#experience",
-    icon: "pi pi-arrow-down",
+    label: "Download Resume",
+    href: SITE.resumePath,
   },
-  metrics: [
-    { label: "GTV orchestrated", value: "$1B+", icon: "pi pi-chart-line" },
-    { label: "Engineers led", value: "10+", icon: "pi pi-users" },
-    { label: "Critical latency", value: "<200 ms", icon: "pi pi-bolt" },
-  ] satisfies HeroMetric[],
 } as const;

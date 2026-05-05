@@ -12,8 +12,8 @@ export default function ScrollProgress() {
 
   return (
     <motion.div
-      className="fixed inset-x-0 top-0 z-50 h-[2px] bg-gradient-to-r from-accent via-accent-soft to-accent-warm"
-      style={{ scaleX: width, transformOrigin: "0% 50%" }}
+      className="fixed inset-x-0 top-0 z-60 h-0.5 origin-left bg-accent"
+      style={{ scaleX: width }}
     />
   );
 }

@@ -1,18 +1,16 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "primereact/button";
 
 export default function BackToProjectsButton() {
   const router = useRouter();
 
   return (
-    <Button
-      icon="pi pi-arrow-left"
-      label="Back"
-      text
-      className="text-text-secondary flex items-center gap-3 uppercase tracking-wider"
+    <button
       onClick={() => router.push("/#projects")}
-    />
+      className="text-[15px] text-label-3 transition-colors duration-200 hover:text-label-1"
+    >
+      ← Work
+    </button>
   );
 }

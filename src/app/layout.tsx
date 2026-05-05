@@ -1,33 +1,37 @@
 import type { Metadata } from "next";
-import "primereact/resources/themes/lara-dark-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import BreathingBackground from "@/components/BreathingBackground";
+import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
-import PrimeProvider from "@/components/providers/PrimeProvider";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "600"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 const siteUrl = "https://ashwinsathian.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Ashwin Sathian | Engineering Leader • SaaS Architecture",
+  title: "Ashwin Sathian | Engineering Leader · SaaS Architecture",
   description:
-    "Building scalable, human-centered SaaS systems powering $1B+ GTV. Calm leadership, fast systems.",
+    "Engineering at scale. $1B+ GTV. 12 engineers. Calm architecture, fast systems.",
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Ashwin Sathian — Engineering Leader • SaaS Architecture",
-    description: "Scalable SaaS with calm precision and measurable impact.",
+    title: "Ashwin Sathian — Engineering Leader · SaaS Architecture",
+    description: "Engineering at scale. $1B+ GTV. Calm architecture, fast systems.",
     url: siteUrl,
-    siteName: "Ashwin Sathian Portfolio",
+    siteName: "Ashwin Sathian",
     images: [
       {
         url: "/og-2026.png",
         width: 1200,
         height: 630,
-        alt: "Ashwin Sathian Portfolio Preview",
+        alt: "Ashwin Sathian — Engineering Leader",
       },
     ],
     locale: "en_US",
@@ -35,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ashwin Sathian — Engineering Leader • SaaS Architecture",
-    description: "Scalable SaaS with calm precision and measurable impact.",
+    title: "Ashwin Sathian — Engineering Leader · SaaS Architecture",
+    description: "Engineering at scale. $1B+ GTV. Calm architecture, fast systems.",
     images: ["/og-2026.png"],
   },
   robots: {
@@ -64,10 +68,6 @@ const structuredData = {
   jobTitle: "Engineering Leader",
   url: siteUrl,
   email: "mailto:ashwinsathyan19@gmail.com",
-  worksFor: {
-    "@type": "Organization",
-    name: "Penny Software",
-  },
   sameAs: [
     "https://www.linkedin.com/in/ashwinsathian",
     "https://github.com/AshwinSathian",
@@ -89,22 +89,20 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       </head>
-      <body className="relative min-h-screen overflow-x-hidden bg-bg text-text-primary">
-        <PrimeProvider>
-          <BreathingBackground />
-          <ScrollProgress />
-          <main className="relative z-10">{children}</main>
-        </PrimeProvider>
+      <body
+        className="min-h-screen bg-canvas text-label-1"
+        style={{ fontFamily: "var(--font-sans)" }}
+      >
+        <ScrollProgress />
+        <Navbar />
+        <main>{children}</main>
       </body>
     </html>
   );

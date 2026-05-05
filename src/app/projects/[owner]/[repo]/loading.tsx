@@ -1,20 +1,19 @@
-"use client";
-
-import { Skeleton } from "primereact/skeleton";
-
 export default function LoadingProjectDetail() {
   return (
-    <main className="mx-auto max-w-6xl px-6 py-16 md:px-8 md:py-24">
-      <div className="mb-8">
-        <Skeleton width="100px" height="2.5rem" className="rounded-full" />
-      </div>
-      <Skeleton width="60%" height="3.5rem" className="mb-6 rounded-2xl" />
-      <div className="space-y-4">
-        <Skeleton width="80%" height="1.25rem" className="rounded-xl" />
-        <Skeleton width="90%" height="1.25rem" className="rounded-xl" />
-        <Skeleton width="75%" height="1.25rem" className="rounded-xl" />
-        <Skeleton width="95%" height="1.25rem" className="rounded-xl" />
-        <Skeleton width="70%" height="1.25rem" className="rounded-xl" />
+    <main className="mx-auto max-w-5xl px-6 py-24 pt-29 md:px-8 md:py-32 md:pt-33">
+      <div className="mb-8 h-5 w-16 animate-pulse rounded-full bg-surface-3" />
+      <div className="mb-4 h-10 w-2/3 animate-pulse rounded-xl bg-surface-3" />
+      <div className="mb-10 h-5 w-1/3 animate-pulse rounded-lg bg-surface-3" />
+      <div className="rounded-2xl border border-white/8 bg-surface-2 p-8">
+        <div className="flex flex-col gap-4">
+          {[95, 85, 90, 75, 88].map((w, i) => (
+            <div
+              key={i}
+              className="h-4 animate-pulse rounded-lg bg-surface-3"
+              style={{ width: `${w}%` }}
+            />
+          ))}
+        </div>
       </div>
     </main>
   );

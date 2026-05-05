@@ -1,23 +1,20 @@
-"use client";
-
-import { Button } from "primereact/button";
 import { SITE } from "@/app/data/site";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-outline/30 bg-bg/80 backdrop-blur-soft">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-6 text-center md:flex-row md:justify-between md:text-left">
-        <span className="text-sm text-text-muted">
-          © {new Date().getFullYear()} {SITE.name}. All rights reserved.
+    <footer className="border-t border-white/8 bg-canvas px-6 py-6 md:px-8">
+      <div className="mx-auto flex max-w-5xl items-center justify-between">
+        <span className="text-[14px] text-label-4">
+          © {new Date().getFullYear()} {SITE.name}
         </span>
-        <Button
-          label="Download Resume"
-          outlined
-          className="rounded-full px-5"
-          onClick={() =>
-            window.open(SITE.resumePath, "_blank", "noopener,noreferrer")
-          }
-        />
+        <a
+          href={SITE.resumePath}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[14px] text-label-3 transition-colors duration-200 hover:text-label-1"
+        >
+          Resume ↓
+        </a>
       </div>
     </footer>
   );

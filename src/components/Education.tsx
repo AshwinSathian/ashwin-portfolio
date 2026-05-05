@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { EDUCATION } from "@/app/data/education";
-import { fadeInUp } from "@/lib/motion";
+import { fadeIn, stagger } from "@/lib/motion";
 
 const [bachelors] = EDUCATION;
 
@@ -11,46 +11,41 @@ export default function Education() {
     <section
       id="education"
       aria-labelledby="education-heading"
-      className="py-16 md:py-24"
+      className="bg-canvas px-6 py-24 md:px-8 md:py-32"
     >
-      <div className="mx-auto max-w-6xl px-6 md:px-8">
+      <div className="mx-auto max-w-5xl">
         <motion.div
-          variants={fadeInUp}
+          variants={stagger}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          className="mb-6 space-y-3"
+          className="flex flex-col gap-10"
         >
-          <h2
-            id="education-heading"
-            className="font-[var(--font-heading)] text-3xl font-semibold text-text-primary md:text-4xl"
-          >
-            Education
-          </h2>
-          <p className="text-sm uppercase tracking-[0.3em] text-text-muted">
-            Foundations
-          </p>
-        </motion.div>
+          <div className="flex flex-col gap-4">
+            <motion.p
+              variants={fadeIn}
+              className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
+            >
+              Education
+            </motion.p>
+          </div>
 
-        <motion.p
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className="rounded-full bg-bg-glass px-6 py-4 text-sm text-center text-text-secondary shadow-glass backdrop-blur-soft md:text-base p-5"
-        >
-          <strong className="font-semibold text-text-primary uppercase tracking-[0.35em]">
-            {`${bachelors.school}`}
-          </strong>
-          <br />
-          <span className="font-normal text-text-primary">
-            {`${bachelors.credential}`}
-          </span>
-          <br />
-          <span className="font-normal text-text-primary">
-            {`${bachelors.period}`}
-          </span>
-        </motion.p>
+          <motion.div
+            variants={fadeIn}
+            className="rounded-2xl border border-white/8 bg-surface-2 px-8 py-7"
+          >
+            <h2
+              id="education-heading"
+              className="text-[17px] font-medium text-label-1"
+            >
+              {bachelors.school}
+            </h2>
+            <p className="mt-2 text-[15px] text-label-2">
+              {bachelors.credential}
+            </p>
+            <p className="mt-1 text-[13px] text-label-3">{bachelors.period}</p>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

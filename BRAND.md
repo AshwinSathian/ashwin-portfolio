@@ -1,469 +1,334 @@
 # Brand System — Ashwin Sathian
 
-**Version:** 1.0  
+**Version:** 2.0  
 **Date:** May 2026  
-**Philosophy Base:** Apple Human Interface Guidelines + Apple.com editorial design language
+**Aesthetic Base:** Apple Product Pages (iPhone Pro / MacBook Pro / Vision Pro)  
+**Key Shift from v1.0:** Editorial → Cinematic. Resume → Personal Statement.
 
 ---
 
 ## 1. Design Philosophy
 
-This brand is built on three principles borrowed directly from Apple's HIG — and applied without compromise:
+### The Governing Idea
 
-**Clarity.** Every element communicates one thing. When in doubt, remove. Typography carries meaning; decoration does not. Legibility at every scale is non-negotiable.
+This is not a resumé website. It is a personal statement rendered in the visual language of Apple's most dramatic product launches.
 
-**Deference.** The interface steps back. Content is the hero. The design system exists to make Ashwin's work, metrics, and story legible — not to express itself.
+Apple's product pages treat each feature as a *moment*. The screen goes black. One sentence appears. Then another. Then a number so large it fills your peripheral vision. Then silence. The product page earns its claims through restraint, not volume.
 
-**Depth.** Hierarchy is achieved through weight, size, and contrast — not gradients, glow, or animation. Layers communicate structure; motion communicates change.
+Ashwin's portfolio operates identically. Each section is a moment. One idea. Full screen. No noise.
 
-The governing aesthetic is **precision without coldness**. The brand should feel like a well-crafted instrument: considered, purposeful, and calm. Like an Apple Pro product page built for a person.
+### The Three Shifts
+
+**From editorial to cinematic.** Apple's website (apple.com) is editorial — columns, articles, navigation. Apple's product pages are cinematic — full-bleed, scroll-driven, one scene at a time. This brand lives on product pages, not in articles.
+
+**From resumé to portfolio.** A resumé pitches availability. A portfolio demonstrates craft. This site is not looking for a job. It is showing what seven years of serious engineering looks like. The audience arrives curious, not screening.
+
+**From presenting to declaring.** "I help teams ship faster" is a pitch. "The systems I've built handle over $1B in transactions without missing a beat" is a declaration. This brand declares.
+
+### Apple Product Page Principles (Applied)
+
+1. **One idea per screen.** If a section contains two independent thoughts, it becomes two sections.
+2. **The number is the hero.** When a metric is present, it is the largest element on screen. Everything else defers to it.
+3. **Silence earns the statement.** Generous vertical space before and after key text makes that text feel inevitable.
+4. **Scroll is narrative.** The page has a beginning, middle, and end. Each scroll step advances the story.
+5. **No chrome.** Nothing decorates for its own sake. The line between the words and the empty black space IS the design.
 
 ---
 
 ## 2. Color System
 
-The palette is derived from Apple's dark mode system colors as implemented across iOS, macOS, and apple.com. It uses a strict surface hierarchy and a single accent color.
+Core palette unchanged from v1.0, with one addition: a strategic near-white surface for the About/philosophy section — the single moment of light that makes the dark sections feel even deeper.
 
-### 2.1 Background / Surface Hierarchy
-
-| Token | Hex | Usage |
-|---|---|---|
-| `--canvas` | `#000000` | Page base — full-bleed sections |
-| `--surface-1` | `#111111` | Section-level fills, subtle separations |
-| `--surface-2` | `#1C1C1E` | Cards, modals — Apple's `systemGray6` dark |
-| `--surface-3` | `#2C2C2E` | Elevated cards, hover states — Apple's `systemGray5` dark |
-| `--surface-4` | `#3A3A3C` | Tooltips, overlays — Apple's `systemGray4` dark |
-
-### 2.2 Separator / Border
-
-| Token | Value | Usage |
-|---|---|---|
-| `--separator` | `rgba(255,255,255,0.08)` | Default card borders, dividers |
-| `--separator-strong` | `rgba(255,255,255,0.15)` | Hover borders, emphasis dividers |
-| `--separator-opaque` | `#222222` | Use only when transparency causes issues |
-
-### 2.3 Text / Label Hierarchy
+### 2.1 Dark System (Primary — 90% of the site)
 
 | Token | Hex | Usage |
 |---|---|---|
-| `--label-1` | `#F5F5F7` | Primary text — Apple's brand text color |
-| `--label-2` | `#A1A1A6` | Secondary text, subtitles, metadata |
-| `--label-3` | `#6E6E73` | Tertiary — dates, captions, helper text |
-| `--label-4` | `#48484A` | Quaternary — least prominent, decorative |
+| `--canvas` | `#000000` | Page base |
+| `--surface-1` | `#111111` | Section-level lifts |
+| `--surface-2` | `#1C1C1E` | Cards, containers |
+| `--surface-3` | `#2C2C2E` | Elevated elements |
+| `--surface-4` | `#3A3A3C` | Borders at rest on dark surfaces |
 
-### 2.4 Accent
-
-One accent. One only.
-
-| Token | Hex | Usage |
-|---|---|---|
-| `--accent` | `#2997FF` | Apple Blue (dark-mode variant) — CTAs, links, active states |
-| `--accent-hover` | `#147CE5` | Hover/pressed state |
-| `--accent-muted` | `rgba(41,151,255,0.12)` | Very subtle fill behind accent-colored elements |
-
-**Rule:** Accent is used for interactive elements — links, primary buttons, active nav items. It is never used decoratively. If you are tempted to use it for visual interest, do not.
-
-### 2.5 Semantic Colors (Metrics Only)
+### 2.2 Light System (Exactly one section — the About/philosophy section)
 
 | Token | Hex | Usage |
 |---|---|---|
-| `--metric-positive` | `#30D158` | Apple's systemGreen (dark) — key stats like GTV, performance wins |
+| `--light-bg` | `#FBFBFD` | Apple's page background for light surfaces |
+| `--light-text-1` | `#1D1D1F` | Apple's primary text on light |
+| `--light-text-2` | `#515154` | Secondary on light |
+| `--light-text-3` | `#86868B` | Tertiary on light |
+| `--light-separator` | `rgba(0,0,0,0.08)` | Borders on light surfaces |
 
-This color appears exclusively in the Impact/Highlights section for metric numbers. Nowhere else.
+This section exists as a **visual punctuation mark** — the single moment the page breathes differently. One light section. The contrast makes the surrounding dark sections feel deeper.
 
-### 2.6 Color Usage Rules
+### 2.3 Text / Label (Dark sections)
 
-- **No gradients** on surfaces, buttons, or text. One exception: a radial gradient may be used on the hero canvas — maximum opacity 0.06, radius >60%, centered.
-- **No glow effects.** `box-shadow` is allowed only for 1px inset borders simulated via shadow, never for light emission effects.
-- **No purple.** The existing `#8B5CF6` accent is removed entirely. It conflicts with Apple's restrained palette and reads as decorative rather than semantic.
-- **Background sections alternate** between `--canvas` and `--surface-1` to create rhythm without color.
+| Token | Hex | Role |
+|---|---|---|
+| `--label-1` | `#F5F5F7` | Primary |
+| `--label-2` | `#A1A1A6` | Secondary |
+| `--label-3` | `#6E6E73` | Tertiary |
+| `--label-4` | `#48484A` | Quaternary |
+
+### 2.4 Accent & Metric
+
+| Token | Hex | Usage |
+|---|---|---|
+| `--accent` | `#2997FF` | Interactive only — links, active nav, primary CTA |
+| `--accent-hover` | `#147CE5` | Hover state |
+| `--metric` | `#F5F5F7` | Large metric numbers — NOT green. On a product page, the number speaks for itself in white. |
+
+> **v2.0 change:** The `--metric` token changes from `#30D158` (green) to `#F5F5F7` (white). Green reads as "status indicator" on a product page. The numbers here are statements, not alerts. White at 120px is all the emphasis they need.
 
 ---
 
 ## 3. Typography System
 
-The typeface is **Inter** — the closest publicly available approximation of SF Pro. It shares Inter's optical sizing, variable weight axis, and neutral character that scales from 11px captions to 96px display text.
+### 3.1 Weight Philosophy Change
 
-Load weights: 200 (ExtraLight), 300 (Light), 400 (Regular), 500 (Medium), 600 (SemiBold).
+v1.0 used weight 200 (ExtraLight) as the minimum. v2.0 introduces weight 100 (Thin) for the largest display moments. This is the Apple product page signature: at 120px+ in a pure black environment, a hairline-thin numeral is not weak — it is devastating.
 
-Do not use Bold (700) or heavier. Apple's headlines are light. The contrast between thin weight and large size is the signature.
+Add weight `100` to the Inter font load.
 
-### 3.1 Type Scale
+### 3.2 Type Scale
 
 | Role | Size | Weight | Tracking | Line Height | Usage |
 |---|---|---|---|---|---|
-| **Display** | 80px | 200 | -0.040em | 1.05 | Hero headline only |
-| **Headline 1** | 56px | 200 | -0.030em | 1.10 | Section entry headlines |
-| **Headline 2** | 40px | 300 | -0.022em | 1.15 | Section sub-headlines |
-| **Headline 3** | 28px | 400 | -0.015em | 1.20 | Card titles, subsection heads |
-| **Title 1** | 22px | 500 | -0.010em | 1.25 | Highlighted callouts |
-| **Title 2** | 17px | 600 | -0.008em | 1.30 | Labels, button text, nav |
-| **Body Large** | 17px | 400 | -0.010em | 1.70 | Primary paragraph text |
-| **Body** | 15px | 400 | 0 | 1.65 | Standard body copy |
-| **Body Small** | 13px | 400 | 0.005em | 1.55 | Secondary content, card metadata |
-| **Caption** | 11px | 400 | 0.010em | 1.50 | Timestamps, legal, minor metadata |
-| **Label** | 12px | 500 | 0.080em | 1.40 | Eyebrow text — ALL CAPS only |
-| **Mono** | 13px | 400 | 0 | 1.60 | Code, URLs, file paths |
+| **Feature** | 120px+ | 100 | -0.050em | 1.00 | Full-screen isolated stats, largest hero moments |
+| **Display** | 80px | 100–200 | -0.040em | 1.05 | Section-level headline statements |
+| **Headline 1** | 56px | 200 | -0.030em | 1.10 | Section headlines |
+| **Headline 2** | 40px | 300 | -0.022em | 1.15 | Sub-headlines |
+| **Headline 3** | 28px | 400 | -0.015em | 1.20 | Card titles |
+| **Title 1** | 22px | 500 | -0.010em | 1.25 | Labels, callouts |
+| **Body Large** | 17px | 400 | -0.010em | 1.70 | Primary paragraphs |
+| **Body** | 15px | 400 | 0 | 1.65 | Standard body |
+| **Body Small** | 13px | 400 | 0.005em | 1.55 | Metadata, captions |
+| **Label** | 12px | 500 | 0.080em | 1.40 | Eyebrow — ALL CAPS only |
+| **Mono** | 13px | 400 | 0 | 1.60 | Code, URLs |
 
-**Font stack:**
-```css
---font-sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", 
-             "SF Pro Text", system-ui, sans-serif;
---font-mono: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
-```
+### 3.3 The Feature Size
 
-### 3.2 Typographic Rules
+`clamp(80px, 14vw, 140px)` — responsive Feature text that fills roughly 40–50% of the viewport width on desktop. On mobile, it clips to 80px. Used exclusively for:
+- The stat numbers in the Impact section ($1B+, <200ms, 12)
+- The hero name on a full-screen name-only hero variant
 
-**Headings:**
-- Display and H1 are always weight 200 (ExtraLight). This is intentional and non-negotiable.
-- No bold headings except in UI labels and button text.
-- Never mix weights within a single headline.
-- Track all headings below their default — see table above.
-- Headings never exceed their section width on desktop. Use `max-width: 18ch` to `28ch` for readability.
+### 3.4 Typographic Rules (Updated)
 
-**Body:**
-- Max line length: 75ch on desktop, full width on mobile.
-- Line height minimum 1.60 for all body text.
-- Never justify body text. Left-align only.
-- No full caps for body text.
-
-**Eyebrow labels (section identifiers):**
-- LABEL style: 12px, weight 500, 0.08em tracking, ALL CAPS
-- Color: `--label-3`
-- Used above section headlines: "WORK" above Experience, "IMPACT" above Highlights, etc.
-- Never used in body copy.
+- **Feature and Display are always Thin (100) or ExtraLight (200).** Weight and scale trade off: the larger the text, the lighter the weight.
+- **Never bold a headline.** Weight 600+ appears only in navigation CTAs and micro-labels.
+- **Metric numbers in Feature size use weight 100.** A three-digit number at 120px in weight 700 is aggressive. At weight 100 it is authoritative.
+- **Max line length for body: 65ch desktop, full-width mobile.**
 
 ---
 
-## 4. Spacing & Grid
+## 4. Section Architecture
 
-Apple's 8pt grid. All spacing values are multiples of 8px.
+### 4.1 The Full-Screen Section
 
-### 4.1 Spacing Scale
+The fundamental unit of this design is the **full-screen section** — a viewport-height panel with one primary idea centered or positioned for maximum visual impact.
 
-| Token | Value | Usage |
-|---|---|---|
-| `--space-1` | 4px | Micro gaps (icon padding, tight groups) |
-| `--space-2` | 8px | Compact component padding |
-| `--space-3` | 12px | Default component padding |
-| `--space-4` | 16px | Default gap between related elements |
-| `--space-5` | 24px | Gap between distinct elements |
-| `--space-6` | 32px | Section internal padding |
-| `--space-7` | 48px | Sub-section separation |
-| `--space-8` | 64px | Section separation |
-| `--space-9` | 96px | Major section padding (top/bottom) |
-| `--space-10` | 128px | Hero section vertical padding |
-| `--space-11` | 192px | Maximum section padding on tall viewports |
+```
+min-height: 100svh
+display: flex
+flex-direction: column
+justify-content: center (or space-between for hero)
+padding: 96px horizontal, 80px vertical
+```
 
-### 4.2 Layout Grid
+Not every section needs to be exactly 100vh. The principle is: **no section feels rushed**. Content sections that naturally exceed 100vh are fine. But they should open and close with generous space.
 
-- **Max content width:** 1080px (Apple.com uses 980px; 1080px slightly wider for readability)
-- **Page gutter:** 48px desktop, 24px tablet, 20px mobile
-- **Column grid:** 12-column, 24px gutter
-- **Section padding:** `--space-9` (96px) top and bottom
-- **Hero height:** `100svh` minimum
+### 4.2 Section Types
 
-### 4.3 Border Radius
+**Hero Section**  
+Full screen. Black. Name and title only. The name is the product name.  
+No metrics. No CTAs in the primary viewport. Scroll indicator at bottom.
 
-| Element | Radius |
-|---|---|
-| Cards | 16px |
-| Buttons | 980px (pill) |
-| Chip / Tag | 980px (pill) |
-| Image containers | 12px |
-| Tooltips | 8px |
-| Modal | 20px |
-| Input fields | 10px |
+**Statement Section**  
+Full screen. Black. One sentence. Centered. Large type, weight 200–300.  
+The manifesto: what Ashwin's work actually means, stated as truth.
 
-Apple uses rounded corners consistently. The pill shape for interactive elements (buttons, tags) is characteristic of the HIG.
+**Metric Section**  
+Full screen or near-full. Three large isolated statistics, each centered in its own column.  
+Feature size (120px). Weight 100. White. The three numbers are the entire content of this section.
+
+**Feature Section**  
+Full screen. A topic with a headline, one paragraph, and optionally one data point.  
+The About section uses a two-column variant (light background).
+
+**List Section**  
+Natural height (may exceed 100vh). Structured content: experience timeline, capabilities, projects.  
+These sections breathe but are not forced to fill the screen.
+
+**Contact Section**  
+Full screen. The closing statement. Similar energy to the hero but looking forward, not introducing.
+
+### 4.3 Rhythm
+
+The page reads as: **Dark → Dark → Dark → Light (About) → Dark → Dark → Dark → Dark**
+
+The single light section is at roughly the 40% mark in the scroll. Its contrast creates a moment of relief that makes everything around it feel more dramatic.
 
 ---
 
 ## 5. Motion & Animation
 
-Motion in this brand is **functional, not decorative.** It communicates state change, establishes hierarchy during entrance, and guides attention. It never runs on a loop.
+### 5.1 Upgraded Motion Philosophy
 
-### 5.1 Principles
+v1.0 used opacity-only scroll entrances — too conservative for a product page. v2.0 allows subtle vertical movement on scroll entrances, matching Apple's product page behavior.
 
-1. **No breathing, pulsing, or idle animations.** If an element animates when the user isn't interacting with the page, remove it.
-2. **Entrance animations are opacity fades only.** No Y-axis translation on scroll entrance. Elements appear — they don't rise into place.
-3. **Duration is shorter than you think.** Apple's system transitions are 250–350ms. 600ms is too long; it reads as sluggish on modern hardware.
-4. **Spring physics over easing curves** for interactive elements (hover, press). Linear ease for entrance.
-5. **Respect `prefers-reduced-motion`.** All animations must be disabled under this media query.
+Apple's product pages use:
+- Opacity fade with slight upward drift (20–24px) for text elements
+- Slight scale-up (0.96 → 1.0) for feature images
+- Word-by-word or character-by-character text builds for key statements
+- These are driven by scroll position, not just IntersectionObserver
 
 ### 5.2 Motion Tokens
 
 | Token | Value | Usage |
 |---|---|---|
-| `--duration-instant` | 100ms | Immediate feedback (focus, active state) |
-| `--duration-fast` | 200ms | Hover transitions, button states |
-| `--duration-normal` | 300ms | Scroll-triggered entrance, panel open |
-| `--duration-slow` | 500ms | Page transitions, modal appearance |
-| `--ease-standard` | `cubic-bezier(0.25, 0.1, 0.25, 1)` | Standard ease |
-| `--ease-decelerate` | `cubic-bezier(0, 0, 0.2, 1)` | Elements entering the screen |
-| `--spring` | `{ stiffness: 300, damping: 30 }` | Interactive springs (Framer Motion) |
+| `--duration-fast` | 200ms | Hover, button states |
+| `--duration-normal` | 400ms | Scroll-triggered entrance |
+| `--duration-slow` | 600ms | Full-screen section transitions |
+| `--ease-decelerate` | `cubic-bezier(0, 0, 0.2, 1)` | Elements entering |
+| `--ease-standard` | `cubic-bezier(0.25, 0.1, 0.25, 1)` | Standard |
 
-### 5.3 Scroll Entrance Pattern
+### 5.3 Scroll Entrance Pattern (Updated)
 
 ```
-Trigger: element enters viewport (threshold: 0.15)
-Animation: opacity 0 → 1
-Duration: 300ms
-Easing: --ease-decelerate
-Stagger (when grouped): 60ms between children
-No Y offset. No scale. Opacity only.
+Trigger: element enters viewport (threshold: 0.1)
+Animation: opacity 0 → 1, y 24 → 0
+Duration: 500ms (up from 300ms)
+Easing: cubic-bezier(0, 0, 0.2, 1)
+Stagger (grouped): 80ms between children
 ```
 
-### 5.4 What Is Removed
+The 24px Y drift is subtle enough to read as "natural" but adds depth that opacity-only lacks.
 
-- **Parallax on hero.** Parallax is theatrical. Remove entirely.
-- **BreathingBackground.** Idling radial gradient animation. Remove entirely.
-- **Glow effects on scroll.** Remove the experience timeline marker glow.
-- **600ms animations.** Reduce all durations.
-- **80ms stagger.** Replace with 60ms maximum.
+### 5.4 Word Reveal Pattern (NEW — Manifesto section)
+
+The statement section reveals text word by word as the section enters the viewport. Each word fades in with a 60ms stagger. This is the signature motion of Apple's "Pro" product pages.
+
+```
+Each <span> wrapping a word:
+  initial: opacity 0
+  animate: opacity 1
+  duration: 400ms per word
+  stagger: 60ms between words
+  trigger: section enters viewport
+```
+
+### 5.5 What Stays Removed
+
+- Parallax mouse tracking (Hero.tsx v1)
+- Looping background animations (BreathingBackground)
+- Glow effects and purple shadows
 
 ---
 
 ## 6. Component Language
 
-### 6.1 Cards
+### 6.1 Updated Card Style
+
+Cards in v2.0 are more minimal — the border treatment is lighter:
 
 ```
-Background:  --surface-2 (#1C1C1E)
-Border:      1px solid --separator
-Radius:      16px
-Padding:     32px
-Hover:       border-color → --separator-strong (200ms ease)
-Shadow:      none
+Border: 1px solid rgba(255,255,255,0.06)  (even more subtle than v1)
+Background: --surface-2 (#1C1C1E)
+Radius: 20px (slightly larger than v1's 16px — Apple's current radius)
+Padding: 32px
+Hover: border → rgba(255,255,255,0.12)
 ```
 
-No glass-morphism. No `backdrop-blur`. No box-shadow glows. Depth is achieved through surface color differential and border precision.
+### 6.2 Buttons (Updated)
 
-### 6.2 Buttons
+No changes to button styling from v1.0. One addition:  
 
-**Primary (CTA):**
+**Text link with arrow:**
 ```
-Background:  --accent (#2997FF)
-Text:        #FFFFFF, 15px, weight 500
-Padding:     12px 24px
-Radius:      980px (pill)
-Hover:       background → --accent-hover (200ms)
-```
-
-**Secondary:**
-```
-Background:  --surface-3 (#2C2C2E)
-Text:        --label-1, 15px, weight 500
-Border:      1px solid --separator
-Radius:      980px
-Hover:       border → --separator-strong (200ms)
+Style: no background, no border
+Text: --label-2, 15px, weight 400
+Arrow: " →" appended, --accent colored
+Hover: text → --label-1, arrow translate-x-1
 ```
 
-**Ghost / Text:**
-```
-Background:  transparent
-Text:        --label-2, 15px, weight 400
-Hover:       color → --label-1 (200ms)
-```
+Used for project links, scroll prompts, etc.
 
-No button uses gradient, glow, or shadow. Button text is Title Case — never ALL CAPS.
+### 6.3 Scroll Indicator (NEW)
 
-### 6.3 Tags / Chips
+A subtle animated scroll hint at the bottom of full-screen sections that don't have a CTA:
 
 ```
-Background:  --surface-3
-Text:        --label-3, 12px, weight 500, 0.04em tracking
-Padding:     6px 14px
-Radius:      980px
-Border:      none
-```
-
-Used only when tagging technologies or categories. Never colored. Never interactive unless explicitly a filter.
-
-### 6.4 Navigation
-
-```
-Background:  rgba(0,0,0,0.8) + backdrop-blur(20px)
-Height:      52px (matches macOS menu bar)
-Border-bottom: 1px solid --separator
-Links:       --label-2, 14px, weight 400; hover → --label-1
-Active:      --accent
-CTA ("Resume"): Secondary button style, compressed to 32px height
-```
-
-Sticky. Always visible. Collapses to icon-only hamburger on mobile with full-screen overlay.
-
-### 6.5 Dividers
-
-```
-Default: horizontal rule, 1px, --separator
-Strong:  1px, --separator-strong
-```
-
-Preferred alternative: white space. If section content is clear, don't add a line.
-
-### 6.6 Metric Display (Impact Section)
-
-```
-Number:      56px, weight 200, --metric-positive (#30D158)
-Label below: 14px, weight 400, --label-3
-Max width:   200px per metric unit
-```
-
-The large number is the hero. Everything else defers to it.
-
-### 6.7 Timeline (Experience)
-
-```
-Line:        1px vertical, --separator
-Node dot:    6px circle, --accent, centered on line
-Company:     22px, weight 500, --label-1
-Role:        15px, weight 400, --label-2
-Date:        13px, weight 400, --label-3
-Bullets:     15px body, --label-2, left-aligned
+Element: vertical line (1px, 32px tall) + label "Scroll" in Label style
+Color: --label-4
+Animation: line extends downward (0 → 32px height) on a 1.5s loop
+Position: absolute bottom-12, centered
 ```
 
 ---
 
-## 7. Voice & Tone
+## 7. Voice & Tone (Updated for Personal Portfolio)
 
-This section defines the text language for the portfolio — how copy is written, what it sounds like, and what it never does.
+### 7.1 The Fundamental Shift
 
-### 7.1 Brand Voice
+v1.0 voice was calibrated for a job seeker. v2.0 voice is calibrated for a craftsman presenting their work. The distinction matters in almost every sentence.
 
-The writing voice is **Apple-adjacent editorial**: declarative, minimal, confident, and quiet. It never shouts. It does not explain itself. It states things as facts, then lets the reader draw conclusions.
-
-**Reference benchmark:** Apple's product page headlines. "Titanium. So strong. So light. So Pro." Each word is a sentence. Each sentence is a fact. There is no filler.
-
-### 7.2 Headline Principles
-
-1. **Lead with the noun or the verb — not "I".** "Engineering that scales." not "I build engineering systems."
-2. **One idea.** A headline is exactly one thought. Two ideas → two headlines.
-3. **End with a period.** Standalone statements end with a period, not an ellipsis or exclamation mark.
-4. **Metrics are plaintext, not hyperbole.** "$1B+ GTV." Not "an incredible $1B+ GTV milestone."
-5. **Light weight words carry more impact than dramatic ones.** "Calm" > "incredible". "Fast" > "blazing".
-6. **Avoid gerunds in hero headlines.** "Engineering leadership" > "Leading engineers"
-7. **Short is always better.** If a headline has five words, find the three that matter.
-
-### 7.3 Section Naming Convention
-
-| Section | Current Name | New Name |
-|---|---|---|
-| Hero | (no label) | (no label) |
-| About | About \| Purpose & Proof | About |
-| Highlights | Highlights | Impact |
-| Projects | Top Projects | Work |
-| Skills | Skills | Capabilities |
-| Experience | Experience | Experience |
-| Education | Education | Education |
-| Contact | Contact \| Let's build something remarkable. | Let's talk. |
-
-Section labels use the LABEL style (12px, 500, 0.08em, ALL CAPS). Section headlines use Headline 1.
-
-### 7.4 Rewrite Examples
-
-**Hero headline — Before:**
-> "Ashwin Sathian" + "Engineering leader building scalable SaaS systems powering $1B+ GTV."
-
-**Hero headline — After:**
-> "Engineering.  
-> At scale."
-
-*(Two-line Display, weight 200. Sparse. Powerful.)*
-
----
-
-**About — Before:**
-> "I'm an engineering leader who makes complex SaaS programs feel calm, intentional, and fast."
-
-**About — After:**
-> "Complex systems. Calm delivery."
-
-*(Pull-quote at Headline 1 weight 200. Then a paragraph in Body Large for the full story.)*
-
----
-
-**Contact headline — Before:**
-> "Contact | Let's build something remarkable."
-
-**Contact — After:**
-> "Let's talk."
-
-*(Display weight 200. Nothing else needed before the email address.)*
-
----
-
-**Highlights metric — Before:**
-> "$1B+ GTV safeguarded"
-
-**After:**
-> "$1B+"  
-> "Procurement GTV"
-
-*(Number at 56px --metric-positive. Label at 14px --label-3. Precise. Quiet.)*
-
----
-
-### 7.5 What This Brand Never Says
-
-- "Passionate" — everyone says this; it means nothing here
-- "Leverage" as a verb
-- "Robust" or "cutting-edge"
-- Exclamation marks in headlines or buttons
-- "Click here" or "Learn more" (use specific action words: "Download Resume", "View project")
-- First-person in section headlines
-- Run-on sentences in the hero
-
-### 7.6 Copy Length Guide
-
-| Location | Max Length |
+| v1.0 (Job Seeker) | v2.0 (Craftsman) |
 |---|---|
-| Hero headline | 5 words |
-| Section headline | 6 words |
-| Card title | 8 words |
-| Body paragraph | 3 sentences |
-| Bullet point | 1 sentence |
-| Button label | 3 words |
-| Nav link | 1 word |
+| "Open to engineering leadership roles" | (doesn't exist anywhere on the site) |
+| "Reach out directly" | "Let's talk" |
+| "View Work" | "Explore" |
+| "Download Resume" | "Read the resumé" or just "Resumé" |
+| "I help teams ship faster" | removed — the evidence speaks |
+
+### 7.2 The Voice in Practice
+
+This is a personal portfolio. First-person is earned. But first person is used in body paragraphs, not in section headlines or metrics. The headlines are declarative. The paragraphs are personal.
+
+**Headlines declare:**
+> "The systems I've built handle $1B+ in transactions."  
+> "Calm under load. Precise by design."  
+> "Seven years. One platform. Everything working."
+
+**Paragraphs speak:**
+> "I spent seven years at one company, growing from the person who shipped features to the person who designed the systems that shipped them. That kind of depth is rare in this industry, and I'm proud of it."
+
+### 7.3 Section Headlines (Updated)
+
+| Section | v1.0 | v2.0 |
+|---|---|---|
+| Hero | "Engineering. / At scale." | "Ashwin Sathian." / "Engineer." |
+| Statement | (didn't exist) | "The systems I've built handle $1B+ in transactions." |
+| Impact/Metrics | "By the numbers." | (numbers only — no headline needed) |
+| About | "Complex systems. / Calm delivery." | "Seven years building things that matter." |
+| Work | "Open source." | "Built to last." |
+| Capabilities | "Full-stack. / End to end." | "The stack." |
+| Experience | "The story." | "The career." |
+| Contact | "Let's talk." | "Let's talk." (unchanged — already right) |
+
+### 7.4 What This Site Never Says
+
+Same as v1.0, plus:
+- "Open to" anything (opportunities, roles, work)
+- "Available for" anything  
+- "Hire me" in any form
+- "Let me help you" (pitch language)
+- Anything that positions the reader as a potential employer
+
+The reader is welcome. They are not a buyer.
 
 ---
 
-## 8. Brand Dos and Don'ts
-
-### DO
-
-- Use white space as a design element. Empty space communicates confidence.
-- Let metrics speak for themselves. `$1B+` is more impressive than three sentences about it.
-- Use Inter 200 (ExtraLight) for large headlines. The thinness at scale is the visual signature.
-- Use one accent color (`--accent`) and use it sparingly.
-- Alternate section backgrounds between `--canvas` and `--surface-1` for visual rhythm.
-- Write copy as if every word costs money. Cut everything that doesn't earn its place.
-- Keep the navigation simple: 4 links maximum, one CTA.
-
-### DON'T
-
-- Use more than two typeface weights in any single section.
-- Add shadows to anything except modals (and even then, keep them minimal).
-- Use gradients on interactive elements.
-- Animate anything that is not responding to user input or scroll entrance.
-- Use more than one color accent on any given page.
-- Add helper text to self-evident UI elements.
-- Use PrimeReact's visual style directly — rebuild components to match this system.
-- Use `purple`, `violet`, or any warm-toned accent. The existing purple is gone.
-- Use particles, confetti, or ambient motion effects.
-
----
-
-## 9. Identity Reference
+## 8. Identity
 
 **Name:** Ashwin Sathian  
 **Monogram:** AS  
-**Primary URL:** ashwinsathian.com  
-**Brand color (single-color contexts):** `#F5F5F7` on dark, `#1D1D1F` on light  
+**Self-description:** Engineer. (one word, with period)  
+**Domain:** ashwinsathian.com  
+**Side project:** readable.ashwinsathian.com  
 **Accent:** `#2997FF`  
-**Typeface:** Inter  
-**Tone:** Precise. Quiet. Earned.
+**Typeface:** Inter (weights 100–600)  
+**Tone:** Precise. Personal. Proud of the work.
 
 ---
 
-*This document is the single source of truth for all visual and editorial decisions on ashwinsathian.com. Any deviation requires an explicit reason that references the core principles in §1.*
+*This document is the single source of truth. v2.0 supersedes v1.0 entirely.*

@@ -1,96 +1,63 @@
 "use client";
 
-import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { HERO } from "@/app/data/hero";
-import { SITE } from "@/app/data/site";
-import { fadeIn, stagger } from "@/lib/motion";
+import { fadeInUp } from "@/lib/motion";
 
 export default function Hero() {
-  const scrollTo = useCallback((href: string) => {
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
-
   return (
     <section
       id="hero"
-      aria-labelledby="hero-heading"
-      className="relative flex min-h-svh flex-col justify-center bg-canvas px-6 pt-13 md:px-8"
+      aria-labelledby="hero-name"
+      className="relative flex min-h-svh flex-col justify-between bg-canvas px-6 pt-13 pb-16 md:px-16 md:pb-20"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 70%, rgba(41,151,255,0.04), transparent)",
-        }}
-      />
-
-      <div className="relative mx-auto w-full max-w-5xl py-24 md:py-32">
+      {/* Name + title — anchored to the bottom-left of the hero */}
+      <div className="flex flex-1 flex-col justify-end">
         <motion.div
-          variants={stagger}
           initial="hidden"
           animate="show"
-          className="flex flex-col gap-8"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.2, delayChildren: 0.1 } },
+          }}
+          className="flex flex-col gap-3"
         >
-          <motion.p
-            variants={fadeIn}
-            className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
-          >
-            {HERO.eyebrow}
-          </motion.p>
-
           <motion.h1
-            id="hero-heading"
-            variants={fadeIn}
-            className="text-[clamp(40px,8vw,80px)] font-extralight leading-[1.05] tracking-[-0.04em] text-label-1"
+            id="hero-name"
+            variants={fadeInUp}
+            className="text-[clamp(52px,9vw,100px)] font-thin leading-none tracking-[-0.045em] text-label-1"
           >
-            {HERO.headline.map((line, i) => (
-              <span key={i} className="block">
-                {line}
-              </span>
-            ))}
+            {HERO.name}
           </motion.h1>
-
-          <motion.p variants={fadeIn} className="text-[17px] text-label-3">
-            {HERO.identity}
-          </motion.p>
-
-          <motion.hr
-            variants={fadeIn}
-            className="w-120 max-w-full border-0 border-t border-white/8"
-          />
-
           <motion.p
-            variants={fadeIn}
-            className="text-[17px] font-medium text-label-2"
+            variants={fadeInUp}
+            className="text-[clamp(22px,3vw,32px)] font-light leading-none tracking-[-0.02em] text-label-3"
           >
-            {HERO.metricsLine}
+            {HERO.title}
           </motion.p>
-
-          <motion.div
-            variants={fadeIn}
-            className="flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <button
-              onClick={() => scrollTo(HERO.primaryCta.href)}
-              className="inline-flex h-11 items-center justify-center rounded-full bg-accent px-6 text-[15px] font-medium text-white transition-colors duration-200 hover:bg-accent-hover sm:w-auto"
-            >
-              {HERO.primaryCta.label}
-            </button>
-            <a
-              href={HERO.secondaryCta.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-11 items-center justify-center rounded-full border border-white/15 px-6 text-[15px] font-medium text-label-2 transition-colors duration-200 hover:border-white/25 hover:text-label-1 sm:w-auto"
-            >
-              {HERO.secondaryCta.label}
-            </a>
-          </motion.div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+        className="flex flex-col items-center gap-3 self-center"
+        aria-hidden
+      >
+        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-label-4">
+          Scroll
+        </span>
+        <div className="relative h-8 w-px overflow-hidden bg-label-4/30">
+          <motion.span
+            className="absolute inset-x-0 top-0 bg-label-3"
+            animate={{ y: ["-100%", "200%"] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+            style={{ height: "50%" }}
+          />
+        </div>
+      </motion.div>
     </section>
   );
 }

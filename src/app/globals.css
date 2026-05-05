@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* Surfaces */
+  /* Dark surfaces */
   --color-canvas: #000000;
   --color-surface-1: #111111;
   --color-surface-2: #1c1c1e;
   --color-surface-3: #2c2c2e;
   --color-surface-4: #3a3a3c;
 
-  /* Labels */
+  /* Light section (About only) */
+  --color-light-bg: #fbfbfd;
+  --color-light-1: #1d1d1f;
+  --color-light-2: #515154;
+  --color-light-3: #86868b;
+
+  /* Dark labels */
   --color-label-1: #f5f5f7;
   --color-label-2: #a1a1a6;
   --color-label-3: #6e6e73;
@@ -17,14 +23,10 @@
   /* Accent */
   --color-accent: #2997ff;
   --color-accent-hover: #147ce5;
-  --color-accent-muted: rgba(41, 151, 255, 0.12);
-
-  /* Metric */
-  --color-metric: #30d158;
 
   /* Shadows */
-  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.15);
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.12);
   --shadow-modal: 0 24px 80px rgba(0, 0, 0, 0.8);
 }
 
@@ -51,14 +53,10 @@ body {
   overflow-x: hidden;
 }
 
-a,
-button {
-  outline-offset: 4px;
-}
-
 a:focus-visible,
 button:focus-visible {
   outline: 2px solid #2997ff;
+  outline-offset: 4px;
   border-radius: 4px;
 }
 

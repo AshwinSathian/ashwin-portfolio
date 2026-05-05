@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { PLATFORM } from "@/app/data/work";
 import { ProjectCard, type ProjectCardProps } from "@/components/ProjectCard";
-import { fadeIn, stagger } from "@/lib/motion";
+import { fadeInUp, stagger } from "@/lib/motion";
 
 export type WorkProps = {
   projects: ProjectCardProps[];
@@ -13,53 +14,79 @@ export default function Work({ projects }: WorkProps) {
     <section
       id="projects"
       aria-labelledby="work-heading"
-      className="bg-surface-1 px-6 py-24 md:px-8 md:py-32"
+      className="bg-surface-1 px-6 py-24 md:px-16 md:py-32"
     >
       <div className="mx-auto max-w-5xl">
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.15 }}
-          className="flex flex-col gap-12"
+          viewport={{ once: true, amount: 0.1 }}
+          className="flex flex-col gap-20"
         >
+          {/* Section header */}
           <div className="flex flex-col gap-4">
             <motion.p
-              variants={fadeIn}
+              variants={fadeInUp}
               className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
             >
               Work
             </motion.p>
             <motion.h2
               id="work-heading"
-              variants={fadeIn}
-              className="text-[clamp(32px,5vw,56px)] font-extralight leading-[1.1] tracking-[-0.03em] text-label-1"
+              variants={fadeInUp}
+              className="text-[clamp(36px,5.5vw,64px)] font-thin leading-none tracking-[-0.035em] text-label-1"
             >
-              Open source.
+              Built to last.
             </motion.h2>
           </div>
 
-          {projects.length > 0 ? (
-            <motion.div
-              variants={stagger}
-              className="flex flex-col gap-4"
-            >
-              {projects.map((project) => (
-                <motion.div
-                  key={`${project.owner}/${project.repo}`}
-                  variants={fadeIn}
+          {/* Professional platform card */}
+          <motion.div
+            variants={fadeInUp}
+            className="flex flex-col gap-6 rounded-2xl border border-white/6 bg-surface-2 p-8 md:p-10"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.08em] text-label-3">
+              {PLATFORM.company}
+            </p>
+            <h3 className="text-[clamp(22px,3vw,32px)] font-extralight leading-snug tracking-[-0.02em] text-label-1">
+              {PLATFORM.title}
+            </h3>
+            <p className="max-w-2xl text-[17px] leading-[1.7] text-label-2">
+              {PLATFORM.description}
+            </p>
+            <div className="flex flex-wrap gap-3 pt-2">
+              {PLATFORM.stats.map((stat) => (
+                <span
+                  key={stat}
+                  className="rounded-full border border-white/6 px-4 py-1.5 text-[13px] text-label-3"
                 >
-                  <ProjectCard {...project} />
-                </motion.div>
+                  {stat}
+                </span>
               ))}
-            </motion.div>
-          ) : (
-            <motion.p
-              variants={fadeIn}
-              className="text-[15px] text-label-3"
-            >
-              Projects loading…
-            </motion.p>
+            </div>
+          </motion.div>
+
+          {/* Open source */}
+          {projects.length > 0 && (
+            <div className="flex flex-col gap-6">
+              <motion.p
+                variants={fadeInUp}
+                className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
+              >
+                Open source
+              </motion.p>
+              <motion.div variants={stagger} className="flex flex-col gap-4">
+                {projects.map((project) => (
+                  <motion.div
+                    key={`${project.owner}/${project.repo}`}
+                    variants={fadeInUp}
+                  >
+                    <ProjectCard {...project} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           )}
         </motion.div>
       </div>

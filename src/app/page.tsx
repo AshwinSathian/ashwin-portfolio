@@ -6,6 +6,7 @@ import Experience from "@/components/Experience";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Impact from "@/components/Impact";
+import Manifesto from "@/components/Manifesto";
 import Work from "@/components/Work";
 import { getTopProjects } from "@/app/(helpers)/projects";
 
@@ -17,8 +18,9 @@ export default async function Page() {
   return (
     <>
       <Hero />
-      <About />
+      <Manifesto />
       <Impact />
+      <About />
       <Work projects={topProjects} />
       <Capabilities />
       <Experience />

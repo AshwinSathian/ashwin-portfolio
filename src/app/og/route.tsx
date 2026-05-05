@@ -11,7 +11,7 @@ export async function GET() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-end",
           padding: "80px",
           backgroundColor: "#000000",
           color: "#F5F5F7",
@@ -20,45 +20,40 @@ export async function GET() {
       >
         <div
           style={{
-            fontSize: 13,
+            fontSize: 12,
             fontWeight: 500,
-            letterSpacing: "0.08em",
+            letterSpacing: "0.1em",
             textTransform: "uppercase",
             color: "#6E6E73",
+            marginBottom: 28,
           }}
         >
-          Engineering Leader
+          Engineer
         </div>
         <div
           style={{
-            marginTop: 32,
-            fontSize: 88,
-            fontWeight: 200,
-            lineHeight: 1.05,
-            letterSpacing: "-0.04em",
+            fontSize: 96,
+            fontWeight: 100,
+            lineHeight: 1.0,
+            letterSpacing: "-0.045em",
             color: "#F5F5F7",
           }}
         >
-          Engineering.
-          <br />
-          At scale.
+          Ashwin Sathian.
         </div>
         <div
           style={{
-            marginTop: 40,
-            fontSize: 22,
-            fontWeight: 400,
-            color: "#A1A1A6",
+            marginTop: 48,
+            fontSize: 18,
+            fontWeight: 300,
+            color: "#6E6E73",
             letterSpacing: "-0.01em",
           }}
         >
-          Ashwin Sathian · $1B+ GTV · 12 engineers · &lt;200ms
+          ashwinsathian.com
         </div>
       </div>
     ),
-    {
-      width: 1200,
-      height: 630,
-    }
+    { width: 1200, height: 630 }
   );
 }

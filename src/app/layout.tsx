@@ -6,7 +6,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["200", "300", "400", "500", "600"],
+  weight: ["100", "200", "300", "400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 });

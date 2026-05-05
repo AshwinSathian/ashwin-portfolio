@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { SITE } from "@/app/data/site";
 
 const NAV_LINKS = [
-  { label: "Work", href: "#experience" },
-  { label: "Impact", href: "#impact" },
+  { label: "Work", href: "#projects" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
@@ -14,18 +12,23 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const sectionIds = NAV_LINKS.map((l) => l.href.replace("#", ""));
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const ids = ["projects", "about", "experience", "contact"];
     const observers: IntersectionObserver[] = [];
 
-    sectionIds.forEach((id) => {
+    ids.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
         { threshold: 0.3 }
       );
       obs.observe(el);
@@ -37,47 +40,42 @@ export default function Navbar() {
 
   const scrollTo = (href: string) => {
     setMenuOpen(false);
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
+    const el = document.getElementById(href.replace("#", ""));
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 z-50 h-[52px]"
+        className="fixed inset-x-0 top-0 z-50 h-13 transition-colors duration-300"
         style={{
-          background: "rgba(0,0,0,0.80)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          background: scrolled ? "rgba(0,0,0,0.85)" : "rgba(0,0,0,0)",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
         }}
       >
-        <div className="mx-auto flex h-full max-w-[1080px] items-center justify-between px-6 md:px-8">
-          {/* Monogram */}
+        <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-6 md:px-16">
           <button
             onClick={() => scrollTo("#hero")}
-            className="text-[17px] font-semibold text-label-1 hover:text-label-2 transition-colors duration-200"
-            aria-label="Scroll to top"
+            className="text-[15px] font-medium text-label-2 transition-colors duration-200 hover:text-label-1"
+            aria-label="Back to top"
           >
             AS
           </button>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-            {NAV_LINKS.map((link) => {
-              const id = link.href.replace("#", "");
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+            {NAV_LINKS.map(({ label, href }) => {
+              const id = href.replace("#", "");
               return (
                 <button
-                  key={link.href}
-                  onClick={() => scrollTo(link.href)}
+                  key={href}
+                  onClick={() => scrollTo(href)}
                   className={`text-[14px] transition-colors duration-200 ${
-                    activeSection === id
-                      ? "text-accent"
-                      : "text-label-2 hover:text-label-1"
+                    activeSection === id ? "text-accent" : "text-label-3 hover:text-label-1"
                   }`}
                 >
-                  {link.label}
+                  {label}
                 </button>
               );
             })}
@@ -85,61 +83,48 @@ export default function Navbar() {
               href={SITE.resumePath}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[14px] font-medium text-label-2 hover:text-label-1 transition-colors duration-200 px-4 py-1.5 rounded-full border border-white/[0.15] hover:border-white/[0.25]"
+              className="rounded-full border border-white/15 px-4 py-1.5 text-[13px] text-label-3 transition-colors duration-200 hover:border-white/25 hover:text-label-1"
             >
-              Resume
+              Résumé
             </a>
           </nav>
 
-          {/* Mobile hamburger */}
           <button
-            className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px]"
+            className="flex h-8 w-8 flex-col items-center justify-center gap-1.25 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
           >
-            <span
-              className={`block h-px w-5 bg-label-2 transition-all duration-200 ${
-                menuOpen ? "translate-y-[6px] rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`block h-px w-5 bg-label-2 transition-all duration-200 ${
-                menuOpen ? "opacity-0" : ""
-              }`}
-            />
-            <span
-              className={`block h-px w-5 bg-label-2 transition-all duration-200 ${
-                menuOpen ? "-translate-y-[6px] -rotate-45" : ""
-              }`}
-            />
+            <span className={`block h-px w-5 bg-label-2 transition-all duration-200 ${menuOpen ? "translate-y-1.5 rotate-45" : ""}`} />
+            <span className={`block h-px w-5 bg-label-2 transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-px w-5 bg-label-2 transition-all duration-200 ${menuOpen ? "-translate-y-1.5 -rotate-45" : ""}`} />
           </button>
         </div>
       </header>
 
-      {/* Mobile menu overlay */}
+      {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-canvas flex flex-col justify-center items-center gap-10 transition-opacity duration-300 md:hidden ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-10 bg-canvas transition-opacity duration-300 md:hidden ${
+          menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        {NAV_LINKS.map((link) => (
+        {NAV_LINKS.map(({ label, href }) => (
           <button
-            key={link.href}
-            onClick={() => scrollTo(link.href)}
-            className="text-[32px] font-extralight text-label-1 hover:text-accent transition-colors duration-200"
+            key={href}
+            onClick={() => scrollTo(href)}
+            className="text-[36px] font-thin tracking-[-0.02em] text-label-1 transition-colors duration-200 hover:text-accent"
           >
-            {link.label}
+            {label}
           </button>
         ))}
         <a
           href={SITE.resumePath}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[17px] font-medium text-label-2 mt-4"
+          className="mt-4 text-[15px] text-label-3"
           onClick={() => setMenuOpen(false)}
         >
-          Resume ↓
+          Résumé ↓
         </a>
       </div>
     </>

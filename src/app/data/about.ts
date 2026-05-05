@@ -1,8 +1,7 @@
 export const ABOUT = {
-  pullQuote:
-    "7 years building SaaS at scale. $1B+ GTV. 12 engineers. The through-line: calm architecture and clear ownership.",
+  headline: "Seven years building things that matter.",
   paragraphs: [
-    "Engineering leadership that makes complex SaaS feel predictable. I work across architecture, delivery, and team design — keeping product, engineering, and operations aligned without the usual friction.",
-    "Seven years building Angular, Next.js, and NestJS platforms that handle millions of procurement records. Clean module boundaries, multi-tenant guardrails, and CI/CD pipelines that make releases boring — in the best way.",
+    "I spent seven years at one company — growing from the engineer who shipped features to the one who designed the systems that shipped them. That depth is rare in this industry. I'm proud of it.",
+    "My work lives at the intersection of architecture and execution. I care about the systems underneath the product as much as the product itself: clean boundaries, honest tradeoffs, and teams that understand why — not just what.",
   ],
 } as const;

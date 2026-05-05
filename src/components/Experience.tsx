@@ -2,77 +2,69 @@
 
 import { motion } from "framer-motion";
 import { RECENT_EXPERIENCE } from "@/app/data/experience";
-import { fadeIn, stagger } from "@/lib/motion";
+import { fadeInUp, stagger } from "@/lib/motion";
 
 export default function Experience() {
   return (
     <section
       id="experience"
       aria-labelledby="experience-heading"
-      className="bg-surface-1 px-6 py-24 md:px-8 md:py-32"
+      className="bg-surface-1 px-6 py-24 md:px-16 md:py-32"
     >
       <div className="mx-auto max-w-5xl">
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.1 }}
-          className="flex flex-col gap-12"
+          viewport={{ once: true, amount: 0.05 }}
+          className="flex flex-col gap-16"
         >
           <div className="flex flex-col gap-4">
             <motion.p
-              variants={fadeIn}
+              variants={fadeInUp}
               className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
             >
               Experience
             </motion.p>
             <motion.h2
               id="experience-heading"
-              variants={fadeIn}
-              className="text-[clamp(32px,5vw,56px)] font-extralight leading-[1.1] tracking-[-0.03em] text-label-1"
+              variants={fadeInUp}
+              className="text-[clamp(36px,5.5vw,64px)] font-thin leading-none tracking-[-0.035em] text-label-1"
             >
-              The story.
+              The career.
             </motion.h2>
           </div>
 
-          {/* Timeline */}
-          <div className="relative flex flex-col gap-0">
+          <div className="flex flex-col">
             {RECENT_EXPERIENCE.map((item, index) => (
               <motion.div
                 key={`${item.company}-${item.role}`}
-                variants={fadeIn}
+                variants={fadeInUp}
                 initial="hidden"
                 whileInView="show"
                 viewport={{ once: true, amount: 0.1 }}
-                className="relative flex gap-8 pb-12 last:pb-0"
+                className="grid gap-6 border-t border-white/8 py-10 first:border-t-0 first:pt-0 md:grid-cols-[200px_1fr]"
               >
-                {/* Timeline line + dot */}
-                <div className="relative flex flex-col items-center pt-1">
-                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-accent" />
-                  {index < RECENT_EXPERIENCE.length - 1 && (
-                    <span className="mt-2 w-px grow bg-white/8" />
-                  )}
+                {/* Left: dates + company */}
+                <div className="flex flex-col gap-1">
+                  <p className="text-[13px] text-label-3">{item.dates}</p>
+                  <p className="text-[15px] font-medium text-label-2">
+                    {item.company}
+                  </p>
                 </div>
 
-                {/* Content */}
-                <div className="flex flex-1 flex-col gap-4 pb-2">
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                    <h3 className="text-[17px] font-medium text-label-1">
-                      {item.company}
-                    </h3>
-                    <span className="text-[13px] text-label-3">{item.dates}</span>
-                  </div>
-                  <p className="text-[15px] text-label-2">{item.role}</p>
-                  <p className="text-[13px] font-medium text-metric">
-                    {item.metric}
+                {/* Right: role + bullets */}
+                <div className="flex flex-col gap-5">
+                  <p className="text-[17px] font-medium tracking-[-0.01em] text-label-1">
+                    {item.role}
                   </p>
-                  <ul className="flex flex-col gap-2">
+                  <ul className="flex flex-col gap-3">
                     {item.bullets.map((bullet) => (
                       <li
                         key={bullet}
-                        className="flex gap-3 text-[15px] leading-[1.6] text-label-2"
+                        className="flex gap-4 text-[15px] leading-[1.65] text-label-2"
                       >
-                        <span className="mt-2 h-px w-4 shrink-0 bg-label-4" />
+                        <span className="mt-2.75 h-px w-4 shrink-0 bg-label-4" />
                         <span>{bullet}</span>
                       </li>
                     ))}

@@ -1,122 +1,128 @@
 ---
-title: "The Quiet Rise of Markdown — From README Files to the Language of AI"
+title: "Wait, Is Markdown Having a Moment?"
 date: "2026-05-06"
-description: "How a 2004 blogging tool became the default language of artificial intelligence — and why hundreds of millions of people are reading it every day without knowing it has a name."
+description: "A format invented by a blogger in 2004 to avoid wrestling with HTML has quietly become the default language of artificial intelligence. Most people using it every day have never heard its name."
 tags: ["technology", "AI", "writing"]
 ---
-
-# The Quiet Rise of Markdown — From README Files to the Language of AI
 
 There's a good chance you've never heard of Markdown.
 
 And there's an equally good chance you've been reading it every single day for the past couple of years. Without knowing it has a name.
 
-That's the strange thing about where we are right now. A syntax invented in 2004 by a blogger — literally created to make it easier to write for the internet — has quietly become the default language of artificial intelligence. It happened gradually, then all at once. And most people who use it daily would have no idea what you're talking about if you called it "Markdown."
+That, to me, is the fascinating part of where we are right now. A format invented in 2004 by a blogger — literally built so a guy could write for the internet without wrestling with HTML — has quietly become the default language of artificial intelligence. Most of the people who encounter it daily would have no idea what you're talking about if you called it "Markdown."
 
-Let me explain how we got here.
+So. How did we get here?
 
 ---
 
-## It Started With a Blogger and a Very Specific Problem
+## A Blogger, a Very Specific Annoyance, and a Brilliant Shorthand
 
-John Gruber created Markdown in 2004. He was a writer. He wanted to write for the web without wrestling with HTML — all those angle brackets and closing tags and ampersand codes. The goal, as he put it, was simple: a document should be readable as-is, as plain text, without looking like it was stuffed with formatting instructions.
+John Gruber created Markdown in 2004. He was a writer. He wanted to write for the web without the overhead of HTML — all those angle brackets, closing tags, and ampersand codes for a simple apostrophe. Nightmarish stuff.
 
-So he and Aaron Swartz came up with a shorthand. A hash symbol before a line makes it a heading. Wrap a word in asterisks and it's bold. A hyphen at the start of a line becomes a bullet point. Readable as plain text, renders beautifully as HTML.
+So he and Aaron Swartz came up with a shorthand. A hash symbol before a line makes it a heading. Wrap a word in asterisks and it's bold. A hyphen at the start of a line becomes a bullet point. The goal, as Gruber put it, was that the document should look fine even as raw plain text — before it's rendered into anything. No formatting instructions bleeding through. Just clean, readable writing.
 
 It worked. And for a while, it stayed in its lane.
 
-Bloggers used it. Then technical writers found it. Then it spread into developer tools — and that's really where it took root. GitHub launched in 2008 and made Markdown the default for READMEs, issues, pull requests, comments. Suddenly, millions of engineers were writing Markdown every day as part of their workflow. Not because they chose it, exactly. Just because that's how things worked on GitHub.
+Bloggers used it. Then technical writers found it. Then GitHub happened.
 
-Stack Overflow adopted a Markdown-flavoured input format. Reddit's post syntax was derived from it. Documentation platforms built on it. The format had quietly become the grammar of technical writing — but it was still largely invisible to anyone who didn't work in software.
+GitHub launched in 2008 and quietly made Markdown the default for READMEs, issues, pull requests, comments. Overnight — well, over a few years — millions of engineers started writing Markdown daily as a part of normal work. Not because they made some deliberate choice. Just because that's how things worked on GitHub.
 
-Ask a non-engineer in 2022 what Markdown was and you'd mostly get blank stares. Fair enough.
+Stack Overflow adopted a Markdown-flavoured input. Reddit's post syntax was derived from it. Technical documentation platforms built entire ecosystems on it. The format had become the grammar of engineering writing.
+
+But here's the thing. It was still almost entirely invisible to anyone outside software. Ask a non-engineer what Markdown was in 2022 and you'd get a very polite blank stare. Fair enough, honestly.
 
 ---
 
-## Then LLMs Arrived and Everything Changed
+## And Then ChatGPT Showed Up (You Knew This Was Coming)
 
-ChatGPT launched publicly in November 2022. By early 2023 it had a hundred million users. And here's the thing nobody talks about much — it talks in Markdown.
+ChatGPT launched publicly in November 2022. A hundred million users in two months. Wild number.
 
-Ask ChatGPT to explain something complex. You get headers, bullet points, bold text, code blocks. Organised, hierarchical, formatted. Claude does the same. Gemini too. It's not a coincidence, and it's not just a stylistic choice someone made in a product meeting.
+And here's the thing nobody really talks about — it talks in Markdown.
+
+Ask it anything remotely complex and the response comes back with headers, bullet points, bold text, code blocks. Structured, hierarchical, formatted. Claude does the same. Gemini too. It's not a coincidence, and it's not just some design decision a product manager made.
 
 The models learned to do this. From the ground up.
 
-Think about what these models trained on. GitHub has billions of Markdown files. Stack Overflow's answers are Markdown-flavoured. Reddit's posts. Technical documentation across the entire internet. When GPT-4 or Claude trained on the web, they weren't just absorbing language — they were absorbing the idea that structured, well-organised responses look a specific way. And that way was Markdown.
+Think about what these models trained on. GitHub has billions of `.md` files. Stack Overflow's answers are Markdown-flavoured. Reddit. Technical documentation across the entire web. When these models ingested the internet, they weren't just absorbing language — they were absorbing the idea that a well-organised, thorough response looks a specific way. And that way, overwhelmingly, was Markdown.
 
-Then comes the fine-tuning phase. This is where human raters sit with model responses and score them. And here's something that makes intuitive sense in hindsight — formatted responses consistently scored higher. A bullet-pointed explanation reads better than a wall of text. A response with a clear heading feels more thorough. Raters kept rewarding structure. Models kept learning to produce it.
+Then came fine-tuning. This is the phase where human raters sit with model responses and score them. And here's something that makes complete sense in hindsight — formatted responses consistently scored higher. A bulleted explanation reads better than a wall of text. A response with a clear heading feels more thorough, more useful. Raters kept rewarding structure. Models kept learning to produce more of it.
 
-That feedback loop ran for months. The result is baked deep into how these models respond.
+That feedback loop ran for months. And now it's baked deep into how these systems respond.
 
-There's even a funny footnote to this. Researchers noticed that LLMs have a statistically unusual fondness for em dashes in their prose — more than you'd expect from normal English writing. The theory is that em dashes appear disproportionately in the kind of structured, careful writing that Markdown-heavy content tends to attract. The model's structural instincts, absorbed from all that formatted training data, leak into its punctuation. Markdown influencing prose style. That's how deep this goes.
+Here's a small, slightly nerdy footnote I love. Researchers noticed that LLMs have a weirdly high fondness for em dashes in their prose — more than you'd expect from regular English writing. The theory is that em dashes appear disproportionately in the kind of careful, structured writing that Markdown-heavy content tends to attract. So the model's structural instincts, absorbed from all that formatted training data, leak into its punctuation. Markdown influencing prose style, at a level the model itself has no awareness of.
+
+That's how deep this goes.
 
 ---
 
-## Hundreds of Millions of People Are Now Reading Markdown
+## Okay, But What Does That Actually Mean for Regular People?
 
-Here's the part that genuinely fascinates me.
+Here's the part that genuinely stops me.
 
-The people reading ChatGPT responses every day — the vast majority of them are not engineers. They're students, writers, small business owners, curious people who want to know things. They don't know what a fenced code block is. They've never heard of GitHub Flavoured Markdown. They couldn't tell you the difference between a CommonMark renderer and a GFM parser.
+The people reading ChatGPT or Claude responses every day — most of them are not engineers. They're students, writers, small business owners, curious people who want answers. They don't know what a fenced code block is. They've never heard of GitHub Flavoured Markdown. They couldn't tell you what a CommonMark renderer does if you offered them money.
 
 But they recognise the structure. The headers feel natural. The bullet points feel right. The formatting feels like it belongs there.
 
-A syntax that engineers treated as their own private shorthand for 20 years is now just how AI communicates. Hundreds of millions of people read it every day. And it's spreading further.
+A syntax that engineers treated as their private professional shorthand for two decades is now just how AI talks to the world. Hundreds of millions of people read it every day. Most of them have never heard its name.
 
-Cloudflare — the company that handles traffic for a significant chunk of the internet — launched a feature in February 2026 called "Markdown for Agents." What it does is interesting. When an AI system comes crawling to a website, Cloudflare automatically converts the HTML page into clean Markdown before serving it. Their reasoning was explicit: a typical blog post in HTML might be 16,000 tokens. The same post in Markdown — stripped of navigation bars, scripts, stylesheets, all the structural noise — comes in around 3,000 tokens.
+And it's not just at the consumer level either.
 
-That's not just an efficiency improvement. That's infrastructure-level acknowledgment that Markdown has become the preferred format for machine-readable content.
+Cloudflare — the company that sits between a huge chunk of the internet and the people accessing it — launched a feature in February 2026 called "Markdown for Agents." What it does is tell you a lot. When an AI system comes crawling to a website, Cloudflare automatically converts the HTML page into clean Markdown before serving it. Their reasoning was explicit: a typical blog post in HTML might clock in at 16,000 tokens. The same post in Markdown — stripped of navigation bars, scripts, stylesheets, all the noise that means nothing to a machine — comes in around 3,000 tokens.
 
-This is a format built for human readability becoming the preferred format for AI readability as well. That's unusual. Most things optimised for machines aren't great for humans. Markdown threads that needle in both directions.
-
----
-
-## What This Means for How We Think About Formatting
-
-There's a sustainability angle here that doesn't get talked about enough.
-
-Every token an LLM processes costs compute. Compute costs energy. At the scale these models operate — billions of queries a day — the overhead of parsing bloated, noisy formats is not trivial. A 20 to 30 percent reduction in token count from Markdown versus raw HTML, across billions of requests, adds up.
-
-We don't have direct peer-reviewed research linking Markdown adoption to measurable energy savings in LLM inference. To be honest. But the logic is sound, the token efficiency data is well-documented, and it's a reasonable inference that deserves more attention than it currently gets.
-
-A format that's easier to read, easier to write, and cheaper to process. That's a rare combination.
+That is infrastructure-level acknowledgment that Markdown has become the preferred format for machine-readable content. Cloudflare didn't build that feature for fun. They built it because it matters.
 
 ---
 
-## The Tools Are Following
+## Wait, Is This Actually a Sustainability Thing Too?
 
-The cultural shift is happening away from AI too, even if more slowly.
+Bit of a tangent, bear with me.
 
-Obsidian — a note-taking app built entirely on plain Markdown files stored locally on your device — has over 1.5 million active monthly users as of 2025. Growing at 22 percent year-on-year. With no venture capital. The people using it aren't all developers. Writers, researchers, students, academics — people who want their notes to be portable, permanent, and owned by them rather than locked in some company's proprietary format.
+Every token an LLM processes costs compute. Compute costs energy. At the scale these models operate — billions of queries every day — the overhead of parsing bloated, noisy formats is not a trivial thing. Research comparing different formats has found Markdown to be meaningfully more token-efficient than alternatives. A lot more efficient than XML. A lot more efficient than raw HTML. Even JSON comes in heavier.
 
-Notion, which operates on Markdown-adjacent principles, serves over 100 million users.
+Now, I'll be honest — there isn't peer-reviewed research that directly connects Markdown adoption to measurable energy savings in LLM inference specifically. Not yet, anyway. But the logic holds together. Fewer tokens processed at massive scale means less compute, which means less energy. It's an inference, not a proven fact, and I'd rather tell you that than pretend otherwise.
 
-These tools didn't grow because people went looking for Markdown specifically. They grew because Markdown turns out to be an elegant way to create well-formatted documents without the bloat of traditional word processors. Once you get comfortable with the basics — and the basics really are basic — it clicks. The syntax disappears. You're just writing.
-
-AI has accelerated this. People who interact with ChatGPT and Claude long enough start to absorb the formatting instinctively. The headers, the bullets, the hierarchy. Some of them start using it in their own writing. Not because they know it's Markdown. Just because it works.
+But it's a reasonable inference. And it deserves more attention than it currently gets.
 
 ---
 
-## Where This Goes
+## So Are Regular People Actually Picking Up Markdown? (Sort of, Yeah)
 
-It's hard to predict with confidence. But a few things seem likely.
+The cultural shift is happening away from AI as well, even if more quietly.
 
-Markdown literacy is going to keep spreading, mostly through osmosis. Not through tutorials or deliberate learning — just through daily exposure to AI-generated content. The conventions will feel more and more natural to more and more people.
+Obsidian — a note-taking app built entirely on plain Markdown files, stored locally on your device, owned by you — has over 1.5 million active monthly users as of 2025. Growing at 22 percent year on year. No venture capital. The people using it aren't all developers by a long stretch. Writers, researchers, students, academics — people who want their notes to be portable, permanent, and not locked inside some company's proprietary format that might disappear in three years.
 
-The tooling is going to follow that. Applications that render Markdown cleanly, that make it easy to write and share formatted documents without friction, are going to find growing audiences outside the traditional developer space. The gap between "technical format" and "everyday writing tool" will narrow.
+Notion, which operates on Markdown-adjacent principles, serves over a hundred million users.
 
-And the AI side of this will get more explicit. The `llms.txt` standard — a proposal for websites to provide a Markdown-formatted file specifically for AI consumption — is a sign of where content infrastructure is heading. Sites that want to be legible to AI will think about Markdown the way they currently think about SEO. It'll become part of how you publish.
+These tools didn't grow because people went searching for Markdown specifically. They grew because Markdown turns out to be an elegant way to create well-formatted documents without the bloat and friction of traditional word processors. Once you get the basics down — and really, the basics are not hard — the syntax disappears. You're just writing.
+
+AI is accelerating this in a quiet way. People who interact with ChatGPT and Claude long enough start absorbing the formatting instinctively. The headers, the bullets, the hierarchy. Some of them start using it in their own writing. Not because they know it's Markdown. Just because it works.
 
 ---
 
-## The Strange Thing Is That Nobody Planned This
+## Where Does This Actually Go From Here?
 
-There was no committee that decided Markdown would become the lingua franca of AI. No standards body. No product roadmap at any major company that said "let's make this the default output format of large language models."
+Genuinely hard to say with confidence. But a few things seem likely enough to put on record.
 
-It just happened. Because a format created for human readability turned out, by a kind of elegant accident, to be exactly what machine intelligence needed too. The same properties that made Markdown appealing to a blogger in 2004 — clean structure, minimal noise, human-readable even as plain text — make it ideal for training data, for model output, for AI-readable content.
+Markdown literacy is going to keep spreading, mostly through osmosis. Not through tutorials or anyone deliberately learning it — just through daily exposure to AI-generated content that's formatted this way. The conventions will feel more natural to more people over time.
 
-John Gruber built a better way to write for the internet. And twenty years later, the internet's AI layer adopted it as its native tongue.
+Tooling will follow. Applications that render Markdown cleanly and make it easy to write and share well-formatted documents without friction are going to find growing audiences well outside the traditional developer space. The gap between "technical format" and "everyday writing tool" is going to narrow.
 
-That's a strange and genuinely interesting moment in the history of how we communicate. And we're right in the middle of it.
+And on the AI infrastructure side — there's a proposal called `llms.txt`, essentially a standard where websites provide a Markdown-formatted file specifically for AI consumption. Think of it like `robots.txt`, but for feeding content to language models cleanly. Sites that want to be legible to AI are going to think about Markdown the way they currently think about SEO. It's going to become part of how you publish for the web.
 
-Most of us just don't know what to call the thing we're living through.
+---
+
+## Here's the Thing That Gets Me, Though
+
+Nobody planned this.
+
+There was no committee. No standards body that sat down and decided Markdown would become the lingua franca of AI. No roadmap at any major tech company that said "let's make this the default output format of large language models."
+
+It just happened. Because a format created for human readability turned out, by a kind of elegant accident, to be exactly what machine intelligence needed as well. The same properties that made Markdown appealing to a blogger in 2004 — clean structure, minimal noise, readable even as plain text — make it ideal for training data, for model output, for AI-readable content.
+
+John Gruber built a better way to write for the internet. Twenty years later, the AI layer of that internet adopted it as its native tongue.
+
+That's a strange and genuinely interesting thing to sit with. We're right in the middle of a quiet shift in how structured information moves around — and most people experiencing it have no idea what the thing doing the shifting is even called.
 
 It's called Markdown.
+
+And it might just be having its moment.

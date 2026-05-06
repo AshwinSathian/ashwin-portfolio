@@ -1,15 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { SITE } from "@/app/data/site";
 
-const NAV_LINKS = [
+const SCROLL_LINKS = [
   { label: "Work", href: "#projects" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isWritingRoute = pathname?.startsWith("/writing");
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
@@ -65,7 +69,7 @@ export default function Navbar() {
           </button>
 
           <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
-            {NAV_LINKS.map(({ label, href }) => {
+            {!isWritingRoute && SCROLL_LINKS.map(({ label, href }) => {
               const id = href.replace("#", "");
               return (
                 <button
@@ -79,6 +83,22 @@ export default function Navbar() {
                 </button>
               );
             })}
+            {isWritingRoute && (
+              <Link
+                href="/"
+                className="text-[14px] text-label-3 transition-colors duration-200 hover:text-label-1"
+              >
+                Home
+              </Link>
+            )}
+            <Link
+              href="/writing"
+              className={`text-[14px] transition-colors duration-200 ${
+                isWritingRoute ? "text-accent" : "text-label-3 hover:text-label-1"
+              }`}
+            >
+              Writing
+            </Link>
             <a
               href={SITE.resumePath}
               target="_blank"
@@ -108,7 +128,7 @@ export default function Navbar() {
           menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        {NAV_LINKS.map(({ label, href }) => (
+        {!isWritingRoute && SCROLL_LINKS.map(({ label, href }) => (
           <button
             key={href}
             onClick={() => scrollTo(href)}
@@ -117,6 +137,24 @@ export default function Navbar() {
             {label}
           </button>
         ))}
+        {isWritingRoute && (
+          <Link
+            href="/"
+            className="text-[36px] font-thin tracking-[-0.02em] text-label-1 transition-colors duration-200 hover:text-accent"
+            onClick={() => setMenuOpen(false)}
+          >
+            Home
+          </Link>
+        )}
+        <Link
+          href="/writing"
+          className={`text-[36px] font-thin tracking-[-0.02em] transition-colors duration-200 hover:text-accent ${
+            isWritingRoute ? "text-accent" : "text-label-1"
+          }`}
+          onClick={() => setMenuOpen(false)}
+        >
+          Writing
+        </Link>
         <a
           href={SITE.resumePath}
           target="_blank"

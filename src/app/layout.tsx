@@ -12,26 +12,30 @@ const inter = Inter({
 });
 
 const siteUrl = "https://ashwinsathian.com";
+const siteDescription =
+  "Seven years building systems at scale. $1B+ GTV. Calm architecture, precise execution.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Ashwin Sathian | Engineering Leader · SaaS Architecture",
-  description:
-    "Engineering at scale. $1B+ GTV. 12 engineers. Calm architecture, fast systems.",
+  title: {
+    default: "Ashwin Sathian",
+    template: "%s — Ashwin Sathian",
+  },
+  description: siteDescription,
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Ashwin Sathian — Engineering Leader · SaaS Architecture",
-    description: "Engineering at scale. $1B+ GTV. Calm architecture, fast systems.",
+    title: "Ashwin Sathian",
+    description: siteDescription,
     url: siteUrl,
     siteName: "Ashwin Sathian",
     images: [
       {
-        url: "/og-2026.png",
+        url: "/og",
         width: 1200,
         height: 630,
-        alt: "Ashwin Sathian — Engineering Leader",
+        alt: "Ashwin Sathian — Engineer",
       },
     ],
     locale: "en_US",
@@ -39,9 +43,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ashwin Sathian — Engineering Leader · SaaS Architecture",
-    description: "Engineering at scale. $1B+ GTV. Calm architecture, fast systems.",
-    images: ["/og-2026.png"],
+    title: "Ashwin Sathian",
+    description: siteDescription,
+    creator: "@ashwinsathian",
+    images: ["/og"],
   },
   robots: {
     index: true,
@@ -65,16 +70,15 @@ const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Ashwin Sathian",
-  jobTitle: "Engineering Leader",
   url: siteUrl,
   email: "mailto:ashwinsathyan19@gmail.com",
+  description: siteDescription,
   sameAs: [
     "https://www.linkedin.com/in/ashwinsathian",
     "https://github.com/AshwinSathian",
   ],
   knowsAbout: [
     "SaaS architecture",
-    "RBAC",
     "Multi-tenant platforms",
     "Angular",
     "Next.js",

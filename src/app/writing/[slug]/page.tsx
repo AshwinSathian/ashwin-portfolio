@@ -4,6 +4,8 @@ import { getPost, getPostSlugs } from "@/lib/writing";
 import PostBody from "@/components/writing/PostBody";
 import type { Metadata } from "next";
 
+const siteUrl = "https://ashwinsathian.com";
+
 type Props = {
   params: Promise<{ slug: string }>;
 };
@@ -17,19 +19,45 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost(slug);
   if (!post) return {};
 
+  const { meta } = post;
+
+  // Per-post OG image: pass title + description as query params to the dynamic route
+  const ogImageUrl = meta.coverImage
+    ? meta.coverImage
+    : `/og?title=${encodeURIComponent(meta.title)}&description=${encodeURIComponent(meta.description)}`;
+
+  const postUrl = `${siteUrl}/writing/${slug}`;
+
   return {
-    title: `${post.meta.title} — Writing`,
-    description: post.meta.description,
-    alternates: post.meta.canonical ? { canonical: post.meta.canonical } : undefined,
+    title: meta.title,
+    description: meta.description,
+    alternates: {
+      canonical: meta.canonical ?? postUrl,
+    },
     openGraph: {
-      title: post.meta.title,
-      description: post.meta.description,
+      title: meta.title,
+      description: meta.description,
+      url: postUrl,
       type: "article",
-      publishedTime: post.meta.date,
-      modifiedTime: post.meta.updatedAt,
-      images: post.meta.coverImage
-        ? [{ url: post.meta.coverImage }]
-        : [{ url: "/og" }],
+      publishedTime: meta.date,
+      modifiedTime: meta.updatedAt ?? meta.date,
+      authors: ["Ashwin Sathian"],
+      tags: meta.tags,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: meta.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: meta.title,
+      description: meta.description,
+      creator: "@ashwinsathian",
+      images: [ogImageUrl],
     },
   };
 }
@@ -41,12 +69,39 @@ export default async function PostPage({ params }: Props) {
 
   const { meta, content } = post;
 
+  const postUrl = `${siteUrl}/writing/${slug}`;
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: meta.title,
+    description: meta.description,
+    url: postUrl,
+    datePublished: meta.date,
+    dateModified: meta.updatedAt ?? meta.date,
+    author: {
+      "@type": "Person",
+      name: "Ashwin Sathian",
+      url: siteUrl,
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Ashwin Sathian",
+      url: siteUrl,
+    },
+    ...(meta.tags && { keywords: meta.tags.join(", ") }),
+  };
+
   return (
     <main className="min-h-svh bg-canvas px-6 pb-24 pt-40 md:px-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <div className="mx-auto max-w-3xl">
         <Link
           href="/writing"
-          className="text-[11px] font-medium uppercase tracking-[0.1em] text-label-4 transition-colors duration-200 hover:text-label-2"
+          className="text-[11px] font-medium uppercase tracking-widest text-label-4 transition-colors duration-200 hover:text-label-2"
         >
           Writing
         </Link>
@@ -58,7 +113,7 @@ export default async function PostPage({ params }: Props) {
           {meta.title}
         </h1>
 
-        <div className="mt-4 flex items-center gap-2 text-[13px] text-label-3">
+        <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-label-3">
           <span>{meta.formattedDate}</span>
           {meta.formattedUpdatedAt && meta.formattedUpdatedAt !== meta.formattedDate && (
             <>

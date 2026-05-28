@@ -1,7 +1,7 @@
 export const ABOUT = {
-  headline: "Seven years building things that matter.",
+  headline: "Five years. One platform. One conviction.",
   paragraphs: [
-    "I spent seven years at one company — growing from the engineer who shipped features to the one who designed the systems that shipped them. That depth is rare in this industry. I'm proud of it.",
-    "My work lives at the intersection of architecture and execution. I care about the systems underneath the product as much as the product itself: clean boundaries, honest tradeoffs, and teams that understand why — not just what.",
+    "When I joined Penny in 2020, I came to build features. By the time I left as Lead Engineer, I'd shaped the architecture underneath them — the module boundaries, the tenancy contracts, the data patterns that had to hold as the platform grew. That kind of understanding only comes from staying long enough for your early decisions to come back and teach you something.",
+    "I care about the craft: clean interfaces, honest boundaries, structure that makes the work of the next engineer easier than your own. That conviction followed me from Penny to HighLevel, where I now lead engineering for Funnels, Websites, and Webinars.",
   ],
 } as const;

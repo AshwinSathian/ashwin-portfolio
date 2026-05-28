@@ -13,7 +13,7 @@ export default function Work({ projects }: WorkProps) {
   return (
     <section
       id="projects"
-      aria-labelledby="work-heading"
+      aria-label="Work"
       className="bg-surface-1 px-6 py-24 md:px-16 md:py-32"
     >
       <div className="mx-auto max-w-5xl">
@@ -25,20 +25,13 @@ export default function Work({ projects }: WorkProps) {
           className="flex flex-col gap-20"
         >
           {/* Section header */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             <motion.p
               variants={fadeInUp}
               className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
             >
               Work
             </motion.p>
-            <motion.h2
-              id="work-heading"
-              variants={fadeInUp}
-              className="text-[clamp(36px,5.5vw,64px)] font-thin leading-none tracking-[-0.035em] text-label-1"
-            >
-              Built to last.
-            </motion.h2>
           </div>
 
           {/* Professional platform card */}
@@ -55,16 +48,6 @@ export default function Work({ projects }: WorkProps) {
             <p className="max-w-2xl text-[17px] leading-[1.7] text-label-2">
               {PLATFORM.description}
             </p>
-            <div className="flex flex-wrap gap-3 pt-2">
-              {PLATFORM.stats.map((stat) => (
-                <span
-                  key={stat}
-                  className="rounded-full border border-white/6 px-4 py-1.5 text-[13px] text-label-3"
-                >
-                  {stat}
-                </span>
-              ))}
-            </div>
           </motion.div>
 
           {/* Open source */}

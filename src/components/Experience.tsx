@@ -8,7 +8,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      aria-labelledby="experience-heading"
+      aria-label="Experience"
       className="bg-surface-1 px-6 py-24 md:px-16 md:py-32"
     >
       <div className="mx-auto max-w-5xl">
@@ -19,24 +19,17 @@ export default function Experience() {
           viewport={{ once: true, amount: 0.05 }}
           className="flex flex-col gap-16"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             <motion.p
               variants={fadeInUp}
               className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
             >
               Experience
             </motion.p>
-            <motion.h2
-              id="experience-heading"
-              variants={fadeInUp}
-              className="text-[clamp(36px,5.5vw,64px)] font-thin leading-none tracking-[-0.035em] text-label-1"
-            >
-              The career.
-            </motion.h2>
           </div>
 
           <div className="flex flex-col">
-            {RECENT_EXPERIENCE.map((item, index) => (
+            {RECENT_EXPERIENCE.map((item) => (
               <motion.div
                 key={`${item.company}-${item.role}`}
                 variants={fadeInUp}
@@ -64,11 +57,16 @@ export default function Experience() {
                         key={bullet}
                         className="flex gap-4 text-[15px] leading-[1.65] text-label-2"
                       >
-                        <span className="mt-2.75 h-px w-4 shrink-0 bg-label-4" />
+                        <span className="mt-2.5 h-px w-4 shrink-0 bg-label-4" />
                         <span>{bullet}</span>
                       </li>
                     ))}
                   </ul>
+                  {item.tech && item.tech.length > 0 && (
+                    <p className="text-[13px] text-label-4">
+                      {item.tech.join("  ·  ")}
+                    </p>
+                  )}
                 </div>
               </motion.div>
             ))}

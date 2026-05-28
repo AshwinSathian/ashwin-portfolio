@@ -1,5 +1,4 @@
 import About from "@/components/About";
-import Capabilities from "@/components/Capabilities";
 import Contact from "@/components/Contact";
 import Education from "@/components/Education";
 import Experience from "@/components/Experience";
@@ -22,7 +21,6 @@ export default async function Page() {
       <Impact />
       <About />
       <Work projects={topProjects} />
-      <Capabilities />
       <Experience />
       <Education />
       <Contact />

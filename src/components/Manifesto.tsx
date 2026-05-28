@@ -3,20 +3,27 @@
 import { motion } from "framer-motion";
 
 const WORDS = [
-  "The",
-  "systems",
   "I've",
-  "built",
-  "handle",
-  "$1B+",
-  "in",
-  "transactions.",
-  "Calm",
-  "under",
-  "load.",
-  "Precise",
-  "by",
-  "design.",
+  "always",
+  "cared",
+  "more",
+  "about",
+  "the",
+  "structure",
+  "underneath",
+  "than",
+  "the",
+  "feature",
+  "on",
+  "top.",
+  "One",
+  "is",
+  "temporary.",
+  "The",
+  "other",
+  "has",
+  "to",
+  "last.",
 ];
 
 export default function Manifesto() {
@@ -34,7 +41,7 @@ export default function Manifesto() {
           show: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
         }}
         className="max-w-4xl text-[clamp(24px,3.5vw,40px)] font-light leading-[1.3] tracking-[-0.015em] text-label-1"
-        aria-label="The systems I've built handle $1B+ in transactions. Calm under load. Precise by design."
+        aria-label="I've always cared more about the structure underneath than the feature on top. One is temporary. The other has to last."
       >
         {WORDS.map((word, i) => (
           <motion.span
@@ -46,7 +53,7 @@ export default function Manifesto() {
             className="inline-block"
           >
             {word}
-            {i < WORDS.length - 1 ? " " : ""}
+            {i < WORDS.length - 1 ? " " : ""}
           </motion.span>
         ))}
       </motion.p>

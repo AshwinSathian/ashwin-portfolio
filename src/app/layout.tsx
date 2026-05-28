@@ -13,7 +13,7 @@ const inter = Inter({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "Seven years building systems at scale. $1B+ GTV. Calm architecture, precise execution.";
+  "Software engineer with a conviction for craft. Seven years at one platform. Now building at HighLevel.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: "/og",
         width: 1200,
         height: 630,
-        alt: "Ashwin Sathian — Engineer",
+        alt: "Ashwin Sathian — Software Engineer",
       },
     ],
     locale: "en_US",
@@ -77,6 +77,11 @@ const structuredData = {
     "https://www.linkedin.com/in/ashwinsathian",
     "https://github.com/AshwinSathian",
   ],
+  jobTitle: "Lead Engineer",
+  worksFor: {
+    "@type": "Organization",
+    name: "HighLevel",
+  },
   knowsAbout: [
     "SaaS architecture",
     "Multi-tenant platforms",

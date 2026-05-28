@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion } from "framer-motion";
 
 const WORDS = [
@@ -44,17 +45,18 @@ export default function Manifesto() {
         aria-label="I've always cared more about the structure underneath than the feature on top. One is temporary. The other has to last."
       >
         {WORDS.map((word, i) => (
-          <motion.span
-            key={i}
-            variants={{
-              hidden: { opacity: 0 },
-              show: { opacity: 1, transition: { duration: 0.4, ease: [0, 0, 0.2, 1] } },
-            }}
-            className="inline-block"
-          >
-            {word}
-            {i < WORDS.length - 1 ? " " : ""}
-          </motion.span>
+          <Fragment key={i}>
+            <motion.span
+              variants={{
+                hidden: { opacity: 0 },
+                show: { opacity: 1, transition: { duration: 0.4, ease: [0, 0, 0.2, 1] } },
+              }}
+              className="inline-block"
+            >
+              {word}
+            </motion.span>
+            {i < WORDS.length - 1 && " "}
+          </Fragment>
         ))}
       </motion.p>
     </section>

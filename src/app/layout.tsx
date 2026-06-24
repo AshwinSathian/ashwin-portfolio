@@ -13,7 +13,7 @@ const inter = Inter({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "Software engineer with a conviction for craft. Seven years at one platform. Now building at HighLevel.";
+  "Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale — $1B+ GTV, now leading engineering at HighLevel.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -81,16 +81,22 @@ const structuredData = {
   worksFor: {
     "@type": "Organization",
     name: "HighLevel",
+    url: "https://www.gohighlevel.com",
   },
   knowsAbout: [
     "SaaS architecture",
     "Multi-tenant platforms",
     "Angular",
+    "React",
     "Next.js",
     "NestJS",
     "MongoDB",
+    "TypeScript",
     "AWS",
     "GCP",
+    "Engineering leadership",
+    "Platform engineering",
+    "CI/CD",
   ],
 };
 

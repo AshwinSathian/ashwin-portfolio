@@ -33,12 +33,11 @@ function selectPrimaryLanguage(
 type ProjectSource = {
   name: string;
   url: string;
+  description?: string;
 };
 
-async function buildProject({
-  name,
-  url,
-}: ProjectSource): Promise<ProjectListItem> {
+async function buildProject(source: ProjectSource): Promise<ProjectListItem> {
+  const { name, url } = source;
   const ref = parseRepoUrl(url);
   try {
     const [meta, languages, topics] = await Promise.all([
@@ -50,7 +49,7 @@ async function buildProject({
     return {
       owner: ref.owner,
       repo: ref.repo,
-      description: meta.description,
+      description: meta.description ?? source.description ?? null,
       stargazers_count: meta.stargazers_count,
       language: selectPrimaryLanguage(languages, meta.language),
       topics: topics.names ?? [],
@@ -67,6 +66,7 @@ async function buildProject({
     return {
       owner: ref.owner,
       repo: ref.repo,
+      description: source.description ?? null,
       topics: [],
       title: name,
     };

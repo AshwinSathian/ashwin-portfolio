@@ -13,7 +13,7 @@ export default function Footer() {
           rel="noopener noreferrer"
           className="text-[14px] text-label-3 transition-colors duration-200 hover:text-label-1"
         >
-          Resume ↓
+          Résumé ↓
         </a>
       </div>
     </footer>

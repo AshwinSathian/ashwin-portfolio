@@ -13,7 +13,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "HighLevel",
     dates: "Mar 2026 – Present",
     bullets: [
-      "Leading engineering for HighLevel's funnel builder, website builder, and webinar products.",
+      "Leading the engineering organisation for three of HighLevel's core revenue products — funnel builder, website builder, and webinar platform — serving 60,000+ marketing agencies worldwide.",
+      "Driving technical direction and cross-squad alignment across high-throughput, real-time builder products with complex customer-configurable state at scale.",
+      "Establishing architecture patterns, engineering standards, and release discipline within a high-scale SaaS environment operating at $1.5B+ ARR.",
     ],
   },
   {
@@ -32,7 +34,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Apr 2022 – Dec 2023",
     bullets: [
-      "Owned end-to-end feature lifecycles, translating procurement workflows into product outcomes.",
+      "Remained hands-on across the API layer and frontend in a hybrid engineering + product ownership role — translating procurement workflows into shipped product outcomes.",
       "Optimized APIs and queries across critical paths while preserving platform stability.",
       "Coordinated product, QA, and engineering rhythms to keep releases iterative and predictable.",
     ],

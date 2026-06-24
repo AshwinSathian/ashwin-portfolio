@@ -1,0 +1,24 @@
+# Ashwin Sathian
+
+> Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale.
+
+## About
+
+Ashwin Sathian is a Lead Engineer based in Kochi, India. He currently leads engineering for HighLevel's Funnels, Websites, and Webinars products — core revenue surface areas of a $1.5B+ ARR platform serving 60,000+ marketing agencies.
+
+Prior to HighLevel, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team, and shaped the data patterns that held as the platform scaled to handle $1B+ in procurement GTV.
+
+## Skills
+
+Angular, React, Next.js, NestJS, Node.js, MongoDB, TypeScript, AWS, GCP, Docker, GitHub Actions
+
+## Writing
+
+Ashwin publishes long-form technical essays at ashwinsathian.com/writing. Current post: "Wait, Is Markdown Having a Moment?" — an essay on how a 2004 blogging format became the native language of AI.
+
+## Contact
+
+- Email: ashwinsathyan19@gmail.com
+- LinkedIn: https://linkedin.com/in/ashwinsathian
+- GitHub: https://github.com/AshwinSathian
+- Website: https://ashwinsathian.com

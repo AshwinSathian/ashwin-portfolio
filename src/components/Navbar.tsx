@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { SITE } from "@/app/data/site";
@@ -17,6 +17,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -25,6 +26,8 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    if (isWritingRoute) return;
+
     const ids = ["projects", "about", "experience", "contact"];
     const observers: IntersectionObserver[] = [];
 
@@ -40,10 +43,11 @@ export default function Navbar() {
     });
 
     return () => observers.forEach((o) => o.disconnect());
-  }, []);
+  }, [isWritingRoute]);
 
   const scrollTo = (href: string) => {
     setMenuOpen(false);
+    toggleRef.current?.focus();
     const el = document.getElementById(href.replace("#", ""));
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -110,6 +114,7 @@ export default function Navbar() {
           </nav>
 
           <button
+            ref={toggleRef}
             className="flex h-8 w-8 flex-col items-center justify-center gap-1.25 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -141,7 +146,7 @@ export default function Navbar() {
           <Link
             href="/"
             className="text-[36px] font-thin tracking-[-0.02em] text-label-1 transition-colors duration-200 hover:text-accent"
-            onClick={() => setMenuOpen(false)}
+            onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
           >
             Home
           </Link>
@@ -151,7 +156,7 @@ export default function Navbar() {
           className={`text-[36px] font-thin tracking-[-0.02em] transition-colors duration-200 hover:text-accent ${
             isWritingRoute ? "text-accent" : "text-label-1"
           }`}
-          onClick={() => setMenuOpen(false)}
+          onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
         >
           Writing
         </Link>
@@ -160,7 +165,7 @@ export default function Navbar() {
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 text-[15px] text-label-3"
-          onClick={() => setMenuOpen(false)}
+          onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
         >
           Résumé ↓
         </a>

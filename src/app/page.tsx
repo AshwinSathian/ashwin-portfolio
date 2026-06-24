@@ -1,4 +1,5 @@
 import About from "@/components/About";
+import Capabilities from "@/components/Capabilities";
 import Contact from "@/components/Contact";
 import Education from "@/components/Education";
 import Experience from "@/components/Experience";
@@ -7,6 +8,7 @@ import Hero from "@/components/Hero";
 import Impact from "@/components/Impact";
 import Manifesto from "@/components/Manifesto";
 import Work from "@/components/Work";
+import WritingTeaser from "@/components/WritingTeaser";
 import { getTopProjects } from "@/app/(helpers)/projects";
 
 export const revalidate = 3600;
@@ -21,6 +23,8 @@ export default async function Page() {
       <Impact />
       <About />
       <Work projects={topProjects} />
+      <Capabilities />
+      <WritingTeaser />
       <Experience />
       <Education />
       <Contact />

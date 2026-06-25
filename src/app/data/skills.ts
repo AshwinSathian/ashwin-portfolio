@@ -45,5 +45,14 @@ export const SKILL_COLUMNS: [SkillGroup[], SkillGroup[]] = [
         { name: "HTML / CSS" },
       ],
     },
+    {
+      title: "AI & Tooling",
+      items: [
+        { name: "Claude Code" },
+        { name: "GitHub Copilot" },
+        { name: "LLM APIs" },
+        { name: "AI-augmented workflows" },
+      ],
+    },
   ],
 ];

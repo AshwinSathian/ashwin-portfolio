@@ -1,20 +1,65 @@
 # Ashwin Sathian
 
-> Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale.
+> Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale. AI-augmented engineering practice.
 
 ## About
 
-Ashwin Sathian is a Lead Engineer based in Kochi, India. He currently leads engineering for HighLevel's Funnels, Websites, and Webinars products — core revenue surface areas of a $1.5B+ ARR platform serving 60,000+ marketing agencies.
+Ashwin Sathian is a Lead Engineer based in Kochi, Kerala, India. He currently leads engineering for HighLevel's Funnels, Websites, and Webinars products — three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide.
 
-Prior to HighLevel, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team, and shaped the data patterns that held as the platform scaled to handle $1B+ in procurement GTV.
+Prior to HighLevel, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team of ~12 engineers, optimised critical API paths to under 200ms, and shaped the data patterns that held as the platform scaled to handle $1B+ in procurement GTV.
 
-## Skills
+Ashwin practises AI-augmented engineering — using AI tooling including Claude Code, GitHub Copilot, and LLM APIs to work at higher altitude: validating architectural decisions faster, accelerating implementation cycles, and raising the quality ceiling of his output.
 
-Angular, React, Next.js, NestJS, Node.js, MongoDB, TypeScript, AWS, GCP, Docker, GitHub Actions
+## Current Role
+
+**Lead Engineer — Funnels, Websites, Webinars**
+HighLevel · March 2026 – Present
+
+Leading the engineering organisation for three of HighLevel's core revenue products — funnel builder, website builder, and webinar platform — serving 60,000+ marketing agencies worldwide. Responsible for technical direction, cross-squad alignment, architecture patterns, engineering standards, and release discipline across a $1.5B+ ARR SaaS environment.
+
+## Career History
+
+- **HighLevel** — Lead Engineer, Funnels/Websites/Webinars (Mar 2026–present)
+- **Penny Software** — Lead Engineer (Jan 2024–Aug 2025)
+- **Penny Software** — Product Specialist, hybrid engineering + product (Apr 2022–Dec 2023)
+- **Penny Software** — Full Stack Developer (Jun 2020–Mar 2022)
+- **Manaraah** — Senior Full Stack Developer (Jan 2020–Jun 2020)
+- **WeCP** — Software Development Engineer (Jan 2019–Jan 2020)
+- **Reubro International** — Junior Programmer (Aug 2018–Jan 2019)
+
+## Skills & Stack
+
+**Frontend:** Angular, React, Next.js
+**Backend:** Node.js, NestJS, Express
+**Data:** MongoDB, AWS DynamoDB
+**Cloud & DevOps:** AWS, GCP, Docker, GitHub Actions
+**Languages:** TypeScript, JavaScript, Python, HTML/CSS
+**AI & Tooling:** Claude Code, GitHub Copilot, LLM APIs, AI-augmented workflows
+
+## Education
+
+B.Tech, Electronics and Communication Engineering — National Institute of Technology Calicut (2014–2018)
+
+## Key Metrics & Achievements
+
+- $1B+ GTV safeguarded — architected multi-tenant procurement platform at Penny Software
+- 1.5× release cadence acceleration — reworked CI/CD and delivery rituals
+- <200ms critical query performance — optimised high-traffic API paths
+- ~12 engineers mentored — led cross-functional squad across frontend, backend, and QA
+
+## Open Source
+
+- **@ngx-runtime-i18n** — Angular library for runtime internationalisation (language switch without page reload)
+- **API Sandbox** — Browser-based HTTP sandbox for testing API endpoints
+- **GitHub Issues Analyzer** — Tool for analysing GitHub issue patterns to surface trends
 
 ## Writing
 
-Ashwin publishes long-form technical essays at ashwinsathian.com/writing. Current post: "Wait, Is Markdown Having a Moment?" — an essay on how a 2004 blogging format became the native language of AI.
+Ashwin publishes long-form technical essays at ashwinsathian.com/writing.
+
+Current posts:
+- "Wait, Is Markdown Having a Moment?" — How a 2004 blogging format became the native language of AI (May 2026)
+- "Five Years, One Codebase: What Staying Teaches You" — On depth, judgment, and what AI changes (and doesn't) about software tenure (June 2026)
 
 ## Contact
 
@@ -22,3 +67,4 @@ Ashwin publishes long-form technical essays at ashwinsathian.com/writing. Curren
 - LinkedIn: https://linkedin.com/in/ashwinsathian
 - GitHub: https://github.com/AshwinSathian
 - Website: https://ashwinsathian.com
+- Resume: https://ashwinsathian.com/Resume.pdf

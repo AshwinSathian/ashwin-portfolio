@@ -10,11 +10,13 @@ import Manifesto from "@/components/Manifesto";
 import Work from "@/components/Work";
 import WritingTeaser from "@/components/WritingTeaser";
 import { getTopProjects } from "@/app/(helpers)/projects";
+import { HIGHLEVEL_PLATFORM, PLATFORM } from "@/app/data/work";
 
 export const revalidate = 3600;
 
 export default async function Page() {
   const topProjects = await getTopProjects();
+  const platforms = [HIGHLEVEL_PLATFORM, PLATFORM];
 
   return (
     <>
@@ -22,7 +24,7 @@ export default async function Page() {
       <Manifesto />
       <Impact />
       <About />
-      <Work projects={topProjects} />
+      <Work platforms={platforms} projects={topProjects} />
       <Capabilities />
       <WritingTeaser />
       <Experience />

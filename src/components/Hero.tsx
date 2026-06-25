@@ -35,6 +35,12 @@ export default function Hero() {
           >
             {HERO.title}
           </motion.p>
+          <motion.p
+            variants={fadeInUp}
+            className="text-[11px] font-medium uppercase tracking-[0.12em] text-label-4 mt-2"
+          >
+            {HERO.eyebrow}
+          </motion.p>
         </motion.div>
       </div>
 

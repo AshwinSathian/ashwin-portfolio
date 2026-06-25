@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { PLATFORM } from "@/app/data/work";
+import { HIGHLEVEL_PLATFORM, PLATFORM } from "@/app/data/work";
 import { ProjectCard, type ProjectCardProps } from "@/components/ProjectCard";
 import { fadeInUp, stagger } from "@/lib/motion";
 
@@ -34,18 +34,31 @@ export default function Work({ projects }: WorkProps) {
             </motion.p>
           </div>
 
-          {/* Professional platform card */}
+          {/* HighLevel — primary featured card */}
           <motion.div
             variants={fadeInUp}
             className="flex flex-col gap-6 rounded-2xl border border-white/6 bg-surface-2 p-8 md:p-10"
           >
             <p className="text-xs font-medium uppercase tracking-[0.08em] text-label-3">
-              {PLATFORM.company}
+              {HIGHLEVEL_PLATFORM.company}
             </p>
             <h3 className="text-[clamp(22px,3vw,32px)] font-extralight leading-snug tracking-[-0.02em] text-label-1">
-              {PLATFORM.title}
+              {HIGHLEVEL_PLATFORM.title}
             </h3>
             <p className="max-w-2xl text-[17px] leading-[1.7] text-label-2">
+              {HIGHLEVEL_PLATFORM.description}
+            </p>
+          </motion.div>
+
+          {/* Penny Software — secondary, lighter treatment */}
+          <motion.div variants={fadeInUp} className="flex flex-col gap-4 border-t border-white/6 pt-10">
+            <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-label-4">
+              Previously · {PLATFORM.company}
+            </p>
+            <h3 className="text-[clamp(17px,2vw,22px)] font-light leading-snug tracking-[-0.015em] text-label-2">
+              {PLATFORM.title}
+            </h3>
+            <p className="max-w-2xl text-[15px] leading-[1.7] text-label-3">
               {PLATFORM.description}
             </p>
           </motion.div>

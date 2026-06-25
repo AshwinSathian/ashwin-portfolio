@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HIGHLEVEL_PLATFORM, PLATFORM } from "@/app/data/work";
 import { ProjectCard, type ProjectCardProps } from "@/components/ProjectCard";
 import { fadeInUp, stagger } from "@/lib/motion";
 
@@ -10,6 +9,8 @@ export type WorkProps = {
 };
 
 export default function Work({ projects }: WorkProps) {
+  if (projects.length === 0) return null;
+
   return (
     <section
       id="projects"
@@ -22,68 +23,25 @@ export default function Work({ projects }: WorkProps) {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className="flex flex-col gap-20"
+          className="flex flex-col gap-12"
         >
-          {/* Section header */}
-          <div className="flex flex-col gap-3">
-            <motion.p
-              variants={fadeInUp}
-              className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
-            >
-              Work
-            </motion.p>
-          </div>
-
-          {/* HighLevel — primary featured card */}
-          <motion.div
+          <motion.p
             variants={fadeInUp}
-            className="flex flex-col gap-6 rounded-2xl border border-white/6 bg-surface-2 p-8 md:p-10"
+            className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
           >
-            <p className="text-xs font-medium uppercase tracking-[0.08em] text-label-3">
-              {HIGHLEVEL_PLATFORM.company}
-            </p>
-            <h3 className="text-[clamp(22px,3vw,32px)] font-extralight leading-snug tracking-[-0.02em] text-label-1">
-              {HIGHLEVEL_PLATFORM.title}
-            </h3>
-            <p className="max-w-2xl text-[17px] leading-[1.7] text-label-2">
-              {HIGHLEVEL_PLATFORM.description}
-            </p>
-          </motion.div>
+            Open source
+          </motion.p>
 
-          {/* Penny Software — secondary, lighter treatment */}
-          <motion.div variants={fadeInUp} className="flex flex-col gap-4 border-t border-white/6 pt-10">
-            <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-label-4">
-              Previously · {PLATFORM.company}
-            </p>
-            <h3 className="text-[clamp(17px,2vw,22px)] font-light leading-snug tracking-[-0.015em] text-label-2">
-              {PLATFORM.title}
-            </h3>
-            <p className="max-w-2xl text-[15px] leading-[1.7] text-label-3">
-              {PLATFORM.description}
-            </p>
-          </motion.div>
-
-          {/* Open source */}
-          {projects.length > 0 && (
-            <div className="flex flex-col gap-6">
-              <motion.p
+          <motion.div variants={stagger} className="flex flex-col gap-4">
+            {projects.map((project) => (
+              <motion.div
+                key={`${project.owner}/${project.repo}`}
                 variants={fadeInUp}
-                className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
               >
-                Open source
-              </motion.p>
-              <motion.div variants={stagger} className="flex flex-col gap-4">
-                {projects.map((project) => (
-                  <motion.div
-                    key={`${project.owner}/${project.repo}`}
-                    variants={fadeInUp}
-                  >
-                    <ProjectCard {...project} />
-                  </motion.div>
-                ))}
+                <ProjectCard {...project} />
               </motion.div>
-            </div>
-          )}
+            ))}
+          </motion.div>
         </motion.div>
       </div>
     </section>

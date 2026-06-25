@@ -55,6 +55,7 @@ export default function Navbar() {
   return (
     <>
       <header
+        suppressHydrationWarning
         className="fixed inset-x-0 top-0 z-50 h-13 transition-colors duration-300"
         style={{
           background: scrolled ? "rgba(0,0,0,0.85)" : "rgba(0,0,0,0)",

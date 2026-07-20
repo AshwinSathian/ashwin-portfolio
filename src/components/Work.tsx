@@ -68,22 +68,22 @@ export default function Work({ platforms, projects }: WorkProps) {
             </motion.div>
           )}
 
-          {/* Open source projects */}
+          {/* Projects */}
           {projects.length > 0 && (
             <motion.div variants={stagger} className="flex flex-col gap-12">
               <motion.p
                 variants={fadeInUp}
                 className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
               >
-                Open source
+                Projects
               </motion.p>
 
-              <motion.div variants={stagger} className="flex flex-col gap-4">
+              <motion.div
+                variants={stagger}
+                className="grid grid-cols-1 gap-4 md:grid-cols-3"
+              >
                 {projects.map((project) => (
-                  <motion.div
-                    key={`${project.owner}/${project.repo}`}
-                    variants={fadeInUp}
-                  >
+                  <motion.div key={project.slug} variants={fadeInUp}>
                     <ProjectCard {...project} />
                   </motion.div>
                 ))}

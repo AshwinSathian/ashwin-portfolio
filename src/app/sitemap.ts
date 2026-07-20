@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
 import { getAllPosts } from "@/lib/writing";
 
@@ -9,6 +10,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const postEntries: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
     url: `${baseUrl}/writing/${post.slug}`,
     lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  const projectEntries: MetadataRoute.Sitemap = PROJECTS.map((project) => ({
+    url: `${baseUrl}/projects/${project.slug}`,
+    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
@@ -27,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...postEntries,
+    ...projectEntries,
     {
       url: `${baseUrl}${SITE.resumePath}`,
       lastModified: now,

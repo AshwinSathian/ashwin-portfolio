@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@uiw/react-markdown-preview": "^5.1.5",
     "framer-motion": "^12.23.12",
     "gray-matter": "^4.0.3",
     "marked": "^18.0.5",

@@ -9,13 +9,13 @@ import Impact from "@/components/Impact";
 import Manifesto from "@/components/Manifesto";
 import Work from "@/components/Work";
 import WritingTeaser from "@/components/WritingTeaser";
-import { getTopProjects } from "@/app/(helpers)/projects";
+import { getProjects } from "@/app/(helpers)/projects";
 import { HIGHLEVEL_PLATFORM, PLATFORM } from "@/app/data/work";
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const topProjects = await getTopProjects();
+  const projects = await getProjects();
   const platforms = [HIGHLEVEL_PLATFORM, PLATFORM];
 
   return (
@@ -24,7 +24,7 @@ export default async function Page() {
       <Manifesto />
       <Impact />
       <About />
-      <Work platforms={platforms} projects={topProjects} />
+      <Work platforms={platforms} projects={projects} />
       <Capabilities />
       <WritingTeaser />
       <Experience />

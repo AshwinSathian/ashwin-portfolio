@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const title = searchParams.get("title");
   const description = searchParams.get("description");
+  const label = searchParams.get("label") ?? "Writing";
 
   // Post card — when a title is supplied
   if (title) {
@@ -61,7 +62,7 @@ export async function GET(request: NextRequest) {
                 color: LABEL_4,
               }}
             >
-              Writing
+              {label}
             </span>
           </div>
 

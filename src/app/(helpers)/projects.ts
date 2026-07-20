@@ -1,79 +1,26 @@
-import { TOP_PROJECTS } from "@/app/data/top-projects";
-import type { ProjectCardProps } from "@/components/ProjectCard";
-import {
-  fetchRepoLanguages,
-  fetchRepoMeta,
-  fetchRepoTopics,
-  parseRepoUrl,
-  type RepoMeta,
-} from "@/lib/github";
+import { PROJECTS, type Project } from "@/app/data/projects";
+import { fetchRepoMeta } from "@/lib/github";
 
-type ProjectListItem = ProjectCardProps;
-
-function selectPrimaryLanguage(
-  languages: Record<string, number> | null | undefined,
-  fallback: RepoMeta["language"],
-) {
-  if (!languages || Object.keys(languages).length === 0) {
-    return fallback ?? null;
-  }
-
-  let selected: string | null = null;
-  let maxBytes = -1;
-  for (const [name, bytes] of Object.entries(languages)) {
-    if (typeof bytes === "number" && bytes > maxBytes) {
-      selected = name;
-      maxBytes = bytes;
-    }
-  }
-
-  return selected ?? fallback ?? null;
-}
-
-type ProjectSource = {
-  name: string;
-  url: string;
-  description?: string;
+export type ProjectWithStats = Project & {
+  stars?: number;
+  language?: string | null;
 };
 
-async function buildProject(source: ProjectSource): Promise<ProjectListItem> {
-  const { name, url } = source;
-  const ref = parseRepoUrl(url);
-  try {
-    const [meta, languages, topics] = await Promise.all([
-      fetchRepoMeta(ref),
-      fetchRepoLanguages(ref),
-      fetchRepoTopics(ref),
-    ]);
+async function withLiveStats(project: Project): Promise<ProjectWithStats> {
+  if (!project.repo) return project;
 
-    return {
-      owner: ref.owner,
-      repo: ref.repo,
-      description: meta.description ?? source.description ?? null,
-      stargazers_count: meta.stargazers_count,
-      language: selectPrimaryLanguage(languages, meta.language),
-      topics: topics.names ?? [],
-      updated_at: meta.updated_at,
-      title: name,
-    };
-  } catch (error) {
-    if (process.env.NODE_ENV !== "production") {
-      console.warn(
-        `Failed to load GitHub data for ${ref.owner}/${ref.repo}:`,
-        error,
-      );
-    }
-    return {
-      owner: ref.owner,
-      repo: ref.repo,
-      description: source.description ?? null,
-      topics: [],
-      title: name,
-    };
-  }
+  const meta = await fetchRepoMeta(project.repo);
+  if (!meta) return project;
+
+  return { ...project, stars: meta.stargazers_count, language: meta.language };
 }
 
-export async function getTopProjects(): Promise<ProjectListItem[]> {
-  const projects = await Promise.all(TOP_PROJECTS.map((project) => buildProject(project)));
-  return projects;
+export async function getProjects(): Promise<ProjectWithStats[]> {
+  return Promise.all(PROJECTS.map(withLiveStats));
+}
+
+export async function getProject(slug: string): Promise<ProjectWithStats | undefined> {
+  const project = PROJECTS.find((p) => p.slug === slug);
+  if (!project) return undefined;
+  return withLiveStats(project);
 }

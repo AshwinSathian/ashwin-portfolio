@@ -1,8 +1,6 @@
 import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
 
-export const runtime = "edge";
-
 const CANVAS = "#000000";
 const LABEL_1 = "#F5F5F7";
 const LABEL_3 = "#6E6E73";

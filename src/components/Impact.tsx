@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { HIGHLIGHTS } from "@/app/data/highlights";
-import { fadeInUp, stagger } from "@/lib/motion";
+import { fadeInScale, fadeInUp, stagger } from "@/lib/motion";
 
 function getItemBorderClasses(i: number): string {
   if (i === 0) return "";
@@ -49,12 +49,13 @@ export default function Impact() {
               <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-label-4 mb-6">
                 {h.title}
               </p>
-              <p
+              <motion.p
+                variants={fadeInScale}
                 className="font-thin leading-none tracking-[-0.045em] text-label-1"
-                style={{ fontSize: "clamp(48px, 6vw, 80px)" }}
+                style={{ fontSize: "clamp(52px, 6.5vw, 96px)" }}
               >
                 {heroValue}
-              </p>
+              </motion.p>
               {descriptor && (
                 <p className="text-[15px] font-light leading-snug tracking-[-0.01em] text-label-2 mt-2">
                   {descriptor}

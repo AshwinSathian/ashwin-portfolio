@@ -223,6 +223,20 @@ Each <span> wrapping a word:
 - Looping background animations (BreathingBackground)
 - Glow effects and purple shadows
 
+### 5.6 Scroll-Linked Motion (NEW — v2.1)
+
+§5.1 called for motion "driven by scroll position, not just IntersectionObserver" but every section originally used a single viewport-trigger fade. v2.1 implements true scroll-linked motion in the two places it earns its keep:
+
+**Hero exit.** As the hero scrolls out of view, the name/title block and scroll indicator fade and drift upward (opacity 1→0, y 0→‑48px) tied directly to `scrollYProgress` over the hero's own bounds — not a fixed-duration animation. Implemented with `useScroll({ target, offset: ["start start", "end start"] })` + `useTransform`.
+
+**Manifesto word reveal.** The statement section is now a pinned 220vh scroll region (`sticky` inner content) where each word's opacity brightens (0.18 → 1) across its own slice of the section's scroll progress — the sentence reads itself in as you scroll, rather than fading in all at once on entrance. This is the literal Apple "Pro" page pattern named in §5.4, now scroll-driven instead of trigger-once.
+
+Both respect `useReducedMotion()` explicitly — scroll-linked `style` bindings aren't covered by `MotionConfig reducedMotion="user"` (see §5.7), so they fall back to a static, fully-visible render when the user has reduced motion enabled.
+
+### 5.7 Reduced Motion (NEW — v2.1)
+
+The root layout wraps the app in `<MotionConfig reducedMotion="user">`, which makes every `animate` / `whileInView` / `initial` transition on the site honour `prefers-reduced-motion` at the Framer Motion level — the earlier CSS-only media query in `globals.css` never touched JS-driven animation and was a no-op in practice. Scroll-linked `useTransform` values (§5.6) are gated manually with `useReducedMotion()` since they sit outside `MotionConfig`'s reach.
+
 ---
 
 ## 6. Component Language
@@ -238,6 +252,23 @@ Radius: 20px (slightly larger than v1's 16px — Apple's current radius)
 Padding: 32px
 Hover: border → rgba(255,255,255,0.12)
 ```
+
+### 6.1a Skill Pills (NEW — v2.1)
+
+Capabilities previously rendered each group's skills as a middot-joined text line — the only section on the page without a real component treatment. v2.1 renders each skill as a pill matching the card border language:
+
+```
+Border: 1px solid rgba(255,255,255,0.08)
+Background: --surface-2
+Radius: full
+Padding: 6px 16px
+Text: --label-1, 14px
+Hover: border → rgba(255,255,255,0.16)
+```
+
+### 6.1b Platform Card Hierarchy (NEW — v2.1)
+
+The Work section's two platform cards (current role vs. prior role) now carry distinct visual weight rather than matching twins with only a border tint. The primary (current) card uses Headline 2 scale, `--surface-2`, and generous padding; the secondary card drops to Headline 3 scale, `--surface-1`, tighter padding, and `--label-2`/`--label-3` text — the same restrained tools (scale, surface, label tier) the type system already defines, no new chrome.
 
 ### 6.2 Buttons (Updated)
 

@@ -19,7 +19,7 @@ export function ProjectCard({
   return (
     <Link
       href={`/projects/${slug}`}
-      className="group block rounded-[20px] border border-white/6 bg-surface-2 p-8 transition-colors duration-200 hover:border-white/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className="group block rounded-[20px] border border-white/6 bg-surface-2 p-8 shadow-(--shadow-card) transition-[border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-1 hover:border-white/12 hover:shadow-(--shadow-card-hover) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
     >
       <div className="flex flex-col gap-5">
         {/* Header row */}

@@ -45,21 +45,37 @@ export default function Work({ platforms, projects }: WorkProps) {
                   <motion.div
                     key={platform.company}
                     variants={fadeInUp}
-                    className={`flex flex-col gap-5 rounded-2xl border border-white/8 bg-surface-2 p-8 md:p-10 ${
-                      i === 0 ? "border-accent/20" : ""
-                    }`}
+                    className={
+                      i === 0
+                        ? "flex flex-col gap-6 rounded-2xl border border-accent/20 bg-surface-2 p-10 md:p-12"
+                        : "flex flex-col gap-4 rounded-2xl border border-white/6 bg-surface-1 p-7 md:p-8"
+                    }
                   >
                     <p
-                      className={`text-[11px] font-medium uppercase tracking-widest ${
-                        i === 0 ? "text-accent" : "text-label-4"
-                      }`}
+                      className={
+                        i === 0
+                          ? "text-[11px] font-medium uppercase tracking-widest text-accent"
+                          : "text-[11px] font-medium uppercase tracking-widest text-label-4"
+                      }
                     >
                       {platform.company}
                     </p>
-                    <h3 className="text-[clamp(20px,2.5vw,28px)] font-extralight leading-[1.2] tracking-[-0.02em] text-label-1">
+                    <h3
+                      className={
+                        i === 0
+                          ? "text-[clamp(24px,3vw,34px)] font-extralight leading-[1.15] tracking-[-0.025em] text-label-1"
+                          : "text-[clamp(18px,2vw,22px)] font-extralight leading-tight tracking-[-0.015em] text-label-2"
+                      }
+                    >
                       {platform.title}
                     </h3>
-                    <p className="text-[15px] leading-[1.7] text-label-2 max-w-2xl">
+                    <p
+                      className={
+                        i === 0
+                          ? "text-[16px] leading-[1.7] text-label-2 max-w-2xl"
+                          : "text-[14px] leading-[1.7] text-label-3 max-w-xl"
+                      }
+                    >
                       {platform.description}
                     </p>
                   </motion.div>

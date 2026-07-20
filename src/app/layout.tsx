@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
+import MotionProvider from "@/components/MotionProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -231,9 +232,11 @@ export default function RootLayout({
         className="min-h-screen bg-canvas text-label-1"
         style={{ fontFamily: "var(--font-sans)" }}
       >
-        <ScrollProgress />
-        <Navbar />
-        <main>{children}</main>
+        <MotionProvider>
+          <ScrollProgress />
+          <Navbar />
+          <main>{children}</main>
+        </MotionProvider>
       </body>
     </html>
   );

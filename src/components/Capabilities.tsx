@@ -37,7 +37,7 @@ export default function Capabilities() {
 
           <motion.div
             variants={stagger}
-            className="grid gap-12 sm:grid-cols-2"
+            className="grid gap-x-12 gap-y-10 sm:grid-cols-2"
           >
             {SKILL_COLUMNS.map((column, colIdx) => (
               <div key={colIdx} className="flex flex-col gap-10">
@@ -45,14 +45,21 @@ export default function Capabilities() {
                   <motion.div
                     key={group.title}
                     variants={fadeInUp}
-                    className="flex flex-col gap-2"
+                    className="flex flex-col gap-4"
                   >
                     <h3 className="text-[13px] font-medium uppercase tracking-[0.06em] text-label-3">
                       {group.title}
                     </h3>
-                    <p className="text-[17px] leading-[1.6] tracking-[-0.005em] text-label-1">
-                      {group.items.map((s) => s.name).join("  ·  ")}
-                    </p>
+                    <div className="flex flex-wrap gap-2.5">
+                      {group.items.map((s) => (
+                        <span
+                          key={s.name}
+                          className="rounded-full border border-white/8 bg-surface-2 px-4 py-1.5 text-[14px] leading-none tracking-[-0.005em] text-label-1 transition-colors duration-200 hover:border-white/16"
+                        >
+                          {s.name}
+                        </span>
+                      ))}
+                    </div>
                   </motion.div>
                 ))}
               </div>

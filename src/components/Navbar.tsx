@@ -7,7 +7,6 @@ import { SITE } from "@/app/data/site";
 
 const SCROLL_LINKS = [
   { label: "Projects", href: "#projects" },
-  { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
@@ -29,7 +28,7 @@ export default function Navbar() {
   useEffect(() => {
     if (isWritingRoute) return;
 
-    const ids = ["projects", "about", "experience", "contact"];
+    const ids = ["projects", "experience", "contact"];
     const observers: IntersectionObserver[] = [];
 
     ids.forEach((id) => {

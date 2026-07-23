@@ -1,4 +1,3 @@
-import About from "@/components/About";
 import Capabilities from "@/components/Capabilities";
 import Contact from "@/components/Contact";
 import Experience from "@/components/Experience";
@@ -50,7 +49,6 @@ export default async function Page() {
       />
       <Hero />
       <Projects projects={projects} />
-      <About />
       <Platforms platform={PLATFORM} />
       <Capabilities />
       <Experience />

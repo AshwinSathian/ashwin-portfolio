@@ -14,7 +14,7 @@ const inter = Inter({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale — $1B+ GTV, AI-augmented workflows, now leading engineering at HighLevel.";
+  "Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale, $1B+ GTV, now leading engineering at HighLevel with AI-augmented workflows.";
 
 export const viewport: Viewport = {
   themeColor: "#000000",
@@ -25,8 +25,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ashwin Sathian — Lead Engineer | AI-Augmented Full-Stack SaaS",
-    template: "%s — Ashwin Sathian",
+    default: "Ashwin Sathian | Lead Engineer, AI-Augmented Full-Stack SaaS",
+    template: "%s | Ashwin Sathian",
   },
   description: siteDescription,
   keywords: [
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Ashwin Sathian — Lead Engineer | AI-Augmented Full-Stack SaaS",
+    title: "Ashwin Sathian | Lead Engineer, AI-Augmented Full-Stack SaaS",
     description: siteDescription,
     url: siteUrl,
     siteName: "Ashwin Sathian",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
         url: "/og",
         width: 1200,
         height: 630,
-        alt: "Ashwin Sathian — Lead Engineer, AI-Augmented Full-Stack SaaS",
+        alt: "Ashwin Sathian, Lead Engineer, AI-Augmented Full-Stack SaaS",
       },
     ],
     locale: "en_US",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ashwin Sathian — Lead Engineer | AI-Augmented Full-Stack SaaS",
+    title: "Ashwin Sathian | Lead Engineer, AI-Augmented Full-Stack SaaS",
     description: siteDescription,
     creator: "@ashwinsathian",
     images: ["/og"],

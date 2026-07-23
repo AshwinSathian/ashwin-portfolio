@@ -9,13 +9,13 @@ export type ExperienceItem = {
 
 export const RECENT_EXPERIENCE: ExperienceItem[] = [
   {
-    role: "Lead Engineer — Funnels, Websites, Webinars",
+    role: "Lead Engineer · Funnels, Websites, Webinars",
     company: "HighLevel",
     dates: "Mar 2026 – Present",
     bullets: [
-      "Leading the engineering organisation for three of HighLevel's core revenue products — funnel builder, website builder, and webinar platform — serving 60,000+ marketing agencies worldwide.",
-      "Driving technical direction and cross-squad alignment across high-throughput, real-time builder products with complex customer-configurable state at scale.",
-      "Establishing architecture patterns, engineering standards, and release discipline within a high-scale SaaS environment operating at $1.5B+ ARR.",
+      "Leading an engineering team, working directly with other engineering teams and verticals to keep collaboration functioning inside squads and across them.",
+      "Guiding the AI-augmented Full Stack Builder effort: embedding AI tooling across the full SDLC, from conception and planning through prototyping, development, QA, and shipping.",
+      "Shipping architectural reworks of critical subsystems alongside ongoing enhancements to existing features.",
     ],
   },
   {
@@ -25,7 +25,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     bullets: [
       "Directed Angular + NestJS + MongoDB architecture for a modular, multi-tenant procurement SaaS platform.",
       "Standardized RBAC, tenancy isolation, and compliance-ready audit trails across the platform.",
-      "Mentored a cross-functional squad across frontend, backend, and QA — focused on architecture and craft.",
+      "Mentored a cross-functional squad across frontend, backend, and QA, with a focus on architecture and craft.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx", "GCP"],
   },
@@ -34,7 +34,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Apr 2022 – Dec 2023",
     bullets: [
-      "Remained hands-on across the API layer and frontend in a hybrid engineering + product ownership role — translating procurement workflows into shipped product outcomes.",
+      "Remained hands-on across the API layer and frontend in a hybrid engineering and product ownership role, translating procurement workflows into shipped product outcomes.",
       "Optimized APIs and queries across critical paths while preserving platform stability.",
       "Coordinated product, QA, and engineering rhythms to keep releases iterative and predictable.",
     ],

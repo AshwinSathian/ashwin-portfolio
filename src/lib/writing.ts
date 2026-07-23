@@ -20,8 +20,8 @@ export type PostMeta = {
   // Optional front matter
   tags?: string[];
   draft?: boolean;
-  updatedAt?: string; // ISO 8601 — shown if different from date
-  coverImage?: string; // relative path or URL — used for OG image override
+  updatedAt?: string; // ISO 8601, shown if different from date
+  coverImage?: string; // relative path or URL, used for OG image override
   canonical?: string;  // canonical URL if cross-posted elsewhere
 
   // Computed

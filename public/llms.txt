@@ -4,28 +4,28 @@
 
 ## About
 
-Ashwin Sathian is a Lead Engineer based in Kochi, Kerala, India. He currently leads engineering for HighLevel's Funnels, Websites, and Webinars products — three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide.
+Ashwin Sathian is a Lead Engineer based in Kochi, Kerala, India. He currently leads engineering for HighLevel's Funnels, Websites, and Webinars products: three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide.
 
 Prior to HighLevel, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team of ~12 engineers, optimised critical API paths to under 200ms, and shaped the data patterns that held as the platform scaled to handle $1B+ in procurement GTV.
 
-Ashwin practises AI-augmented engineering — using AI tooling including Claude Code, GitHub Copilot, and LLM APIs to work at higher altitude: validating architectural decisions faster, accelerating implementation cycles, and raising the quality ceiling of his output.
+Ashwin practises AI-augmented engineering, using AI tooling including Claude Code, GitHub Copilot, and LLM APIs to work at higher altitude: validating architectural decisions faster, accelerating implementation cycles, and raising the quality ceiling of his output.
 
 ## Current Role
 
-**Lead Engineer — Funnels, Websites, Webinars**
+**Lead Engineer, Funnels, Websites, Webinars**
 HighLevel · March 2026 – Present
 
-Leading the engineering organisation for three of HighLevel's core revenue products — funnel builder, website builder, and webinar platform — serving 60,000+ marketing agencies worldwide. Responsible for technical direction, cross-squad alignment, architecture patterns, engineering standards, and release discipline across a $1.5B+ ARR SaaS environment.
+Leading an engineering team and working directly with other engineering teams and verticals to keep collaboration functioning inside squads and across them. Guiding the AI-augmented Full Stack Builder effort: embedding AI tooling across the full SDLC, from conception and planning through prototyping, development, QA, and shipping. Shipping architectural reworks of critical subsystems alongside ongoing enhancements to existing features.
 
 ## Career History
 
-- **HighLevel** — Lead Engineer, Funnels/Websites/Webinars (Mar 2026–present)
-- **Penny Software** — Lead Engineer (Jan 2024–Aug 2025)
-- **Penny Software** — Product Specialist, hybrid engineering + product (Apr 2022–Dec 2023)
-- **Penny Software** — Full Stack Developer (Jun 2020–Mar 2022)
-- **Manaraah** — Senior Full Stack Developer (Jan 2020–Jun 2020)
-- **WeCP** — Software Development Engineer (Jan 2019–Jan 2020)
-- **Reubro International** — Junior Programmer (Aug 2018–Jan 2019)
+- **HighLevel**: Lead Engineer, Funnels/Websites/Webinars (Mar 2026–present)
+- **Penny Software**: Lead Engineer (Jan 2024–Aug 2025)
+- **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022–Dec 2023)
+- **Penny Software**: Full Stack Developer (Jun 2020–Mar 2022)
+- **Manaraah**: Senior Full Stack Developer (Jan 2020–Jun 2020)
+- **WeCP**: Software Development Engineer (Jan 2019–Jan 2020)
+- **Reubro International**: Junior Programmer (Aug 2018–Jan 2019)
 
 ## Skills & Stack
 
@@ -38,28 +38,28 @@ Leading the engineering organisation for three of HighLevel's core revenue produ
 
 ## Education
 
-B.Tech, Electronics and Communication Engineering — National Institute of Technology Calicut (2014–2018)
+B.Tech, Electronics and Communication Engineering, National Institute of Technology Calicut (2014–2018)
 
 ## Key Metrics & Achievements
 
-- $1B+ GTV safeguarded — architected multi-tenant procurement platform at Penny Software
-- 1.5× release cadence acceleration — reworked CI/CD and delivery rituals
-- <200ms critical query performance — optimised high-traffic API paths
-- ~12 engineers mentored — led cross-functional squad across frontend, backend, and QA
+- $1B+ GTV safeguarded: architected multi-tenant procurement platform at Penny Software
+- 1.5× release cadence acceleration: reworked CI/CD and delivery rituals
+- <200ms critical query performance: optimised high-traffic API paths
+- ~12 engineers mentored: led cross-functional squad across frontend, backend, and QA
 
 ## Projects
 
 Five projects designed, built, and run end to end, outside of work. Full case studies at ashwinsathian.com/projects/[slug].
 
-- **Booklet** (booklet.ashwinsathian.com) — Markdown-to-shareable-page SaaS product with a web editor, REST API, published CLI (readable-cli on npm), GitHub Action, and MCP server for AI assistants. Next.js 16, MongoDB, in-house auth.
-- **BRNR** — End-to-end encrypted, ephemeral messaging. No accounts, 24-hour message expiry, Redis-only persistence with hard TTLs, X3DH handshake + Double Ratchet encryption. NestJS, Socket.IO, Expo/React Native. AGPL-3.0.
-- **Wayfarer** (wayfarer.ashwinsathian.com) — Local-first API testing client with no account: collections, environments, client-side encrypted secrets vault (PBKDF2 + AES-GCM-256), sandboxed script execution. Angular, IndexedDB. Renamed from API Sandbox. MIT.
-- **ngx-runtime-i18n** — Signals-first runtime internationalisation for Angular; SSR-safe via TransferState, configurable fallback chains. Three packages published on npm. MIT.
-- **Typester** (typester.ashwinsathian.com) — Keyboard-first typing speed game. Ground-up rebuild of a 2018 app; zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
+- **Booklet** (booklet.ashwinsathian.com): Markdown-to-shareable-page SaaS product with a web editor, REST API, published CLI (readable-cli on npm), GitHub Action, and MCP server for AI assistants. Next.js 16, MongoDB, in-house auth.
+- **BRNR**: End-to-end encrypted, ephemeral messaging. No accounts, 24-hour message expiry, Redis-only persistence with hard TTLs, X3DH handshake plus Double Ratchet encryption. NestJS, Socket.IO, Expo/React Native. AGPL-3.0.
+- **Wayfarer** (wayfarer.ashwinsathian.com): Local-first API testing client with no account. Collections, environments, client-side encrypted secrets vault (PBKDF2 + AES-GCM-256), sandboxed script execution. Angular, IndexedDB. Renamed from API Sandbox. MIT.
+- **ngx-runtime-i18n**: Signals-first runtime internationalisation for Angular; SSR-safe via TransferState, configurable fallback chains. Three packages published on npm. MIT.
+- **Typester**: Keyboard-first typing speed game (typester.ashwinsathian.com). Ground-up rebuild of a 2018 app; zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
 
 ## Writing
 
-Ashwin publishes technical notes at ashwinsathian.com/writing. Nothing is published there yet — new essays are in progress.
+Ashwin publishes technical notes at ashwinsathian.com/writing. Nothing is published there yet; new essays are in progress.
 
 ## Contact
 

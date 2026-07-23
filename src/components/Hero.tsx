@@ -23,7 +23,7 @@ export default function Hero() {
       aria-labelledby="hero-name"
       className="relative flex min-h-svh flex-col justify-between bg-canvas px-6 pt-13 pb-28 md:px-16 md:pb-20"
     >
-      {/* Name + title — anchored to the bottom-left of the hero, drifts out on scroll */}
+      {/* Name + title, anchored to the bottom-left of the hero, drifts out on scroll */}
       <div className="flex flex-1 flex-col justify-end">
         <motion.div
           initial="hidden"
@@ -57,7 +57,7 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator — absolute bottom-center, independent of flex layout */}
+      {/* Scroll indicator, absolute bottom-center, independent of flex layout */}
       <motion.div
         aria-hidden
         style={{ opacity: prefersReducedMotion ? 1 : exitOpacity }}

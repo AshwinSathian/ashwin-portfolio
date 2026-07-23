@@ -23,11 +23,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const ogUrl = `/og?title=${encodeURIComponent(project.name)}&description=${encodeURIComponent(project.tagline)}&label=Projects`;
 
   return {
-    title: `${project.name} — Projects`,
+    title: project.name,
     description: project.tagline,
     alternates: { canonical: `${SITE.website}/projects/${project.slug}` },
     openGraph: {
-      title: `${project.name} — Ashwin Sathian`,
+      title: `${project.name} | Ashwin Sathian`,
       description: project.tagline,
       url: `${SITE.website}/projects/${project.slug}`,
       images: [{ url: ogUrl, width: 1200, height: 630, alt: project.name }],
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.name} — Ashwin Sathian`,
+      title: `${project.name} | Ashwin Sathian`,
       description: project.tagline,
       images: [ogUrl],
     },

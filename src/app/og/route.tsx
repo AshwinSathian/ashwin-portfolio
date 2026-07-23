@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
   const description = searchParams.get("description");
   const label = searchParams.get("label") ?? "Writing";
 
-  // Post card — when a title is supplied
+  // Post card, when a title is supplied
   if (title) {
     const safeTitle = truncate(title, 72);
     const safeDesc = description ? truncate(description, 130) : null;
@@ -138,7 +138,7 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // Site card — default, no params
+  // Site card, default, no params
   return new ImageResponse(
     (
       <div

@@ -23,7 +23,7 @@ export type RepoMeta = {
   default_branch: string;
 };
 
-/** Best-effort repo lookup — returns null for private, renamed, or rate-limited repos. */
+/** Best-effort repo lookup; returns null for private, renamed, or rate-limited repos. */
 export async function fetchRepoMeta({ owner, repo }: RepoRef): Promise<RepoMeta | null> {
   try {
     const response = await fetch(`${API_ROOT}/repos/${owner}/${repo}`, {

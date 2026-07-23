@@ -41,7 +41,7 @@ export default function Projects({ projects }: ProjectsProps) {
             variants={fadeInUp}
             className="max-w-xl text-[16px] leading-[1.7] text-label-3"
           >
-            Most of what I ship at work isn&apos;t mine to show. These are — designed,
+            Most of what I ship at work isn&apos;t mine to show. These are designed,
             built, and run by me alone, outside of it.
           </motion.p>
         </motion.div>

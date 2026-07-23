@@ -381,4 +381,20 @@ v2.x still read as a resume in cinematic clothing: a dedicated full-screen stat 
 
 ---
 
-*This document is the single source of truth. v3.0 supersedes v2.x entirely.*
+## 10. v3.1 — SEO/AEO/GEO Pass (July 2026)
+
+A research-driven audit against 2026 portfolio/SEO/AEO/GEO practice surfaced one real defect and a handful of gaps:
+
+**Fixed — schema/content mismatch:** `layout.tsx` shipped a sitewide `FAQPage` JSON-LD block with no matching visible content anywhere on the page — a direct violation of Google's structured data guidelines (markup must reflect what a visitor actually sees), and it also listed "Developly" as a former employer, which appears nowhere in `experience.ts`. Both are fixed: FAQ content now lives once, in `data/faq.ts`, rendered as a real `<details>`-based section on the homepage (`FAQ.tsx`) and used to generate the JSON-LD from the same data — the schema physically cannot drift from the page again. The fabricated employer is gone.
+
+**Added:**
+- `ProfilePage` schema on the homepage, `BreadcrumbList` schema + a visible breadcrumb trail on every project page — both align with the 2026 "AI-ready formula" (Article/Breadcrumb/FAQ/entity schema) research turned up for AEO citation.
+- Selective AI-crawler policy in `robots.ts`: retrieval bots (the ones a chat product calls live to answer a question) stay allowed, since `llms.txt` exists specifically to be read by them; bulk training crawlers (GPTBot, Google-Extended, CCBot, anthropic-ai) are disallowed. Blocking everything would cut citations along with training scrape, per the research; allowing everything indiscriminately isn't a real decision.
+- Baseline security headers (`X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`) in `next.config.ts` — table stakes, wasn't there before.
+- Navbar height now shrinks slightly on scroll instead of only changing background — the 2026 "context-aware sticky nav" pattern, still within the existing motion/type system.
+
+**Considered and deliberately not done:** a full light/dark mode toggle. 2026 research is clear that users increasingly expect a site to match system preference, but this site's identity is a deliberate dark canvas with exactly one light "moment" (§4.3) — genuinely theming every component for a second full mode would dilute the thing v2.0–v3.0 were built to be, for a personal single-owner site where that trade doesn't pay for itself the way it would on a utility product. Revisit if that reasoning stops holding.
+
+---
+
+*This document is the single source of truth. v3.1 supersedes everything before it.*

@@ -70,16 +70,39 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     softwareRequirements: project.stack.join(", "),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE.website },
+      { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE.website}/#projects` },
+      { "@type": "ListItem", position: 3, name: project.name, item: `${SITE.website}/projects/${project.slug}` },
+    ],
+  };
+
   return (
     <main className="mx-auto max-w-5xl px-6 py-24 pt-29 md:px-8 md:py-32 md:pt-33">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
 
-      <div className="mb-8">
+      {/* Breadcrumb */}
+      <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-[13px] text-label-4">
+        <Link href="/" className="transition-colors duration-200 hover:text-label-1">
+          Home
+        </Link>
+        <span aria-hidden>/</span>
         <BackToProjectsButton />
-      </div>
+        <span aria-hidden>/</span>
+        <span aria-current="page" className="text-label-2">
+          {project.name}
+        </span>
+      </nav>
 
       {/* Header */}
       <p className="mb-3 text-[11px] font-medium uppercase tracking-widest text-label-4">

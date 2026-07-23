@@ -151,53 +151,6 @@ const personSchema = {
   },
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "Who is Ashwin Sathian?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ashwin Sathian is a Lead Engineer based in Kochi, India. He currently leads engineering for HighLevel's Funnels, Websites, and Webinars products — three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide. Previously, he spent five years at Penny Software growing from Full Stack Developer to Lead Engineer, architecting a multi-tenant procurement platform handling $1B+ in GTV.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What is Ashwin Sathian's tech stack?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ashwin Sathian specialises in Angular, React, Next.js, NestJS, Node.js, MongoDB, TypeScript, AWS, and GCP. He uses AI-augmented workflows including Claude Code, GitHub Copilot, and LLM APIs as part of his engineering practice.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What companies has Ashwin Sathian worked at?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ashwin Sathian currently works at HighLevel as Lead Engineer for Funnels, Websites, and Webinars (March 2026–present). Previously he worked at Penny Software (5 years, 2020–2025), Manaraah, WeCP, Developly, and Reubro International.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What kind of engineering does Ashwin Sathian specialise in?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ashwin Sathian specialises in full-stack SaaS platform engineering with a focus on AI-augmented development practices. He has deep expertise in multi-tenant architecture, RBAC, API performance optimisation, and engineering team leadership. He applies AI tooling — including LLM APIs and AI-assisted development workflows — to accelerate and elevate his engineering output.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Where can I contact Ashwin Sathian?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ashwin Sathian can be contacted via email at ashwinsathyan19@gmail.com, on LinkedIn at linkedin.com/in/ashwinsathian, or on GitHub at github.com/AshwinSathian.",
-      },
-    },
-  ],
-};
-
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -218,10 +171,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
         <script
           type="application/ld+json"

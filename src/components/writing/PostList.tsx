@@ -10,11 +10,7 @@ type Props = {
 };
 
 export default function PostList({ posts }: Props) {
-  if (posts.length === 0) {
-    return (
-      <p className="mt-16 text-[15px] text-label-3">Nothing published yet.</p>
-    );
-  }
+  if (posts.length === 0) return null;
 
   return (
     <motion.ol

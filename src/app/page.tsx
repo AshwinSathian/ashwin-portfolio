@@ -1,14 +1,11 @@
 import About from "@/components/About";
 import Capabilities from "@/components/Capabilities";
 import Contact from "@/components/Contact";
-import Education from "@/components/Education";
 import Experience from "@/components/Experience";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import Impact from "@/components/Impact";
-import Manifesto from "@/components/Manifesto";
-import Work from "@/components/Work";
-import WritingTeaser from "@/components/WritingTeaser";
+import Platforms from "@/components/Platforms";
+import Projects from "@/components/Projects";
 import { getProjects } from "@/app/(helpers)/projects";
 import { HIGHLEVEL_PLATFORM, PLATFORM } from "@/app/data/work";
 
@@ -21,14 +18,11 @@ export default async function Page() {
   return (
     <>
       <Hero />
-      <Manifesto />
-      <Impact />
+      <Projects projects={projects} />
       <About />
-      <Work platforms={platforms} projects={projects} />
+      <Platforms platforms={platforms} />
       <Capabilities />
-      <WritingTeaser />
       <Experience />
-      <Education />
       <Contact />
       <Footer />
     </>

@@ -1,7 +1,7 @@
 # Brand System — Ashwin Sathian
 
-**Version:** 2.0  
-**Date:** May 2026  
+**Version:** 3.0  
+**Date:** July 2026  
 **Aesthetic Base:** Apple Product Pages (iPhone Pro / MacBook Pro / Vision Pro)  
 **Key Shift from v1.0:** Editorial → Cinematic. Resume → Personal Statement.
 
@@ -362,4 +362,23 @@ The reader is welcome. They are not a buyer.
 
 ---
 
-*This document is the single source of truth. v2.0 supersedes v1.0 entirely.*
+## 9. v3.0 — Portfolio, Not Resume (July 2026)
+
+v2.x still read as a resume in cinematic clothing: a dedicated full-screen stat wall (Impact), a pinned word-reveal mission statement (Manifesto), and a project grid crammed as a subsection under "Work" alongside the job history. v3.0 re-centers the page on projects and removes the sections that existed to perform seniority rather than demonstrate it.
+
+**Removed:**
+- **Manifesto** (pinned 220vh word-reveal statement section) — cut entirely. The line it carried didn't earn a dedicated scroll region.
+- **Impact** (four full-screen 120px stat numbers) — cut entirely. The two or three facts worth keeping ($1B+ GTV) now live as a clause inside About's prose, where they support a sentence instead of performing on their own.
+- **Education** as a standalone full section — folded into the bottom of the Experience timeline as one more row. A single degree doesn't need its own screen.
+- **WritingTeaser** — removed from the homepage along with both essays that were live at v2.1. The `/writing` route and its infrastructure stay; the page now shows an honest empty state until new pieces are written.
+
+**Restructured:**
+- **Projects is now the flagship section**, promoted directly under the Hero. It covers all five side projects (`booklet`, `brnr`, `wayfarer`, `ngx-runtime-i18n`, `typester`) as a single editorial list — index, category, name, tagline, one concrete engineering highlight, stack, links — rather than a 3-card grid buried under "Work."
+- **Platforms** (the HighLevel/Penny job-context blurbs, formerly half of `Work.tsx`) drops to a compact two-card band with no full-screen treatment, positioned after About/Capabilities, ahead of Experience — present, load-bearing for context, not competing with the projects for attention.
+- Section order is now: Hero → Projects → About → Platforms → Capabilities → Experience (+ Education) → Contact. Nothing in the post-Projects flow claims a full 100svh purely for its own drama; the cinematic energy is spent on the hero and on each project getting room to breathe, not on stat theater.
+
+**Unchanged:** the dark/light rhythm, the type scale, the card language, motion tokens, and voice rules in §7 all still apply. This is a content-architecture correction, not an aesthetic reset — v2.0's Apple-product-page instincts were right; they were just aimed at the wrong content.
+
+---
+
+*This document is the single source of truth. v3.0 supersedes v2.x entirely.*

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { RECENT_EXPERIENCE } from "@/app/data/experience";
+import { EDUCATION } from "@/app/data/education";
 import { fadeInUp, stagger } from "@/lib/motion";
 
 export default function Experience() {
@@ -67,6 +68,29 @@ export default function Experience() {
                       {item.tech.join("  ·  ")}
                     </p>
                   )}
+                </div>
+              </motion.div>
+            ))}
+
+            {EDUCATION.map((item) => (
+              <motion.div
+                key={item.school}
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.1 }}
+                className="grid gap-6 border-t border-white/8 py-10 md:grid-cols-[200px_1fr]"
+              >
+                <div className="flex flex-col gap-1">
+                  <p className="text-[13px] text-label-3">{item.period}</p>
+                  <p className="text-[15px] font-medium text-label-2">Education</p>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <p className="text-[17px] font-medium tracking-[-0.01em] text-label-1">
+                    {item.school}
+                  </p>
+                  <p className="text-[15px] leading-[1.65] text-label-2">{item.credential}</p>
                 </div>
               </motion.div>
             ))}

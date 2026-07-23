@@ -6,8 +6,9 @@ import Link from "next/link";
 import { SITE } from "@/app/data/site";
 
 const SCROLL_LINKS = [
-  { label: "Work", href: "#projects" },
+  { label: "Projects", href: "#projects" },
   { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
 

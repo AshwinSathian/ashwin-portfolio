@@ -47,19 +47,19 @@ B.Tech, Electronics and Communication Engineering — National Institute of Tech
 - <200ms critical query performance — optimised high-traffic API paths
 - ~12 engineers mentored — led cross-functional squad across frontend, backend, and QA
 
-## Open Source
+## Projects
 
-- **@ngx-runtime-i18n** — Angular library for runtime internationalisation (language switch without page reload)
-- **API Sandbox** — Browser-based HTTP sandbox for testing API endpoints
-- **GitHub Issues Analyzer** — Tool for analysing GitHub issue patterns to surface trends
+Five projects designed, built, and run end to end, outside of work. Full case studies at ashwinsathian.com/projects/[slug].
+
+- **Booklet** (booklet.ashwinsathian.com) — Markdown-to-shareable-page SaaS product with a web editor, REST API, published CLI (readable-cli on npm), GitHub Action, and MCP server for AI assistants. Next.js 16, MongoDB, in-house auth.
+- **BRNR** — End-to-end encrypted, ephemeral messaging. No accounts, 24-hour message expiry, Redis-only persistence with hard TTLs, X3DH handshake + Double Ratchet encryption. NestJS, Socket.IO, Expo/React Native. AGPL-3.0.
+- **Wayfarer** (wayfarer.ashwinsathian.com) — Local-first API testing client with no account: collections, environments, client-side encrypted secrets vault (PBKDF2 + AES-GCM-256), sandboxed script execution. Angular, IndexedDB. Renamed from API Sandbox. MIT.
+- **ngx-runtime-i18n** — Signals-first runtime internationalisation for Angular; SSR-safe via TransferState, configurable fallback chains. Three packages published on npm. MIT.
+- **Typester** (typester.ashwinsathian.com) — Keyboard-first typing speed game. Ground-up rebuild of a 2018 app; zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
 
 ## Writing
 
-Ashwin publishes long-form technical essays at ashwinsathian.com/writing.
-
-Current posts:
-- "Wait, Is Markdown Having a Moment?" — How a 2004 blogging format became the native language of AI (May 2026)
-- "Five Years, One Codebase: What Staying Teaches You" — On depth, judgment, and what AI changes (and doesn't) about software tenure (June 2026)
+Ashwin publishes technical notes at ashwinsathian.com/writing. Nothing is published there yet — new essays are in progress.
 
 ## Contact
 

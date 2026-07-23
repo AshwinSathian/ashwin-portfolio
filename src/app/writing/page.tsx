@@ -3,7 +3,7 @@ import PostList from "@/components/writing/PostList";
 import type { Metadata } from "next";
 
 const writingDescription =
-  "Essays on engineering, architecture, and building things that last.";
+  "Notes on engineering, architecture, and building things that last. New pieces on the way.";
 
 export const metadata: Metadata = {
   title: "Writing",
@@ -47,6 +47,10 @@ export default function WritingPage() {
         >
           Writing.
         </h1>
+
+        <p className="mt-6 max-w-lg text-[16px] leading-[1.7] text-label-3">
+          Nothing published yet — new essays are in progress. Check back soon.
+        </p>
 
         <PostList posts={posts} />
       </div>

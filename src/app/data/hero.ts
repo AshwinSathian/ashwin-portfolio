@@ -1,5 +1,5 @@
 export const HERO = {
   name: "Ashwin Sathian.",
   title: "Engineer.",
-  eyebrow: "Lead Engineer at HighLevel",
+  eyebrow: "Lead Engineer · 7+ years",
 } as const;

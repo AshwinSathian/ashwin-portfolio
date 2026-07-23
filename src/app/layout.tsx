@@ -14,7 +14,7 @@ const inter = Inter({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale, $1B+ GTV, now leading engineering at HighLevel with AI-augmented workflows.";
+  "Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale, $1B+ GTV, with an AI-augmented engineering practice.";
 
 export const viewport: Viewport = {
   themeColor: "#000000",
@@ -106,13 +106,6 @@ const personSchema = {
     "https://ashwinsathian.com",
   ],
   jobTitle: "Lead Engineer",
-  worksFor: {
-    "@type": "Organization",
-    name: "HighLevel",
-    url: "https://www.gohighlevel.com",
-    description:
-      "All-in-one SaaS platform powering 60,000+ marketing agencies worldwide at $1.5B+ ARR",
-  },
   alumniOf: {
     "@type": "EducationalOrganization",
     name: "National Institute of Technology Calicut",

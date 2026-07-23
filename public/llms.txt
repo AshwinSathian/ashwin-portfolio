@@ -4,22 +4,15 @@
 
 ## About
 
-Ashwin Sathian is a Lead Engineer based in Kochi, Kerala, India. He currently leads engineering for HighLevel's Funnels, Websites, and Webinars products: three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide.
+Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 7+ years across full-stack and platform engineering. Most recently, he led engineering for HighLevel's Funnels, Websites, and Webinars products (Mar–Jun 2026): three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide. There, he led an engineering team and worked directly with other engineering teams and verticals, guided the AI-augmented Full Stack Builder effort across the full SDLC, and shipped architectural reworks of critical subsystems alongside feature enhancements.
 
-Prior to HighLevel, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team of ~12 engineers, optimised critical API paths to under 200ms, and shaped the data patterns that held as the platform scaled to handle $1B+ in procurement GTV.
+Before that, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team of ~12 engineers, optimised critical API paths to under 200ms, and shaped the data patterns that held as the platform scaled to handle $1B+ in procurement GTV.
 
 Ashwin practises AI-augmented engineering, using AI tooling including Claude Code, GitHub Copilot, and LLM APIs to work at higher altitude: validating architectural decisions faster, accelerating implementation cycles, and raising the quality ceiling of his output.
 
-## Current Role
-
-**Lead Engineer, Funnels, Websites, Webinars**
-HighLevel · March 2026 – Present
-
-Leading an engineering team and working directly with other engineering teams and verticals to keep collaboration functioning inside squads and across them. Guiding the AI-augmented Full Stack Builder effort: embedding AI tooling across the full SDLC, from conception and planning through prototyping, development, QA, and shipping. Shipping architectural reworks of critical subsystems alongside ongoing enhancements to existing features.
-
 ## Career History
 
-- **HighLevel**: Lead Engineer, Funnels/Websites/Webinars (Mar 2026–present)
+- **HighLevel**: Lead Engineer, Funnels/Websites/Webinars (Mar 2026–Jun 2026)
 - **Penny Software**: Lead Engineer (Jan 2024–Aug 2025)
 - **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022–Dec 2023)
 - **Penny Software**: Full Stack Developer (Jun 2020–Mar 2022)

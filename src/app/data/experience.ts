@@ -11,11 +11,11 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
   {
     role: "Lead Engineer · Funnels, Websites, Webinars",
     company: "HighLevel",
-    dates: "Mar 2026 – Present",
+    dates: "Mar 2026 – Jun 2026",
     bullets: [
-      "Leading an engineering team, working directly with other engineering teams and verticals to keep collaboration functioning inside squads and across them.",
-      "Guiding the AI-augmented Full Stack Builder effort: embedding AI tooling across the full SDLC, from conception and planning through prototyping, development, QA, and shipping.",
-      "Shipping architectural reworks of critical subsystems alongside ongoing enhancements to existing features.",
+      "Led an engineering team, working directly with other engineering teams and verticals to keep collaboration functioning inside squads and across them.",
+      "Guided the AI-augmented Full Stack Builder effort: embedding AI tooling across the full SDLC, from conception and planning through prototyping, development, QA, and shipping.",
+      "Shipped architectural reworks of critical subsystems alongside ongoing enhancements to existing features.",
     ],
   },
   {

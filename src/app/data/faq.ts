@@ -11,7 +11,7 @@ export const FAQ: FaqItem[] = [
   {
     question: "Who is Ashwin Sathian?",
     answer:
-      "A Lead Engineer based in Kochi, India. He currently leads engineering for HighLevel's Funnels, Websites, and Webinars products: three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide. Previously, he spent five years at Penny Software growing from Full Stack Developer to Lead Engineer, architecting a multi-tenant procurement platform that came to move over $1B in GTV.",
+      "An engineer based in Kochi, India, with 7+ years across full-stack and platform engineering. Most recently, he led engineering for HighLevel's Funnels, Websites, and Webinars products (Mar–Jun 2026): three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide. Before that, he spent five years at Penny Software growing from Full Stack Developer to Lead Engineer, architecting a multi-tenant procurement platform that came to move over $1B in GTV.",
   },
   {
     question: "What is Ashwin Sathian's tech stack?",
@@ -21,7 +21,7 @@ export const FAQ: FaqItem[] = [
   {
     question: "What companies has Ashwin Sathian worked at?",
     answer:
-      "HighLevel (Lead Engineer, March 2026–present), Penny Software (five years, 2020–2025, Full Stack Developer to Lead Engineer), Manaraah, WeCP, and Reubro International.",
+      "HighLevel (Lead Engineer, March–June 2026), Penny Software (five years, 2020–2025, Full Stack Developer to Lead Engineer), Manaraah, WeCP, and Reubro International.",
   },
   {
     question: "What has Ashwin Sathian built outside of work?",

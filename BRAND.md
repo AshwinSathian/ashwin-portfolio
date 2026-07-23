@@ -1,6 +1,6 @@
 # Brand System — Ashwin Sathian
 
-**Version:** 3.0  
+**Version:** 3.2  
 **Date:** July 2026  
 **Aesthetic Base:** Apple Product Pages (iPhone Pro / MacBook Pro / Vision Pro)  
 **Key Shift from v1.0:** Editorial → Cinematic. Resume → Personal Statement.
@@ -397,4 +397,14 @@ A research-driven audit against 2026 portfolio/SEO/AEO/GEO practice surfaced one
 
 ---
 
-*This document is the single source of truth. v3.1 supersedes everything before it.*
+## 11. v3.2 — All-Dark, No Light Punctuation (July 2026)
+
+§2.2 and §4.3 described the About section as a deliberate light-background "punctuation mark," the one moment the page breathes differently. In practice, on the real deployed page, it read as inconsistent rather than dramatic: one editorial-white panel dropped into an otherwise all-dark, cinematic site, with no other section preparing the reader for it. Ashwin flagged it directly from a live screenshot and asked for it to look and feel like the rest of the site.
+
+**§2.2 and §4.3 are superseded.** The `--light-bg` / `--light-1` / `--light-2` / `--light-3` tokens are removed from `globals.css` entirely — About was their only consumer. About now sits on `--surface-1`, the same subtle-lift dark tone used elsewhere (Platforms, Experience), with `--label-1` / `--label-2` text like every other section. It also now carries the same eyebrow-label treatment (`About`, small caps, `--label-3`) that every other section on the page uses, which it previously lacked. Headline weight/scale brought in line with Capabilities' `The stack.` treatment (`font-thin`, same clamp range) rather than its own slightly heavier `font-extralight` variant.
+
+The page rhythm in §4.3 is now: dark canvas throughout, with surface-level lifts (`--surface-1`) used for separation instead of a hue change. No section of this site uses a light background. If a future revision wants a genuine light/dark distinction again, treat it as a full second theme (see §10's discussion of why a real toggle wasn't built), not a single one-off section.
+
+---
+
+*This document is the single source of truth. v3.2 supersedes everything before it.*

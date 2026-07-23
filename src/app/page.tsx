@@ -1,14 +1,12 @@
 import Capabilities from "@/components/Capabilities";
 import Contact from "@/components/Contact";
 import Experience from "@/components/Experience";
-import FAQSection from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import Platforms from "@/components/Platforms";
 import Projects from "@/components/Projects";
 import { getProjects } from "@/app/(helpers)/projects";
 import { PLATFORM } from "@/app/data/work";
-import { FAQ } from "@/app/data/faq";
 import { SITE } from "@/app/data/site";
 
 export const revalidate = 3600;
@@ -16,18 +14,7 @@ export const revalidate = 3600;
 export default async function Page() {
   const projects = await getProjects();
 
-  // FAQPage and ProfilePage schema mirror what's actually rendered below
-  // (the FAQSection and the page itself); no markup without matching content.
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQ.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  };
-
+  // ProfilePage schema mirrors the page itself; no markup without matching content.
   const profilePageSchema = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
@@ -43,16 +30,11 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <Hero />
       <Projects projects={projects} />
       <Platforms platform={PLATFORM} />
       <Capabilities />
       <Experience />
-      <FAQSection />
       <Contact />
       <Footer />
     </>

@@ -13,9 +13,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "HighLevel",
     dates: "Mar 2026 – Jun 2026",
     bullets: [
-      "Led an engineering team, working directly with other engineering teams and verticals to keep collaboration functioning inside squads and across them.",
-      "Guided the AI-augmented Full Stack Builder effort: embedding AI tooling across the full SDLC, from conception and planning through prototyping, development, QA, and shipping.",
-      "Shipped architectural reworks of critical subsystems alongside ongoing enhancements to existing features.",
+      "Led the team and worked across other teams and verticals so collaboration held up both inside squads and between them.",
+      "Drove the AI-augmented Full Stack Builder effort, putting AI tooling to work across the SDLC: planning, prototyping, building, QA, and shipping.",
+      "Reworked critical subsystems' architecture while shipping ongoing feature work in parallel, not instead of it.",
     ],
   },
   {
@@ -23,9 +23,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Jan 2024 – Aug 2025",
     bullets: [
-      "Directed Angular + NestJS + MongoDB architecture for a modular, multi-tenant procurement SaaS platform.",
-      "Standardized RBAC, tenancy isolation, and compliance-ready audit trails across the platform.",
-      "Mentored a cross-functional squad across frontend, backend, and QA, with a focus on architecture and craft.",
+      "Owned the Angular + NestJS + MongoDB architecture for a modular, multi-tenant procurement platform.",
+      "Built RBAC, tenancy isolation, and audit trails as platform-wide standards, not one-off features per team.",
+      "Mentored a squad spanning frontend, backend, and QA, pushing on architecture and craft in both directions.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx", "GCP"],
   },

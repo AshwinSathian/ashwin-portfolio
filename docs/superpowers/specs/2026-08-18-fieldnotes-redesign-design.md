@@ -30,6 +30,20 @@ Two content decisions were also confirmed:
   sub-200ms query optimization, ~12 engineers mentored, 1.5× release cadence —
   are fair game since they're verified facts already public, not fabrication.)
 
+Mid-brainstorm, the user supplied an updated resume (`~/Downloads/Resume.pdf`)
+and asked that the Projects section be built from a live GitHub scan rather
+than the current site's fixed list — "go beyond the basics." The resume adds
+one more verifiable figure not previously on the site (40%+ API/query
+response-time improvement, Product Specialist era) and a materially different
+AI-tooling list (Claude Code, Claude Cowork, Claude Design, OpenAI Codex —
+GitHub Copilot dropped). A scan of `github.com/AshwinSathian`'s public,
+non-fork, non-archived repos turned up three substantial, currently-active
+projects not on the site today (§5.1). Also per the user's mid-brainstorm
+instruction: any project screenshot captured or recaptured for this redesign
+should use the project's own light-mode UI where the project supports
+theming, so it sits naturally in the site's paper-toned frame rather than
+clashing (§6).
+
 ## 2. The idea the whole design is built from
 
 Across Ashwin's real shipped projects, one trait recurs and is unusual for a
@@ -133,11 +147,14 @@ hydration, some crawlers).
 ## 5. Content plan by page
 
 **Home (`/`)** — Identity stated once, plainly, above the fold, no void:
-name, one-line thesis, current focus. Below it, a "Recent" log strip: 2–3
-real dated entries (e.g. the Booklet rollback, a role change, a project
-ship) with permalinks into the fuller story. Then four labeled paths:
-Projects, Experience, Writing (only once it has posts), About. Footer
-contact module on every page from here down.
+name, one-line thesis, current focus. Below it, a "Recent" log strip: 3
+real dated entries pulled from the now-current material, e.g. "2026-08-17 —
+Published humanize-writing-skill", "2026-08-10 — Renamed Umbra to Darkframe
+after finding a naming collision in the Chrome Web Store", "2026-05 —
+Rolled Booklet off Cloudflare Workers back to a self-hosted process" — each
+a permalink into the fuller story. Then four labeled paths: Projects,
+Experience, Writing (only once it has posts), About. Footer contact module
+on every page from here down.
 
 **Projects index + case studies** — Keep every verified fact already in
 `src/app/data/projects.ts` (stack, license, architecture facts, highlights).
@@ -145,15 +162,73 @@ Rewrite the "verified" pill styling: drop the repeated `// verified · X`
 stamp (VerifiedTag component retired), let facts stand on their own — a
 fact stated once, plainly, in a document register, doesn't need a badge
 asserting it's true. Case studies add the Decision Record for Booklet
-(Workers → self-hosted), Wayfarer (rename, API Sandbox → Wayfarer), and
-Typester (2018 rebuild, defect-by-defect).
+(Workers → self-hosted), Wayfarer (rename, API Sandbox → Wayfarer),
+Darkframe (rename, Umbra → Darkframe, §5.1), and Typester (2018 rebuild,
+defect-by-defect).
+
+### 5.1 Expanded project lineup (from the GitHub scan)
+
+The current site lists five projects. The GitHub scan of `AshwinSathian`'s
+public, non-fork repos found three more that are substantial, currently
+active (all pushed to within the last two weeks), and independently
+verifiable — real evidence, not filler:
+
+- **Darkframe** (repo `umbra`, package/branding `darkframe`) — a free,
+  open-source, image-safe dark-mode browser engine for Chrome and Safari.
+  OKLCH-native recoloring, a WCAG 2.1 contrast solver, non-destructive CSS
+  Cascade Layers injection, an image/video classifier that never recolors
+  photos or video, 144 passing unit tests, a real E2E-verified Chrome MV3
+  extension, a real buildable Safari Xcode project, MIT. This is the
+  strongest Decision Record candidate on the whole site: the project
+  shipped under the name "Umbra," and its own `CHANGELOG.md` documents a
+  full rename to "Darkframe" (npm scope, extension name, storage keys, CSS
+  layer name, Xcode project) after finding an existing, active,
+  same-category Chrome extension called "Umbra Dark Mode" during a
+  shipping-readiness review — plus a disclosed, fixed High-severity CSS
+  injection vulnerability in the same changelog. Both are real, dated,
+  checkable events.
+- **better-auth-mongoose** — a published npm package (`0.1.1`, live) that
+  closes a real, long-documented gap in the Better Auth ecosystem (cites
+  specific upstream GitHub issues/discussions by number): a Mongoose-native
+  database adapter so `.populate()`, schema validation, and hooks work
+  against Better Auth's own collections instead of forcing a parallel raw
+  `mongodb` connection. Turborepo + Changesets, CI + CodeQL, a companion
+  tenant-scoping plugin, a real NestJS integration example that runs in CI,
+  its own docs site (`better-auth-mongoose.ashwinsathian.com`). MIT.
+- **humanize-writing-skill** — a Claude Code skill (published days before
+  this redesign began) that changes how an AI writes so the output reads as
+  a specific, considered human voice rather than generic AI-shaped prose.
+  Built from three cited research passes (academic detection literature,
+  editorial style guides, a 27-item catalog of AI-writing tells) plus a
+  teardown of 13 existing public "humanizer" skills, all in `reference/`,
+  not asserted from folk wisdom. Directly evidences the "AI-augmented,
+  not AI-replaced" positioning with a real built artifact instead of a
+  buzzword — arguably the single most on-thesis project on the site.
+  Distributed three ways (git+symlink, Claude Code plugin manifest,
+  `npx skills add`). MIT.
+
+`github-issue-analyzer` (Fastify + SQLite + local-LLM issue triage over
+Ollama) is real and complete but smaller in scope and less differentiated
+than the other seven — it gets a one-line mention in a lighter "Also
+shipped" list on the Projects index, not a full case study. `angularCalc`
+and `bing-distance-matrix` are archived learning-era repos and are excluded
+per the existing curation bar (the current site already only lists
+substantial, maintained work).
+
+Final case-study lineup (8): Booklet, BRNR, Wayfarer, ngx-runtime-i18n,
+Typester, Darkframe, better-auth-mongoose, humanize-writing-skill.
 
 **Experience (`/experience`)** — One entry per role, dated, same specificity
-standard as Projects. Pull the real, already-published figures from
-`llms.txt` into the HighLevel and Penny Software entries (~12 engineers
-mentored, sub-200ms critical query optimization, $1B+ GTV, 1.5× release
-cadence) instead of the current generic "Led the team..." bullets. No
-numbers beyond what's already published anywhere on the site today.
+standard as Projects. Pull the real, verified figures from `llms.txt` and
+the updated resume into the HighLevel and Penny Software entries (~12
+engineers mentored, sub-200ms critical query optimization, $1B+ GTV, 1.5×
+release-cadence acceleration, 40%+ API/query response-time improvement in
+the Product Specialist era) instead of the current generic "Led the
+team..." bullets. Skills/tooling list also updates to match the resume's
+current AI-tooling set (Claude Code, Claude Cowork, Claude Design, OpenAI
+Codex — GitHub Copilot is no longer on the resume and drops from the site).
+No numbers beyond what's already published across the resume or the
+current site.
 
 **About (`/about`)** — New page. Text-only. States: who this is, the
 throughline connecting NIT Calicut → the career path → why he builds and
@@ -189,6 +264,14 @@ apology). Removed from primary nav per §3 until real posts exist.
   preserved and updated to match the new IA (new `/about` and `/experience`
   routes added to sitemap; nav-related copy in `llms.txt` updated if the
   Writing nav demotion changes how it should be described).
+- Project screenshots: for the three new projects (§5.1) and any recapture
+  of existing ones, use each project's own **light-mode** UI where the
+  project supports theming, so the screenshot sits naturally in the site's
+  paper-toned frame rather than clashing with it (user instruction,
+  mid-brainstorm). Darkframe's own popup/options UI and any inherently
+  dark-only surface (e.g. a terminal capture) are exempt where no light
+  variant exists — the surrounding device-chrome frame still uses the
+  site's own palette either way.
 - Accessibility floor: visible focus rings (existing pattern is reasonable,
   carried forward), `prefers-reduced-motion` respected, semantic landmarks
   per page, color contrast re-verified against the new paper/ink palette

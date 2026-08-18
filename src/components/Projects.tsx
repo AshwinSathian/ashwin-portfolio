@@ -23,8 +23,8 @@ export default function Projects({ projects }: ProjectsProps) {
       <div className="mt-16 flex flex-col">
         {projects.map((project, i) => (
           <div key={project.slug} className="border-t border-line py-12 first:border-t-0 first:pt-0 md:py-14">
-            <div className="grid gap-8 md:grid-cols-[minmax(0,340px)_1fr] md:gap-12">
-              <div className="flex flex-col gap-3">
+            <div className="grid min-w-0 gap-8 md:grid-cols-[minmax(0,340px)_1fr] md:gap-12">
+              <div className="flex min-w-0 flex-col gap-3">
                 <ProjectMedia media={project.media} />
                 <div className="flex items-center gap-3 font-display text-[12px] uppercase tracking-wider text-ink-muted">
                   <span>{String(i + 1).padStart(2, "0")}</span>
@@ -38,7 +38,7 @@ export default function Projects({ projects }: ProjectsProps) {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-5">
+              <div className="flex min-w-0 flex-col gap-5">
                 <Link href={`/projects/${project.slug}`} className="group inline-flex items-baseline gap-3 focus-visible:outline-none">
                   <h2 className="font-display text-[clamp(24px,3.2vw,36px)] font-bold leading-[1.1] tracking-[-0.01em] text-ink transition-colors duration-200 group-hover:text-signal">
                     {project.name}

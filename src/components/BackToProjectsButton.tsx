@@ -7,7 +7,7 @@ export default function BackToProjectsButton() {
 
   return (
     <button
-      onClick={() => router.push("/#projects")}
+      onClick={() => router.push("/projects")}
       className="transition-colors duration-200 hover:text-ink-1"
     >
       Projects

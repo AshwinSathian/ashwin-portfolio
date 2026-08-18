@@ -185,7 +185,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="min-h-screen bg-canvas text-label-1"
+        className="min-h-screen bg-canvas text-ink-1"
         style={{ fontFamily: "var(--font-sans)" }}
       >
         <MotionProvider>

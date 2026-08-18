@@ -30,7 +30,7 @@ export default function Platforms({ platform }: PlatformsProps) {
         >
           <motion.p
             variants={fadeInUp}
-            className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
+            className="text-xs font-medium uppercase tracking-[0.08em] text-ink-3"
           >
             At work
           </motion.p>
@@ -39,13 +39,13 @@ export default function Platforms({ platform }: PlatformsProps) {
             variants={fadeInUp}
             className="flex max-w-xl flex-col gap-3 rounded-2xl border border-white/6 bg-surface-2 p-8"
           >
-            <p className="text-[11px] font-medium uppercase tracking-widest text-label-4">
+            <p className="text-[11px] font-medium uppercase tracking-widest text-ink-4">
               {platform.company}
             </p>
-            <h3 className="text-[20px] font-medium leading-snug tracking-[-0.015em] text-label-1">
+            <h3 className="text-[20px] font-medium leading-snug tracking-[-0.015em] text-ink-1">
               {platform.title}
             </h3>
-            <p className="text-[14px] leading-[1.65] text-label-3">{platform.description}</p>
+            <p className="text-[14px] leading-[1.65] text-ink-3">{platform.description}</p>
           </motion.div>
         </motion.div>
       </div>

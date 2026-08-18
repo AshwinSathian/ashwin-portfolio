@@ -69,7 +69,7 @@ export default function Navbar() {
         <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-6 md:px-16">
           <button
             onClick={() => scrollTo("#hero")}
-            className="text-[15px] font-medium text-label-2 transition-colors duration-200 hover:text-label-1"
+            className="text-[15px] font-medium text-ink-2 transition-colors duration-200 hover:text-ink-1"
             aria-label="Back to top"
           >
             AS
@@ -83,7 +83,7 @@ export default function Navbar() {
                   key={href}
                   onClick={() => scrollTo(href)}
                   className={`text-[14px] transition-colors duration-200 ${
-                    activeSection === id ? "text-accent" : "text-label-3 hover:text-label-1"
+                    activeSection === id ? "text-signal" : "text-ink-3 hover:text-ink-1"
                   }`}
                 >
                   {label}
@@ -93,7 +93,7 @@ export default function Navbar() {
             {isWritingRoute && (
               <Link
                 href="/"
-                className="text-[14px] text-label-3 transition-colors duration-200 hover:text-label-1"
+                className="text-[14px] text-ink-3 transition-colors duration-200 hover:text-ink-1"
               >
                 Home
               </Link>
@@ -101,7 +101,7 @@ export default function Navbar() {
             <Link
               href="/writing"
               className={`text-[14px] transition-colors duration-200 ${
-                isWritingRoute ? "text-accent" : "text-label-3 hover:text-label-1"
+                isWritingRoute ? "text-signal" : "text-ink-3 hover:text-ink-1"
               }`}
             >
               Writing
@@ -110,7 +110,7 @@ export default function Navbar() {
               href={SITE.resumePath}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-white/15 px-4 py-1.5 text-[13px] text-label-3 transition-colors duration-200 hover:border-white/25 hover:text-label-1"
+              className="rounded-full border border-white/15 px-4 py-1.5 text-[13px] text-ink-3 transition-colors duration-200 hover:border-white/25 hover:text-ink-1"
             >
               Résumé
             </a>
@@ -123,9 +123,9 @@ export default function Navbar() {
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
           >
-            <span className={`block h-px w-5 bg-label-2 transition-all duration-200 ${menuOpen ? "translate-y-1.5 rotate-45" : ""}`} />
-            <span className={`block h-px w-5 bg-label-2 transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-px w-5 bg-label-2 transition-all duration-200 ${menuOpen ? "-translate-y-1.5 -rotate-45" : ""}`} />
+            <span className={`block h-px w-5 bg-ink-2 transition-all duration-200 ${menuOpen ? "translate-y-1.5 rotate-45" : ""}`} />
+            <span className={`block h-px w-5 bg-ink-2 transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-px w-5 bg-ink-2 transition-all duration-200 ${menuOpen ? "-translate-y-1.5 -rotate-45" : ""}`} />
           </button>
         </div>
       </header>
@@ -140,7 +140,7 @@ export default function Navbar() {
           <button
             key={href}
             onClick={() => scrollTo(href)}
-            className="text-[36px] font-thin tracking-[-0.02em] text-label-1 transition-colors duration-200 hover:text-accent"
+            className="text-[36px] font-semibold tracking-[-0.015em] text-ink-1 transition-colors duration-200 hover:text-signal"
           >
             {label}
           </button>
@@ -148,7 +148,7 @@ export default function Navbar() {
         {isWritingRoute && (
           <Link
             href="/"
-            className="text-[36px] font-thin tracking-[-0.02em] text-label-1 transition-colors duration-200 hover:text-accent"
+            className="text-[36px] font-semibold tracking-[-0.015em] text-ink-1 transition-colors duration-200 hover:text-signal"
             onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
           >
             Home
@@ -156,8 +156,8 @@ export default function Navbar() {
         )}
         <Link
           href="/writing"
-          className={`text-[36px] font-thin tracking-[-0.02em] transition-colors duration-200 hover:text-accent ${
-            isWritingRoute ? "text-accent" : "text-label-1"
+          className={`text-[36px] font-semibold tracking-[-0.015em] transition-colors duration-200 hover:text-signal ${
+            isWritingRoute ? "text-signal" : "text-ink-1"
           }`}
           onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
         >
@@ -167,7 +167,7 @@ export default function Navbar() {
           href={SITE.resumePath}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 text-[15px] text-label-3"
+          className="mt-4 text-[15px] text-ink-3"
           onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
         >
           Résumé ↓

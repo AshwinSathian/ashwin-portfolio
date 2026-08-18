@@ -37,18 +37,18 @@ export default function WritingPage() {
   return (
     <main className="min-h-svh bg-canvas px-6 pb-24 pt-40 md:px-16">
       <div className="mx-auto max-w-3xl">
-        <p className="text-[11px] font-medium uppercase tracking-widest text-label-4">
+        <p className="text-[11px] font-medium uppercase tracking-widest text-ink-4">
           Writing
         </p>
 
         <h1
-          className="mt-4 font-thin text-label-1 leading-none tracking-[-0.04em]"
+          className="mt-4 font-semibold text-ink-1 leading-none tracking-[-0.025em]"
           style={{ fontSize: "clamp(48px, 7vw, 80px)" }}
         >
           Writing.
         </h1>
 
-        <p className="mt-6 max-w-lg text-[16px] leading-[1.7] text-label-3">
+        <p className="mt-6 max-w-lg text-[16px] leading-[1.7] text-ink-3">
           Nothing published yet. New essays are in progress. Check back soon.
         </p>
 

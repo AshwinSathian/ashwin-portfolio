@@ -28,23 +28,23 @@ export default function PostList({ posts }: Props) {
           >
             <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between md:gap-8">
               <div className="flex flex-col gap-1.5">
-                <span className="text-[11px] font-medium uppercase tracking-[0.1em] text-label-4">
+                <span className="text-[11px] font-medium uppercase tracking-[0.1em] text-ink-4">
                   {post.formattedDate}
                   {post.draft && (
-                    <span className="ml-3 rounded-full border border-white/15 px-2 py-0.5 text-[10px] normal-case tracking-normal text-label-3">
+                    <span className="ml-3 rounded-full border border-white/15 px-2 py-0.5 text-[10px] normal-case tracking-normal text-ink-3">
                       Draft
                     </span>
                   )}
                 </span>
-                <h2 className="text-[17px] font-medium leading-snug tracking-[-0.01em] text-label-1 transition-colors duration-200 group-hover:text-accent">
+                <h2 className="text-[17px] font-medium leading-snug tracking-[-0.01em] text-ink-1 transition-colors duration-200 group-hover:text-signal">
                   {post.title}
                 </h2>
-                <p className="text-[15px] leading-[1.6] text-label-3">
+                <p className="text-[15px] leading-[1.6] text-ink-3">
                   {post.description}
                 </p>
               </div>
 
-              <div className="shrink-0 text-[13px] text-label-4 md:text-right">
+              <div className="shrink-0 text-[13px] text-ink-4 md:text-right">
                 {post.readingTime} min
               </div>
             </div>
@@ -54,7 +54,7 @@ export default function PostList({ posts }: Props) {
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full border border-white/6 px-3 py-0.5 text-[11px] text-label-4"
+                    className="rounded-full border border-white/6 px-3 py-0.5 text-[11px] text-ink-4"
                   >
                     {tag}
                   </span>

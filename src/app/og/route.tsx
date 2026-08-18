@@ -1,11 +1,11 @@
 import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
 
-const CANVAS = "#000000";
-const LABEL_1 = "#F5F5F7";
-const LABEL_3 = "#6E6E73";
-const LABEL_4 = "#48484A";
-const ACCENT = "#2997FF";
+const CANVAS = "#EEF0F1";
+const LABEL_1 = "#14181C";
+const LABEL_3 = "#5B6570";
+const LABEL_4 = "#889098";
+const ACCENT = "#C8712E";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
             justifyContent: "space-between",
             padding: "72px 80px",
             backgroundColor: CANVAS,
-            fontFamily: "Inter, -apple-system, sans-serif",
+            fontFamily: "ui-monospace, 'SF Mono', Menlo, monospace",
           }}
         >
           {/* Top: section label */}
@@ -150,7 +150,7 @@ export async function GET(request: NextRequest) {
           justifyContent: "flex-end",
           padding: "80px",
           backgroundColor: CANVAS,
-          fontFamily: "Inter, -apple-system, sans-serif",
+          fontFamily: "ui-monospace, 'SF Mono', Menlo, monospace",
         }}
       >
         <div
@@ -185,7 +185,7 @@ export async function GET(request: NextRequest) {
             letterSpacing: "-0.01em",
           }}
         >
-          Seven years. $1B+ GTV. Calm architecture.
+          AI-augmented senior full-stack engineer. $1B+ GTV. Decisions published, not hidden.
         </div>
         <div
           style={{

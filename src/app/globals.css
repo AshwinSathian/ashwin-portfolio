@@ -1,29 +1,43 @@
 @import "tailwindcss";
 
 @theme {
-  /* Dark surfaces */
-  --color-canvas: #0a0d10;
-  --color-surface-1: #12161b;
-  --color-surface-2: #1a2027;
+  /* Light (default) */
+  --color-paper: #EEF0F1;
+  --color-paper-raised: #E4E7E8;
+  --color-ink: #14181C;
+  --color-ink-muted: #5B6570;
+  --color-line: #D3D7D9;
+  --color-accent: #263C8B;
+  --color-signal: #C8712E;
+  --color-diff-add: #2E7D5B;
+  --color-diff-remove: #B54B3E;
 
-  /* Ink (text) */
-  --color-ink-1: #edeff2;
-  --color-ink-2: #8b93a1;
-  --color-ink-3: #5b636f;
-  --color-ink-4: #394048;
+  --font-display: var(--font-mono);
+  --font-body: var(--font-serif);
+  --font-ui: var(--font-sans);
 
-  /* Accent: signal is the one loud color on the site. */
-  --color-signal: #4ce0a6;
-  --color-signal-hover: #3bc98f;
-
-  /* Shadows */
-  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);
-  --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.12);
-  --shadow-modal: 0 24px 80px rgba(0, 0, 0, 0.8);
+  --shadow-card: 0 0 0 1px rgba(20, 24, 28, 0.08);
+  --shadow-card-hover: 0 0 0 1px rgba(20, 24, 28, 0.16);
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #14171A;
+    --color-paper-raised: #1D2124;
+    --color-ink: #EDEFF1;
+    --color-ink-muted: #9AA3AC;
+    --color-line: #2B3034;
+    --color-accent: #7C93E8;
+    --color-signal: #E08F4E;
+    --color-diff-add: #4FAE85;
+    --color-diff-remove: #E07862;
+    --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.16);
+  }
 }
 
 *,
@@ -37,8 +51,8 @@ html {
 }
 
 body {
-  background-color: #0a0d10;
-  color: #edeff2;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -46,14 +60,51 @@ body {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid #4ce0a6;
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
   border-radius: 4px;
 }
 
 ::selection {
-  background-color: rgba(76, 224, 166, 0.25);
-  color: #edeff2;
+  background-color: color-mix(in srgb, var(--color-signal) 30%, transparent);
+  color: var(--color-ink);
+}
+
+/* Engineering-notebook dot-grid texture. Hero and section-opening moments only. */
+.field-texture {
+  background-image: radial-gradient(var(--color-ink) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.05;
+}
+
+@media (prefers-contrast: more) {
+  .field-texture {
+    display: none;
+  }
+}
+
+/* Home-load stagger — the one orchestrated on-load motion moment (spec §4).
+   Consumer applies `.load-fade-up` plus an inline `animationDelay` per
+   element; see Task 8. */
+@keyframes load-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.load-fade-up {
+  animation: load-fade-up 0.5s cubic-bezier(0, 0, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .load-fade-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ─── Blog article prose ─────────────────────────────────────────────────── */

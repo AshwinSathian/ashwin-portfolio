@@ -1,21 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { JetBrains_Mono, Source_Serif_4, Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import MotionProvider from "@/components/MotionProvider";
 
-const plexSans = IBM_Plex_Sans({
+const displayMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sans",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-mono",
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
+const bodySerif = Source_Serif_4({
   subsets: ["latin"],
-  weight: ["500"],
-  variable: "--font-mono",
+  weight: ["400", "500", "600"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const uiSans = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sans",
   display: "swap",
 });
 
@@ -168,7 +175,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexSans.variable} ${plexMono.variable}`}
+      className={`${displayMono.variable} ${bodySerif.variable} ${uiSans.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -186,7 +193,7 @@ export default function RootLayout({
       </head>
       <body
         className="min-h-screen bg-canvas text-ink-1"
-        style={{ fontFamily: "var(--font-sans)" }}
+        style={{ fontFamily: "var(--font-ui)" }}
       >
         <MotionProvider>
           <ScrollProgress />

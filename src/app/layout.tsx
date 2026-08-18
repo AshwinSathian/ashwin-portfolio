@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   description: siteDescription,
   keywords: [
     "Ashwin Sathian",
-    "Lead Engineer",
+    "AI-Augmented Senior Full-Stack Engineer",
     "Full-Stack Engineer",
     "AI-augmented engineering",
     "SaaS platform engineer",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
         url: "/og",
         width: 1200,
         height: 630,
-        alt: "Ashwin Sathian, Lead Engineer, AI-Augmented Full-Stack SaaS",
+        alt: "Ashwin Sathian, AI-Augmented Senior Full-Stack Engineer",
       },
     ],
     locale: "en_US",

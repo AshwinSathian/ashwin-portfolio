@@ -119,9 +119,15 @@ but with a wider functional color range, one textural device, and real
 | `ink-muted` | `#5B6570` | Secondary text, metadata |
 | `line` | `#D3D7D9` | Hairline rules, borders |
 | `accent` | `#263C8B` | Primary UI accent — a "blueprint ink" blue: links, focus rings, primary CTA |
-| `signal` | `#C8712E` | Second accent — a warm, confident copper/amber: active nav state, the Contact module, key numerals/dates. Gives the palette a second temperature so it isn't one hue doing every job |
-| `diff-add` | `#2E7D5B` | Terminal-green — Decision Record "after" states, and reused functionally as the "live/shipped" status marker across Projects |
-| `diff-remove` | `#B54B3E` | Brick-red — Decision Record "before" states, and reused functionally as the "deprecated/renamed-from" status marker |
+| `signal` | `#985623` | Second accent — a warm, confident copper/amber: active nav state, the Contact module, key numerals/dates. Gives the palette a second temperature so it isn't one hue doing every job |
+| `diff-add` | `#2B7454` | Terminal-green — Decision Record "after" states, and reused functionally as the "live/shipped" status marker across Projects |
+| `diff-remove` | `#AC473B` | Brick-red — Decision Record "before" states, and reused functionally as the "deprecated/renamed-from" status marker |
+
+(`signal`, `diff-add`, `diff-remove` were each darkened slightly from their
+first-draft values during implementation — the originals failed WCAG AA at
+the sizes they're actually used at; see the implementation plan's Task 17
+and the final-review fix wave. Hue and saturation are preserved, only
+lightness moved.)
 
 Four working colors (accent, signal, diff-add, diff-remove) instead of one,
 but each is assigned a specific job and never just decorative — that's what

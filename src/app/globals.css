@@ -8,7 +8,7 @@
   --color-ink-muted: #5B6570;
   --color-line: #D3D7D9;
   --color-accent: #263C8B;
-  --color-signal: #C8712E;
+  --color-signal: #985623;
   --color-diff-add: #2B7454;
   --color-diff-remove: #AC473B;
 
@@ -115,6 +115,13 @@ button:focus-visible {
   }
 }
 
+@media print {
+  .decision-line {
+    animation: none !important;
+    clip-path: none !important;
+  }
+}
+
 /* Home-load stagger — the one orchestrated on-load motion moment (spec §4).
    Consumer applies `.load-fade-up` plus an inline `animationDelay` per
    element; see Task 8. */
@@ -140,7 +147,7 @@ button:focus-visible {
 }
 
 /* ─── Blog article prose ─────────────────────────────────────────────────── */
-/* Applied to the container wrapping @uiw/react-markdown-preview on post pages */
+/* Applied to the container wrapping marked-rendered Markdown on post pages */
 .prose {
   background: transparent !important;
   color: var(--color-ink-muted);
@@ -304,5 +311,9 @@ button:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

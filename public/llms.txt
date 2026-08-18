@@ -1,6 +1,14 @@
 # Ashwin Sathian
 
-> Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale. AI-augmented engineering practice.
+> AI-augmented senior full-stack engineer. Seven years building and scaling enterprise-grade SaaS platforms. Eight independent products shipped outside of it, each with its decisions published, not hidden.
+
+## Site
+
+Multi-page site: / (home), /projects (index + 8 case studies), /experience,
+/about, /writing. Four project case studies — Booklet, Wayfarer, Darkframe,
+and Typester — include a dated Decision Record: a real, disclosed reversal
+(a rollback, a rename, a rebuild) with before/after reasoning, not just a
+finished, polished result.
 
 ## About
 

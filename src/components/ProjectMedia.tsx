@@ -32,12 +32,12 @@ export default function ProjectMedia({ media, priority }: ProjectMediaProps) {
       {media.kind === "code" && (
         <div className="flex h-full w-full min-w-0 flex-col">
           <div className="flex shrink-0 items-center justify-between border-b border-line bg-paper px-4 py-2.5">
-            <span className="font-mono text-[12px] text-ink-muted">{media.caption}</span>
-            <span className="font-mono text-[11px] uppercase tracking-widest text-ink-muted">
+            <span className="font-display text-[12px] text-ink-muted">{media.caption}</span>
+            <span className="font-display text-[11px] uppercase tracking-widest text-ink-muted">
               {media.language}
             </span>
           </div>
-          <pre className="flex-1 overflow-auto p-5 font-mono text-[13px] leading-[1.7] text-ink">
+          <pre className="flex-1 overflow-auto p-5 font-display text-[13px] leading-[1.7] text-ink">
             <code>{media.snippet}</code>
           </pre>
         </div>

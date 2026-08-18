@@ -8,6 +8,8 @@ import { SITE } from "@/app/data/site";
 const description =
   "Seven years leading and building SaaS platforms at scale — the record behind the resume, with the numbers that back it up.";
 
+const ogImageUrl = `/og?title=Experience&description=${encodeURIComponent("Seven years leading and building SaaS platforms at scale — the record behind the resume.")}&label=Experience`;
+
 export const metadata: Metadata = {
   title: "Experience",
   description,
@@ -17,25 +19,25 @@ export const metadata: Metadata = {
     description,
     url: `${SITE.website}/experience`,
     type: "website",
-    images: [{ url: "/og?label=Experience", width: 1200, height: 630, alt: "Experience | Ashwin Sathian" }],
+    images: [{ url: ogImageUrl, width: 1200, height: 630, alt: "Experience | Ashwin Sathian" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Experience | Ashwin Sathian",
     description,
     creator: "@ashwinsathian",
-    images: ["/og?label=Experience"],
+    images: [ogImageUrl],
   },
 };
 
 export default function ExperiencePage() {
   return (
-    <main className="mx-auto max-w-5xl px-6 py-24 pt-32 md:px-16 md:py-32 md:pt-40">
+    <div className="mx-auto max-w-5xl px-6 py-24 pt-32 md:px-16 md:py-32 md:pt-40">
       <p className="font-ui text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">
         Experience
       </p>
       <h1 className="mt-4 font-display text-[clamp(32px,5vw,52px)] font-bold leading-[1.02] tracking-[-0.02em] text-ink">
-        {PLATFORM.title}
+        The record behind the résumé.
       </h1>
       <p className="mt-4 max-w-2xl font-body text-[16px] leading-[1.7] text-ink-muted">
         {PLATFORM.description}
@@ -97,6 +99,6 @@ export default function ExperiencePage() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

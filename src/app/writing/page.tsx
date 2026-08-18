@@ -5,9 +5,12 @@ import type { Metadata } from "next";
 const writingDescription =
   "Notes on engineering, architecture, and building things that last. New pieces on the way.";
 
+const ogImageUrl = `/og?title=Writing&description=${encodeURIComponent("Notes on engineering, architecture, and building things that last.")}&label=Writing`;
+
 export const metadata: Metadata = {
   title: "Writing",
   description: writingDescription,
+  alternates: { canonical: "https://ashwinsathian.com/writing" },
   openGraph: {
     title: "Writing | Ashwin Sathian",
     description: writingDescription,
@@ -15,7 +18,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og?label=Writing",
+        url: ogImageUrl,
         width: 1200,
         height: 630,
         alt: "Writing | Ashwin Sathian",
@@ -27,7 +30,7 @@ export const metadata: Metadata = {
     title: "Writing | Ashwin Sathian",
     description: writingDescription,
     creator: "@ashwinsathian",
-    images: ["/og?label=Writing"],
+    images: [ogImageUrl],
   },
 };
 
@@ -35,7 +38,7 @@ export default function WritingPage() {
   const posts = getAllPosts();
 
   return (
-    <main className="min-h-svh px-6 pb-24 pt-32 md:px-16 md:pt-40">
+    <div className="min-h-svh px-6 pb-24 pt-32 md:px-16 md:pt-40">
       <div className="mx-auto max-w-3xl">
         <p className="font-ui text-[11px] font-medium uppercase tracking-widest text-ink-muted">
           Writing
@@ -62,6 +65,6 @@ export default function WritingPage() {
 
         <PostList posts={posts} />
       </div>
-    </main>
+    </div>
   );
 }

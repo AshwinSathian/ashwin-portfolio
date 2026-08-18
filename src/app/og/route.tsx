@@ -5,7 +5,7 @@ const CANVAS = "#EEF0F1";
 const LABEL_1 = "#14181C";
 const LABEL_3 = "#5B6570";
 const LABEL_4 = "#889098";
-const ACCENT = "#C8712E";
+const ACCENT = "#985623";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;

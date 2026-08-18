@@ -31,7 +31,10 @@ const siteDescription =
   "AI-augmented senior full-stack engineer. Seven years building and scaling enterprise-grade SaaS platforms — $1B+ GTV, multi-tenant architecture, teams mentored. Eight independent products shipped outside of it, each with its decisions published, not hidden.";
 
 export const viewport: Viewport = {
-  themeColor: "#EEF0F1",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#EEF0F1" },
+    { media: "(prefers-color-scheme: dark)", color: "#14171A" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -148,7 +151,7 @@ const personSchema = {
   ],
   hasOccupation: {
     "@type": "Occupation",
-    name: "Lead Software Engineer",
+    name: "AI-Augmented Senior Full-Stack Engineer",
     occupationLocation: {
       "@type": "City",
       name: "Kochi, Kerala, India",

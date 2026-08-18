@@ -4,6 +4,8 @@ import { SITE } from "@/app/data/site";
 const description =
   "Who this is, and why an engineering leader with a full-time lead role also ships independent products in his own time.";
 
+const ogImageUrl = `/og?title=About&description=${encodeURIComponent("Who this is, and why an engineering leader also ships independent products in his own time.")}&label=About`;
+
 export const metadata: Metadata = {
   title: "About",
   description,
@@ -13,20 +15,20 @@ export const metadata: Metadata = {
     description,
     url: `${SITE.website}/about`,
     type: "website",
-    images: [{ url: "/og?label=About", width: 1200, height: 630, alt: "About | Ashwin Sathian" }],
+    images: [{ url: ogImageUrl, width: 1200, height: 630, alt: "About | Ashwin Sathian" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About | Ashwin Sathian",
     description,
     creator: "@ashwinsathian",
-    images: ["/og?label=About"],
+    images: [ogImageUrl],
   },
 };
 
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-2xl px-6 py-24 pt-32 md:px-8 md:py-32 md:pt-40">
+    <div className="mx-auto max-w-2xl px-6 py-24 pt-32 md:px-8 md:py-32 md:pt-40">
       <p className="font-ui text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">
         About
       </p>
@@ -83,6 +85,6 @@ export default function AboutPage() {
           in Kochi, Kerala, India.
         </p>
       </div>
-    </main>
+    </div>
   );
 }

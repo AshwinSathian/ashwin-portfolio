@@ -45,3 +45,6 @@ next-env.d.ts
 .wrangler
 cloudflare-env.d.ts
 .dev.vars
+
+# playwright mcp scratch
+.playwright-mcp/

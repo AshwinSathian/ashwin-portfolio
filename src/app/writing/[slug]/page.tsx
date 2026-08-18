@@ -93,7 +93,7 @@ export default async function PostPage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-svh px-6 pb-24 pt-40 md:px-16">
+    <div className="min-h-svh px-6 pb-24 pt-40 md:px-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -164,6 +164,6 @@ export default async function PostPage({ params }: Props) {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

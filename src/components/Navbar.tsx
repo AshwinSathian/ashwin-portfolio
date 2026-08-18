@@ -92,6 +92,7 @@ export default function Navbar() {
       </header>
 
       <div
+        inert={!menuOpen}
         className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-10 bg-paper transition-opacity duration-300 md:hidden ${
           menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}

@@ -356,9 +356,21 @@ export const PROJECTS: Project[] = [
       github: "https://github.com/AshwinSathian/umbra",
     },
     media: {
-      kind: "screenshot",
-      src: "/projects/darkframe/hero.png",
-      alt: "Darkframe's Chrome popup: an aperture-ring toggle for the current site, a global-enable switch, and brightness/contrast tuning sliders.",
+      kind: "code",
+      language: "json",
+      caption: "manifest.json",
+      snippet: `{
+  "name": "Darkframe",
+  "description": "Free, cross-browser dark-mode engine",
+  "manifest_version": 3,
+  "permissions": ["storage", "scripting"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "run_at": "document_start",
+    "js": ["content-script.js"]
+  }]
+}`,
     },
     repo: { owner: "AshwinSathian", repo: "umbra" },
     decisionRecord: {

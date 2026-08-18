@@ -7,6 +7,8 @@ import { SITE } from "@/app/data/site";
 const description =
   "Eight independent products, designed and run end to end, outside of a full-time lead role.";
 
+const ogImageUrl = `/og?title=Projects&description=${encodeURIComponent(description)}&label=Projects`;
+
 export const metadata: Metadata = {
   title: "Projects",
   description,
@@ -16,14 +18,14 @@ export const metadata: Metadata = {
     description,
     url: `${SITE.website}/projects`,
     type: "website",
-    images: [{ url: "/og?label=Projects", width: 1200, height: 630, alt: "Projects | Ashwin Sathian" }],
+    images: [{ url: ogImageUrl, width: 1200, height: 630, alt: "Projects | Ashwin Sathian" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Projects | Ashwin Sathian",
     description,
     creator: "@ashwinsathian",
-    images: ["/og?label=Projects"],
+    images: [ogImageUrl],
   },
 };
 

@@ -29,6 +29,9 @@ export default function Projects({ projects }: ProjectsProps) {
                 <div className="flex items-center gap-3 font-display text-[12px] uppercase tracking-wider text-ink-muted">
                   <span>{String(i + 1).padStart(2, "0")}</span>
                   <span>{project.category}</span>
+                  {project.decisionRecord && (
+                    <span className="text-diff-add normal-case tracking-normal">± Decision record</span>
+                  )}
                   {(project.language || typeof project.stars === "number") && (
                     <span className="ml-auto normal-case tracking-normal">
                       {project.language}
@@ -71,7 +74,7 @@ export default function Projects({ projects }: ProjectsProps) {
                 <div className="flex flex-wrap gap-x-6 gap-y-1.5 font-ui text-[13px] text-ink-muted">
                   {project.facts.map((fact) => (
                     <span key={fact.label}>
-                      <span className="text-ink-muted/70">{fact.label}:</span> {fact.value}
+                      <span className="text-ink-muted">{fact.label}:</span> {fact.value}
                     </span>
                   ))}
                 </div>

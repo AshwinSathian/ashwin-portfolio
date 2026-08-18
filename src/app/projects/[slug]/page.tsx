@@ -83,7 +83,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   };
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-24 pt-29 md:px-8 md:py-32 md:pt-33">
+    <div className="mx-auto max-w-5xl px-6 py-24 pt-29 md:px-8 md:py-32 md:pt-33">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
@@ -226,6 +226,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </span>
         </Link>
       </div>
-    </main>
+    </div>
   );
 }

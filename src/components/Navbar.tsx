@@ -5,17 +5,16 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { SITE } from "@/app/data/site";
 
-const SCROLL_LINKS = [
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+const NAV_LINKS = [
+  { label: "Projects", href: "/projects" },
+  { label: "Experience", href: "/experience" },
+  { label: "Writing", href: "/writing" },
+  { label: "About", href: "/about" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
-  const isWritingRoute = pathname?.startsWith("/writing");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -25,92 +24,54 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    if (isWritingRoute) return;
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname?.startsWith(href);
 
-    const ids = ["projects", "experience", "contact"];
-    const observers: IntersectionObserver[] = [];
-
-    ids.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.3 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
-  }, [isWritingRoute]);
-
-  const scrollTo = (href: string) => {
+  const closeMenu = () => {
     setMenuOpen(false);
     toggleRef.current?.focus();
-    const el = document.getElementById(href.replace("#", ""));
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <>
       <header
         suppressHydrationWarning
-        className={`fixed inset-x-0 top-0 z-50 transition-[height,background-color] duration-300 ${
-          scrolled ? "h-11" : "h-13"
+        className={`fixed inset-x-0 top-0 z-50 transition-[height,background-color,border-color] duration-300 ${
+          scrolled ? "h-14" : "h-16"
         }`}
         style={{
-          background: scrolled ? "rgba(0,0,0,0.85)" : "rgba(0,0,0,0)",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "none",
+          background: scrolled ? "color-mix(in srgb, var(--color-paper) 92%, transparent)" : "transparent",
+          backdropFilter: scrolled ? "blur(16px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(16px)" : "none",
+          borderBottom: scrolled ? "1px solid var(--color-line)" : "1px solid transparent",
         }}
       >
         <div className="mx-auto flex h-full max-w-5xl items-center justify-between px-6 md:px-16">
-          <button
-            onClick={() => scrollTo("#hero")}
-            className="text-[15px] font-medium text-ink-2 transition-colors duration-200 hover:text-ink-1"
-            aria-label="Back to top"
+          <Link
+            href="/"
+            className="font-display text-[15px] font-semibold text-ink transition-colors duration-200 hover:text-accent"
+            aria-label="Ashwin Sathian, home"
           >
             AS
-          </button>
+          </Link>
 
           <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
-            {!isWritingRoute && SCROLL_LINKS.map(({ label, href }) => {
-              const id = href.replace("#", "");
-              return (
-                <button
-                  key={href}
-                  onClick={() => scrollTo(href)}
-                  className={`text-[14px] transition-colors duration-200 ${
-                    activeSection === id ? "text-signal" : "text-ink-3 hover:text-ink-1"
-                  }`}
-                >
-                  {label}
-                </button>
-              );
-            })}
-            {isWritingRoute && (
+            {NAV_LINKS.map(({ label, href }) => (
               <Link
-                href="/"
-                className="text-[14px] text-ink-3 transition-colors duration-200 hover:text-ink-1"
+                key={href}
+                href={href}
+                className={`font-ui text-[14px] transition-colors duration-200 ${
+                  isActive(href) ? "text-signal" : "text-ink-muted hover:text-ink"
+                }`}
               >
-                Home
+                {label}
               </Link>
-            )}
-            <Link
-              href="/writing"
-              className={`text-[14px] transition-colors duration-200 ${
-                isWritingRoute ? "text-signal" : "text-ink-3 hover:text-ink-1"
-              }`}
-            >
-              Writing
-            </Link>
+            ))}
             <a
               href={SITE.resumePath}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-white/15 px-4 py-1.5 text-[13px] text-ink-3 transition-colors duration-200 hover:border-white/25 hover:text-ink-1"
+              className="rounded-full border border-line px-4 py-1.5 font-ui text-[13px] text-ink-muted transition-colors duration-200 hover:border-ink-muted hover:text-ink"
             >
               Résumé
             </a>
@@ -118,57 +79,41 @@ export default function Navbar() {
 
           <button
             ref={toggleRef}
-            className="flex h-8 w-8 flex-col items-center justify-center gap-1.25 md:hidden"
+            className="flex h-8 w-8 flex-col items-center justify-center gap-1.5 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
           >
-            <span className={`block h-px w-5 bg-ink-2 transition-all duration-200 ${menuOpen ? "translate-y-1.5 rotate-45" : ""}`} />
-            <span className={`block h-px w-5 bg-ink-2 transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`} />
-            <span className={`block h-px w-5 bg-ink-2 transition-all duration-200 ${menuOpen ? "-translate-y-1.5 -rotate-45" : ""}`} />
+            <span className={`block h-px w-5 bg-ink transition-all duration-200 ${menuOpen ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`block h-px w-5 bg-ink transition-all duration-200 ${menuOpen ? "opacity-0" : ""}`} />
+            <span className={`block h-px w-5 bg-ink transition-all duration-200 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
           </button>
         </div>
       </header>
 
-      {/* Mobile overlay */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-10 bg-canvas transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col items-center justify-center gap-10 bg-paper transition-opacity duration-300 md:hidden ${
           menuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
-        {!isWritingRoute && SCROLL_LINKS.map(({ label, href }) => (
-          <button
+        {NAV_LINKS.map(({ label, href }) => (
+          <Link
             key={href}
-            onClick={() => scrollTo(href)}
-            className="text-[36px] font-semibold tracking-[-0.015em] text-ink-1 transition-colors duration-200 hover:text-signal"
+            href={href}
+            onClick={closeMenu}
+            className={`font-display text-[32px] font-semibold tracking-[-0.01em] transition-colors duration-200 hover:text-signal ${
+              isActive(href) ? "text-signal" : "text-ink"
+            }`}
           >
             {label}
-          </button>
-        ))}
-        {isWritingRoute && (
-          <Link
-            href="/"
-            className="text-[36px] font-semibold tracking-[-0.015em] text-ink-1 transition-colors duration-200 hover:text-signal"
-            onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
-          >
-            Home
           </Link>
-        )}
-        <Link
-          href="/writing"
-          className={`text-[36px] font-semibold tracking-[-0.015em] transition-colors duration-200 hover:text-signal ${
-            isWritingRoute ? "text-signal" : "text-ink-1"
-          }`}
-          onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
-        >
-          Writing
-        </Link>
+        ))}
         <a
           href={SITE.resumePath}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 text-[15px] text-ink-3"
-          onClick={() => { setMenuOpen(false); toggleRef.current?.focus(); }}
+          onClick={closeMenu}
+          className="mt-4 font-ui text-[15px] text-ink-muted"
         >
           Résumé ↓
         </a>

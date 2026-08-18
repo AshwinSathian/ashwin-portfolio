@@ -21,7 +21,7 @@ export default function Contact() {
         <motion.h2
           id="contact-heading"
           variants={fadeInUp}
-          className="text-[clamp(48px,8vw,96px)] font-thin leading-none tracking-[-0.045em] text-label-1"
+          className="text-[clamp(48px,8vw,96px)] font-semibold leading-none tracking-[-0.03em] text-ink-1"
         >
           Let&apos;s talk.
         </motion.h2>
@@ -29,27 +29,27 @@ export default function Contact() {
         <motion.a
           variants={fadeInUp}
           href={`mailto:${SITE.email}`}
-          className="text-[clamp(17px,2vw,24px)] font-light tracking-[-0.01em] text-accent transition-colors duration-200 hover:text-accent-hover hover:underline underline-offset-4"
+          className="text-[clamp(17px,2vw,24px)] font-medium tracking-[-0.01em] text-signal transition-colors duration-200 hover:text-signal-hover hover:underline underline-offset-4"
         >
           {SITE.email}
         </motion.a>
 
         <motion.p
           variants={fadeInUp}
-          className="text-[15px] text-label-3"
+          className="text-[15px] text-ink-3"
         >
           Engineering, ideas, or interesting problems welcome.
         </motion.p>
 
         <motion.div
           variants={fadeInUp}
-          className="flex items-center gap-2 text-[14px] text-label-4"
+          className="flex items-center gap-2 text-[14px] text-ink-4"
         >
           <a
             href={SITE.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors duration-200 hover:text-label-2"
+            className="transition-colors duration-200 hover:text-ink-2"
           >
             LinkedIn
           </a>
@@ -58,16 +58,9 @@ export default function Contact() {
             href={SITE.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors duration-200 hover:text-label-2"
+            className="transition-colors duration-200 hover:text-ink-2"
           >
             GitHub
-          </a>
-          <span>·</span>
-          <a
-            href={SITE.phoneHref}
-            className="transition-colors duration-200 hover:text-label-2"
-          >
-            {SITE.phone}
           </a>
         </motion.div>
       </motion.div>

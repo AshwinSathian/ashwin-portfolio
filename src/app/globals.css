@@ -9,8 +9,8 @@
   --color-line: #D3D7D9;
   --color-accent: #263C8B;
   --color-signal: #C8712E;
-  --color-diff-add: #2E7D5B;
-  --color-diff-remove: #B54B3E;
+  --color-diff-add: #2B7454;
+  --color-diff-remove: #AC473B;
 
   --font-display: var(--font-mono);
   --font-body: var(--font-serif);

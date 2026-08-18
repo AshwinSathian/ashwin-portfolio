@@ -93,7 +93,6 @@ Not applied everywhere — only to claims that are independently verifiable (lic
 ```ts
 export type ProjectMedia =
   | { kind: "screenshot"; src: string; alt: string }
-  | { kind: "device"; src: string; alt: string }
   | { kind: "code"; snippet: string; language: string; caption: string };
 
 // added to Project:
@@ -101,10 +100,10 @@ media: ProjectMedia;
 ```
 
 - Booklet, Wayfarer, Typester: `kind: "screenshot"`, captured live from the production URLs already in `links.live` via Playwright, saved to `public/projects/<slug>/hero.png` (or `.webp` if size warrants).
-- BRNR: `kind: "device"` (not `screenshot`) — sourced from `~/Documents/Personal/brnr/docs/screenshots/03_chat.png` (a real, current product screenshot the project's own README ships), copied into `public/projects/brnr/hero.png`. A `device` kind matters here, not just a labeling detail: the source image is a 1320×2868 portrait phone capture (BRNR is a mobile app with no public web URL — its `links` object is currently empty), and forcing a portrait phone screenshot into the browser-chrome frame used for the three web products would misrepresent it as a website. `device` gets a phone-style chrome (no URL bar) instead.
+- BRNR: `kind: "screenshot"` too, captured live from `https://brnr.ashwinsathian.com` (confirmed live and public 2026-08-18 — a `brnr-web` Cloudflare Pages deploy that existed but was never linked from `PROJECTS.links`, which is itself a gap this redesign fixes, not a pre-existing decision to preserve). The specific screen captured is BRNR's own cryptographic-fingerprint/safety-number UI, which directly matches the "Double Ratchet, safety numbers" claims already in the case study copy — a case of the screenshot and the prose corroborating each other rather than one being decorative. `links.live` gets added to BRNR's data alongside the media change. The originally-considered mobile-app screenshot (`docs/screenshots/03_chat.png`, portrait, no public URL) is not used — the web app is the only currently-published surface.
 - ngx-runtime-i18n: `kind: "code"`, a real usage snippet from the project's own README/API (e.g. `provideRuntimeI18n()` setup) rendered in a terminal/editor-chrome frame — honest about it being a library, not a disguised screenshot of something that doesn't visually exist.
 
-New component `ProjectMedia.tsx` renders one of three chrome variants (browser traffic-lights + fake URL bar for `screenshot`, phone notch/frame for `device`, terminal titlebar for `code`). Because `device` media is portrait and `screenshot`/`code` media is landscape, the frame sits in a fixed-height container with `object-fit: contain` rather than a forced aspect-ratio crop — a mixed grid of portrait and landscape media needs to coexist without distorting or badly cropping either.
+New component `ProjectMedia.tsx` renders one of two chrome variants (browser traffic-lights + fake URL bar for `screenshot`, terminal titlebar for `code`). A third `device`/phone-frame variant was considered for BRNR before its live web app was found, then dropped — no project needs it, and building an unused code path fails YAGNI.
 
 ### 4.2 Contact trim
 
@@ -140,7 +139,7 @@ No change to routing, data fetching (`getProjects`/GitHub stats), SEO/JSON-LD st
 - **Screenshot maintenance burden**: static screenshots go stale as the live products change UI. Accepted tradeoff — same category of risk as the existing text-based facts, which already get re-verified against source per the project's standing practice; screenshots get the same "re-check before trusting" treatment next time this site is touched, not treated as permanently accurate.
 - **`ProjectMedia`'s "code" variant for ngx-runtime-i18n** must show real, current API surface (verified against the actual package, not written from memory) — same fabrication risk as any other copy on this site.
 - **Contact phone field**: confirmed with Ashwin to drop from the page, not delete from data model, in case another surface needs it later.
-- **BRNR has no public entry point**: `links: {}` in the current data — the case study will show a real screenshot but no live/GitHub link to click through to, unlike the other four projects. Not a defect introduced by this redesign (pre-existing), but worth surfacing rather than silently leaving unclear why BRNR's card has no outbound links.
+- **BRNR's missing public entry point is resolved, not just documented**: `links: {}` in the current data was a genuine gap — `brnr-web` has been live at `https://brnr.ashwinsathian.com` the whole time, just never wired into the portfolio's data. This redesign adds `links.live` for BRNR alongside its new screenshot, rather than shipping a screenshot of a product with no way to click through to it.
 
 ## 7. Testing / verification plan
 

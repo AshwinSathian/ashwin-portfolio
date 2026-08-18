@@ -12,13 +12,9 @@
   --color-ink-3: #5b636f;
   --color-ink-4: #394048;
 
-  /* Accent system: signal is the one loud color, alert/diff-remove
-     share its lightness/saturation, rotated hue, so the three read
-     as one designed system. */
+  /* Accent: signal is the one loud color on the site. */
   --color-signal: #4ce0a6;
   --color-signal-hover: #3bc98f;
-  --color-alert: #e0a64c;
-  --color-diff-remove: #c4645a;
 
   /* Shadows */
   --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);

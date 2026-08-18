@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import BackToProjectsButton from "@/components/BackToProjectsButton";
 import ProjectMedia from "@/components/ProjectMedia";
+import VerifiedTag from "@/components/VerifiedTag";
 import { getProject } from "@/app/(helpers)/projects";
 import { PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
@@ -157,7 +158,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               {fact.label}
             </p>
             <p className="text-[14px] leading-snug text-ink-1">{fact.value}</p>
-            <p className="mt-2 font-mono text-[10px] text-signal">// verified</p>
+            <VerifiedTag size="xs" className="mt-2" />
           </div>
         ))}
       </div>

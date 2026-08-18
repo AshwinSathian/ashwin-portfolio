@@ -30,7 +30,7 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
       />
-      <Hero />
+      <Hero projectCount={projects.length} />
       <Projects projects={projects} />
       <Platforms platform={PLATFORM} />
       <Capabilities />

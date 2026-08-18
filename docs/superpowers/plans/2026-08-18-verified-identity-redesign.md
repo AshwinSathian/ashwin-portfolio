@@ -801,3 +801,11 @@ If any check in Steps 2–6 fails, fix it in the relevant component/data file (n
 git add <fixed files>
 git commit -m "fix: <specific defect found during full-site verification>"
 ```
+
+**Post-Task-11 addendum (2026-08-18):** ran the code-review skill (adversarial pass, high effort) over the full diff after Task 11 passed. 3 of 8 finder subagents completed before the remaining 5 hit the session's API rate limit and failed outright (not "found nothing" — genuinely didn't finish). The completed subagents cross-confirmed two real findings and surfaced a third:
+
+1. The `// verified` tag concept (§3.5 of the spec) was hand-implemented three separate times — Projects.tsx (pill badge), Experience.tsx (plain text with a delayed fade), the detail page (bare confirmation, no value) — each with its own className string. Fixed by extracting `src/components/VerifiedTag.tsx` (`text?`, `pill?`, `size?: "xs" | "sm"`) and using it in all three call sites; the per-site layout differences (pill vs. plain, motion wrapper vs. none) stayed where they belong, only the shared text-formatting/color logic moved.
+2. `Hero.tsx` hardcoded `"5 shipped projects"` with a comment admitting it needed to track `PROJECTS.length` but never did. Fixed by passing `projectCount={projects.length}` down from `page.tsx` (already computing that array server-side) rather than importing the whole `PROJECTS` data module into a client component just to read `.length` — which would have bundled every project's full description text and the ngx-runtime-i18n code snippet into Hero's client chunk for no reason.
+3. `--color-alert`/`--color-diff-remove` in `globals.css` were declared per the spec's three-color accent system but never consumed anywhere in `src/` — removed rather than left as speculative/unused tokens, consistent with this codebase's own stated preference against building for hypothetical future use. If a later task adds a real "disclosed tradeoff" or before/after visual treatment, reintroduce the token in that same change.
+
+Not touched: `SITE.phone`/`phoneHref` staying unused in `site.ts` after Task 7 was flagged by one reviewer as dead data, but this was a deliberate, already-reasoned decision (spec §4.2) to retain the field rather than an oversight — left as-is.

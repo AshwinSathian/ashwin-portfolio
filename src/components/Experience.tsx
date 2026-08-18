@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { RECENT_EXPERIENCE } from "@/app/data/experience";
 import { EDUCATION } from "@/app/data/education";
+import VerifiedTag from "@/components/VerifiedTag";
 import { fadeInUp, stagger } from "@/lib/motion";
 
 export default function Experience() {
@@ -64,15 +65,15 @@ export default function Experience() {
                     ))}
                   </ul>
                   {item.tech && item.tech.length > 0 && (
-                    <motion.p
+                    <motion.div
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.15, duration: 0.3 }}
-                      className="motion-safe-reveal font-mono text-[12px] text-signal"
+                      className="motion-safe-reveal"
                     >
-                      {`// verified · ${item.tech.join(" · ")}`}
-                    </motion.p>
+                      <VerifiedTag text={item.tech.join(" · ")} />
+                    </motion.div>
                   )}
                 </div>
               </motion.div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { ProjectWithStats } from "@/app/(helpers)/projects";
 import ProjectMedia from "@/components/ProjectMedia";
+import VerifiedTag from "@/components/VerifiedTag";
 import { fadeInScale, fadeInUp, stagger } from "@/lib/motion";
 
 export type ProjectsProps = {
@@ -119,12 +120,7 @@ export default function Projects({ projects }: ProjectsProps) {
 
                   <motion.div variants={fadeInUp} className="motion-safe-reveal flex flex-wrap gap-2">
                     {project.facts.map((fact) => (
-                      <span
-                        key={fact.label}
-                        className="rounded-md border border-signal/20 bg-signal/5 px-2.5 py-1 font-mono text-[11px] text-signal"
-                      >
-                        {`// verified · ${fact.value}`}
-                      </span>
+                      <VerifiedTag key={fact.label} pill text={fact.value} />
                     ))}
                   </motion.div>
 

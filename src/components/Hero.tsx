@@ -5,7 +5,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { HERO } from "@/app/data/hero";
 import { fadeInUp, usePrefersReducedMotion } from "@/lib/motion";
 
-export default function Hero() {
+export type HeroProps = {
+  projectCount: number;
+};
+
+export default function Hero({ projectCount }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -54,12 +58,11 @@ export default function Hero() {
           >
             {HERO.eyebrow}
           </motion.p>
-          {/* Count must match PROJECTS.length in data/projects.ts */}
           <motion.p
             variants={fadeInUp}
             className="mt-1 font-mono text-[11px] text-ink-4 md:hidden"
           >
-            {`// ${HERO.eyebrow.toLowerCase()} · 5 shipped projects, verified`}
+            {`// ${HERO.eyebrow.toLowerCase()} · ${projectCount} shipped projects, verified`}
           </motion.p>
         </motion.div>
       </div>

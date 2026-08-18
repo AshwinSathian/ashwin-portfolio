@@ -83,6 +83,33 @@ button:focus-visible {
   }
 }
 
+/* Decision Record: diff lines draw in on scroll into view. Progressive
+   enhancement only — unsupported browsers just show the final state. */
+@supports (animation-timeline: view()) {
+  .decision-line {
+    clip-path: inset(0 100% 0 0);
+    animation: decision-draw-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+  .decision-line:nth-child(2) {
+    animation-range: entry 10% cover 40%;
+  }
+}
+
+@keyframes decision-draw-in {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .decision-line {
+    animation: none !important;
+    clip-path: none !important;
+  }
+}
+
 /* Home-load stagger — the one orchestrated on-load motion moment (spec §4).
    Consumer applies `.load-fade-up` plus an inline `animationDelay` per
    element; see Task 8. */

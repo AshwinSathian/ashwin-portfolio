@@ -19,6 +19,10 @@ export type ProjectHighlight = {
   detail: string;
 };
 
+export type ProjectMedia =
+  | { kind: "screenshot"; src: string; alt: string }
+  | { kind: "code"; snippet: string; language: string; caption: string };
+
 export type Project = {
   slug: string;
   name: string;
@@ -29,6 +33,7 @@ export type Project = {
   facts: ProjectFact[];
   highlights: ProjectHighlight[];
   links: ProjectLinks;
+  media: ProjectMedia;
   /** Present only for public repos; enables live star/language lookup. */
   repo?: { owner: string; repo: string };
 };
@@ -75,6 +80,11 @@ export const PROJECTS: Project[] = [
       live: "https://booklet.ashwinsathian.com",
       npm: "https://www.npmjs.com/package/readable-cli",
     },
+    media: {
+      kind: "screenshot",
+      src: "/projects/booklet/hero.png",
+      alt: "Booklet's editor: Markdown source on the left, a live formatted preview with a rendered code block on the right.",
+    },
   },
   {
     slug: "brnr",
@@ -83,9 +93,9 @@ export const PROJECTS: Project[] = [
     tagline: "Burner chats. No accounts. No history. End-to-end encrypted, gone in 24 hours.",
     description: [
       "BRNR is ephemeral, end-to-end encrypted messaging: a 12-character code starts a chat between two people, every message expires after 24 hours, and there's no account system to compromise. Redis is the only persistence layer: every key is TTL'd, so data doesn't outlive its purpose by design, not by policy. Encryption is an X3DH-style handshake feeding a Double Ratchet, implemented in a dedicated brnr-crypto workspace with its own test suite covering key derivation, padding, safety numbers, and the ratchet itself. That isolation means the cryptographic core can be reasoned about on its own.",
-      "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, an Expo/React Native mobile client, and shared contracts and crypto primitives as their own workspaces in a Turbo monorepo. The server is architecturally blind to plaintext (it only ever sees ciphertext once the handshake completes), and the logger is configured to redact message and ciphertext fields outright. It's licensed AGPL-3.0, deliberately: any modifications to the server-side code have to stay open.",
+      "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, a Vite/React web client, an Expo/React Native mobile client, and shared contracts and crypto primitives as their own workspaces in a Turbo monorepo. The web client is the currently published surface. The server is architecturally blind to plaintext (it only ever sees ciphertext once the handshake completes), and the logger is configured to redact message and ciphertext fields outright. It's licensed AGPL-3.0, deliberately: any modifications to the server-side code have to stay open.",
     ],
-    stack: ["NestJS 11", "Redis 7", "Socket.IO", "Expo / React Native", "Turborepo"],
+    stack: ["NestJS 11", "Redis 7", "Socket.IO", "Vite / React", "Expo / React Native", "Turborepo"],
     facts: [
       { label: "Persistence", value: "Redis only: every key TTL'd, zero PII" },
       { label: "Encryption", value: "X3DH handshake + Double Ratchet" },
@@ -113,7 +123,14 @@ export const PROJECTS: Project[] = [
           "Chosen specifically so that anyone running a modified server has to publish those modifications: a deliberate license decision, not a default.",
       },
     ],
-    links: {},
+    links: {
+      live: "https://brnr.ashwinsathian.com",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/brnr/hero.png",
+      alt: "BRNR's cryptographic fingerprint screen: four emoji derived from the session's safety number, used to confirm a connection hasn't been intercepted.",
+    },
   },
   {
     slug: "wayfarer",
@@ -155,6 +172,11 @@ export const PROJECTS: Project[] = [
     links: {
       live: "https://wayfarer.ashwinsathian.com",
       github: "https://github.com/AshwinSathian/wayfarer",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/wayfarer/hero.png",
+      alt: "Wayfarer's request builder: headers editor on the left, a syntax-highlighted JSON response with status and timing on the right.",
     },
     repo: { owner: "AshwinSathian", repo: "wayfarer" },
   },
@@ -199,6 +221,23 @@ export const PROJECTS: Project[] = [
       github: "https://github.com/AshwinSathian/ngx-runtime-i18n",
       npm: "https://www.npmjs.com/package/@ngx-runtime-i18n/angular",
     },
+    media: {
+      kind: "code",
+      language: "ts",
+      caption: "app.config.ts",
+      snippet: `provideRuntimeI18n({
+  defaultLang: 'en',
+  supported: ['en', 'hi', 'de'],
+  fetchCatalog: (lang, signal) =>
+    fetch(\`/i18n/\${lang}.json\`, { signal }).then((r) => r.json()),
+  onMissingKey: (key) => key,
+}, {
+  options: {
+    autoDetect: true,
+    storageKey: '@ngx-runtime-i18n:lang',
+  },
+})`,
+    },
     repo: { owner: "AshwinSathian", repo: "ngx-runtime-i18n" },
   },
   {
@@ -241,6 +280,11 @@ export const PROJECTS: Project[] = [
     links: {
       live: "https://typester.ashwinsathian.com",
       github: "https://github.com/AshwinSathian/typester",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/typester/hero.png",
+      alt: "Typester mid-round: the current word large on screen, upcoming words queued behind it, timer counting down.",
     },
     repo: { owner: "AshwinSathian", repo: "typester" },
   },

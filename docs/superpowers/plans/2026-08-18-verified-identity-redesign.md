@@ -269,6 +269,9 @@ git commit -m "content: add real product media (screenshots + verified code snip
 
 **Files:**
 - Create: `src/components/ProjectMedia.tsx`
+- Modify: `next.config.ts`
+
+Note added during implementation (2026-08-18): this is the first use of `next/image` anywhere in this codebase. Checked against OpenNext's own docs — this deploy targets Cloudflare Workers via OpenNext with no `images` binding in `wrangler.jsonc`, so Next's default image optimizer isn't available without either that binding (a Cloudflare-account-level change not made here) or a custom Cloudflare Images loader. `next.config.ts` gets `images: { unoptimized: true }` so the screenshots serve as static files through the existing immutable-cache headers instead of hitting an optimization path that would 404/error in production. This would have built and passed locally without the fix and only broken on the live Cloudflare deploy — worth flagging as exactly the kind of gap `npm run build` alone doesn't catch.
 
 **Interfaces:**
 - Consumes: `ProjectMedia` type from `src/app/data/projects.ts` (Task 2).

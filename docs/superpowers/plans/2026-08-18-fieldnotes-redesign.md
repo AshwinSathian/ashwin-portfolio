@@ -1333,6 +1333,15 @@ export default function Projects({ projects }: ProjectsProps) {
                   ))}
                 </div>
 
+                {/* Facts stand on their own, plainly — no VerifiedTag stamp (spec §5) */}
+                <div className="flex flex-wrap gap-x-6 gap-y-1.5 font-ui text-[13px] text-ink-muted">
+                  {project.facts.map((fact) => (
+                    <span key={fact.label}>
+                      <span className="text-ink-muted/70">{fact.label}:</span> {fact.value}
+                    </span>
+                  ))}
+                </div>
+
                 <div className="flex flex-wrap items-center gap-5 pt-1 font-ui text-[14px]">
                   <Link href={`/projects/${project.slug}`} className="text-ink transition-colors duration-200 hover:text-accent">
                     Case study →

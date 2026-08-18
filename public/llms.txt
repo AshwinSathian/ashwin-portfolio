@@ -8,7 +8,7 @@ Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 7+ years acros
 
 Before that, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team of ~12 engineers, optimised critical API paths to under 200ms, and shaped the data patterns that held as the platform scaled to handle $1B+ in procurement GTV.
 
-Ashwin practises AI-augmented engineering, using AI tooling including Claude Code, GitHub Copilot, and LLM APIs to work at higher altitude: validating architectural decisions faster, accelerating implementation cycles, and raising the quality ceiling of his output.
+Ashwin practises AI-augmented engineering, using AI tooling including Claude Code, Claude Cowork, Claude Design, and OpenAI Codex to work at higher altitude: validating architectural decisions faster, accelerating implementation cycles, and raising the quality ceiling of his output.
 
 ## Career History
 
@@ -27,7 +27,7 @@ Ashwin practises AI-augmented engineering, using AI tooling including Claude Cod
 **Data:** MongoDB, AWS DynamoDB
 **Cloud & DevOps:** AWS, GCP, Docker, GitHub Actions
 **Languages:** TypeScript, JavaScript, Python, HTML/CSS
-**AI & Tooling:** Claude Code, GitHub Copilot, LLM APIs, AI-augmented workflows
+**AI & Tooling:** Claude Code, Claude Cowork, Claude Design, OpenAI Codex
 
 ## Education
 
@@ -39,16 +39,20 @@ B.Tech, Electronics and Communication Engineering, National Institute of Technol
 - 1.5× release cadence acceleration: reworked CI/CD and delivery rituals
 - <200ms critical query performance: optimised high-traffic API paths
 - ~12 engineers mentored: led cross-functional squad across frontend, backend, and QA
+- 40%+ API/query response-time improvement: optimised critical paths during the Product Specialist era
 
 ## Projects
 
-Five projects designed, built, and run end to end, outside of work. Full case studies at ashwinsathian.com/projects/[slug].
+Eight projects designed, built, and run end to end, outside of work. Full case studies at ashwinsathian.com/projects/[slug].
 
 - **Booklet** (booklet.ashwinsathian.com): Markdown-to-shareable-page SaaS product with a web editor, REST API, published CLI (readable-cli on npm), GitHub Action, and MCP server for AI assistants. Next.js 16, MongoDB, in-house auth.
 - **BRNR**: End-to-end encrypted, ephemeral messaging. No accounts, 24-hour message expiry, Redis-only persistence with hard TTLs, X3DH handshake plus Double Ratchet encryption. NestJS, Socket.IO, Expo/React Native. AGPL-3.0.
 - **Wayfarer** (wayfarer.ashwinsathian.com): Local-first API testing client with no account. Collections, environments, client-side encrypted secrets vault (PBKDF2 + AES-GCM-256), sandboxed script execution. Angular, IndexedDB. Renamed from API Sandbox. MIT.
 - **ngx-runtime-i18n**: Signals-first runtime internationalisation for Angular; SSR-safe via TransferState, configurable fallback chains. Three packages published on npm. MIT.
 - **Typester**: Keyboard-first typing speed game (typester.ashwinsathian.com). Ground-up rebuild of a 2018 app; zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
+- **Darkframe** (github.com/AshwinSathian/umbra): Free, open-source, image-safe dark-mode engine for Chrome and Safari. OKLCH-native recoloring, 144 passing unit tests, real E2E-verified Chrome extension and buildable Safari Xcode project. Renamed from "Umbra" after finding a naming collision; disclosed and fixed a High-severity CSS injection vulnerability in the same changelog entry. MIT.
+- **better-auth-mongoose** (better-auth-mongoose.ashwinsathian.com): Published npm package (Mongoose-native database adapter for Better Auth) closing a real, long-documented gap in the Better Auth ecosystem. CI-proven .populate() support, a companion tenant-scoping plugin, a real NestJS integration example. MIT.
+- **humanize-writing-skill** (github.com/AshwinSathian/humanize-writing-skill): A Claude Code skill that makes AI-written text read as a specific, considered human voice, built from three cited research passes and a teardown of 13 existing public humanizer skills. MIT.
 
 ## Writing
 

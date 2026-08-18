@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { SKILL_COLUMNS } from "@/app/data/skills";
-import { fadeInUp, stagger } from "@/lib/motion";
+import { fadeInUp, stagger, staggerFast } from "@/lib/motion";
 
 export default function Capabilities() {
   return (
@@ -22,22 +22,22 @@ export default function Capabilities() {
           <div className="flex flex-col gap-4">
             <motion.p
               variants={fadeInUp}
-              className="text-xs font-medium uppercase tracking-[0.08em] text-label-3"
+              className="motion-safe-reveal font-mono text-xs uppercase tracking-[0.08em] text-ink-3"
             >
               Capabilities
             </motion.p>
             <motion.h2
               id="capabilities-heading"
               variants={fadeInUp}
-              className="text-[clamp(36px,5.5vw,64px)] font-thin leading-none tracking-[-0.035em] text-label-1"
+              className="motion-safe-reveal text-[clamp(36px,5.5vw,64px)] font-semibold leading-none tracking-[-0.02em] text-ink-1"
             >
               The stack.
             </motion.h2>
           </div>
 
           <motion.div
-            variants={stagger}
-            className="grid gap-x-12 gap-y-10 sm:grid-cols-2"
+            variants={staggerFast}
+            className="motion-safe-reveal grid gap-x-12 gap-y-10 sm:grid-cols-2"
           >
             {SKILL_COLUMNS.map((column, colIdx) => (
               <div key={colIdx} className="flex flex-col gap-10">
@@ -45,16 +45,16 @@ export default function Capabilities() {
                   <motion.div
                     key={group.title}
                     variants={fadeInUp}
-                    className="flex flex-col gap-4"
+                    className="motion-safe-reveal flex flex-col gap-4"
                   >
-                    <h3 className="text-[13px] font-medium uppercase tracking-[0.06em] text-label-3">
+                    <h3 className="font-mono text-[13px] uppercase tracking-[0.06em] text-ink-3">
                       {group.title}
                     </h3>
                     <div className="flex flex-wrap gap-2.5">
                       {group.items.map((s) => (
                         <span
                           key={s.name}
-                          className="rounded-full border border-white/8 bg-surface-2 px-4 py-1.5 text-[14px] leading-none tracking-[-0.005em] text-label-1 transition-colors duration-200 hover:border-white/16"
+                          className="rounded-full border border-white/8 bg-surface-2 px-4 py-1.5 text-[14px] leading-none tracking-[-0.005em] text-ink-1 transition-colors duration-200 hover:border-white/16"
                         >
                           {s.name}
                         </span>

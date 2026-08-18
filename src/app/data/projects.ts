@@ -19,6 +19,14 @@ export type ProjectHighlight = {
   detail: string;
 };
 
+export type DecisionRecord = {
+  /** "YYYY-MM" — always real, never invented. */
+  date: string;
+  before: string;
+  after: string;
+  why: string;
+};
+
 export type ProjectMedia =
   | { kind: "screenshot"; src: string; alt: string }
   | { kind: "code"; snippet: string; language: string; caption: string };
@@ -36,6 +44,7 @@ export type Project = {
   media: ProjectMedia;
   /** Present only for public repos; enables live star/language lookup. */
   repo?: { owner: string; repo: string };
+  decisionRecord?: DecisionRecord;
 };
 
 export const PROJECTS: Project[] = [
@@ -84,6 +93,12 @@ export const PROJECTS: Project[] = [
       kind: "screenshot",
       src: "/projects/booklet/hero.png",
       alt: "Booklet's editor: Markdown source on the left, a live formatted preview with a rendered code block on the right.",
+    },
+    decisionRecord: {
+      date: "2026-05",
+      before: "Cloudflare Workers via OpenNext",
+      after: "Self-hosted Node process behind a Cloudflare Tunnel",
+      why: "The operational tradeoffs of the serverless path showed up in production. It's the kind of call you only get right by shipping the wrong one first.",
     },
   },
   {
@@ -179,6 +194,12 @@ export const PROJECTS: Project[] = [
       alt: "Wayfarer's request builder: headers editor on the left, a syntax-highlighted JSON response with status and timing on the right.",
     },
     repo: { owner: "AshwinSathian", repo: "wayfarer" },
+    decisionRecord: {
+      date: "2026-07",
+      before: "API Sandbox",
+      after: "Wayfarer",
+      why: "Same local-first storage model, same MIT license, just a name that fit the product better. Shipped as v1.0.0 of the new name, not a quiet find-and-replace.",
+    },
   },
   {
     slug: "ngx-runtime-i18n",
@@ -287,6 +308,197 @@ export const PROJECTS: Project[] = [
       alt: "Typester mid-round: the current word large on screen, upcoming words queued behind it, timer counting down.",
     },
     repo: { owner: "AshwinSathian", repo: "typester" },
+    decisionRecord: {
+      date: "2026-07",
+      before: "2018 Angular 7 app: direct DOM manipulation outside Angular's reactivity, navigation gated by a mutable bag of untyped booleans, a settings screen that saved nothing",
+      after: "Zoneless Angular 22, signals-first, no NgRx, URL-driven game state, static prerendered deploy",
+      why: "Every architectural decision in the rebuild traces back to a specific defect in the original, logged with its own before/after reasoning in the project's ARCHITECTURE.md.",
+    },
+  },
+  {
+    slug: "darkframe",
+    name: "Darkframe",
+    category: "Browser extension",
+    tagline: "A free, cross-browser dark-mode engine that never touches your photos or video.",
+    description: [
+      "Darkframe is a free, open-source dark-mode engine for Chrome and Safari, built as a constructive overhaul of how tools in this category usually work. Images and video are never altered: a classifier scores color diversity and edge density rather than raw brightness, and leans toward leaving anything it's unsure about untouched, with <video>/<canvas>/<audio> unconditionally excluded. Theming applies as a single additive CSS Cascade Layer rather than rewriting a page's own stylesheets in place, with a CSSOM-direct-rewrite fallback for engines without Cascade Layer support.",
+      "The core engine (OKLCH-native perceptual recoloring, a WCAG 2.1 contrast solver, the image/media classifier) is framework-agnostic, with 144 passing unit tests. A Chrome MV3 extension is verified end-to-end against a real Chromium instance via Playwright, and a real, buildable macOS Safari Web Extension Xcode project is generated via Apple's own safari-web-extension-converter and confirmed to build and launch locally. The project has also been through a dedicated security audit and a separate architecture/quality review, with the findings from both disclosed in its CHANGELOG.md rather than quietly folded in.",
+    ],
+    stack: ["TypeScript", "Chrome MV3", "Safari Web Extension", "OKLCH", "Playwright", "Vitest"],
+    facts: [
+      { label: "Testing", value: "144 unit tests, E2E-verified against real Chromium" },
+      { label: "Platforms", value: "Chrome (MV3) + Safari (macOS), built from one core engine" },
+      { label: "License", value: "MIT" },
+    ],
+    highlights: [
+      {
+        title: "Image-safe by construction, not by exception list",
+        detail:
+          "A color-diversity/edge-density classifier decides what's a photo, not a domain blocklist. <video>/<canvas>/<audio> are excluded unconditionally, and anything the classifier is unsure about is left alone.",
+      },
+      {
+        title: "Additive, not destructive",
+        detail:
+          "Theming is a single injected CSS Cascade Layer; a page's own stylesheets are never rewritten in place. A CSSOM-direct-rewrite fallback covers engines without Cascade Layer support.",
+      },
+      {
+        title: "A disclosed security fix, not a silent patch",
+        detail:
+          "A High-severity CSS injection vulnerability, found via unescaped control characters in a generated image-selector attribute, is documented in CHANGELOG.md with the exact mechanism and the fix, not just a version bump.",
+      },
+      {
+        title: "Real store-ready builds, not a demo",
+        detail:
+          "Both the Chrome and Safari listings are fully prepared (packaged build, screenshots, promo art, privacy copy) — submission is blocked on account/identity steps outside the code, not on the software being unfinished.",
+      },
+    ],
+    links: {
+      github: "https://github.com/AshwinSathian/umbra",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/darkframe/hero.png",
+      alt: "Darkframe's Chrome popup: an aperture-ring toggle for the current site, a global-enable switch, and brightness/contrast tuning sliders.",
+    },
+    repo: { owner: "AshwinSathian", repo: "umbra" },
+    decisionRecord: {
+      date: "2026-08",
+      before: "Umbra",
+      after: "Darkframe",
+      why: "A shipping-readiness review found an existing, active, same-category Chrome extension called \"Umbra Dark Mode.\" Renamed across the npm scope, extension name, storage keys, CSS layer name, and the Safari Xcode project before either store listing went live.",
+    },
+  },
+  {
+    slug: "better-auth-mongoose",
+    name: "better-auth-mongoose",
+    category: "Open-source library",
+    tagline: "The Mongoose-native database adapter Better Auth's own GitHub issues have been asking for since February 2025.",
+    description: [
+      "Better Auth's official MongoDB adapter talks to the raw mongodb driver, not Mongoose — the standard ODM for Node and close to universal in NestJS or Express backends. For an app that already uses Mongoose, that forces an extra dependency, two parallel database connections with no shared schema or validation, and broken .populate() calls against anything Better Auth creates. Those are real, long-documented problems on Better Auth's own GitHub, with no first-party fix and no answer beyond a manual workaround that sidesteps the schema and validation problems rather than solving them.",
+      "better-auth-mongoose closes that gap properly: Better Auth's own collections become real, registered Mongoose models, extensible the same way any other model in the app is. The differentiator isn't a claim — packages/better-auth-mongoose/test/populate.test.ts is the unit-level proof, and examples/nestjs-mongoose runs the same thing end to end inside a real NestJS app over real HTTP, on every push via CI. It also passes Better Auth's own official adapter contract test suite. A companion tenant-scoping plugin adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin.",
+    ],
+    stack: ["TypeScript", "Mongoose", "Better Auth", "Turborepo", "Changesets", "NestJS"],
+    facts: [
+      { label: "Published", value: "npm, v0.1.1" },
+      { label: "Proof", value: "CI-run test + real NestJS example, not just a claim" },
+      { label: "License", value: "MIT" },
+    ],
+    highlights: [
+      {
+        title: "Closes a gap Better Auth's own issue tracker has open since Feb 2025",
+        detail:
+          "Cites the specific upstream issues and discussions the gap comes from, rather than asserting a problem exists. The fix is real, registered Mongoose models, not a workaround.",
+      },
+      {
+        title: ".populate() works, proven in CI",
+        detail:
+          "A dedicated unit test proves the differentiator directly, and a full NestJS example app exercises the same path over real HTTP on every push.",
+      },
+      {
+        title: "Passes Better Auth's own adapter contract suite",
+        detail:
+          "Not just internally tested — validated against @better-auth/test-utils, the same conformance suite the official adapters are held to.",
+      },
+      {
+        title: "A tenant-scoping plugin, not just an adapter",
+        detail:
+          "A companion package adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin — the adapter and the multi-tenancy concern are separated, not bundled.",
+      },
+    ],
+    links: {
+      live: "https://better-auth-mongoose.ashwinsathian.com",
+      github: "https://github.com/AshwinSathian/better-auth-mongoose",
+      npm: "https://www.npmjs.com/package/better-auth-mongoose",
+    },
+    media: {
+      kind: "code",
+      language: "ts",
+      caption: "auth.ts",
+      snippet: `import { betterAuth } from "better-auth";
+import { mongooseAdapter } from "better-auth-mongoose";
+import mongoose, { Schema } from "mongoose";
+
+await mongoose.connect(process.env.MONGO_URI!);
+
+export const auth = betterAuth({
+  database: mongooseAdapter(mongoose.connection, {
+    schemas: {
+      user: new Schema({ role: { type: String, default: "member" } }),
+    },
+  }),
+});`,
+    },
+    repo: { owner: "AshwinSathian", repo: "better-auth-mongoose" },
+  },
+  {
+    slug: "humanize-writing-skill",
+    name: "humanize-writing-skill",
+    category: "Claude Code skill",
+    tagline: "A Claude Code skill that makes AI-written text read as a specific, considered human voice — grounded in cited research, not a banned-word list.",
+    description: [
+      "Most public \"humanizer\" skills reduce to a banned-word list: swap out \"delve,\" cap the em dashes, call it done. That works until the list goes stale, which the research this skill is built on shows happens fast. Word-level tells are real, but the literature is clear that structural uniformity — flat sentence rhythm, symmetric paragraph shapes, safe generic claims instead of specific checkable ones — is the larger, more durable, more model-independent signal. This skill weights structure over vocabulary; the word list is kept as a compact backup, not the mechanism.",
+      "It's built from three research passes (academic detection literature, editorial and practitioner style guides, and a cross-referenced catalog of 27 specific AI-writing tells), a teardown of 13 existing public humanizer skills, and one adversarial review round — all cited in reference/, not asserted from folk wisdom. It's distributed three ways: clone-and-symlink into a Claude Code skills directory, as a validated Claude Code plugin manifest, or via npx skills add. Published days before this site's own redesign began, and used to write this site's own copy.",
+    ],
+    stack: ["Claude Code", "Markdown", "Research synthesis"],
+    facts: [
+      { label: "Basis", value: "3 research passes + 13-skill teardown, cited in reference/" },
+      { label: "Distribution", value: "git+symlink, Claude Code plugin, npx skills add" },
+      { label: "License", value: "MIT" },
+    ],
+    highlights: [
+      {
+        title: "Structure over vocabulary",
+        detail:
+          "Targets sentence rhythm, paragraph shape, and specificity of claims — the durable, model-independent signal the research points to — rather than chasing a word list that goes stale with every model update.",
+      },
+      {
+        title: "Cited, not asserted",
+        detail:
+          "Every design decision traces to reference/research.md or reference/oss-skills-review.md: academic detection literature, editorial style guides, and a direct teardown of 13 competing public skills.",
+      },
+      {
+        title: "Validated as a real plugin",
+        detail:
+          "Ships a .claude-plugin/plugin.json manifest that passes claude plugin validate . --strict, plus before/after worked examples proving the skill changes real output.",
+      },
+      {
+        title: "The tool that wrote this site's copy",
+        detail:
+          "Not a hypothetical demo — this skill was in active use for the writing on this redesign, including this sentence.",
+      },
+    ],
+    links: {
+      github: "https://github.com/AshwinSathian/humanize-writing-skill",
+    },
+    media: {
+      kind: "code",
+      language: "sh",
+      caption: "install",
+      snippet: `git clone https://github.com/AshwinSathian/humanize-writing-skill.git
+ln -s "$(pwd)/humanize-writing-skill" ~/.claude/skills/humanizing-writing
+
+# or, without installing anything:
+claude --plugin-dir /path/to/humanize-writing-skill
+
+# or:
+npx skills add AshwinSathian/humanize-writing-skill`,
+    },
+    repo: { owner: "AshwinSathian", repo: "humanize-writing-skill" },
+  },
+];
+
+export type AlsoShipped = {
+  name: string;
+  description: string;
+  href: string;
+};
+
+export const ALSO_SHIPPED: AlsoShipped[] = [
+  {
+    name: "github-issue-analyzer",
+    description:
+      "Fastify + TypeScript service that caches a repo's GitHub issues in SQLite and analyzes them with a local LLM over Ollama, so triage never leaves your machine.",
+    href: "https://github.com/AshwinSathian/github-issue-analyzer",
   },
 ];
 

@@ -13,9 +13,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "HighLevel",
     dates: "Mar 2026 – Jun 2026",
     bullets: [
-      "Led the team and worked across other teams and verticals so collaboration held up both inside squads and between them.",
-      "Drove the AI-augmented Full Stack Builder effort, putting AI tooling to work across the SDLC: planning, prototyping, building, QA, and shipping.",
-      "Reworked critical subsystems' architecture while shipping ongoing feature work in parallel, not instead of it.",
+      "Led engineering for Funnels, Websites, and Webinars — three revenue surfaces inside a platform serving 60,000+ marketing agencies — working directly with peer teams and verticals so collaboration held up both inside the squad and across it.",
+      "Drove the AI-augmented Full Stack Builder effort: putting AI tooling to work across the full SDLC — planning, prototyping, building, QA, shipping — as a real change to how the team works, not a novelty layer on top of the existing process.",
+      "Shipped architectural reworks of critical subsystems in parallel with ongoing feature delivery, not instead of it.",
     ],
   },
   {
@@ -23,9 +23,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Jan 2024 – Aug 2025",
     bullets: [
-      "Owned the Angular + NestJS + MongoDB architecture for a modular, multi-tenant procurement platform.",
-      "Built RBAC, tenancy isolation, and audit trails as platform-wide standards, not one-off features per team.",
-      "Mentored a squad spanning frontend, backend, and QA, pushing on architecture and craft in both directions.",
+      "Owned the Angular + NestJS + MongoDB architecture for a modular, multi-tenant procurement platform that scaled toward $1B+ in gross transaction value.",
+      "Built RBAC and tenancy isolation as platform-wide standards rather than per-client features, holding critical query paths under 200ms as load grew.",
+      "Mentored and directed a 12-person team spanning frontend, backend, and QA, introducing code review and clean-code standards that were adopted, not just proposed.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx", "GCP"],
   },
@@ -34,9 +34,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Apr 2022 – Dec 2023",
     bullets: [
-      "Remained hands-on across the API layer and frontend in a hybrid engineering and product ownership role, translating procurement workflows into shipped product outcomes.",
-      "Optimized APIs and queries across critical paths while preserving platform stability.",
-      "Coordinated product, QA, and engineering rhythms to keep releases iterative and predictable.",
+      "Owned feature lifecycles end-to-end, staying hands-on across the API layer and frontend while translating procurement workflows into shipped outcomes.",
+      "Optimized APIs and database queries across critical paths, improving response times by 40%+.",
+      "Coordinated engineering, QA, and product rhythms into iterative agile delivery, accelerating release cycles by 1.5×.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx"],
   },

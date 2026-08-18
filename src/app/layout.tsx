@@ -2,8 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Source_Serif_4, Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import ScrollProgress from "@/components/ScrollProgress";
-import MotionProvider from "@/components/MotionProvider";
+import ContactBand from "@/components/ContactBand";
+import Footer from "@/components/Footer";
 
 const displayMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -28,10 +28,10 @@ const uiSans = Archivo({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "Full-stack engineer and engineering leader. Seven years building SaaS platforms at scale, $1B+ GTV, with an AI-augmented engineering practice.";
+  "AI-augmented senior full-stack engineer. Seven years building and scaling enterprise-grade SaaS platforms — $1B+ GTV, multi-tenant architecture, teams mentored. Eight independent products shipped outside of it, each with its decisions published, not hidden.";
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#EEF0F1",
   width: "device-width",
   initialScale: 1,
 };
@@ -39,7 +39,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ashwin Sathian | Lead Engineer, AI-Augmented Full-Stack SaaS",
+    default: "Ashwin Sathian | AI-Augmented Senior Full-Stack Engineer",
     template: "%s | Ashwin Sathian",
   },
   description: siteDescription,
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Ashwin Sathian | Lead Engineer, AI-Augmented Full-Stack SaaS",
+    title: "Ashwin Sathian | AI-Augmented Senior Full-Stack Engineer",
     description: siteDescription,
     url: siteUrl,
     siteName: "Ashwin Sathian",
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ashwin Sathian | Lead Engineer, AI-Augmented Full-Stack SaaS",
+    title: "Ashwin Sathian | AI-Augmented Senior Full-Stack Engineer",
     description: siteDescription,
     creator: "@ashwinsathian",
     images: ["/og"],
@@ -119,7 +119,7 @@ const personSchema = {
     "https://github.com/AshwinSathian",
     "https://ashwinsathian.com",
   ],
-  jobTitle: "Lead Engineer",
+  jobTitle: "AI-Augmented Senior Full-Stack Engineer",
   alumniOf: {
     "@type": "EducationalOrganization",
     name: "National Institute of Technology Calicut",
@@ -179,9 +179,6 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <noscript>
-          <style>{`.motion-safe-reveal { opacity: 1 !important; transform: none !important; }`}</style>
-        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
@@ -192,14 +189,13 @@ export default function RootLayout({
         />
       </head>
       <body
-        className="min-h-screen bg-canvas text-ink-1"
+        className="min-h-screen bg-paper text-ink"
         style={{ fontFamily: "var(--font-ui)" }}
       >
-        <MotionProvider>
-          <ScrollProgress />
-          <Navbar />
-          <main>{children}</main>
-        </MotionProvider>
+        <Navbar />
+        <main>{children}</main>
+        <ContactBand />
+        <Footer />
       </body>
     </html>
   );

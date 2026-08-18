@@ -1,7 +1,7 @@
 # Portfolio redesign: "Field Notes" — v5.0
 
 Date: 2026-08-18
-Status: approved, pending implementation plan
+Status: approved (incl. §1.1 revisions), proceeding to implementation plan
 Supersedes: v4.0 "Verified, not vibes" (2026-08-18, commit d55dc06 and prior)
 
 ## 1. Why this exists
@@ -69,11 +69,33 @@ Multi-page, App Router, one route per concern:
 |---|---|
 | `/` | Thesis statement (who, in one screen, no dead hero void) + a "Recent" strip of 2–3 real dated log entries pulled from project/experience history + entry points to the four sections below |
 | `/projects` | Index of all projects, same evidence-forward facts the current site has, restructured (see §5) |
-| `/projects/[slug]` | Case study — genuinely differentiated from the index teaser: full narrative, and for the three projects with a real reversal (Booklet, Wayfarer, Typester), a **Decision Record** component |
+| `/projects/[slug]` | Case study — genuinely differentiated from the index teaser: full narrative, and for the four projects with a real reversal (Booklet, Wayfarer, Darkframe, Typester), a **Decision Record** component |
 | `/experience` | Rewritten role-by-role, same specificity standard as Projects, using only verified figures |
 | `/about` | New. Text-only. The "who and why" the current site never states |
-| `/writing` | Kept (infra already exists in `src/lib/writing.ts` / `src/content/writing/`), but **removed from primary nav** until it holds real posts — a nav item pointing at "nothing published yet" is worse than no nav item. Reachable via footer + sitemap. Restore to primary nav on first real post. |
-| Contact | No longer a full-viewport section. Folds into the footer (persistent, every page) as a compact module: mailto, LinkedIn, GitHub, one line on response expectations. |
+| `/writing` | Kept **in primary nav** (user override, §1.1): the user is populating it with real posts in the next working session, so the empty state is a known, temporary in-progress state rather than a stale dead end. Empty state redesigned as a real "log has no entries yet" moment (§5), not an apology. |
+| Contact | Redesigned, not simply demoted (§4.1): a persistent, confident contact module rather than the current one-time full-viewport section. |
+
+### 1.1 Post-spec revisions (user, second review round)
+
+Four changes on top of the approved design above, given full latitude to
+judge execution:
+
+1. **`/writing` stays in primary nav.** The user is working with Claude in
+   the next session specifically to add posts, so the empty state is
+   short-lived, not permanent — the objection to a dead nav link doesn't
+   apply here. IA table above updated accordingly.
+2. **Contact keeps its confidence, loses its dead end.** The user flagged
+   the current full-viewport "Let's talk." section as genuinely good — the
+   fix isn't to shrink it into a footer line, it's to keep that
+   declarative confidence but make it persistent instead of a one-time
+   scroll-past. See §4.1.
+3. **About is explicitly an expansion of the resume's Professional
+   Summary**, not a fresh synthesis from scattered bio fragments. See §5
+   revision.
+4. **The paper/ink palette needs more life.** Approved direction stays
+   (reject both AI-default clusters), but as originally scoped it read as
+   too flat/quiet. See §4 revision: a wider functional color range, a
+   textural device, and real (if restrained) motion brought back.
 
 Nav becomes real `<Link>`s to real routes — no more dual model of anchor-scroll
 + conditional-route-detection in one component.
@@ -83,7 +105,9 @@ Nav becomes real `<Link>`s to real routes — no more dual model of anchor-scrol
 Rejecting both AI-default clusters explicitly: not warm-cream-serif-terracotta,
 not near-black-plus-one-bright-accent. Landing on a **cool paper / document**
 register instead — it fits a site organized as a log/spec record, and neither
-default cluster reads that way.
+default cluster reads that way. Revised per §1.1(4): the base register stays,
+but with a wider functional color range, one textural device, and real
+(if restrained) motion, so it reads as a living notebook, not a blank form.
 
 ### Color tokens
 
@@ -94,14 +118,24 @@ default cluster reads that way.
 | `ink` | `#14181C` | Primary text, near-black navy-charcoal (not pure black) |
 | `ink-muted` | `#5B6570` | Secondary text, metadata |
 | `line` | `#D3D7D9` | Hairline rules, borders |
-| `accent` | `#263C8B` | Links, active states, focus rings — a "blueprint ink" blue, one job only |
-| `diff-add` | `#2E7D5B` | Muted terminal-green — *only* inside Decision Record "after" states |
-| `diff-remove` | `#B54B3E` | Muted brick-red — *only* inside Decision Record "before" states |
+| `accent` | `#263C8B` | Primary UI accent — a "blueprint ink" blue: links, focus rings, primary CTA |
+| `signal` | `#C8712E` | Second accent — a warm, confident copper/amber: active nav state, the Contact module, key numerals/dates. Gives the palette a second temperature so it isn't one hue doing every job |
+| `diff-add` | `#2E7D5B` | Terminal-green — Decision Record "after" states, and reused functionally as the "live/shipped" status marker across Projects |
+| `diff-remove` | `#B54B3E` | Brick-red — Decision Record "before" states, and reused functionally as the "deprecated/renamed-from" status marker |
+
+Four working colors (accent, signal, diff-add, diff-remove) instead of one,
+but each is assigned a specific job and never just decorative — that's what
+keeps this from becoming a second, busier cliché. Texture: a faint
+dot-grid/graph-paper pattern (a few percent opacity, `ink` on `paper`) sits
+behind hero and section-opening moments — engineering-notebook texture, not
+a gimmick — and disappears entirely under `prefers-contrast: more` and in
+dense text regions where it would hurt legibility.
 
 Dark mode: a `prefers-color-scheme` dark variant follows the same structure
-(paper → near-black, ink → near-white, accent/diff hues adjusted for contrast)
-rather than forcing `color-scheme: dark` unconditionally the way the current
-site does. Implemented as CSS custom properties so it's close to free.
+(paper → near-black, ink → near-white, all four accents re-tuned for
+contrast on dark) rather than forcing `color-scheme: dark` unconditionally
+the way the current site does. Implemented as CSS custom properties so it's
+close to free.
 
 ### Type system — three roles, none of them IBM Plex
 
@@ -117,7 +151,7 @@ site does. Implemented as CSS custom properties so it's close to free.
 
 ### Signature element — the Decision Record
 
-A dated, permalinked block used only on the three project case studies that
+A dated, permalinked block used only on the four project case studies that
 have a real documented reversal:
 
 ```
@@ -136,13 +170,42 @@ spends its boldness; everything else stays quiet paper/ink/serif.
 
 ### Motion
 
-Near-total removal of the current blanket `whileInView`-on-every-element
-pattern (framer-motion dependency likely drops entirely — CSS transitions and
-`@media (prefers-reduced-motion: reduce)` cover everything this site actually
-needs: hover states, focus rings, one optional orchestrated reveal on the
-home thesis load). This also fixes the adversarial finding that content
-disappears when scroll-triggered JS doesn't fire cleanly (bots, slow
-hydration, some crawlers).
+The blanket `whileInView`-fade-on-every-element pattern is still gone (it's
+what made everything disappear when scroll-triggered JS doesn't fire
+cleanly — bots, slow hydration, some crawlers). But per §1.1(4), motion
+isn't reduced to nothing — it's concentrated into a small number of real,
+purposeful moments instead of smeared across every paragraph:
+
+- **Home load**: one orchestrated sequence — the thesis statement and the
+  Recent log strip's entries settle in with a short stagger, once, on
+  first paint.
+- **Decision Record reveal**: when a Decision Record scrolls into view, its
+  `−`/`+` lines draw in like a diff being applied — the one place motion
+  directly dramatizes what the content *is*, not just decoration.
+- **Hover/focus micro-interactions**: nav links, cards, and buttons get a
+  real, considered interaction (underline draw, a hairline expanding into
+  a card border, the accent-to-signal color shift on active nav) — CSS
+  only, no JS observer needed.
+- Everything else is static. `prefers-reduced-motion: reduce` collapses
+  all three categories above to instant/no-op, same as before.
+
+`framer-motion` is dropped: CSS transitions/animations plus the native
+`@starting-style`/scroll-driven-animation primitives cover all of the
+above at zero JS-bundle cost, which a purely presentational, mostly-static
+personal site doesn't need a physics library for.
+
+### 4.1 Contact, redesigned (not demoted)
+
+The current full-viewport "Let's talk." moment is genuinely good — bold,
+declarative, memorable — the review's complaint was that it's a one-time
+dead end at the bottom of a single scroll, not that it's too confident. In
+a multi-page site the fix is to make that confidence persistent: a
+**Contact band** — full-width, generous vertical padding (not a full
+viewport, but a real visual event, not a footer afterthought), large
+JetBrains Mono "Let's talk." set in the `signal` copper accent, the mailto
+as the one large piece of type beneath it — rendered at the bottom of
+*every* page, above a slim, quiet copyright footer. Every page ends on the
+same confident invitation instead of only the homepage having one.
 
 ## 5. Content plan by page
 
@@ -153,8 +216,8 @@ Published humanize-writing-skill", "2026-08-10 — Renamed Umbra to Darkframe
 after finding a naming collision in the Chrome Web Store", "2026-05 —
 Rolled Booklet off Cloudflare Workers back to a self-hosted process" — each
 a permalink into the fuller story. Then four labeled paths: Projects,
-Experience, Writing (only once it has posts), About. Footer contact module
-on every page from here down.
+Experience, Writing, About (all in primary nav per §1.1). Contact band
+(§4.1) on every page from here down.
 
 **Projects index + case studies** — Keep every verified fact already in
 `src/app/data/projects.ts` (stack, license, architecture facts, highlights).
@@ -230,40 +293,56 @@ Codex — GitHub Copilot is no longer on the resume and drops from the site).
 No numbers beyond what's already published across the resume or the
 current site.
 
-**About (`/about`)** — New page. Text-only. States: who this is, the
-throughline connecting NIT Calicut → the career path → why he builds and
-ships real side products outside of work, and the actual engineering
-philosophy the Decision Record device is evidence of (shipping the wrong
-call first is sometimes how you find the right one — Booklet is the literal
-example). Written from real, existing facts already elsewhere on the site
-(bio paragraph in `llms.txt`, `PLATFORM` data, project descriptions) —
-synthesized into a real narrative, not resume bullets restated.
+**About (`/about`)** — New page. Text-only. Per §1.1(3), the source text is
+specifically the resume's Professional Summary paragraph — "Engineering
+leader with 7+ years of experience building and scaling enterprise-grade
+SaaS platforms supporting thousands of users, millions of records, and $1B+
+in gross transaction value... Recognised for owning technical strategy,
+shaping engineering culture, and facilitating teams to deliver secure,
+customer-centric solutions" — expanded into a real page, not restated as
+resume bullets. The summary is four dense, generic-sounding clauses; the
+job here is to unpack each one with the specific, checkable material that's
+already documented elsewhere on the site: "architecting multi-tenant,
+high-performance systems" → the actual RBAC/tenancy-isolation/sub-200ms
+work at Penny Software; "accelerating release cycles" → the real 1.5×
+figure and what changed to produce it; "shaping engineering culture" → the
+12-engineer mentorship and code-review standards; and the one thing the
+resume summary doesn't mention at all — why an engineering leader with a
+full-time lead role also ships eight independent products in his own time,
+each with its own disclosed reversal. That last thread is the connective
+tissue between the resume's corporate register and the Decision Record
+device elsewhere on the site: the same person who owns technical strategy
+professionally is the one who publishes his own rename and rollback
+decisions publicly. NIT Calicut appears as the one biographical anchor,
+not as a coming-of-age narrative.
 
-**Writing (`/writing`)** — Keep current empty-state infra but redesign the
-empty state itself as a real, well-composed "log has no entries yet" state
-in the new visual language, consistent with a changelog metaphor (not an
-apology). Removed from primary nav per §3 until real posts exist.
+**Writing (`/writing`)** — Stays in primary nav (§1.1). Current empty-state
+infra kept; empty state redesigned as a real, well-composed "log has no
+entries yet" moment in the new visual language — a changelog with an
+`[Unreleased]` header and nothing under it yet, not an apology — since the
+user is populating it with real posts in the working session right after
+this one.
 
 ## 6. Technical approach
 
 - Next.js App Router structure stays; routes reorganized per §3.
-- `framer-motion` dependency: removed if nothing in the rebuilt design
-  needs spring/gesture physics CSS can't do (expected outcome). Confirmed
-  during implementation, not assumed here.
+- `framer-motion` dependency: dropped per §4 Motion — CSS covers the
+  motion this design actually uses.
 - `src/lib/github.ts`, `src/lib/writing.ts`, `src/app/(helpers)/projects.ts`:
   kept, logic unchanged — live GitHub stats and the Markdown writing
   pipeline are infrastructure, not presentation, and both still verified
   as correct.
 - `src/app/data/*.ts`: content re-authored in place (copy rewrites), types
-  largely stable; `VerifiedTag.tsx` component retired since the badge
-  device is dropped (§5).
-- New `DecisionRecord` component for the signature element, used only on
-  the three qualifying project pages.
+  extended to carry the 3 new projects (§5.1) and Decision Record fields;
+  `VerifiedTag.tsx` component retired since the badge device is dropped
+  (§5).
+- New `DecisionRecord` component for the signature element, used on the
+  four qualifying project pages (Booklet, Wayfarer, Darkframe, Typester).
 - SEO/structured data (Person/WebSite/ProfilePage/SoftwareApplication/
   BreadcrumbList JSON-LD, OG image route, sitemap, robots, `llms.txt`):
   preserved and updated to match the new IA (new `/about` and `/experience`
-  routes added to sitemap; nav-related copy in `llms.txt` updated if the
-  Writing nav demotion changes how it should be described).
+  routes added to sitemap and nav; `llms.txt` updated for the 3 new
+  projects, the updated AI-tooling list, and the new resume figure).
 - Project screenshots: for the three new projects (§5.1) and any recapture
   of existing ones, use each project's own **light-mode** UI where the
   project supports theming, so the screenshot sits naturally in the site's
@@ -292,11 +371,14 @@ apology). Removed from primary nav per §3 until real posts exist.
 
 ## 8. Open items for the implementation plan
 
-- Exact home-page "Recent" log entries to feature (likely: Booklet rollback,
-  most recent role, most recent shipped project) — finalize during
-  implementation using only existing verified facts.
-- Whether `framer-motion` is fully removable or partially retained for one
-  orchestrated home-load moment — decide during implementation, remove the
-  dependency if unused.
-- Dark-mode contrast tokens (§4) need explicit values chosen and
-  contrast-checked, not just "adjusted for contrast" as written here.
+- Exact home-page "Recent" log entries — candidates listed in §5, finalize
+  exact wording/order during implementation using only existing verified
+  facts.
+- Dark-mode values for all four accent tokens (§4) need to be chosen and
+  contrast-checked (WCAG AA minimum, both against `paper`/dark-`paper` and
+  against each other where they appear adjacent, e.g. `diff-add` next to
+  `diff-remove` in a Decision Record) — not just "re-tuned for contrast" as
+  written here.
+- Dot-grid texture (§4): confirm opacity/contrast against `prefers-contrast:
+  more` and verify it doesn't degrade text legibility in Safari/Firefox at
+  common zoom levels, not just Chrome.

@@ -1,20 +1,19 @@
-import Capabilities from "@/components/Capabilities";
-import Contact from "@/components/Contact";
-import Experience from "@/components/Experience";
-import Footer from "@/components/Footer";
+import Link from "next/link";
 import Hero from "@/components/Hero";
-import Platforms from "@/components/Platforms";
-import Projects from "@/components/Projects";
-import { getProjects } from "@/app/(helpers)/projects";
-import { PLATFORM } from "@/app/data/work";
+import RecentLog from "@/components/RecentLog";
+import { RECENT_LOG } from "@/app/data/log";
 import { SITE } from "@/app/data/site";
 
 export const revalidate = 3600;
 
-export default async function Page() {
-  const projects = await getProjects();
+const PATHS = [
+  { label: "Projects", href: "/projects", description: "Eight products, designed and run end to end." },
+  { label: "Experience", href: "/experience", description: "The professional record, with the numbers behind it." },
+  { label: "Writing", href: "/writing", description: "Notes on engineering, architecture, and shipping." },
+  { label: "About", href: "/about", description: "Who this is, and why the side projects exist." },
+];
 
-  // ProfilePage schema mirrors the page itself; no markup without matching content.
+export default function Page() {
   const profilePageSchema = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
@@ -30,13 +29,26 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
       />
-      <Hero projectCount={projects.length} />
-      <Projects projects={projects} />
-      <Platforms platform={PLATFORM} />
-      <Capabilities />
-      <Experience />
-      <Contact />
-      <Footer />
+      <Hero />
+      <RecentLog entries={RECENT_LOG} />
+      <section aria-label="Site sections" className="border-t border-line px-6 py-16 md:px-16 md:py-20">
+        <div className="mx-auto grid max-w-3xl gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
+          {PATHS.map((path) => (
+            <Link
+              key={path.href}
+              href={path.href}
+              className="group flex flex-col gap-2 bg-paper p-8 transition-colors duration-200 hover:bg-paper-raised"
+            >
+              <span className="font-display text-[20px] font-semibold text-ink transition-colors duration-200 group-hover:text-signal">
+                {path.label}
+              </span>
+              <span className="font-body text-[14px] leading-relaxed text-ink-muted">
+                {path.description}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
     </>
   );
 }

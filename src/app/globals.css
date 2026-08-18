@@ -70,11 +70,16 @@ button:focus-visible {
   color: var(--color-ink);
 }
 
-/* Engineering-notebook dot-grid texture. Hero and section-opening moments only. */
+/* Engineering-notebook dot-grid texture. Hero and section-opening moments only.
+   The 5% fade lives in the dot color itself (not element `opacity`) because
+   this class is applied to sections that also hold real foreground content —
+   `opacity` on the element would dim that content too. */
 .field-texture {
-  background-image: radial-gradient(var(--color-ink) 1px, transparent 1px);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-ink) 5%, transparent) 1px,
+    transparent 1px
+  );
   background-size: 24px 24px;
-  opacity: 0.05;
 }
 
 @media (prefers-contrast: more) {

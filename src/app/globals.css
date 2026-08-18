@@ -2,21 +2,23 @@
 
 @theme {
   /* Dark surfaces */
-  --color-canvas: #000000;
-  --color-surface-1: #111111;
-  --color-surface-2: #1c1c1e;
-  --color-surface-3: #2c2c2e;
-  --color-surface-4: #3a3a3c;
+  --color-canvas: #0a0d10;
+  --color-surface-1: #12161b;
+  --color-surface-2: #1a2027;
 
-  /* Dark labels */
-  --color-label-1: #f5f5f7;
-  --color-label-2: #a1a1a6;
-  --color-label-3: #6e6e73;
-  --color-label-4: #48484a;
+  /* Ink (text) */
+  --color-ink-1: #edeff2;
+  --color-ink-2: #8b93a1;
+  --color-ink-3: #5b636f;
+  --color-ink-4: #394048;
 
-  /* Accent */
-  --color-accent: #2997ff;
-  --color-accent-hover: #147ce5;
+  /* Accent system: signal is the one loud color, alert/diff-remove
+     share its lightness/saturation, rotated hue, so the three read
+     as one designed system. */
+  --color-signal: #4ce0a6;
+  --color-signal-hover: #3bc98f;
+  --color-alert: #e0a64c;
+  --color-diff-remove: #c4645a;
 
   /* Shadows */
   --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);
@@ -26,7 +28,6 @@
 
 :root {
   color-scheme: dark;
-  --font-mono: "SF Mono", "Fira Code", Menlo, Consolas, monospace;
 }
 
 *,
@@ -40,8 +41,8 @@ html {
 }
 
 body {
-  background-color: #000000;
-  color: #f5f5f7;
+  background-color: #0a0d10;
+  color: #edeff2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -49,21 +50,21 @@ body {
 
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid #2997ff;
+  outline: 2px solid #4ce0a6;
   outline-offset: 4px;
   border-radius: 4px;
 }
 
 ::selection {
-  background-color: rgba(41, 151, 255, 0.25);
-  color: #f5f5f7;
+  background-color: rgba(76, 224, 166, 0.25);
+  color: #edeff2;
 }
 
 /* ─── Blog article prose ─────────────────────────────────────────────────── */
 /* Applied to the container wrapping @uiw/react-markdown-preview on post pages */
 .prose {
   background: transparent !important;
-  color: var(--color-label-2);
+  color: var(--color-ink-2);
   font-size: 17px;
   line-height: 1.8;
   max-width: 680px;
@@ -81,7 +82,7 @@ button:focus-visible {
 .prose h2,
 .prose h3,
 .prose h4 {
-  color: var(--color-label-1);
+  color: var(--color-ink-1);
   font-weight: 300;
   letter-spacing: -0.02em;
   margin-top: 2.5em;
@@ -95,39 +96,39 @@ button:focus-visible {
 
 .prose p {
   margin-bottom: 1.5em;
-  color: var(--color-label-2);
+  color: var(--color-ink-2);
 }
 
 .prose strong {
   font-weight: 500;
-  color: var(--color-label-1);
+  color: var(--color-ink-1);
 }
 
 .prose em {
   font-style: italic;
-  color: var(--color-label-2);
+  color: var(--color-ink-2);
 }
 
 .prose a {
-  color: var(--color-accent);
+  color: var(--color-signal);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(41, 151, 255, 0.4);
+  text-decoration-color: rgba(76, 224, 166, 0.4);
   transition: color 0.2s, text-decoration-color 0.2s;
 }
 .prose a:hover {
-  color: var(--color-accent-hover);
-  text-decoration-color: var(--color-accent-hover);
+  color: var(--color-signal-hover);
+  text-decoration-color: var(--color-signal-hover);
 }
 
 /* Blockquote as pull quote */
 .prose blockquote {
-  border-left: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-signal);
   border-right: none;
   background: transparent;
   margin-left: 0;
   padding: 4px 0 4px 24px;
-  color: var(--color-label-2);
+  color: var(--color-ink-2);
   font-size: 19px;
   font-weight: 300;
   font-style: normal;
@@ -141,7 +142,7 @@ button:focus-visible {
 .prose :not(pre) > code {
   font-family: var(--font-mono);
   font-size: 14px;
-  color: var(--color-label-1);
+  color: var(--color-ink-1);
   background: var(--color-surface-2);
   border: 1px solid rgba(255, 255, 255, 0.06);
   padding: 2px 7px;
@@ -164,7 +165,7 @@ button:focus-visible {
   border: none;
   padding: 0;
   font-family: var(--font-mono);
-  color: var(--color-label-1);
+  color: var(--color-ink-1);
 }
 
 /* Lists */
@@ -172,14 +173,14 @@ button:focus-visible {
 .prose ol {
   padding-left: 1.5rem;
   margin-bottom: 1.5em;
-  color: var(--color-label-2);
+  color: var(--color-ink-2);
 }
 .prose li {
   margin-bottom: 0.4em;
   line-height: 1.7;
 }
 .prose li::marker {
-  color: var(--color-label-4);
+  color: var(--color-ink-4);
 }
 
 /* Horizontal rule */
@@ -208,12 +209,12 @@ button:focus-visible {
   text-align: left;
   padding: 10px 16px;
   font-weight: 500;
-  color: var(--color-label-1);
+  color: var(--color-ink-1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 .prose td {
   padding: 10px 16px;
-  color: var(--color-label-2);
+  color: var(--color-ink-2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 

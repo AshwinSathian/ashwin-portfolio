@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BackToProjectsButton from "@/components/BackToProjectsButton";
+import ProjectMedia from "@/components/ProjectMedia";
 import { getProject } from "@/app/(helpers)/projects";
 import { PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
@@ -92,26 +93,26 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       />
 
       {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-[13px] text-label-4">
-        <Link href="/" className="transition-colors duration-200 hover:text-label-1">
+      <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-[13px] text-ink-4">
+        <Link href="/" className="transition-colors duration-200 hover:text-ink-1">
           Home
         </Link>
         <span aria-hidden>/</span>
         <BackToProjectsButton />
         <span aria-hidden>/</span>
-        <span aria-current="page" className="text-label-2">
+        <span aria-current="page" className="text-ink-2">
           {project.name}
         </span>
       </nav>
 
       {/* Header */}
-      <p className="mb-3 text-[11px] font-medium uppercase tracking-widest text-label-4">
+      <p className="mb-3 font-mono text-[11px] uppercase tracking-widest text-ink-4">
         {project.category}
       </p>
-      <h1 className="mb-4 text-[clamp(28px,4.5vw,44px)] font-extralight leading-[1.1] tracking-[-0.025em] text-label-1">
+      <h1 className="mb-4 text-[clamp(28px,4.5vw,44px)] font-semibold leading-[1.1] tracking-[-0.015em] text-ink-1">
         {project.name}
       </h1>
-      <p className="mb-10 max-w-2xl text-[17px] leading-[1.7] text-label-2">
+      <p className="mb-10 max-w-2xl text-[17px] leading-[1.7] text-ink-2">
         {project.tagline}
       </p>
 
@@ -124,20 +125,25 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full border border-white/15 px-4 py-2 text-[13px] text-label-2 transition-colors duration-200 hover:border-white/25 hover:text-label-1"
+              className="rounded-full border border-white/15 px-4 py-2 text-[13px] text-ink-2 transition-colors duration-200 hover:border-white/25 hover:text-ink-1"
             >
               {LINK_LABELS[key]} ↗
             </a>
           )
         )}
         {(project.language || typeof project.stars === "number") && (
-          <span className="flex items-center gap-3 rounded-full border border-white/8 px-4 py-2 text-[13px] text-label-3">
+          <span className="flex items-center gap-3 rounded-full border border-white/8 px-4 py-2 text-[13px] text-ink-3">
             {project.language && <span>{project.language}</span>}
             {typeof project.stars === "number" && project.stars > 0 && (
               <span>★ {project.stars}</span>
             )}
           </span>
         )}
+      </div>
+
+      {/* Media */}
+      <div className="mb-12">
+        <ProjectMedia media={project.media} priority />
       </div>
 
       {/* Quick facts */}
@@ -147,10 +153,11 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             key={fact.label}
             className="rounded-2xl border border-white/6 bg-surface-2 p-5"
           >
-            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-widest text-label-4">
+            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-widest text-ink-4">
               {fact.label}
             </p>
-            <p className="text-[14px] leading-snug text-label-1">{fact.value}</p>
+            <p className="text-[14px] leading-snug text-ink-1">{fact.value}</p>
+            <p className="mt-2 font-mono text-[10px] text-signal">// verified</p>
           </div>
         ))}
       </div>
@@ -158,7 +165,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Description */}
       <div className="mb-12 flex max-w-2xl flex-col gap-5">
         {project.description.map((paragraph, i) => (
-          <p key={i} className="text-[16px] leading-[1.8] text-label-2">
+          <p key={i} className="text-[16px] leading-[1.8] text-ink-2">
             {paragraph}
           </p>
         ))}
@@ -169,7 +176,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         {project.stack.map((tech) => (
           <span
             key={tech}
-            className="rounded-full bg-surface-3 px-3.5 py-1.5 text-[13px] font-medium text-label-2"
+            className="rounded-full bg-surface-2 px-3.5 py-1.5 text-[13px] font-medium text-ink-2"
           >
             {tech}
           </span>
@@ -178,7 +185,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
       {/* Highlights */}
       <div className="mb-20">
-        <p className="mb-6 text-xs font-medium uppercase tracking-[0.08em] text-label-3">
+        <p className="mb-6 font-mono text-xs uppercase tracking-[0.08em] text-ink-3">
           Highlights
         </p>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -187,10 +194,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               key={highlight.title}
               className="rounded-2xl border border-white/6 bg-surface-2 p-7"
             >
-              <h3 className="mb-2.5 text-[16px] font-medium leading-snug text-label-1">
+              <h3 className="mb-2.5 text-[16px] font-medium leading-snug text-ink-1">
                 {highlight.title}
               </h3>
-              <p className="text-[14px] leading-[1.7] text-label-3">{highlight.detail}</p>
+              <p className="text-[14px] leading-[1.7] text-ink-3">{highlight.detail}</p>
             </div>
           ))}
         </div>
@@ -198,13 +205,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
       {/* Next project */}
       <div className="flex items-center justify-between border-t border-white/8 pt-8">
-        <span className="text-[13px] text-label-4">Next</span>
+        <span className="text-[13px] text-ink-4">Next</span>
         <Link
           href={`/projects/${next.slug}`}
-          className="group flex items-center gap-2 text-[15px] text-label-2 transition-colors duration-200 hover:text-label-1"
+          className="group flex items-center gap-2 text-[15px] text-ink-2 transition-colors duration-200 hover:text-ink-1"
         >
           {next.name}
-          <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">
+          <span className="text-signal transition-transform duration-200 group-hover:translate-x-1">
             →
           </span>
         </Link>

@@ -9,7 +9,7 @@ export default async function PostBody({ content }: Props) {
 
   return (
     <div
-      className="prose"
+      className="prose font-body"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

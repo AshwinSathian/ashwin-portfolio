@@ -93,7 +93,7 @@ export default async function PostPage({ params }: Props) {
   };
 
   return (
-    <main className="min-h-svh bg-canvas px-6 pb-24 pt-40 md:px-16">
+    <main className="min-h-svh px-6 pb-24 pt-40 md:px-16">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -101,19 +101,19 @@ export default async function PostPage({ params }: Props) {
       <div className="mx-auto max-w-3xl">
         <Link
           href="/writing"
-          className="text-[11px] font-medium uppercase tracking-widest text-ink-4 transition-colors duration-200 hover:text-ink-2"
+          className="font-ui text-[11px] font-medium uppercase tracking-widest text-ink-muted transition-colors duration-200 hover:text-ink"
         >
           Writing
         </Link>
 
         <h1
-          className="mt-6 font-semibold text-ink-1 leading-tight tracking-[-0.02em]"
+          className="mt-6 font-display font-semibold text-ink leading-tight tracking-[-0.02em]"
           style={{ fontSize: "clamp(32px, 5vw, 56px)" }}
         >
           {meta.title}
         </h1>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2 text-[13px] text-ink-3">
+        <div className="mt-4 flex flex-wrap items-center gap-2 font-ui text-[13px] text-ink-muted">
           <span>{meta.formattedDate}</span>
           {meta.formattedUpdatedAt && meta.formattedUpdatedAt !== meta.formattedDate && (
             <>
@@ -124,13 +124,13 @@ export default async function PostPage({ params }: Props) {
           <span>·</span>
           <span>{meta.readingTime} min read</span>
           {meta.draft && (
-            <span className="rounded-full border border-white/15 px-2 py-0.5 text-[10px] text-ink-3">
+            <span className="rounded-full border border-line px-2 py-0.5 text-[10px] text-ink-muted">
               Draft
             </span>
           )}
         </div>
 
-        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ink-2">
+        <p className="mt-6 max-w-2xl font-body text-[17px] leading-relaxed text-ink-muted">
           {meta.description}
         </p>
 
@@ -139,7 +139,7 @@ export default async function PostPage({ params }: Props) {
             {meta.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/6 px-3 py-0.5 text-[11px] text-ink-4"
+                className="rounded-full border border-line px-3 py-0.5 font-ui text-[11px] text-ink-muted"
               >
                 {tag}
               </span>
@@ -147,18 +147,18 @@ export default async function PostPage({ params }: Props) {
           </div>
         )}
 
-        <hr className="mt-12 border-t border-white/8" />
+        <hr className="mt-12 border-t border-line" />
 
         <div className="mt-12">
           <PostBody content={content} />
         </div>
 
-        <hr className="mt-16 border-t border-white/8" />
+        <hr className="mt-16 border-t border-line" />
 
         <div className="mt-8">
           <Link
             href="/writing"
-            className="text-[15px] text-ink-3 transition-colors duration-200 hover:text-ink-1"
+            className="font-ui text-[15px] text-ink-muted transition-colors duration-200 hover:text-ink"
           >
             ← Writing
           </Link>

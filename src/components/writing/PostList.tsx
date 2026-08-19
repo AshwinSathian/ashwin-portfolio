@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { PostMeta } from "@/lib/writing";
+import { fadeInUp, stagger } from "@/lib/motion";
 
 type Props = {
   posts: PostMeta[];
@@ -9,9 +13,15 @@ export default function PostList({ posts }: Props) {
   if (posts.length === 0) return null;
 
   return (
-    <ol className="mt-16 list-none" aria-label="Posts">
+    <motion.ol
+      initial="hidden"
+      animate="show"
+      variants={stagger}
+      className="mt-16 list-none"
+      aria-label="Posts"
+    >
       {posts.map((post) => (
-        <li key={post.slug}>
+        <motion.li key={post.slug} variants={fadeInUp}>
           <Link
             href={`/writing/${post.slug}`}
             className="group block border-t border-line py-8 last:border-b last:border-line focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
@@ -47,8 +57,8 @@ export default function PostList({ posts }: Props) {
               </div>
             )}
           </Link>
-        </li>
+        </motion.li>
       ))}
-    </ol>
+    </motion.ol>
   );
 }

@@ -185,9 +185,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
       {/* Highlights */}
       <div className="mb-20">
-        <p className="mb-6 font-ui text-xs font-medium uppercase tracking-[0.08em] text-ink-muted">
+        <h2 className="mb-6 font-ui text-xs font-medium uppercase tracking-[0.08em] text-ink-muted">
           Highlights
-        </p>
+        </h2>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {project.highlights.map((highlight) => (
             <div
@@ -206,9 +206,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* Decision Record — only for projects with a real, disclosed reversal */}
       {project.decisionRecord && (
         <div className="mb-20">
-          <p className="mb-6 font-ui text-xs font-medium uppercase tracking-[0.08em] text-ink-muted">
+          <h2 className="mb-6 font-ui text-xs font-medium uppercase tracking-[0.08em] text-ink-muted">
             Decision record
-          </p>
+          </h2>
           <DecisionRecord record={project.decisionRecord} />
         </div>
       )}

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Source_Serif_4, Archivo } from "next/font/google";
+import { JetBrains_Mono, Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import ContactBand from "@/components/ContactBand";
@@ -12,13 +12,8 @@ const displayMono = JetBrains_Mono({
   display: "swap",
 });
 
-const bodySerif = Source_Serif_4({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-serif",
-  display: "swap",
-});
-
+// Serves both body copy and UI chrome — one sans-serif family, not a
+// serif/sans split, per the typography consistency pass (2026-08-19).
 const uiSans = Archivo({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -31,10 +26,7 @@ const siteDescription =
   "AI-augmented senior full-stack engineer. Seven years building and scaling enterprise-grade SaaS platforms — $1B+ GTV, multi-tenant architecture, teams mentored. Eight independent products shipped outside of it, each with its decisions published, not hidden.";
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#EEF0F1" },
-    { media: "(prefers-color-scheme: dark)", color: "#14171A" },
-  ],
+  themeColor: "#14171A",
   width: "device-width",
   initialScale: 1,
 };
@@ -178,7 +170,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${displayMono.variable} ${bodySerif.variable} ${uiSans.variable}`}
+      className={`${displayMono.variable} ${uiSans.variable}`}
       suppressHydrationWarning
     >
       <head>

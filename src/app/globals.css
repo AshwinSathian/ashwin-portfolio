@@ -1,43 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  /* Light (default) */
-  --color-paper: #EEF0F1;
-  --color-paper-raised: #E4E7E8;
-  --color-ink: #14181C;
-  --color-ink-muted: #5B6570;
-  --color-line: #D3D7D9;
-  --color-accent: #263C8B;
-  --color-signal: #985623;
-  --color-diff-add: #2B7454;
-  --color-diff-remove: #AC473B;
+  /* Dark, unconditionally. Browsers treat "no active OS preference" as a
+     match for `prefers-color-scheme: light` (there's no queryable neutral
+     state), so a light override gated on that media query becomes the
+     default for most visitors — the opposite of dark-first. Verified this
+     directly (Playwright's "no-preference" context reports
+     `(prefers-color-scheme: light)` as matching) before removing the
+     light variant rather than assuming the media query would behave. */
+  --color-paper: #14171A;
+  --color-paper-raised: #1D2124;
+  --color-ink: #EDEFF1;
+  --color-ink-muted: #9AA3AC;
+  --color-line: #2B3034;
+  --color-accent: #7C93E8;
+  --color-signal: #E08F4E;
+  --color-diff-add: #4FAE85;
+  --color-diff-remove: #E07862;
 
   --font-display: var(--font-mono);
-  --font-body: var(--font-serif);
+  --font-body: var(--font-sans);
   --font-ui: var(--font-sans);
 
-  --shadow-card: 0 0 0 1px rgba(20, 24, 28, 0.08);
-  --shadow-card-hover: 0 0 0 1px rgba(20, 24, 28, 0.16);
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.16);
 }
 
 :root {
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-paper: #14171A;
-    --color-paper-raised: #1D2124;
-    --color-ink: #EDEFF1;
-    --color-ink-muted: #9AA3AC;
-    --color-line: #2B3034;
-    --color-accent: #7C93E8;
-    --color-signal: #E08F4E;
-    --color-diff-add: #4FAE85;
-    --color-diff-remove: #E07862;
-    --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.08);
-    --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.16);
-  }
+  color-scheme: dark;
 }
 
 *,

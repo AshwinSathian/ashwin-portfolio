@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { ProjectWithStats } from "@/app/(helpers)/projects";
 import ProjectMedia from "@/components/ProjectMedia";
+import { fadeInUp, stagger } from "@/lib/motion";
 
 export type ProjectsProps = {
   projects: ProjectWithStats[];
@@ -9,23 +13,34 @@ export type ProjectsProps = {
 export default function Projects({ projects }: ProjectsProps) {
   return (
     <div className="mx-auto max-w-5xl px-6 py-24 pt-32 md:px-16 md:py-32 md:pt-40">
-      <p className="font-ui text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">
-        Projects
-      </p>
-      <h1 className="mt-4 font-display text-[clamp(32px,5vw,52px)] font-bold leading-[1.02] tracking-[-0.02em] text-ink">
-        Eight products, designed and run end to end.
-      </h1>
-      <p className="mt-4 max-w-xl font-body text-[16px] leading-[1.7] text-ink-muted">
-        Most of what I ship at work isn&apos;t mine to show. Everything here is —
-        built, run, and where the record calls for it, corrected in public.
-      </p>
+      <motion.div initial="hidden" animate="show" variants={stagger} className="flex flex-col gap-4">
+        <motion.p variants={fadeInUp} className="font-ui text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">
+          Projects
+        </motion.p>
+        <motion.h1 variants={fadeInUp} className="font-display text-[clamp(32px,5vw,52px)] font-bold leading-[1.02] tracking-[-0.02em] text-ink">
+          Eight products, designed and run end to end.
+        </motion.h1>
+        <motion.p variants={fadeInUp} className="max-w-xl font-body text-[16px] leading-[1.7] text-ink-muted">
+          Most of what I ship at work isn&apos;t mine to show. Everything here is —
+          built, run, and where the record calls for it, corrected in public.
+        </motion.p>
+      </motion.div>
 
       <div className="mt-16 flex flex-col">
         {projects.map((project, i) => (
-          <div key={project.slug} className="border-t border-line py-12 first:border-t-0 first:pt-0 md:py-14">
+          <motion.div
+            key={project.slug}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={stagger}
+            className="border-t border-line py-12 first:border-t-0 first:pt-0 md:py-14"
+          >
             <div className="grid min-w-0 gap-8 md:grid-cols-[minmax(0,340px)_1fr] md:gap-12">
-              <div className="flex min-w-0 flex-col gap-3">
-                <ProjectMedia media={project.media} />
+              <motion.div variants={fadeInUp} className="flex min-w-0 flex-col gap-3">
+                <motion.div whileHover={{ scale: 1.015 }} transition={{ duration: 0.2 }}>
+                  <ProjectMedia media={project.media} />
+                </motion.div>
                 <div className="flex items-center gap-3 font-display text-[12px] uppercase tracking-wider text-ink-muted">
                   <span>{String(i + 1).padStart(2, "0")}</span>
                   <span>{project.category}</span>
@@ -39,9 +54,9 @@ export default function Projects({ projects }: ProjectsProps) {
                     </span>
                   )}
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex min-w-0 flex-col gap-5">
+              <motion.div variants={fadeInUp} className="flex min-w-0 flex-col gap-5">
                 <Link href={`/projects/${project.slug}`} className="group inline-flex items-baseline gap-3 focus-visible:outline-none">
                   <h2 className="font-display text-[clamp(24px,3.2vw,36px)] font-bold leading-[1.1] tracking-[-0.01em] text-ink transition-colors duration-200 group-hover:text-signal">
                     {project.name}
@@ -99,9 +114,9 @@ export default function Projects({ projects }: ProjectsProps) {
                     </a>
                   )}
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

@@ -99,7 +99,10 @@ export function getAllPosts(): PostMeta[] {
       };
     })
     .filter((p): p is PostMeta => p !== null)
-    .sort((a, b) => (a.date < b.date ? 1 : -1));
+    // Newest date first; same-day posts (this system tracks day, not time
+    // of day) break ties by slug so the order is deterministic rather than
+    // filesystem-dependent.
+    .sort((a, b) => (a.date === b.date ? a.slug.localeCompare(b.slug) : a.date < b.date ? 1 : -1));
 
   return posts;
 }

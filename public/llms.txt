@@ -4,11 +4,13 @@
 
 ## Site
 
-Multi-page site: / (home), /projects (index + 8 case studies), /experience,
-/about, /writing. Four project case studies — Booklet, Wayfarer, Darkframe,
-and Typester — include a dated Decision Record: a real, disclosed reversal
-(a rollback, a rename, a rebuild) with before/after reasoning, not just a
-finished, polished result.
+/ (home) carries a full resume-style summary, a compact projects list,
+an experience snapshot, and the stack — everything below fans out to a
+dedicated page: /projects (index + 8 case studies), /experience (the full
+seven-role record), /writing. Four project case studies — Booklet, Wayfarer,
+Darkframe, and Typester — include a dated Decision Record: a real, disclosed
+reversal (a rollback, a rename, a rebuild) with before/after reasoning, not
+just a finished, polished result.
 
 ## About
 
@@ -64,7 +66,12 @@ Eight projects designed, built, and run end to end, outside of work. Full case s
 
 ## Writing
 
-Ashwin publishes technical notes at ashwinsathian.com/writing. Nothing is published there yet; new essays are in progress.
+Ashwin publishes technical notes at ashwinsathian.com/writing, newest first:
+
+- "Why \"Humanize My Writing\" Tools Don't Work" (2026-08-18): why AI-writing detection research points at structure, not word lists, and why most humanizer tools miss that.
+- "Why Better Auth's MongoDB adapter can't populate() a Mongoose ref" (2026-08-17): the gap in Better Auth's official MongoDB adapter that better-auth-mongoose closes.
+- "Why ngx-runtime-i18n treats the active language as a signal, not an Observable" (2026-08-17): the signals-first design decision behind ngx-runtime-i18n, and its RxJS compat layer.
+- "Runtime i18n for Angular, done right: @ngx-runtime-i18n" (2025-10-27): the original introduction to ngx-runtime-i18n's SSR-safe, signals-first approach.
 
 ## Contact
 

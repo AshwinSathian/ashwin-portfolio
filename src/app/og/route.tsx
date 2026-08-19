@@ -213,7 +213,7 @@ export async function GET(request: NextRequest) {
             letterSpacing: "-0.01em",
           }}
         >
-          AI-augmented senior full-stack engineer. $1B+ GTV. Decisions published, not hidden.
+          AI-augmented senior full-stack engineer. 8+ years, eight products. Decisions published, not hidden.
         </div>
         <div
           style={{

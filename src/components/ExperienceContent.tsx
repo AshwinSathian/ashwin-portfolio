@@ -7,7 +7,7 @@ import Skills from "@/components/Skills";
 import { fadeInUp, stagger } from "@/lib/motion";
 
 const introText =
-  "Seven years across seven roles and five companies, from junior programmer to lead engineer directing a twelve-person team. Every line below is a fact, not a claim — dates, numbers, and the stack that shipped them.";
+  "Eight years across seven roles and five companies, from junior programmer to lead engineer directing a twelve-person team. Every line below is a fact, not a claim — dates and the stack that shipped them.";
 
 export default function ExperienceContent() {
   return (

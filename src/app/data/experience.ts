@@ -23,8 +23,8 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Jan 2024 – Aug 2025",
     bullets: [
-      "Owned the Angular + NestJS + MongoDB architecture for a modular, multi-tenant procurement platform that scaled toward $1B+ in gross transaction value.",
-      "Built RBAC and tenancy isolation as platform-wide standards rather than per-client features, holding critical query paths under 200ms as load grew.",
+      "Owned the Angular + NestJS + MongoDB architecture for a modular, multi-tenant procurement platform used across the business.",
+      "Built RBAC and tenancy isolation as platform-wide standards rather than per-client features, holding query performance steady as load grew.",
       "Mentored and directed a 12-person team spanning frontend, backend, and QA, introducing code review and clean-code standards that were adopted, not just proposed.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx", "GCP"],
@@ -35,8 +35,8 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     dates: "Apr 2022 – Dec 2023",
     bullets: [
       "Owned feature lifecycles end-to-end, staying hands-on across the API layer and frontend while translating procurement workflows into shipped outcomes.",
-      "Optimized APIs and database queries across critical paths, improving response times by 40%+.",
-      "Coordinated engineering, QA, and product rhythms into iterative agile delivery, accelerating release cycles by 1.5×.",
+      "Optimized APIs and database queries across critical paths as usage grew.",
+      "Coordinated engineering, QA, and product rhythms into iterative agile delivery.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx"],
   },

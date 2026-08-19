@@ -1,6 +1,6 @@
 # Ashwin Sathian
 
-> AI-augmented senior full-stack engineer. Seven years building and scaling enterprise-grade SaaS platforms. Eight independent products shipped outside of it, each with its decisions published, not hidden.
+> AI-augmented senior full-stack engineer. 8+ years building and scaling enterprise-grade SaaS platforms. Eight independent products shipped outside of it, each with its decisions published, not hidden.
 
 ## Site
 
@@ -14,9 +14,9 @@ just a finished, polished result.
 
 ## About
 
-Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 7+ years across full-stack and platform engineering. Most recently, he led engineering for HighLevel's Funnels, Websites, and Webinars products (Mar–Jun 2026): three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide. There, he led an engineering team and worked directly with other engineering teams and verticals, guided the AI-augmented Full Stack Builder effort across the full SDLC, and shipped architectural reworks of critical subsystems alongside feature enhancements.
+Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 8+ years across full-stack and platform engineering. Most recently, he led engineering for HighLevel's Funnels, Websites, and Webinars products (Mar–Jun 2026): three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide. There, he led an engineering team and worked directly with other engineering teams and verticals, guided the AI-augmented Full Stack Builder effort across the full SDLC, and shipped architectural reworks of critical subsystems alongside feature enhancements.
 
-Before that, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team of ~12 engineers, optimised critical API paths to under 200ms, and shaped the data patterns that held as the platform scaled to handle $1B+ in procurement GTV.
+Before that, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team of ~12 engineers, and shaped the data patterns that held as the platform scaled.
 
 Ashwin practises AI-augmented engineering, using AI tooling including Claude Code, Claude Cowork, Claude Design, and OpenAI Codex to work at higher altitude: validating architectural decisions faster, accelerating implementation cycles, and raising the quality ceiling of his output.
 
@@ -42,14 +42,6 @@ Ashwin practises AI-augmented engineering, using AI tooling including Claude Cod
 ## Education
 
 B.Tech, Electronics and Communication Engineering, National Institute of Technology Calicut (2014–2018)
-
-## Key Metrics & Achievements
-
-- $1B+ GTV safeguarded: architected multi-tenant procurement platform at Penny Software
-- 1.5× release cadence acceleration: reworked CI/CD and delivery rituals
-- <200ms critical query performance: optimised high-traffic API paths
-- ~12 engineers mentored: led cross-functional squad across frontend, backend, and QA
-- 40%+ API/query response-time improvement: optimised critical paths during the Product Specialist era
 
 ## Projects
 

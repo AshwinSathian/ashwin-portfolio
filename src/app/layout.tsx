@@ -23,7 +23,7 @@ const uiSans = Archivo({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "AI-augmented senior full-stack engineer. Seven years building and scaling enterprise-grade SaaS platforms — $1B+ GTV, multi-tenant architecture, teams mentored. Eight independent products shipped outside of it, each with its decisions published, not hidden.";
+  "AI-augmented senior full-stack engineer. 8+ years building and scaling enterprise-grade SaaS platforms — multi-tenant architecture, teams mentored. Eight independent products shipped outside of it, each with its decisions published, not hidden.";
 
 export const viewport: Viewport = {
   themeColor: "#14171A",

@@ -5,13 +5,6 @@ import { motion } from "framer-motion";
 import { RECENT_EXPERIENCE } from "@/app/data/experience";
 import { fadeInUp, stagger } from "@/lib/motion";
 
-const STATS = [
-  { value: "7 yrs", label: "leading SaaS platforms" },
-  { value: "$1B+", label: "GTV, Penny Software" },
-  { value: "12", label: "engineers mentored" },
-  { value: "1.5×", label: "faster release cadence" },
-];
-
 export default function HomeExperience() {
   const [latest] = RECENT_EXPERIENCE;
 
@@ -22,7 +15,7 @@ export default function HomeExperience() {
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
         variants={stagger}
-        className="mx-auto flex max-w-3xl flex-col gap-8"
+        className="mx-auto flex max-w-3xl flex-col gap-6"
       >
         <motion.p
           variants={fadeInUp}
@@ -40,14 +33,10 @@ export default function HomeExperience() {
           <p className="font-body text-[14px] text-ink-muted">{latest.company}</p>
         </motion.div>
 
-        <motion.div variants={fadeInUp} className="grid grid-cols-2 gap-6 border-t border-line pt-6 sm:grid-cols-4">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="flex flex-col gap-1">
-              <span className="font-display text-[24px] font-bold text-ink">{stat.value}</span>
-              <span className="font-ui text-[12px] leading-tight text-ink-muted">{stat.label}</span>
-            </div>
-          ))}
-        </motion.div>
+        <motion.p variants={fadeInUp} className="max-w-2xl font-body text-[15px] leading-[1.7] text-ink-muted">
+          Eight years, seven roles, five companies — from junior programmer to lead engineer
+          directing a twelve-person team.
+        </motion.p>
 
         <motion.div variants={fadeInUp}>
           <Link

@@ -105,7 +105,7 @@ describe("the differentiator: a consumer's own model can .populate() a Better-Au
 });
 ```
 
-It also passes the official [`@better-auth/test-utils`](https://www.npmjs.com/package/@better-auth/test-utils) adapter contract suite, so it's not just "populate works" — it's a fully conformant Better Auth adapter.
+It also passes the official [`@better-auth/test-utils`](https://www.npmjs.com/package/@better-auth/test-utils) adapter contract suite: the same conformance tests the official adapters run against.
 
 ## What else comes with it
 

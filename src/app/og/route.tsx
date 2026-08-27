@@ -2,13 +2,14 @@ import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
 
 // Dark-first, matching the site's default theme.
-const CANVAS = "#14171A";
-const LABEL_1 = "#EDEFF1";
-const LABEL_3 = "#9AA3AC";
-const LABEL_4 = "#5F6A73";
-const ACCENT = "#E08F4E";
+const CANVAS = "#0B0B0C";
+const LABEL_1 = "#F1EEE8";
+const LABEL_3 = "#9C968D";
+const LABEL_4 = "#6B6660";
+const ACCENT = "#D3A24C";
 
 const MONO_FONT_FAMILY = "JetBrains Mono";
+const SERIF_FONT_FAMILY = "Fraunces";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
@@ -36,13 +37,15 @@ export async function GET(request: NextRequest) {
   const description = searchParams.get("description");
   const label = searchParams.get("label") ?? "Writing";
 
-  const [regular, bold] = await Promise.all([
+  const [regular, bold, serifBold] = await Promise.all([
     loadGoogleFont(MONO_FONT_FAMILY, 400),
     loadGoogleFont(MONO_FONT_FAMILY, 700),
+    loadGoogleFont(SERIF_FONT_FAMILY, 600),
   ]);
   const fonts = [
     { name: MONO_FONT_FAMILY, data: regular, weight: 400 as const, style: "normal" as const },
     { name: MONO_FONT_FAMILY, data: bold, weight: 700 as const, style: "normal" as const },
+    { name: SERIF_FONT_FAMILY, data: serifBold, weight: 600 as const, style: "normal" as const },
   ];
 
   // Post card, when a title is supplied
@@ -107,9 +110,10 @@ export async function GET(request: NextRequest) {
             <div
               style={{
                 fontSize: 54,
-                fontWeight: 700,
+                fontWeight: 600,
+                fontFamily: SERIF_FONT_FAMILY,
                 lineHeight: 1.1,
-                letterSpacing: "-0.03em",
+                letterSpacing: "-0.01em",
                 color: LABEL_1,
                 maxWidth: 900,
               }}
@@ -196,9 +200,10 @@ export async function GET(request: NextRequest) {
         <div
           style={{
             fontSize: 96,
-            fontWeight: 700,
+            fontWeight: 600,
+            fontFamily: SERIF_FONT_FAMILY,
             lineHeight: 1.0,
-            letterSpacing: "-0.045em",
+            letterSpacing: "-0.01em",
             color: LABEL_1,
           }}
         >

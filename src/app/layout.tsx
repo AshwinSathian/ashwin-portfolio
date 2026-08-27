@@ -1,23 +1,34 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Archivo } from "next/font/google";
+import { JetBrains_Mono, Archivo, Fraunces } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import ContactBand from "@/components/ContactBand";
 import Footer from "@/components/Footer";
 
-const displayMono = JetBrains_Mono({
+// Data/metadata only — dates, tags, code, fact labels. Not display type.
+const dataMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-mono",
   display: "swap",
 });
 
-// Serves both body copy and UI chrome — one sans-serif family, not a
-// serif/sans split, per the typography consistency pass (2026-08-19).
+// Body copy and UI chrome — nav, buttons, paragraphs.
 const uiSans = Archivo({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+// Display type — hero, page titles, project names, prose headings. A serif
+// with real optical contrast so headlines read as considered typography,
+// not a monospace face stretched past what it's built for.
+const displaySerif = Fraunces({
+  subsets: ["latin"],
+  weight: "variable",
+  style: ["normal", "italic"],
+  axes: ["opsz", "SOFT"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -26,7 +37,7 @@ const siteDescription =
   "AI-augmented senior full-stack engineer. 8+ years building and scaling enterprise-grade SaaS platforms — multi-tenant architecture, teams mentored. Eight independent products shipped outside of it, each with its decisions published, not hidden.";
 
 export const viewport: Viewport = {
-  themeColor: "#14171A",
+  themeColor: "#0B0B0C",
   width: "device-width",
   initialScale: 1,
 };
@@ -170,7 +181,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${displayMono.variable} ${uiSans.variable}`}
+      className={`${dataMono.variable} ${uiSans.variable} ${displaySerif.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -187,9 +198,14 @@ export default function RootLayout({
         className="min-h-screen bg-paper text-ink"
         style={{ fontFamily: "var(--font-ui)" }}
       >
+        <a
+          href="#main-content"
+          className="fixed left-4 top-4 z-100 -translate-y-16 rounded-full bg-accent px-4 py-2 font-ui text-[13px] font-medium text-paper transition-transform duration-150 focus-visible:translate-y-0 focus:outline-none"
+        >
+          Skip to content
+        </a>
         <Navbar />
-        <main>{children}</main>
-        <ContactBand />
+        <main id="main-content">{children}</main>
         <Footer />
       </body>
     </html>

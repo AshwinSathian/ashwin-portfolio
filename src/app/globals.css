@@ -8,22 +8,44 @@
      directly (Playwright's "no-preference" context reports
      `(prefers-color-scheme: light)` as matching) before removing the
      light variant rather than assuming the media query would behave. */
-  --color-paper: #14171A;
-  --color-paper-raised: #1D2124;
-  --color-ink: #EDEFF1;
-  --color-ink-muted: #9AA3AC;
-  --color-line: #2B3034;
-  --color-accent: #7C93E8;
-  --color-signal: #E08F4E;
-  --color-diff-add: #4FAE85;
-  --color-diff-remove: #E07862;
+  --color-paper: #0B0B0C;
+  --color-paper-raised: #161514;
+  --color-ink: #F1EEE8;
+  --color-ink-muted: #9C968D;
+  --color-line: #2A2826;
+  /* Single accent, doing every job the old accent/signal/diff-add/diff-remove
+     four-color set used to split between them. */
+  --color-accent: #D3A24C;
+  --color-accent-strong: #E8B854;
 
-  --font-display: var(--font-mono);
+  /* Three families, each scoped to what it's actually for: a serif for real
+     display type, sans for body/UI, mono for data/metadata (dates, tags,
+     code) — not for headlines. */
+  --font-display: var(--font-serif);
   --font-body: var(--font-sans);
   --font-ui: var(--font-sans);
+  --font-data: var(--font-mono);
 
-  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.16);
+  /* Named type scale so components reference a token, not a bracket number. */
+  --text-display-1: clamp(3rem, 7vw, 6rem);
+  --text-display-1--line-height: 0.98;
+  --text-display-2: clamp(2.25rem, 5vw, 3.5rem);
+  --text-display-2--line-height: 1.04;
+  --text-display-3: clamp(1.5rem, 3.2vw, 2.25rem);
+  --text-display-3--line-height: 1.1;
+  --text-heading: 1.0625rem;
+  --text-heading--line-height: 1.3;
+  --text-body-lg: 1.0625rem;
+  --text-body-lg--line-height: 1.7;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.8125rem;
+  --text-small--line-height: 1.5;
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.4;
+
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-card-hover: 0 0 0 1px rgba(255, 255, 255, 0.14);
 }
 
 :root {
@@ -56,26 +78,8 @@ button:focus-visible {
 }
 
 ::selection {
-  background-color: color-mix(in srgb, var(--color-signal) 30%, transparent);
+  background-color: color-mix(in srgb, var(--color-accent) 30%, transparent);
   color: var(--color-ink);
-}
-
-/* Engineering-notebook dot-grid texture. Hero and section-opening moments only.
-   The 5% fade lives in the dot color itself (not element `opacity`) because
-   this class is applied to sections that also hold real foreground content —
-   `opacity` on the element would dim that content too. */
-.field-texture {
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--color-ink) 5%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 24px 24px;
-}
-
-@media (prefers-contrast: more) {
-  .field-texture {
-    display: none;
-  }
 }
 
 /* Decision Record: diff lines draw in on scroll into view. Progressive
@@ -186,20 +190,20 @@ button:focus-visible {
 }
 
 .prose a {
-  color: var(--color-signal);
+  color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-color: color-mix(in srgb, var(--color-signal) 40%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
   transition: color 0.2s, text-decoration-color 0.2s;
 }
 .prose a:hover {
-  color: var(--color-signal);
-  text-decoration-color: var(--color-signal);
+  color: var(--color-accent-strong);
+  text-decoration-color: var(--color-accent-strong);
 }
 
 /* Blockquote as pull quote */
 .prose blockquote {
-  border-left: 2px solid var(--color-signal);
+  border-left: 2px solid var(--color-accent);
   border-right: none;
   background: transparent;
   margin-left: 0;

@@ -101,7 +101,7 @@ export default function Navbar() {
             key={href}
             href={href}
             onClick={closeMenu}
-            className={`font-display text-[32px] font-medium tracking-[-0.01em] transition-colors duration-200 hover:text-accent ${
+            className={`font-display text-[32px] font-semibold tracking-[-0.01em] transition-colors duration-200 hover:text-accent ${
               isActive(href) ? "text-accent" : "text-ink"
             }`}
           >

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Archivo, Fraunces } from "next/font/google";
+import { JetBrains_Mono, Archivo } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -12,23 +12,12 @@ const dataMono = JetBrains_Mono({
   display: "swap",
 });
 
-// Body copy and UI chrome — nav, buttons, paragraphs.
+// Serves display, body, and UI chrome — one sans-serif family, deliberately
+// not a serif/sans split.
 const uiSans = Archivo({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-// Display type — hero, page titles, project names, prose headings. A serif
-// with real optical contrast so headlines read as considered typography,
-// not a monospace face stretched past what it's built for.
-const displaySerif = Fraunces({
-  subsets: ["latin"],
-  weight: "variable",
-  style: ["normal", "italic"],
-  axes: ["opsz", "SOFT"],
-  variable: "--font-serif",
   display: "swap",
 });
 
@@ -181,7 +170,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dataMono.variable} ${uiSans.variable} ${displaySerif.variable}`}
+      className={`${dataMono.variable} ${uiSans.variable}`}
       suppressHydrationWarning
     >
       <head>

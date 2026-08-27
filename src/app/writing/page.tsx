@@ -43,7 +43,7 @@ export default function WritingPage() {
         <p className="font-ui text-micro font-medium uppercase tracking-widest text-ink-muted">
           Writing
         </p>
-        <h1 className="mt-4 font-display text-display-2 font-medium text-ink leading-none tracking-[-0.01em]">
+        <h1 className="mt-4 font-display text-display-2 font-semibold text-ink leading-none tracking-[-0.02em]">
           Writing.
         </h1>
 

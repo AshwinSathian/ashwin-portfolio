@@ -22,7 +22,7 @@ export default function HomeExperience() {
         <div className="flex flex-col gap-6 md:col-span-8 md:col-start-4">
           <Reveal className="flex flex-col gap-1.5">
             <p className="font-data text-small text-accent">{latest.dates}</p>
-            <p className="font-display text-heading font-medium text-ink">{latest.role}</p>
+            <p className="font-display text-heading font-semibold text-ink">{latest.role}</p>
             <p className="font-body text-body text-ink-muted">{latest.company}</p>
           </Reveal>
 

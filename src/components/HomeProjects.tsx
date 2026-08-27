@@ -42,7 +42,7 @@ export default function HomeProjects({ projects }: HomeProjectsProps) {
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col gap-1">
                   <span className="flex items-baseline gap-3">
-                    <span className="font-display text-heading font-medium text-ink transition-colors duration-200 group-hover:text-accent">
+                    <span className="font-display text-heading font-semibold text-ink transition-colors duration-200 group-hover:text-accent">
                       {project.name}
                     </span>
                     {project.decisionRecord && (

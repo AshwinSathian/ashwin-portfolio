@@ -9,7 +9,7 @@ const LABEL_4 = "#6B6660";
 const ACCENT = "#D3A24C";
 
 const MONO_FONT_FAMILY = "JetBrains Mono";
-const SERIF_FONT_FAMILY = "Fraunces";
+const DISPLAY_FONT_FAMILY = "Archivo";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
@@ -37,15 +37,15 @@ export async function GET(request: NextRequest) {
   const description = searchParams.get("description");
   const label = searchParams.get("label") ?? "Writing";
 
-  const [regular, bold, serifBold] = await Promise.all([
+  const [regular, bold, displayBold] = await Promise.all([
     loadGoogleFont(MONO_FONT_FAMILY, 400),
     loadGoogleFont(MONO_FONT_FAMILY, 700),
-    loadGoogleFont(SERIF_FONT_FAMILY, 600),
+    loadGoogleFont(DISPLAY_FONT_FAMILY, 700),
   ]);
   const fonts = [
     { name: MONO_FONT_FAMILY, data: regular, weight: 400 as const, style: "normal" as const },
     { name: MONO_FONT_FAMILY, data: bold, weight: 700 as const, style: "normal" as const },
-    { name: SERIF_FONT_FAMILY, data: serifBold, weight: 600 as const, style: "normal" as const },
+    { name: DISPLAY_FONT_FAMILY, data: displayBold, weight: 700 as const, style: "normal" as const },
   ];
 
   // Post card, when a title is supplied
@@ -110,10 +110,10 @@ export async function GET(request: NextRequest) {
             <div
               style={{
                 fontSize: 54,
-                fontWeight: 600,
-                fontFamily: SERIF_FONT_FAMILY,
+                fontWeight: 700,
+                fontFamily: DISPLAY_FONT_FAMILY,
                 lineHeight: 1.1,
-                letterSpacing: "-0.01em",
+                letterSpacing: "-0.02em",
                 color: LABEL_1,
                 maxWidth: 900,
               }}
@@ -200,10 +200,10 @@ export async function GET(request: NextRequest) {
         <div
           style={{
             fontSize: 96,
-            fontWeight: 600,
-            fontFamily: SERIF_FONT_FAMILY,
+            fontWeight: 700,
+            fontFamily: DISPLAY_FONT_FAMILY,
             lineHeight: 1.0,
-            letterSpacing: "-0.01em",
+            letterSpacing: "-0.03em",
             color: LABEL_1,
           }}
         >

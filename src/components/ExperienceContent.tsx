@@ -16,7 +16,7 @@ export default function ExperienceContent() {
           <p className="font-ui text-micro font-medium uppercase tracking-[0.14em] text-ink-muted">Experience</p>
         </Reveal>
         <Reveal>
-          <h1 className="font-display text-display-2 font-medium leading-[1.02] tracking-[-0.01em] text-ink">
+          <h1 className="font-display text-display-2 font-semibold leading-[1.02] tracking-[-0.02em] text-ink">
             The record behind the résumé.
           </h1>
         </Reveal>
@@ -43,7 +43,7 @@ export default function ExperienceContent() {
               <p className="font-body text-body font-medium text-ink">{item.company}</p>
             </Reveal>
             <Reveal className="flex flex-col gap-5">
-              <p className="font-display text-heading font-medium text-ink">{item.role}</p>
+              <p className="font-display text-heading font-semibold text-ink">{item.role}</p>
               <ul className="flex flex-col gap-3">
                 {item.bullets.map((bullet) => (
                   <li key={bullet} className="flex gap-4 font-body text-body leading-[1.65] text-ink-muted">
@@ -66,7 +66,7 @@ export default function ExperienceContent() {
               <p className="font-body text-body font-medium text-ink">Education</p>
             </Reveal>
             <Reveal className="flex flex-col gap-2">
-              <p className="font-display text-heading font-medium text-ink">{item.school}</p>
+              <p className="font-display text-heading font-semibold text-ink">{item.school}</p>
               <p className="font-body text-body leading-[1.65] text-ink-muted">{item.credential}</p>
             </Reveal>
           </RevealGroup>

@@ -106,7 +106,7 @@ export default async function PostPage({ params }: Props) {
           Writing
         </Link>
 
-        <h1 className="mt-6 font-display text-display-2 font-medium text-ink leading-tight tracking-[-0.01em]">
+        <h1 className="mt-6 font-display text-display-2 font-semibold text-ink leading-tight tracking-[-0.02em]">
           {meta.title}
         </h1>
 

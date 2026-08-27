@@ -110,7 +110,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       <p className="mb-3 font-data text-[11px] uppercase tracking-widest text-ink-muted">
         {project.category}
       </p>
-      <h1 className="mb-4 font-display text-display-2 font-medium leading-[1.05] tracking-[-0.01em] text-ink">
+      <h1 className="mb-4 font-display text-display-2 font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
         {project.name}
       </h1>
       <p className="mb-10 max-w-2xl font-body text-body-lg leading-[1.7] text-ink-muted">

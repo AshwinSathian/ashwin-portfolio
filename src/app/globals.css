@@ -18,10 +18,10 @@
   --color-accent: #D3A24C;
   --color-accent-strong: #E8B854;
 
-  /* Three families, each scoped to what it's actually for: a serif for real
-     display type, sans for body/UI, mono for data/metadata (dates, tags,
-     code) — not for headlines. */
-  --font-display: var(--font-serif);
+  /* One sans-serif family for display, body, and UI — deliberately not a
+     serif/sans split. Mono stays scoped to data/metadata (dates, tags,
+     code), not headlines. */
+  --font-display: var(--font-sans);
   --font-body: var(--font-sans);
   --font-ui: var(--font-sans);
   --font-data: var(--font-mono);

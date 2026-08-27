@@ -45,12 +45,15 @@ export type Project = {
   /** Present only for public repos; enables live star/language lookup. */
   repo?: { owner: string; repo: string };
   decisionRecord?: DecisionRecord;
+  /** Deepest technical substance / most differentiated — gets the full case-study treatment on /projects and the home teaser. */
+  featured?: boolean;
 };
 
 export const PROJECTS: Project[] = [
   {
     slug: "booklet",
     name: "Booklet",
+    featured: true,
     category: "SaaS product",
     tagline: "Write Markdown, get a shareable page, backed by an API, CLI, GitHub Action, and MCP server.",
     description: [
@@ -104,6 +107,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "brnr",
     name: "BRNR",
+    featured: true,
     category: "Encrypted messaging",
     tagline: "Burner chats. No accounts. No history. End-to-end encrypted, gone in 24 hours.",
     description: [
@@ -150,6 +154,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "wayfarer",
     name: "Wayfarer",
+    featured: true,
     category: "Developer tool",
     tagline: "The API client that can't rug-pull you: local-first, no account, client-side encrypted vault.",
     description: [
@@ -318,6 +323,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "darkframe",
     name: "Darkframe",
+    featured: true,
     category: "Browser extension",
     tagline: "A free, cross-browser dark-mode engine that never touches your photos or video.",
     description: [
@@ -386,8 +392,8 @@ export const PROJECTS: Project[] = [
     category: "Open-source library",
     tagline: "The Mongoose-native database adapter Better Auth's own GitHub issues have been asking for since February 2025.",
     description: [
-      "Better Auth's official MongoDB adapter talks to the raw mongodb driver, not Mongoose — the standard ODM for Node and close to universal in NestJS or Express backends. For an app that already uses Mongoose, that forces an extra dependency, two parallel database connections with no shared schema or validation, and broken .populate() calls against anything Better Auth creates. Those are real, long-documented problems on Better Auth's own GitHub, with no first-party fix and no answer beyond a manual workaround that sidesteps the schema and validation problems rather than solving them.",
-      "better-auth-mongoose closes that gap properly: Better Auth's own collections become real, registered Mongoose models, extensible the same way any other model in the app is. The differentiator isn't a claim — packages/better-auth-mongoose/test/populate.test.ts is the unit-level proof, and examples/nestjs-mongoose runs the same thing end to end inside a real NestJS app over real HTTP, on every push via CI. It also passes Better Auth's own official adapter contract test suite. A companion tenant-scoping plugin adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin.",
+      "Better Auth's official MongoDB adapter talks to the raw mongodb driver, not Mongoose, the standard ODM for Node and close to universal in NestJS or Express backends. For an app that already uses Mongoose, that forces an extra dependency, two parallel database connections with no shared schema or validation, and broken .populate() calls against anything Better Auth creates. Those are real, long-documented problems on Better Auth's own GitHub, with no first-party fix and no answer beyond a manual workaround that sidesteps the schema and validation problems rather than solving them.",
+      "better-auth-mongoose closes that gap properly: Better Auth's own collections become real, registered Mongoose models, extensible the same way any other model in the app is. The differentiator isn't a claim: packages/better-auth-mongoose/test/populate.test.ts is the unit-level proof, and examples/nestjs-mongoose runs the same thing end to end inside a real NestJS app over real HTTP, on every push via CI. It also passes Better Auth's own official adapter contract test suite. A companion tenant-scoping plugin adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin.",
     ],
     stack: ["TypeScript", "Mongoose", "Better Auth", "Turborepo", "Changesets", "NestJS"],
     facts: [
@@ -409,12 +415,12 @@ export const PROJECTS: Project[] = [
       {
         title: "Passes Better Auth's own adapter contract suite",
         detail:
-          "Not just internally tested — validated against @better-auth/test-utils, the same conformance suite the official adapters are held to.",
+          "Not just internally tested: validated against @better-auth/test-utils, the same conformance suite the official adapters are held to.",
       },
       {
         title: "A tenant-scoping plugin, not just an adapter",
         detail:
-          "A companion package adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin — the adapter and the multi-tenancy concern are separated, not bundled.",
+          "A companion package adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin. The adapter and the multi-tenancy concern are separated, not bundled.",
       },
     ],
     links: {
@@ -446,10 +452,10 @@ export const auth = betterAuth({
     slug: "humanize-writing-skill",
     name: "humanize-writing-skill",
     category: "Claude Code skill",
-    tagline: "A Claude Code skill that makes AI-written text read as a specific, considered human voice — grounded in cited research, not a banned-word list.",
+    tagline: "A Claude Code skill that makes AI-written text read as a specific, considered human voice, grounded in cited research, not a banned-word list.",
     description: [
       "Most public \"humanizer\" skills reduce to a banned-word list: swap out \"delve,\" cap the em dashes, call it done. That works until the list goes stale, which the research this skill is built on shows happens fast. Word-level tells are real, but the literature is clear that structural uniformity — flat sentence rhythm, symmetric paragraph shapes, safe generic claims instead of specific checkable ones — is the larger, more durable, more model-independent signal. This skill weights structure over vocabulary; the word list is kept as a compact backup, not the mechanism.",
-      "It's built from three research passes (academic detection literature, editorial and practitioner style guides, and a cross-referenced catalog of 27 specific AI-writing tells), a teardown of 13 existing public humanizer skills, and one adversarial review round — all cited in reference/, not asserted from folk wisdom. It's distributed three ways: clone-and-symlink into a Claude Code skills directory, as a validated Claude Code plugin manifest, or via npx skills add. Published days before this site's own redesign began, and used to write this site's own copy.",
+      "It's built from three research passes (academic detection literature, editorial and practitioner style guides, and a cross-referenced catalog of 27 specific AI-writing tells), a teardown of 13 existing public humanizer skills, and one adversarial review round, all cited in reference/, not asserted from folk wisdom. It's distributed three ways: clone-and-symlink into a Claude Code skills directory, as a validated Claude Code plugin manifest, or via npx skills add. Published days before this site's own redesign began, and used to write this site's own copy.",
     ],
     stack: ["Claude Code", "Markdown", "Research synthesis"],
     facts: [
@@ -476,7 +482,7 @@ export const auth = betterAuth({
       {
         title: "The tool that wrote this site's copy",
         detail:
-          "Not a hypothetical demo — this skill was in active use for the writing on this redesign, including this sentence.",
+          "Not a hypothetical demo: this skill was in active use for the writing on this redesign, including this sentence.",
       },
     ],
     links: {

@@ -40,16 +40,16 @@ export default function WritingPage() {
   return (
     <div className="min-h-svh px-6 pb-24 pt-32 md:px-16 md:pt-40">
       <div className="mx-auto max-w-3xl">
-        <p className="font-ui text-[11px] font-medium uppercase tracking-widest text-ink-muted">
+        <p className="font-ui text-micro font-medium uppercase tracking-widest text-ink-muted">
           Writing
         </p>
-        <h1 className="mt-4 font-display text-[clamp(36px,6vw,60px)] font-bold text-ink leading-none tracking-[-0.02em]">
+        <h1 className="mt-4 font-display text-display-2 font-medium italic text-ink leading-none tracking-[-0.01em]">
           Writing.
         </h1>
 
         {posts.length === 0 ? (
           <div className="mt-10 rounded-2xl border border-line bg-paper-raised p-8">
-            <p className="font-display text-[13px] uppercase tracking-[0.1em] text-ink-muted">
+            <p className="font-data text-[13px] uppercase tracking-widest text-ink-muted">
               [Unreleased]
             </p>
             <p className="mt-3 max-w-lg font-body text-[16px] leading-[1.7] text-ink">

@@ -1,52 +1,48 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { RECENT_EXPERIENCE } from "@/app/data/experience";
-import { fadeInUp, stagger } from "@/lib/motion";
+import { Reveal, RevealGroup } from "@/components/Reveal";
 
 export default function HomeExperience() {
   const [latest] = RECENT_EXPERIENCE;
 
   return (
     <section aria-labelledby="experience-heading" className="border-t border-line px-6 py-16 md:px-16 md:py-20">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={stagger}
-        className="mx-auto flex max-w-3xl flex-col gap-6"
-      >
-        <motion.p
-          variants={fadeInUp}
-          id="experience-heading"
-          className="font-ui text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted"
-        >
-          Experience
-        </motion.p>
-
-        <motion.div variants={fadeInUp} className="flex flex-col gap-1.5">
-          <p className="font-display text-[13px] text-signal">{latest.dates}</p>
-          <p className="font-display text-[17px] font-semibold tracking-[-0.01em] text-ink">
-            {latest.role}
-          </p>
-          <p className="font-body text-[14px] text-ink-muted">{latest.company}</p>
-        </motion.div>
-
-        <motion.p variants={fadeInUp} className="max-w-2xl font-body text-[15px] leading-[1.7] text-ink-muted">
-          Eight years, seven roles, five companies — from junior programmer to lead engineer
-          directing a twelve-person team.
-        </motion.p>
-
-        <motion.div variants={fadeInUp}>
-          <Link
-            href="/experience"
-            className="inline-flex items-center gap-2 font-ui text-[14px] text-ink transition-colors duration-200 hover:text-accent"
+      <RevealGroup className="mx-auto grid max-w-5xl gap-6 md:grid-cols-12 md:gap-8">
+        <Reveal>
+          <p
+            id="experience-heading"
+            className="font-ui text-micro font-medium uppercase tracking-[0.14em] text-ink-muted md:col-span-3"
           >
-            Full record, all seven roles →
-          </Link>
-        </motion.div>
-      </motion.div>
+            Experience
+          </p>
+        </Reveal>
+
+        <div className="flex flex-col gap-6 md:col-span-8 md:col-start-4">
+          <Reveal className="flex flex-col gap-1.5">
+            <p className="font-data text-small text-accent">{latest.dates}</p>
+            <p className="font-display text-heading font-medium text-ink">{latest.role}</p>
+            <p className="font-body text-body text-ink-muted">{latest.company}</p>
+          </Reveal>
+
+          <Reveal>
+            <p className="max-w-2xl font-body text-body leading-[1.7] text-ink-muted">
+              Eight years, seven roles, five companies — from junior programmer to lead engineer
+              directing a twelve-person team.
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <Link
+              href="/experience"
+              className="inline-flex items-center gap-2 font-ui text-body text-ink transition-colors duration-200 hover:text-accent"
+            >
+              Full record, all seven roles →
+            </Link>
+          </Reveal>
+        </div>
+      </RevealGroup>
     </section>
   );
 }

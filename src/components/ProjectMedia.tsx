@@ -16,6 +16,9 @@ export default function ProjectMedia({ media, priority }: ProjectMediaProps) {
             <span className="h-2.5 w-2.5 rounded-full bg-ink-muted/40" />
             <span className="h-2.5 w-2.5 rounded-full bg-ink-muted/40" />
           </div>
+          {/* A screenshot's own UI can be light or dark; the inset ring plus
+             corner scrim keep any capture from reading as a stark rectangle
+             cut into the dark page. */}
           <div className="relative flex-1">
             <Image
               src={media.src}
@@ -25,6 +28,8 @@ export default function ProjectMedia({ media, priority }: ProjectMediaProps) {
               className="object-cover object-top"
               sizes="(min-width: 768px) 50vw, 100vw"
             />
+            <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.35)]" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-black/25 to-transparent" />
           </div>
         </div>
       )}
@@ -32,12 +37,12 @@ export default function ProjectMedia({ media, priority }: ProjectMediaProps) {
       {media.kind === "code" && (
         <div className="flex h-full w-full min-w-0 flex-col">
           <div className="flex shrink-0 items-center justify-between border-b border-line bg-paper px-4 py-2.5">
-            <span className="font-display text-[12px] text-ink-muted">{media.caption}</span>
-            <span className="font-display text-[11px] uppercase tracking-widest text-ink-muted">
+            <span className="font-data text-[12px] text-ink-muted">{media.caption}</span>
+            <span className="font-data text-[11px] uppercase tracking-widest text-ink-muted">
               {media.language}
             </span>
           </div>
-          <pre className="flex-1 overflow-auto p-5 font-display text-[13px] leading-[1.7] text-ink">
+          <pre className="flex-1 overflow-auto p-5 font-data text-[13px] leading-[1.7] text-ink">
             <code>{media.snippet}</code>
           </pre>
         </div>

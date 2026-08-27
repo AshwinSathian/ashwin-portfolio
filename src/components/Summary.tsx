@@ -1,30 +1,24 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { SUMMARY } from "@/app/data/summary";
-import { fadeInUp, stagger } from "@/lib/motion";
+import { Reveal, RevealGroup } from "@/components/Reveal";
 
 export default function Summary() {
   return (
     <section aria-labelledby="summary-heading" className="border-t border-line px-6 py-16 md:px-16 md:py-20">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.4 }}
-        variants={stagger}
-        className="mx-auto flex max-w-3xl flex-col gap-4"
-      >
-        <motion.p
-          variants={fadeInUp}
-          id="summary-heading"
-          className="font-ui text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted"
-        >
-          Summary
-        </motion.p>
-        <motion.p variants={fadeInUp} className="font-body text-[17px] leading-[1.75] text-ink">
-          {SUMMARY}
-        </motion.p>
-      </motion.div>
+      <RevealGroup className="mx-auto grid max-w-5xl gap-6 md:grid-cols-12 md:gap-8">
+        <Reveal>
+          <p
+            id="summary-heading"
+            className="font-ui text-micro font-medium uppercase tracking-[0.14em] text-ink-muted md:col-span-3"
+          >
+            Summary
+          </p>
+        </Reveal>
+        <Reveal className="md:col-span-8 md:col-start-4">
+          <p className="font-body text-body-lg leading-[1.75] text-ink">{SUMMARY}</p>
+        </Reveal>
+      </RevealGroup>
     </section>
   );
 }

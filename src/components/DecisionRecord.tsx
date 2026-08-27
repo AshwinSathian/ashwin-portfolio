@@ -7,21 +7,21 @@ export type DecisionRecordProps = {
 export default function DecisionRecord({ record }: DecisionRecordProps) {
   return (
     <div className="decision-record rounded-2xl border border-line bg-paper-raised p-6 md:p-8">
-      <p className="font-display text-[11px] uppercase tracking-[0.12em] text-ink-muted">
-        Decision · {record.date}
+      <p className="font-data text-[11px] uppercase tracking-[0.12em] text-ink-muted">
+        Revised · {record.date}
       </p>
-      <div className="mt-4 flex flex-col gap-1.5 font-display text-[14px] leading-relaxed">
-        <p className="decision-line flex gap-3 text-diff-remove">
-          <span aria-hidden className="shrink-0">−</span>
-          <span>{record.before}</span>
+      <div className="mt-4 flex flex-col gap-2 font-data text-[14px] leading-relaxed">
+        <p className="decision-line flex gap-3 text-ink-muted">
+          <span aria-hidden className="shrink-0 text-ink-muted/60">was</span>
+          <span className="line-through decoration-ink-muted/50">{record.before}</span>
         </p>
-        <p className="decision-line flex gap-3 text-diff-add">
-          <span aria-hidden className="shrink-0">+</span>
+        <p className="decision-line flex gap-3 text-ink">
+          <span aria-hidden className="shrink-0 text-accent">now</span>
           <span>{record.after}</span>
         </p>
       </div>
       <p className="mt-5 font-body text-[15px] leading-relaxed text-ink-muted">
-        <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.1em] text-ink">
+        <span className="font-ui text-[11px] font-semibold uppercase tracking-widest text-ink">
           Why
         </span>{" "}
         {record.why}

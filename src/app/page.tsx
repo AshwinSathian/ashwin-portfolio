@@ -3,6 +3,7 @@ import Summary from "@/components/Summary";
 import HomeProjects from "@/components/HomeProjects";
 import HomeExperience from "@/components/HomeExperience";
 import HomeSkills from "@/components/HomeSkills";
+import ContactBand from "@/components/ContactBand";
 import { getProjects } from "@/app/(helpers)/projects";
 import { SITE } from "@/app/data/site";
 
@@ -31,6 +32,7 @@ export default async function Page() {
       <HomeProjects projects={projects} />
       <HomeExperience />
       <HomeSkills />
+      <ContactBand />
     </>
   );
 }

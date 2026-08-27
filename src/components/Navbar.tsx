@@ -60,7 +60,7 @@ export default function Navbar() {
                 key={href}
                 href={href}
                 className={`font-ui text-[14px] transition-colors duration-200 ${
-                  isActive(href) ? "text-signal" : "text-ink-muted hover:text-ink"
+                  isActive(href) ? "text-accent" : "text-ink-muted hover:text-ink"
                 }`}
               >
                 {label}
@@ -101,8 +101,8 @@ export default function Navbar() {
             key={href}
             href={href}
             onClick={closeMenu}
-            className={`font-display text-[32px] font-semibold tracking-[-0.01em] transition-colors duration-200 hover:text-signal ${
-              isActive(href) ? "text-signal" : "text-ink"
+            className={`font-display text-[32px] font-medium italic tracking-[-0.01em] transition-colors duration-200 hover:text-accent ${
+              isActive(href) ? "text-accent" : "text-ink"
             }`}
           >
             {label}

@@ -107,13 +107,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       </nav>
 
       {/* Header */}
-      <p className="mb-3 font-display text-[11px] uppercase tracking-widest text-ink-muted">
+      <p className="mb-3 font-data text-[11px] uppercase tracking-widest text-ink-muted">
         {project.category}
       </p>
-      <h1 className="mb-4 font-display text-[clamp(28px,4.5vw,44px)] font-semibold leading-[1.1] tracking-[-0.015em] text-ink">
+      <h1 className="mb-4 font-display text-display-2 font-medium italic leading-[1.05] tracking-[-0.01em] text-ink">
         {project.name}
       </h1>
-      <p className="mb-10 max-w-2xl font-body text-[17px] leading-[1.7] text-ink-muted">
+      <p className="mb-10 max-w-2xl font-body text-body-lg leading-[1.7] text-ink-muted">
         {project.tagline}
       </p>
 
@@ -221,7 +221,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           className="group flex items-center gap-2 font-ui text-[15px] text-ink-muted transition-colors duration-200 hover:text-ink"
         >
           {next.name}
-          <span className="text-signal transition-transform duration-200 group-hover:translate-x-1">
+          <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">
             →
           </span>
         </Link>

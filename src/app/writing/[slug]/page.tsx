@@ -101,19 +101,16 @@ export default async function PostPage({ params }: Props) {
       <div className="mx-auto max-w-3xl">
         <Link
           href="/writing"
-          className="font-ui text-[11px] font-medium uppercase tracking-widest text-ink-muted transition-colors duration-200 hover:text-ink"
+          className="font-ui text-micro font-medium uppercase tracking-widest text-ink-muted transition-colors duration-200 hover:text-ink"
         >
           Writing
         </Link>
 
-        <h1
-          className="mt-6 font-display font-semibold text-ink leading-tight tracking-[-0.02em]"
-          style={{ fontSize: "clamp(32px, 5vw, 56px)" }}
-        >
+        <h1 className="mt-6 font-display text-display-2 font-medium italic text-ink leading-tight tracking-[-0.01em]">
           {meta.title}
         </h1>
 
-        <div className="mt-4 flex flex-wrap items-center gap-2 font-ui text-[13px] text-ink-muted">
+        <div className="mt-4 flex flex-wrap items-center gap-2 font-data text-[13px] text-ink-muted">
           <span>{meta.formattedDate}</span>
           {meta.formattedUpdatedAt && meta.formattedUpdatedAt !== meta.formattedDate && (
             <>

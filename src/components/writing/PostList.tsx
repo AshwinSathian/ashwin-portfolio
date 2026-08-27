@@ -29,7 +29,7 @@ export default function PostList({ posts }: Props) {
                     </span>
                   )}
                 </span>
-                <h2 className="font-display text-heading font-medium italic leading-snug tracking-[-0.01em] text-ink transition-colors duration-200 group-hover:text-accent">
+                <h2 className="font-display text-heading font-medium leading-snug tracking-[-0.01em] text-ink transition-colors duration-200 group-hover:text-accent">
                   {post.title}
                 </h2>
                 <p className="font-body text-body leading-[1.6] text-ink-muted">{post.description}</p>

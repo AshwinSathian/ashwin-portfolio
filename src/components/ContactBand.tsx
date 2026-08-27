@@ -9,7 +9,7 @@ export default function ContactBand() {
       <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[1fr_auto] md:items-end">
         <h2
           id="contact-heading"
-          className="font-display text-display-1 font-medium italic leading-[0.95] tracking-[-0.01em] text-ink"
+          className="font-display text-display-1 font-medium leading-[0.95] tracking-[-0.01em] text-ink"
         >
           Let&apos;s talk.
         </h2>

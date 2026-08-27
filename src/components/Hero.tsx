@@ -16,7 +16,7 @@ export default function Hero() {
 
         <h1
           id="hero-name"
-          className="load-fade-up font-display text-display-1 font-medium italic leading-[0.95] tracking-[-0.01em] text-ink md:col-span-8"
+          className="load-fade-up font-display text-display-1 font-medium leading-[0.95] tracking-[-0.01em] text-ink md:col-span-8"
           style={{ animationDelay: "80ms" }}
         >
           {HERO.name}

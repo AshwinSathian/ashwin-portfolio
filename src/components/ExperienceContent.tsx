@@ -16,7 +16,7 @@ export default function ExperienceContent() {
           <p className="font-ui text-micro font-medium uppercase tracking-[0.14em] text-ink-muted">Experience</p>
         </Reveal>
         <Reveal>
-          <h1 className="font-display text-display-2 font-medium italic leading-[1.02] tracking-[-0.01em] text-ink">
+          <h1 className="font-display text-display-2 font-medium leading-[1.02] tracking-[-0.01em] text-ink">
             The record behind the résumé.
           </h1>
         </Reveal>

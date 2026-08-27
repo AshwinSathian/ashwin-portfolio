@@ -23,7 +23,7 @@ export default function Projects({ projects }: ProjectsProps) {
           </p>
         </Reveal>
         <Reveal>
-          <h1 className="font-display text-display-2 font-medium italic leading-[1.02] tracking-[-0.01em] text-ink">
+          <h1 className="font-display text-display-2 font-medium leading-[1.02] tracking-[-0.01em] text-ink">
             Eight products, designed and run end to end.
           </h1>
         </Reveal>
@@ -64,7 +64,7 @@ export default function Projects({ projects }: ProjectsProps) {
 
                 <Reveal className={`flex min-w-0 flex-col gap-5 ${reversed ? "md:order-1" : ""}`}>
                   <Link href={`/projects/${project.slug}`} className="group inline-flex items-baseline gap-3 focus-visible:outline-none">
-                    <h2 className="font-display text-display-3 font-medium italic leading-[1.1] tracking-[-0.01em] text-ink transition-colors duration-200 group-hover:text-accent">
+                    <h2 className="font-display text-display-3 font-medium leading-[1.1] tracking-[-0.01em] text-ink transition-colors duration-200 group-hover:text-accent">
                       {project.name}
                     </h2>
                     <span className="text-accent opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100">→</span>

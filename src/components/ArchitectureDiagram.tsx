@@ -37,7 +37,7 @@ export default function ArchitectureDiagram() {
           <div className={TIER_BOX}>
             <span className="font-body text-[13px] font-medium text-ink">booklet-mcp</span>
             <span className="font-data text-[12px] text-ink-muted">
-              MCP bridge · :8788 → calls booklet-app over loopback HTTP
+              MCP bridge · :8788 · 5 tools → calls booklet-app over loopback HTTP
             </span>
           </div>
         </div>

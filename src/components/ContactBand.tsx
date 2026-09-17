@@ -16,7 +16,7 @@ export default function ContactBand() {
         <div className="flex flex-col items-start gap-3 md:items-end md:text-right">
           <a
             href={`mailto:${SITE.email}`}
-            className="font-body text-body-lg text-accent transition-colors duration-200 hover:text-accent-strong hover:underline underline-offset-4"
+            className="font-body text-body-lg text-accent transition-colors duration-200 hover:text-accent hover:underline underline-offset-4"
           >
             {SITE.email}
           </a>

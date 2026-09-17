@@ -24,7 +24,7 @@ const uiSans = Public_Sans({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "Senior full-stack engineer, 7+ years. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform moving $1B+ a year. Eight independent products shipped on his own time, each checked against the actual repo.";
+  "Senior full-stack engineer, 8+ years. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.";
 
 export const viewport: Viewport = {
   themeColor: "#0A0B0D",

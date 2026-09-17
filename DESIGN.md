@@ -29,6 +29,12 @@ so the redline mark means something when it appears.
 | `accent` | `#E8492A` | The redline. Links, primary CTA, active states, the Decision Record's "after" line, the on-load underline draw. **One accent, one job everywhere it appears** — no second hue introduced for "success" or "shipped" states. |
 | `accent-pressed` | `#C43F23` | Hover/active state for accent-colored interactive elements. Same hue, darkened ~15%, not a second color. |
 
+These token names map to the actual CSS custom property names in
+`src/app/globals.css`: `canvas` → `--color-paper`, `canvas-raised` →
+`--color-paper-raised`, `ink` → `--color-ink`, `accent` → `--color-accent`,
+`accent-pressed` → `--color-accent-strong` — kept as the pre-existing names
+on purpose, to avoid a mechanical rename across every component's className.
+
 Contrast, computed (not eyeballed — the last two redesigns shipped an accent
 that failed WCAG AA and needed a post-hoc fix):
 

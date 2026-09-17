@@ -22,9 +22,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Jan 2024 – Aug 2025",
     bullets: [
-      "Founding engineer at Penny Software, still the one owning platform architecture five years later.",
+      "Five years into Penny Software by now, still the one owning platform architecture.",
       "Designed the modular, multi-tenant procurement system that grew to $1B+ GTV across millions of records, tuned to hold sub-200ms queries at that scale.",
-      "Built RBAC and multi-tenant security in-house, from scratch.",
+      "Built RBAC and multi-tenant security from scratch.",
       "Mentored a 12-person team across frontend, backend, and QA — code review and clean-code standards that stuck, not just got proposed.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx", "GCP"],

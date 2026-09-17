@@ -3,9 +3,9 @@ import ExperienceContent from "@/components/ExperienceContent";
 import { SITE } from "@/app/data/site";
 
 const description =
-  "Eight years leading and building SaaS platforms at scale — the record behind the résumé, not just the résumé.";
+  "Eight years, seven roles, five companies — the dates behind each one, not just the résumé's version of it.";
 
-const ogImageUrl = `/og?title=Experience&description=${encodeURIComponent("Eight years leading and building SaaS platforms at scale — the record behind the résumé.")}&label=Experience`;
+const ogImageUrl = `/og?title=Experience&description=${encodeURIComponent(description)}&label=Experience`;
 
 export const metadata: Metadata = {
   title: "Experience",

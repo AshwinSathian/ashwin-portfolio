@@ -2,14 +2,14 @@ import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
 
 // Dark-first, matching the site's default theme.
-const CANVAS = "#0B0B0C";
-const LABEL_1 = "#F1EEE8";
-const LABEL_3 = "#9C968D";
+const CANVAS = "#0A0B0D";
+const LABEL_1 = "#EDEEF0";
+const LABEL_3 = "#8B8E94";
 const LABEL_4 = "#6B6660";
-const ACCENT = "#D3A24C";
+const ACCENT = "#E8492A";
 
-const MONO_FONT_FAMILY = "JetBrains Mono";
-const DISPLAY_FONT_FAMILY = "Archivo";
+const MONO_FONT_FAMILY = "Martian Mono";
+const DISPLAY_FONT_FAMILY = "Public Sans";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;

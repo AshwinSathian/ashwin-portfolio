@@ -66,7 +66,7 @@ export const PROJECTS: Project[] = [
     tagline: "Write Markdown, get a shareable page, backed by an API, CLI, VS Code extension, GitHub Action, and MCP server.",
     description: [
       "Booklet turns Markdown into a published, shareable page in one click. Live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth with argon2id password hashing and JWT sessions, and MongoDB as the store. Past the editor it's a full product, with version history, per-page analytics, password-protected pages, and collections.",
-      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first; I rolled that back to a self-hosted Node process behind a Cloudflare Tunnel in May 2026 once the operational tradeoffs became clear in production. It's the kind of call you only get right by shipping the wrong one first.",
+      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a VS Code extension, a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first; I rolled that back to a self-hosted Node process behind a Cloudflare Tunnel in May 2026 once the operational tradeoffs became clear in production. It's the kind of call you only get right by shipping the wrong one first.",
     ],
     stack: ["Next.js 16", "TypeScript", "React 19", "Tailwind CSS v4", "MongoDB", "unified / remark"],
     facts: [
@@ -168,7 +168,7 @@ export const PROJECTS: Project[] = [
       decision:
         "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet implemented in its own tested crypto workspace, and Redis is the only datastore, with every key TTL'd so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes, and the AGPL-3.0 license was chosen specifically so a modified server has to stay open.",
       outcome:
-        "Nothing durable exists to breach: no user table, no message history, no plaintext on the server at any point after the handshake.",
+        "Nothing durable exists to breach: there's no user table or message history, and no plaintext touches the server after the handshake completes.",
     },
     media: {
       kind: "screenshot",
@@ -424,7 +424,7 @@ export const PROJECTS: Project[] = [
       decision:
         "Built Darkframe's classifier to score color diversity and edge density rather than raw brightness, defaulting to leaving anything it's unsure about untouched, with video, canvas, and audio excluded unconditionally. Theming applies as one additive CSS Cascade Layer instead of rewriting a page's own stylesheets. Shipped under the name Umbra first, then renamed to Darkframe (npm scope, extension name, storage keys, CSS layer name, and the Safari Xcode project, all of it) after a shipping-readiness review found an existing, active Chrome extension called \"Umbra Dark Mode.\"",
       outcome:
-        "144 passing unit tests, a Chrome MV3 build E2E-verified against real Chromium, and a real, buildable Safari Xcode project — plus one disclosed and fixed High-severity CSS injection vulnerability, documented in CHANGELOG.md rather than quietly patched.",
+        "144 passing unit tests back a Chrome MV3 build that's E2E-verified against real Chromium, plus a real, buildable Safari Xcode project. One disclosed and fixed High-severity CSS injection vulnerability is documented in CHANGELOG.md, not quietly patched.",
     },
   },
   {

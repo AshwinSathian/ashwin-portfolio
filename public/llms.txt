@@ -1,14 +1,14 @@
 # Ashwin Sathian
 
-> Senior full-stack engineer, 7+ years. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform moving $1B+ a year. Eight independent products shipped on his own time, each checked against the actual repo.
+> Senior full-stack engineer, 8+ years. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.
 
 ## Site
 
 / (home) states the positioning in one line, a compact projects list, an
 experience snapshot, and the stack — everything below fans out to a
 dedicated page: /projects (index + 8 case studies), /experience (the full
-seven-role record), /writing. Four project case studies — Booklet, BRNR,
-Wayfarer, and Darkframe — are structured as Problem, Decision, and Outcome
+seven-role record), /writing. Four project case studies (Booklet, BRNR,
+Wayfarer, and Darkframe) are structured as Problem, Decision, and Outcome
 rather than a feature list; three of those four (Booklet, Wayfarer,
 Darkframe) also carry a dated Decision Record documenting a real, disclosed
 reversal (a rollback, a rename) with before/after reasoning. Booklet's case
@@ -17,7 +17,7 @@ application tier, data/infra).
 
 ## About
 
-Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 7+ years
+Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 8+ years
 across full-stack and platform engineering. He joined Penny Software, a B2B
 procurement SaaS platform, as a founding engineer in June 2020 and stayed
 five years, progressing from Full Stack Developer to Product Specialist to
@@ -37,7 +37,7 @@ layer — each engineer ran the full SDLC alone, AI-augmented, as a
 full-stack builder. He reworked the reverse proxy engine serving every
 website and funnel built on the platform.
 
-Ashwin uses AI tooling — Claude Code and OpenAI Codex — to work faster
+Ashwin uses AI tooling (Claude Code and OpenAI Codex) to work faster
 without changing who owns the decisions: he still writes the spec and ships
 the code himself.
 

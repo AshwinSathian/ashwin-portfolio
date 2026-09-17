@@ -35,11 +35,6 @@ export const SKILL_GROUPS: SkillGroup[] = [
   },
   {
     title: "AI & Tooling",
-    items: [
-      { name: "Claude Code" },
-      { name: "Claude Cowork" },
-      { name: "Claude Design" },
-      { name: "OpenAI Codex" },
-    ],
+    items: [{ name: "Claude Code" }, { name: "OpenAI Codex" }],
   },
 ];

@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import Summary from "@/components/Summary";
+import HowIWork from "@/components/HowIWork";
 import HomeProjects from "@/components/HomeProjects";
 import HomeExperience from "@/components/HomeExperience";
 import HomeSkills from "@/components/HomeSkills";
@@ -29,6 +30,7 @@ export default async function Page() {
       />
       <Hero />
       <Summary />
+      <HowIWork />
       <HomeProjects projects={projects} />
       <HomeExperience />
       <HomeSkills />

@@ -1,7 +1,7 @@
 export const HERO = {
   name: "Ashwin Sathian",
-  title: "AI-augmented senior full-stack engineer.",
-  eyebrow: "AI-Augmented Engineer · 8+ years",
+  eyebrow: "Senior Full-Stack Engineer · 7+ years",
+  title: "I write the spec a customer never gave me, then I ship it.",
   thesis:
-    "8+ years leading SaaS platforms at scale. Eight independent products shipped outside of it — each with the decisions that didn't survive first contact with production, published, not hidden.",
+    "No PM or EM in between: Penny Software's Vendor Pre-Qualification System went from a customer vetting vendors by hand to shipped software, schema to UI, built and owned by me alone.",
 } as const;

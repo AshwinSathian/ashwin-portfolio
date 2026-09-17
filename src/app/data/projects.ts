@@ -28,6 +28,12 @@ export type DecisionRecord = {
   why: string;
 };
 
+export type CaseStudy = {
+  problem: string;
+  decision: string;
+  outcome: string;
+};
+
 export type ProjectMedia =
   | { kind: "screenshot"; src: string; alt: string }
   | { kind: "code"; snippet: string; language: string; caption: string };
@@ -46,6 +52,7 @@ export type Project = {
   /** Present only for public repos; enables live star/language lookup. */
   repo?: { owner: string; repo: string };
   decisionRecord?: DecisionRecord;
+  caseStudy?: CaseStudy;
   /** Deepest technical substance / most differentiated — gets the full case-study treatment on /projects and the home teaser. */
   featured?: boolean;
 };
@@ -105,6 +112,14 @@ export const PROJECTS: Project[] = [
       after: "Self-hosted Node process behind a Cloudflare Tunnel",
       why: "The operational tradeoffs of the serverless path showed up in production. It's the kind of call you only get right by shipping the wrong one first.",
     },
+    caseStudy: {
+      problem:
+        "Sharing a Markdown file with someone means sending a raw .md file, pasting it into a doc tool that reformats it badly, or standing up a static site generator for one page. The fast options don't render properly; the option that renders properly isn't fast.",
+      decision:
+        "Built Booklet as a full product around one conversion: paste or write Markdown, get a rendered, shareable URL immediately, with the same pipeline (unified/remark, GFM, math, Mermaid) backing a web editor, a REST API, a CLI, a VS Code extension, a GitHub Action, and an MCP server. Shipped on Cloudflare Workers via OpenNext first, then rolled the app back to a self-hosted PM2 process behind a Cloudflare Tunnel in May 2026 once the operational tradeoffs of the serverless path showed up in production.",
+      outcome:
+        "One Markdown pipeline now serves five different ways of publishing a page: from a browser, a terminal, an editor, a CI pipeline, or an AI assistant, all against the same versioned API.",
+    },
   },
   {
     slug: "brnr",
@@ -146,6 +161,14 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       live: "https://brnr.ashwinsathian.com",
+    },
+    caseStudy: {
+      problem:
+        "Most messaging apps that promise privacy still keep an account system, a message history, or a server that could theoretically read plaintext — any one of which is something to compromise or subpoena later.",
+      decision:
+        "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet implemented in its own tested crypto workspace, and Redis is the only datastore, with every key TTL'd so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes, and the AGPL-3.0 license was chosen specifically so a modified server has to stay open.",
+      outcome:
+        "Nothing durable exists to breach: no user table, no message history, no plaintext on the server at any point after the handshake.",
     },
     media: {
       kind: "screenshot",
@@ -206,6 +229,14 @@ export const PROJECTS: Project[] = [
       before: "API Sandbox",
       after: "Wayfarer",
       why: "Same local-first storage model, same MIT license, just a name that fit the product better. Shipped as v1.0.0 of the new name, not a quiet find-and-replace.",
+    },
+    caseStudy: {
+      problem:
+        "API clients that store your secrets ask you to trust their account system, their pricing page, and their acquisition risk with the credentials you paste into them.",
+      decision:
+        "Built Wayfarer to run entirely client-side: collections and requests live in IndexedDB, and secrets get their own vault where PBKDF2 (200,000 iterations) derives an AES-GCM-256 key held only in memory, so IndexedDB never sees anything but ciphertext. Renamed from API Sandbox to Wayfarer mid-life, same storage model and license carried forward, shipped as v1.0.0 of the new name rather than a quiet find-and-replace.",
+      outcome:
+        "No account, no backend, nothing that can gate access to data that was always yours — and pre/post-request scripts run sandboxed in a Web Worker with no DOM, cookie, or network access, so a pasted script can't exfiltrate anything even if it tried.",
     },
   },
   {
@@ -386,6 +417,14 @@ export const PROJECTS: Project[] = [
       before: "Umbra",
       after: "Darkframe",
       why: "A shipping-readiness review found an existing, active, same-category Chrome extension called \"Umbra Dark Mode.\" Renamed across the npm scope, extension name, storage keys, CSS layer name, and the Safari Xcode project before either store listing went live.",
+    },
+    caseStudy: {
+      problem:
+        "Most dark-mode browser extensions recolor everything indiscriminately, including photos and video, which is why so many of them get uninstalled the first time an image looks wrong.",
+      decision:
+        "Built Darkframe's classifier to score color diversity and edge density rather than raw brightness, defaulting to leaving anything it's unsure about untouched, with video, canvas, and audio excluded unconditionally. Theming applies as one additive CSS Cascade Layer instead of rewriting a page's own stylesheets. Shipped under the name Umbra first, then renamed to Darkframe (npm scope, extension name, storage keys, CSS layer name, and the Safari Xcode project, all of it) after a shipping-readiness review found an existing, active Chrome extension called \"Umbra Dark Mode.\"",
+      outcome:
+        "144 passing unit tests, a Chrome MV3 build E2E-verified against real Chromium, and a real, buildable Safari Xcode project — plus one disclosed and fixed High-severity CSS injection vulnerability, documented in CHANGELOG.md rather than quietly patched.",
     },
   },
   {

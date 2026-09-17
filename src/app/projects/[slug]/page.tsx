@@ -163,14 +163,35 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         ))}
       </div>
 
-      {/* Description */}
-      <div className="mb-12 flex max-w-2xl flex-col gap-5">
-        {project.description.map((paragraph, i) => (
-          <p key={i} className="font-body text-[16px] leading-[1.8] text-ink-muted">
-            {paragraph}
-          </p>
-        ))}
-      </div>
+      {/* Problem / Decision / Outcome — the four featured case studies get
+          this explicit structure; other projects fall back to the plain
+          description paragraphs so nothing regresses for them. */}
+      {project.caseStudy ? (
+        <div className="mb-12 flex max-w-2xl flex-col gap-8">
+          {(
+            [
+              ["Problem", project.caseStudy.problem],
+              ["Decision", project.caseStudy.decision],
+              ["Outcome", project.caseStudy.outcome],
+            ] as const
+          ).map(([label, text]) => (
+            <div key={label}>
+              <h2 className="mb-2 font-ui text-xs font-medium uppercase tracking-[0.08em] text-ink-muted">
+                {label}
+              </h2>
+              <p className="font-body text-[16px] leading-[1.8] text-ink-muted">{text}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="mb-12 flex max-w-2xl flex-col gap-5">
+          {project.description.map((paragraph, i) => (
+            <p key={i} className="font-body text-[16px] leading-[1.8] text-ink-muted">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      )}
 
       {/* Stack */}
       <div className="mb-16 flex flex-wrap gap-2">

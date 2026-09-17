@@ -7,6 +7,7 @@ export type ProjectLinks = {
   live?: string;
   github?: string;
   npm?: string;
+  vscode?: string;
 };
 
 export type ProjectFact = {
@@ -55,14 +56,14 @@ export const PROJECTS: Project[] = [
     name: "Booklet",
     featured: true,
     category: "SaaS product",
-    tagline: "Write Markdown, get a shareable page, backed by an API, CLI, GitHub Action, and MCP server.",
+    tagline: "Write Markdown, get a shareable page, backed by an API, CLI, VS Code extension, GitHub Action, and MCP server.",
     description: [
       "Booklet turns Markdown into a published, shareable page in one click. Live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth with argon2id password hashing and JWT sessions, and MongoDB as the store. Past the editor it's a full product, with version history, per-page analytics, password-protected pages, and collections.",
-      "It's also a platform: a versioned REST API, a published CLI (readable-cli on npm), a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first; I rolled that back to a self-hosted Node process behind a Cloudflare Tunnel in May 2026 once the operational tradeoffs became clear in production. It's the kind of call you only get right by shipping the wrong one first.",
+      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first; I rolled that back to a self-hosted Node process behind a Cloudflare Tunnel in May 2026 once the operational tradeoffs became clear in production. It's the kind of call you only get right by shipping the wrong one first.",
     ],
     stack: ["Next.js 16", "TypeScript", "React 19", "Tailwind CSS v4", "MongoDB", "unified / remark"],
     facts: [
-      { label: "Interfaces", value: "Web, CLI, REST API, GitHub Action, MCP server" },
+      { label: "Interfaces", value: "Web, CLI, VS Code extension, REST API, GitHub Action, MCP server" },
       { label: "Auth", value: "In-house: argon2id, JWT sessions" },
       { label: "License", value: "MIT" },
     ],
@@ -70,7 +71,7 @@ export const PROJECTS: Project[] = [
       {
         title: "A real API surface, not an afterthought",
         detail:
-          "A versioned REST API, readable-cli published on npm, a GitHub Action for CI publishing, and a standalone MCP server exposing publish_page, update_page, list_pages, and delete_page to AI assistants.",
+          "A versioned REST API, booklet-cli published on npm, a VS Code extension on the Marketplace, a GitHub Action for CI publishing, and a standalone MCP server exposing publish_page, update_page, get_page, list_pages, and delete_page to AI assistants.",
       },
       {
         title: "SSRF guard and origin checks, unit-tested",
@@ -90,7 +91,8 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       live: "https://booklet.ashwinsathian.com",
-      npm: "https://www.npmjs.com/package/readable-cli",
+      npm: "https://www.npmjs.com/package/booklet-cli",
+      vscode: "https://marketplace.visualstudio.com/items?itemName=AshwinSathian.booklet-vscode",
     },
     media: {
       kind: "screenshot",

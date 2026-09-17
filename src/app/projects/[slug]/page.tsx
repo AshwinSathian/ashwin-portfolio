@@ -48,6 +48,7 @@ const LINK_LABELS: Record<keyof NonNullable<Awaited<ReturnType<typeof getProject
   live: "Visit live site",
   github: "View on GitHub",
   npm: "View on npm",
+  vscode: "Install for VS Code",
 };
 
 export default async function ProjectDetailPage({ params }: PageProps) {

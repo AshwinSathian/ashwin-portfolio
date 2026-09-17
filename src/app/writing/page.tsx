@@ -48,7 +48,7 @@ export default function WritingPage() {
         </h1>
 
         {posts.length === 0 ? (
-          <div className="mt-10 rounded-2xl border border-line bg-paper-raised p-8">
+          <div className="mt-10 rounded border border-line bg-paper-raised p-8">
             <p className="font-data text-[13px] uppercase tracking-widest text-ink-muted">
               [Unreleased]
             </p>

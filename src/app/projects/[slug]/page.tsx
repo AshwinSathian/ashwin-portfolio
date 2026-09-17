@@ -152,7 +152,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         {project.facts.map((fact) => (
           <div
             key={fact.label}
-            className="rounded-2xl border border-line bg-paper-raised p-5"
+            className="rounded border border-line bg-paper-raised p-5"
           >
             <p className="mb-1.5 font-ui text-[11px] font-medium uppercase tracking-widest text-ink-muted">
               {fact.label}
@@ -192,7 +192,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           {project.highlights.map((highlight) => (
             <div
               key={highlight.title}
-              className="rounded-2xl border border-line bg-paper-raised p-7"
+              className="rounded border border-line bg-paper-raised p-7"
             >
               <h3 className="mb-2.5 font-body text-[16px] font-semibold leading-snug text-ink">
                 {highlight.title}

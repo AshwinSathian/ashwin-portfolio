@@ -8,7 +8,7 @@ export type ProjectMediaProps = {
 
 export default function ProjectMedia({ media, priority }: ProjectMediaProps) {
   return (
-    <div className="flex h-64 items-center justify-center overflow-hidden rounded-2xl border border-line bg-paper-raised md:h-80">
+    <div className="flex h-64 items-center justify-center overflow-hidden rounded border border-line bg-paper-raised md:h-80">
       {media.kind === "screenshot" && (
         <div className="flex h-full w-full min-w-0 flex-col">
           <div className="flex shrink-0 items-center gap-1.5 border-b border-line bg-paper px-4 py-2.5">

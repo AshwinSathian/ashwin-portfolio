@@ -6,7 +6,7 @@ export type DecisionRecordProps = {
 
 export default function DecisionRecord({ record }: DecisionRecordProps) {
   return (
-    <div className="decision-record rounded-2xl border border-line bg-paper-raised p-6 md:p-8">
+    <div className="decision-record rounded border border-line bg-paper-raised p-6 md:p-8">
       <p className="font-data text-[11px] uppercase tracking-[0.12em] text-ink-muted">
         Revised · {record.date}
       </p>

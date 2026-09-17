@@ -1,31 +1,52 @@
 # Ashwin Sathian
 
-> AI-augmented senior full-stack engineer. 8+ years building and scaling enterprise-grade SaaS platforms. Eight independent products shipped outside of it, each with its decisions published, not hidden.
+> Senior full-stack engineer, 7+ years. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform moving $1B+ a year. Eight independent products shipped on his own time, each checked against the actual repo.
 
 ## Site
 
-/ (home) carries a full resume-style summary, a compact projects list,
-an experience snapshot, and the stack — everything below fans out to a
+/ (home) states the positioning in one line, a compact projects list, an
+experience snapshot, and the stack — everything below fans out to a
 dedicated page: /projects (index + 8 case studies), /experience (the full
-seven-role record), /writing. Four project case studies — Booklet, Wayfarer,
-Darkframe, and Typester — include a dated Decision Record: a real, disclosed
-reversal (a rollback, a rename, a rebuild) with before/after reasoning, not
-just a finished, polished result.
+seven-role record), /writing. Four project case studies — Booklet, BRNR,
+Wayfarer, and Darkframe — are structured as Problem, Decision, and Outcome
+rather than a feature list; three of those four (Booklet, Wayfarer,
+Darkframe) also carry a dated Decision Record documenting a real, disclosed
+reversal (a rollback, a rename) with before/after reasoning. Booklet's case
+study additionally includes a real system architecture diagram (clients,
+application tier, data/infra).
 
 ## About
 
-Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 8+ years across full-stack and platform engineering. Most recently, he led engineering for HighLevel's Funnels, Websites, and Webinars products (Mar–Jun 2026): three core revenue surfaces of a $1.5B+ ARR SaaS platform serving 60,000+ marketing agencies worldwide. There, he led an engineering team and worked directly with other engineering teams and verticals, guided the AI-augmented Full Stack Builder effort across the full SDLC, and shipped architectural reworks of critical subsystems alongside feature enhancements.
+Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 7+ years
+across full-stack and platform engineering. He joined Penny Software, a B2B
+procurement SaaS platform, as a founding engineer in June 2020 and stayed
+five years, progressing from Full Stack Developer to Product Specialist to
+Lead Engineer. As Lead Engineer he owned platform architecture for a
+modular, multi-tenant procurement system that grew to $1B+ GTV across
+millions of records, designed to hold sub-200ms queries at that scale, built
+RBAC and multi-tenant security in-house, and mentored a 12-person team. As
+Product Specialist he sat directly with a customer who was vetting vendors
+by hand, wrote the spec himself, and built and owned the Vendor
+Pre-Qualification System solo, schema to UI; he also cut API/database
+response times by 40%+ and pushed the team onto iterative agile delivery,
+cutting release cycles by 1.5x.
 
-Before that, he spent five years at Penny Software, a B2B procurement SaaS platform, growing from Full Stack Developer to Lead Engineer. In that time he architected the core multi-tenant platform, implemented RBAC and tenancy isolation, led a cross-functional engineering team of ~12 engineers, and shaped the data patterns that held as the platform scaled.
+From March to June 2026 he was Lead Engineer for HighLevel's Funnels,
+Websites, and Webinars products, under a model with no dedicated PM or EM
+layer — each engineer ran the full SDLC alone, AI-augmented, as a
+full-stack builder. He reworked the reverse proxy engine serving every
+website and funnel built on the platform.
 
-Ashwin practises AI-augmented engineering, using AI tooling including Claude Code, Claude Cowork, Claude Design, and OpenAI Codex to work at higher altitude: validating architectural decisions faster, accelerating implementation cycles, and raising the quality ceiling of his output.
+Ashwin uses AI tooling — Claude Code and OpenAI Codex — to work faster
+without changing who owns the decisions: he still writes the spec and ships
+the code himself.
 
 ## Career History
 
 - **HighLevel**: Lead Engineer, Funnels/Websites/Webinars (Mar 2026–Jun 2026)
 - **Penny Software**: Lead Engineer (Jan 2024–Aug 2025)
 - **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022–Dec 2023)
-- **Penny Software**: Full Stack Developer (Jun 2020–Mar 2022)
+- **Penny Software**: Full Stack Developer, founding engineer (Jun 2020–Mar 2022)
 - **Manaraah**: Senior Full Stack Developer (Jan 2020–Jun 2020)
 - **WeCP**: Software Development Engineer (Jan 2019–Jan 2020)
 - **Reubro International**: Junior Programmer (Aug 2018–Jan 2019)
@@ -37,7 +58,7 @@ Ashwin practises AI-augmented engineering, using AI tooling including Claude Cod
 **Data:** MongoDB, AWS DynamoDB
 **Cloud & DevOps:** AWS, GCP, Docker, GitHub Actions
 **Languages:** TypeScript, JavaScript, Python, HTML/CSS
-**AI & Tooling:** Claude Code, Claude Cowork, Claude Design, OpenAI Codex
+**AI & Tooling:** Claude Code, OpenAI Codex
 
 ## Education
 
@@ -47,7 +68,7 @@ B.Tech, Electronics and Communication Engineering, National Institute of Technol
 
 Eight projects designed, built, and run end to end, outside of work. Full case studies at ashwinsathian.com/projects/[slug].
 
-- **Booklet** (booklet.ashwinsathian.com): Markdown-to-shareable-page SaaS product with a web editor, REST API, published CLI (readable-cli on npm), GitHub Action, and MCP server for AI assistants. Next.js 16, MongoDB, in-house auth.
+- **Booklet** (booklet.ashwinsathian.com): Markdown-to-shareable-page SaaS product with a web editor, REST API, published CLI (booklet-cli on npm), a VS Code extension on the Marketplace, a GitHub Action, and an MCP server exposing 5 tools for AI assistants. Next.js 16, MongoDB, in-house auth. Self-hosted via PM2 behind a Cloudflare Tunnel, after rolling back off Cloudflare Workers/OpenNext in May 2026.
 - **BRNR**: End-to-end encrypted, ephemeral messaging. No accounts, 24-hour message expiry, Redis-only persistence with hard TTLs, X3DH handshake plus Double Ratchet encryption. NestJS, Socket.IO, Expo/React Native. AGPL-3.0.
 - **Wayfarer** (wayfarer.ashwinsathian.com): Local-first API testing client with no account. Collections, environments, client-side encrypted secrets vault (PBKDF2 + AES-GCM-256), sandboxed script execution. Angular, IndexedDB. Renamed from API Sandbox. MIT.
 - **ngx-runtime-i18n**: Signals-first runtime internationalisation for Angular; SSR-safe via TransferState, configurable fallback chains. Three packages published on npm. MIT.

@@ -164,7 +164,7 @@ export const PROJECTS: Project[] = [
     },
     caseStudy: {
       problem:
-        "Most messaging apps that promise privacy still keep an account system, a message history, or a server that could theoretically read plaintext — any one of which is something to compromise or subpoena later.",
+        "Most messaging apps that promise privacy still keep an account system or a message history somewhere on the server — either one is something to compromise or subpoena later.",
       decision:
         "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet implemented in its own tested crypto workspace, and Redis is the only datastore, with every key TTL'd so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes, and the AGPL-3.0 license was chosen specifically so a modified server has to stay open.",
       outcome:
@@ -232,7 +232,7 @@ export const PROJECTS: Project[] = [
     },
     caseStudy: {
       problem:
-        "API clients that store your secrets ask you to trust their account system, their pricing page, and their acquisition risk with the credentials you paste into them.",
+        "API clients that store your secrets ask you to trust their account system and their pricing page with the credentials you paste into them.",
       decision:
         "Built Wayfarer to run entirely client-side: collections and requests live in IndexedDB, and secrets get their own vault where PBKDF2 (200,000 iterations) derives an AES-GCM-256 key held only in memory, so IndexedDB never sees anything but ciphertext. Renamed from API Sandbox to Wayfarer mid-life, same storage model and license carried forward, shipped as v1.0.0 of the new name rather than a quiet find-and-replace.",
       outcome:

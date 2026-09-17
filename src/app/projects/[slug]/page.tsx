@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import BackToProjectsButton from "@/components/BackToProjectsButton";
 import DecisionRecord from "@/components/DecisionRecord";
 import ProjectMedia from "@/components/ProjectMedia";
@@ -190,6 +191,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               {paragraph}
             </p>
           ))}
+        </div>
+      )}
+
+      {/* Architecture diagram — Booklet only, the flagship technical case
+          study, per the design brief's requirement for at least one real
+          system diagram on the site. */}
+      {project.slug === "booklet" && (
+        <div className="mb-16 rounded border border-line bg-paper p-6 md:p-10">
+          <ArchitectureDiagram />
         </div>
       )}
 

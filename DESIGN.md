@@ -88,5 +88,17 @@ One orchestrated load sequence, everything else static:
   states. No fade-in applied uniformly to everything.
 - `prefers-reduced-motion: reduce` collapses all three to instant/no-op.
 
-`framer-motion` stays out of the dependency tree (already removed in the
-previous redesign) — CSS covers all of the above at zero JS-bundle cost.
+**Correction from the first draft of this doc**: `framer-motion` is not
+already removed — it's a live dependency (`src/lib/motion.ts`,
+`Reveal.tsx`, `Projects.tsx`), and `Reveal`/`RevealGroup` currently wrap
+`Summary`, `HomeExperience`, `HomeSkills`, and others in a scroll-triggered
+`whileInView` fade — the identical-fade-on-every-element pattern this brief
+bans. This rebuild touches `Summary.tsx`, `HomeExperience.tsx`, and
+`HomeSkills.tsx` anyway for copy; while in those files, their `Reveal`
+wrappers come out in favor of the existing static/CSS `.load-fade-up`
+pattern the Hero already uses. `Reveal`, `lib/motion.ts`, and
+`framer-motion` itself stay in the tree for now — `Projects.tsx`,
+`Skills.tsx`, `HomeProjects.tsx`, `ExperienceContent.tsx`, and
+`writing/PostList.tsx` also consume it and are out of scope for this
+repositioning-focused rebuild. A full framer-motion removal is a real,
+separate cleanup, not bundled into this task.

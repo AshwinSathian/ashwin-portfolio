@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Archivo } from "next/font/google";
+import { Martian_Mono, Public_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 // Data/metadata only — dates, tags, code, fact labels. Not display type.
-const dataMono = JetBrains_Mono({
+const dataMono = Martian_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-mono",
@@ -13,10 +13,11 @@ const dataMono = JetBrains_Mono({
 });
 
 // Serves display, body, and UI chrome — one sans-serif family, deliberately
-// not a serif/sans split.
-const uiSans = Archivo({
+// not a serif/sans split. Public Sans is designed to hold up at both
+// heading and body-copy sizes, unlike a display-only optical size.
+const uiSans = Public_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "700", "800"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -26,7 +27,7 @@ const siteDescription =
   "AI-augmented senior full-stack engineer. 8+ years building and scaling enterprise-grade SaaS platforms — multi-tenant architecture, teams mentored. Eight independent products shipped outside of it, each with its decisions published, not hidden.";
 
 export const viewport: Viewport = {
-  themeColor: "#0B0B0C",
+  themeColor: "#0A0B0D",
   width: "device-width",
   initialScale: 1,
 };

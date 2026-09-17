@@ -8,19 +8,19 @@
      directly (Playwright's "no-preference" context reports
      `(prefers-color-scheme: light)` as matching) before removing the
      light variant rather than assuming the media query would behave. */
-  --color-paper: #0B0B0C;
-  --color-paper-raised: #161514;
-  --color-ink: #F1EEE8;
-  --color-ink-muted: #9C968D;
-  --color-line: #2A2826;
-  /* Single accent, doing every job the old accent/signal/diff-add/diff-remove
-     four-color set used to split between them. */
-  --color-accent: #D3A24C;
-  --color-accent-strong: #E8B854;
+  /* v6.0 "Redline" — see DESIGN.md. #E8492A verified at 5.1:1 contrast
+     against #0A0B0D (WCAG AA for normal text, not just large/UI). */
+  --color-paper: #0A0B0D;
+  --color-paper-raised: #131417;
+  --color-ink: #EDEEF0;
+  --color-ink-muted: #8B8E94;
+  --color-line: #24262A;
+  --color-accent: #E8492A;
+  --color-accent-strong: #C43F23;
 
-  /* One sans-serif family for display, body, and UI — deliberately not a
-     serif/sans split. Mono stays scoped to data/metadata (dates, tags,
-     code), not headlines. */
+  /* Public Sans across display, body, and UI — deliberately not a
+     serif/sans split. Martian Mono stays scoped to data/metadata (dates,
+     tags, code), not headlines. */
   --font-display: var(--font-sans);
   --font-body: var(--font-sans);
   --font-ui: var(--font-sans);

@@ -218,7 +218,7 @@ export async function GET(request: NextRequest) {
             letterSpacing: "-0.01em",
           }}
         >
-          AI-augmented senior full-stack engineer. 8+ years, eight products. Decisions published, not hidden.
+          Senior full-stack engineer. Founding engineer at Penny Software, five years. Eight independent products shipped on his own time.
         </div>
         <div
           style={{

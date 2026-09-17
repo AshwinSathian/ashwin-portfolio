@@ -24,7 +24,7 @@ const uiSans = Public_Sans({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "AI-augmented senior full-stack engineer. 8+ years building and scaling enterprise-grade SaaS platforms — multi-tenant architecture, teams mentored. Eight independent products shipped outside of it, each with its decisions published, not hidden.";
+  "Senior full-stack engineer, 7+ years. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform moving $1B+ a year. Eight independent products shipped on his own time, each checked against the actual repo.";
 
 export const viewport: Viewport = {
   themeColor: "#0A0B0D",
@@ -35,22 +35,21 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ashwin Sathian | AI-Augmented Senior Full-Stack Engineer",
+    default: "Ashwin Sathian | Senior Full-Stack Engineer",
     template: "%s | Ashwin Sathian",
   },
   description: siteDescription,
   keywords: [
     "Ashwin Sathian",
-    "AI-Augmented Senior Full-Stack Engineer",
-    "Full-Stack Engineer",
-    "AI-augmented engineering",
+    "Senior Full-Stack Engineer",
+    "Founding Engineer",
+    "Product Engineer",
     "SaaS platform engineer",
     "Angular expert",
     "NestJS",
     "Next.js",
     "TypeScript engineer",
     "HighLevel engineer",
-    "engineering leadership",
     "multi-tenant SaaS",
     "Kochi",
     "India",
@@ -61,7 +60,7 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Ashwin Sathian | AI-Augmented Senior Full-Stack Engineer",
+    title: "Ashwin Sathian | Senior Full-Stack Engineer",
     description: siteDescription,
     url: siteUrl,
     siteName: "Ashwin Sathian",
@@ -70,7 +69,7 @@ export const metadata: Metadata = {
         url: "/og",
         width: 1200,
         height: 630,
-        alt: "Ashwin Sathian, AI-Augmented Senior Full-Stack Engineer",
+        alt: "Ashwin Sathian, Senior Full-Stack Engineer",
       },
     ],
     locale: "en_US",
@@ -78,7 +77,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ashwin Sathian | AI-Augmented Senior Full-Stack Engineer",
+    title: "Ashwin Sathian | Senior Full-Stack Engineer",
     description: siteDescription,
     creator: "@ashwinsathian",
     images: ["/og"],
@@ -115,16 +114,15 @@ const personSchema = {
     "https://github.com/AshwinSathian",
     "https://ashwinsathian.com",
   ],
-  jobTitle: "AI-Augmented Senior Full-Stack Engineer",
+  jobTitle: "Senior Full-Stack Engineer",
   alumniOf: {
     "@type": "EducationalOrganization",
     name: "National Institute of Technology Calicut",
   },
   knowsAbout: [
-    "AI-augmented software engineering",
     "SaaS platform architecture",
     "Multi-tenant platforms",
-    "Engineering leadership",
+    "System design",
     "Angular",
     "React",
     "Next.js",
@@ -138,19 +136,16 @@ const personSchema = {
     "GitHub Actions",
     "Platform engineering",
     "CI/CD",
-    "LLM APIs",
-    "AI-augmented development workflows",
     "Full-stack development",
   ],
   hasOccupation: {
     "@type": "Occupation",
-    name: "AI-Augmented Senior Full-Stack Engineer",
+    name: "Senior Full-Stack Engineer",
     occupationLocation: {
       "@type": "City",
       name: "Kochi, Kerala, India",
     },
-    skills:
-      "Angular, React, Next.js, NestJS, MongoDB, TypeScript, AWS, GCP, AI-augmented engineering",
+    skills: "Angular, React, Next.js, NestJS, MongoDB, TypeScript, AWS, GCP",
   },
 };
 

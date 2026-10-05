@@ -81,6 +81,7 @@ Eight projects designed, built, and run end to end, outside of work. Full case s
 
 Ashwin publishes technical notes at ashwinsathian.com/writing, newest first:
 
+- "The AI Tells Moved. My Tool for Avoiding Them Hadn't." (2026-10-05): a follow-up audit of humanize-writing-skill against 2026 research, what its own examples got wrong, and the blind test behind version 2.0.0.
 - "Why \"Humanize My Writing\" Tools Don't Work" (2026-08-18): why AI-writing detection research points at structure, not word lists, and why most humanizer tools miss that.
 - "Why Better Auth's MongoDB adapter can't populate() a Mongoose ref" (2026-08-17): the gap in Better Auth's official MongoDB adapter that better-auth-mongoose closes.
 - "Why ngx-runtime-i18n treats the active language as a signal, not an Observable" (2026-08-17): the signals-first design decision behind ngx-runtime-i18n, and its RxJS compat layer.

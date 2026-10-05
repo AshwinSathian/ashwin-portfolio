@@ -493,37 +493,37 @@ export const auth = betterAuth({
     slug: "humanize-writing-skill",
     name: "humanize-writing-skill",
     category: "Claude Code skill",
-    tagline: "A Claude Code skill that makes AI-written text read as a specific, considered human voice, grounded in cited research, not a banned-word list.",
+    tagline: "A Claude Code skill that guides how Claude writes prose so it doesn't read as machine-written. Its rules come from cited 2026 research and were tested blind before release.",
     description: [
-      "Most public \"humanizer\" skills reduce to a banned-word list: swap out \"delve,\" cap the em dashes, call it done. That works until the list goes stale, which the research this skill is built on shows happens fast. Word-level tells are real, but the literature is clear that structural uniformity — flat sentence rhythm, symmetric paragraph shapes, safe generic claims instead of specific checkable ones — is the larger, more durable, more model-independent signal. This skill weights structure over vocabulary; the word list is kept as a compact backup, not the mechanism.",
-      "It's built from three research passes (academic detection literature, editorial and practitioner style guides, and a cross-referenced catalog of 27 specific AI-writing tells), a teardown of 13 existing public humanizer skills, and one adversarial review round, all cited in reference/, not asserted from folk wisdom. It's distributed three ways: clone-and-symlink into a Claude Code skills directory, as a validated Claude Code plugin manifest, or via npx skills add. Published days before this site's own redesign began, and used to write this site's own copy.",
+      "Text reads as machine-written when every choice in it would suit any reader and any subject: the safe claim, the impressive word, the sentence shape that worked last time. This skill applies while Claude is writing, where the widely used alternatives are rewrite tools run over a finished draft. Its rules cover claims (specific, checkable, never invented), sentence shape, and endings, and a Scope section says where they give way: API docs, legal text, fiction, marketing copy, someone else's own writing. It is written for human readers and says plainly that it does not change AI-detector scores.",
+      "Version 2.0.0 (October 2026) came out of an audit of the first release. The tells had moved since 2023: a four-model study by The Economist found the signal now sits in long noun-heavy sentences and thin punctuation, and Anthropic's own prompting guide names metaphor in place of plain statement as a habit of its current model. The 1.x rewritten examples had swapped the old tells for the new ones and added facts their originals did not contain. The rules were rewritten against those sources and judged in shuffled blind pairs. Two model judges each preferred 2.0.0 to no skill in 5 of 6 pairs. An earlier draft did no better than the previous version, and that round is published in the repo along with the pairs it lost.",
     ],
-    stack: ["Claude Code", "Markdown", "Research synthesis"],
+    stack: ["Claude Code", "Markdown", "Python", "Research synthesis"],
     facts: [
-      { label: "Basis", value: "3 research passes + 13-skill teardown, cited in reference/" },
-      { label: "Distribution", value: "git+symlink, Claude Code plugin, npx skills add" },
-      { label: "License", value: "MIT" },
+      { label: "Release", value: "2.0.0, October 2026, MIT" },
+      { label: "Basis", value: "1.x research plus 18 newer sources, cited in reference/" },
+      { label: "Validation", value: "12 blind pairs, 2 model judges, losses published" },
     ],
     highlights: [
       {
-        title: "Structure over vocabulary",
+        title: "Rules that follow where the tells are now",
         detail:
-          "Targets sentence rhythm, paragraph shape, and specificity of claims — the durable, model-independent signal the research points to — rather than chasing a word list that goes stale with every model update.",
+          "Covers the 2026 patterns: verbs turned into nouns, sentences chained with \"and\", a figure of speech where a fact would do, and a closing line that only repeats the paragraph. The word list is down to six patterns that no rule already names.",
       },
       {
-        title: "Cited, not asserted",
+        title: "Never invents to sound specific",
         detail:
-          "Every design decision traces to reference/research.md or reference/oss-skills-review.md: academic detection literature, editorial style guides, and a direct teardown of 13 competing public skills.",
+          "Blind testing caught the previous version making up a past incident for an internal blog post. The rule against invention now sits directly under the rule that asks for specifics, and covers anything a rewrite adds to its source.",
       },
       {
-        title: "Validated as a real plugin",
+        title: "Tested blind, with the losses on record",
         detail:
-          "Ships a .claude-plugin/plugin.json manifest that passes claude plugin validate . --strict, plus before/after worked examples proving the skill changes real output.",
+          "Passages written with no skill, with 1.1.1, and with 2.0.0 were shuffled and judged unlabeled. The pairs, the key, both judges' answers, and a 20-finding adversarial review are in reference/validation-2.0.0/, and reference/research/2026-update.md lists the 1.x claims that newer sources weakened.",
       },
       {
         title: "The tool that wrote this site's copy",
         detail:
-          "Not a hypothetical demo: this skill was in active use for the writing on this redesign, including this sentence.",
+          "The first release was in use for the writing on this redesign. This entry was written under 2.0.0.",
       },
     ],
     links: {
@@ -533,11 +533,13 @@ export const auth = betterAuth({
       kind: "code",
       language: "sh",
       caption: "install",
-      snippet: `git clone https://github.com/AshwinSathian/humanize-writing-skill.git
-ln -s "$(pwd)/humanize-writing-skill" ~/.claude/skills/humanizing-writing
+      snippet: `# inside Claude Code:
+/plugin marketplace add AshwinSathian/humanize-writing-skill
+/plugin install humanizing-writing@humanize-writing-skill
 
-# or, without installing anything:
-claude --plugin-dir /path/to/humanize-writing-skill
+# or clone and symlink:
+git clone https://github.com/AshwinSathian/humanize-writing-skill.git
+ln -s "$(pwd)/humanize-writing-skill" ~/.claude/skills/humanizing-writing
 
 # or:
 npx skills add AshwinSathian/humanize-writing-skill`,

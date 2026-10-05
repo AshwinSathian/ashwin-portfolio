@@ -75,7 +75,7 @@ Eight projects designed, built, and run end to end, outside of work. Full case s
 - **Typester**: Keyboard-first typing speed game (typester.ashwinsathian.com). Ground-up rebuild of a 2018 app; zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
 - **Darkframe** (github.com/AshwinSathian/umbra): Free, open-source, image-safe dark-mode engine for Chrome and Safari. OKLCH-native recoloring, 144 passing unit tests, real E2E-verified Chrome extension and buildable Safari Xcode project. Renamed from "Umbra" after finding a naming collision; disclosed and fixed a High-severity CSS injection vulnerability in the same changelog entry. MIT.
 - **better-auth-mongoose** (better-auth-mongoose.ashwinsathian.com): Published npm package (Mongoose-native database adapter for Better Auth) closing a real, long-documented gap in the Better Auth ecosystem. CI-proven .populate() support, a companion tenant-scoping plugin, a real NestJS integration example. MIT.
-- **humanize-writing-skill** (github.com/AshwinSathian/humanize-writing-skill): A Claude Code skill that makes AI-written text read as a specific, considered human voice, built from three cited research passes and a teardown of 13 existing public humanizer skills. MIT.
+- **humanize-writing-skill** (github.com/AshwinSathian/humanize-writing-skill): A Claude Code skill that guides how Claude writes prose so it does not read as machine-written, for human readers (it does not change AI-detector scores). Version 2.0.0 (October 2026) rewrote the rules against cited 2026 research and was judged in blind pairs before release. MIT.
 
 ## Writing
 

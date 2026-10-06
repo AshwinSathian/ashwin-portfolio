@@ -10,12 +10,14 @@ import { RECORD } from "@/app/data/record";
 import { SITE } from "@/app/data/site";
 import { getAllPosts } from "@/lib/writing";
 
+const HOME_HIDDEN = ["darkframe", "typester"];
 const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
 
 export default function Page() {
   const featured = PROJECTS.filter((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
+  // Home shows a short list; these stay on /projects only.
+  const rest = PROJECTS.filter((p) => !p.featured && !HOME_HIDDEN.includes(p.slug));
   const posts = getAllPosts().slice(0, 3);
   const total = NUMBER_WORDS[PROJECTS.length] ?? String(PROJECTS.length);
 

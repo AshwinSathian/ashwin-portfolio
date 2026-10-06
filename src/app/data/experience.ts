@@ -47,7 +47,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     dates: "Jun 2020 – Mar 2022",
     bullets: [
       "Joined Penny Software as a founding engineer and delivered SaaS features across the full stack.",
-      "Used lazy loading and modular design to keep the frontend scalable as usage grew past thousands of active users.",
+      "Used lazy loading and modular design to keep the frontend scalable in quick turnaround cycles, as usage grew past thousands of active users.",
     ],
     tech: ["Angular", "NestJS", "MongoDB"],
   },

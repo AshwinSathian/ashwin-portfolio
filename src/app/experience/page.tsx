@@ -3,7 +3,7 @@ import ExperienceContent from "@/components/ExperienceContent";
 import { SITE } from "@/app/data/site";
 
 const description =
-  "Eight years, seven roles, five companies — the dates behind each one, not just the résumé's version of it.";
+  "More than eight years, seven roles, and five companies, with the dates behind each one.";
 
 const ogImageUrl = `/og?title=Experience&description=${encodeURIComponent(description)}&label=Experience`;
 

@@ -3,9 +3,9 @@ import PostList from "@/components/writing/PostList";
 import type { Metadata } from "next";
 
 const writingDescription =
-  "Notes on engineering, architecture, and building things that last. New pieces on the way.";
+  "Technical notes from the libraries and tools I build, including what I got wrong.";
 
-const ogImageUrl = `/og?title=Writing&description=${encodeURIComponent("Notes on engineering, architecture, and building things that last.")}&label=Writing`;
+const ogImageUrl = `/og?title=Writing&description=${encodeURIComponent(writingDescription)}&label=Writing`;
 
 export const metadata: Metadata = {
   title: "Writing",
@@ -53,13 +53,13 @@ export default function WritingPage() {
               [Unreleased]
             </p>
             <p className="mt-3 max-w-lg font-body text-[16px] leading-[1.7] text-ink">
-              Nothing published yet. Real entries land here the same way the rest of this site
-              works — dated, and only once there&apos;s something worth logging.
+              Nothing published yet. Entries will be dated, like the rest of this site, and
+              posted only when there&apos;s something worth logging.
             </p>
           </div>
         ) : (
           <p className="mt-6 max-w-lg font-body text-[16px] leading-[1.7] text-ink-muted">
-            Notes on engineering, architecture, and building things that last.
+            {writingDescription}
           </p>
         )}
 

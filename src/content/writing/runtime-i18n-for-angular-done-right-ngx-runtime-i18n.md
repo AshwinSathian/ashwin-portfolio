@@ -6,28 +6,28 @@ tags: ["angular", "i18n", "typescript", "ssr"]
 canonical: "https://levelup.gitconnected.com/runtime-i18n-for-angular-done-right-ngx-runtime-i18n-d8922f92a327"
 ---
 
-Internationalisation in Angular tends to force a hard choice:
+Internationalisation in Angular tends to force a choice between two options:
 
-- **Angular built-in i18n** is compile-time only — great for static text and AOT perf, but it forces **one build per locale**, complicates deployments, and doesn't help when strings must come from a CMS or need to change without a rebuild.
-- **Legacy runtime libs** (e.g., `ngx-translate`) solved "switch language at runtime," but many apps hit pain around **SSR/hydration**, **change detection churn**, bundle size, and the lack of a **signals-native** API.
+- Angular's built-in i18n is compile-time only. That suits static text and AOT performance, but it needs one build per locale, complicates deployments, and doesn't help when strings must come from a CMS or need to change without a rebuild.
+- Older runtime libraries such as `ngx-translate` solved switching language at runtime, but many apps ran into trouble with SSR and hydration, change-detection churn, bundle size, and the lack of a signals-native API.
 
-`@ngx-runtime-i18n` is a tiny, modern alternative that embraces Angular's current primitives (signals, standalone, SSR/TransferState) while keeping the API intentionally small and ergonomic.
+`@ngx-runtime-i18n` is a small alternative built on Angular's current primitives (signals, standalone, SSR/TransferState), with a deliberately minimal API.
 
 ## What's in the box?
 
-`@ngx-runtime-i18n/core` — framework-agnostic primitives:
+`@ngx-runtime-i18n/core` has the framework-agnostic primitives:
 
-- Tiny, dependency-free **ICU-lite** formatter (string interpolation + `plural` with `one`/`other` and exact `=0`, `=2`, …).
+- A small, dependency-free ICU-lite formatter (string interpolation, plus `plural` with `one`/`other` and exact `=0`, `=2`, …).
 - Shared types used by the Angular wrapper.
 
-`@ngx-runtime-i18n/angular` — Angular integration:
+`@ngx-runtime-i18n/angular` is the Angular integration:
 
-- **Signals-first** `I18nService` with a minimal surface (`lang()`, `ready()`, `t()`, `setLang()`).
-- `I18nPipe` that's impure by design, but **doesn't write during render** (avoids `NG0600`).
+- A signals-first `I18nService` with a minimal surface (`lang()`, `ready()`, `t()`, `setLang()`).
+- An `I18nPipe` that's impure by design but doesn't write during render (avoids `NG0600`).
 - `I18nCompatService` (RxJS) for apps that aren't on signals yet.
-- **SSR-aware**: `TransferState` snapshot on the server; hydration-safe on the client.
-- **Cancellation-aware** language switching (rapid toggles won't corrupt state).
-- **Lazy Angular locale data** per language to power date/number pipes as you switch.
+- SSR support: a `TransferState` snapshot on the server, read on the client without hydration mismatches.
+- Cancellation-aware language switching (rapid toggles won't corrupt state).
+- Lazy-loaded Angular locale data per language, so date and number pipes follow the switch.
 
 ## Quick start
 
@@ -109,14 +109,14 @@ await i18nCompat.setLang('hi');
 
 ## Why this library exists (and what it optimises for)
 
-1. **Runtime first:** Load catalogs from anywhere (public JSON, CMS, API), switch languages without rebuilding, and keep deployments simple.
-2. **SSR & hydration, handled:** The initial catalogue and locale are snapshotted on the server via `TransferState` and read on the client without double-fetches or hydration warnings.
-3. **Signals-native ergonomics:** The `I18nPipe` is intentionally impure but read-only, and `I18nService.lang` is a signal you can depend on anywhere. No global zone churn, no manual change detection spelunking.
-4. **Small surface area:** A tiny core formatter and a focused Angular wrapper. No magical globals, no deep DI hierarchies, no heavy runtime.
-5. **Pragmatic ICU:** Most apps don't need the full ICU matrix on day one. The core ships an ICU-lite that does the 95%: interpolation and plural basics. Full ICU is on the roadmap (see below).
-6. **Cancellation & race-safety:** Rapid toggles (`en → de → hi → en`) don't corrupt the active catalog. The library wires `AbortSignal` through your `fetchCatalog` to cancel stale requests.
+1. Runtime first. Load catalogs from anywhere (public JSON, CMS, API), switch languages without rebuilding, and keep deployments simple.
+2. SSR and hydration. The initial catalogue and locale are snapshotted on the server via `TransferState` and read on the client without double-fetches or hydration warnings.
+3. Signals-native API. The `I18nPipe` is impure on purpose but read-only, and `I18nService.lang` is a signal you can depend on anywhere, so there's no global zone churn and no manual change detection.
+4. Small surface area. A small core formatter and a focused Angular wrapper, with no globals and no deep DI hierarchies.
+5. Pragmatic ICU. Most apps don't need the full ICU matrix on day one. The core ships an ICU-lite that covers interpolation and plural basics.
+6. Cancellation and race-safety. Rapid toggles (`en → de → hi → en`) don't corrupt the active catalog. The library passes an `AbortSignal` to your `fetchCatalog` so stale requests are cancelled.
 
-## Real-world usage patterns
+## Usage patterns
 
 **Feature-level catalogs (split by route)**
 
@@ -137,7 +137,7 @@ await i18nCompat.setLang('hi');
 }
 ```
 
-Feature areas can ship their own keys to keep catalogues small and clearly owned.
+Each feature area can ship its own keys, which keeps catalogues small and makes it clear who owns them.
 
 **Multi-tenant or brand overlays**
 
@@ -177,21 +177,21 @@ provideRuntimeI18n(
 );
 ```
 
-The library will read the snapshot on the client and avoid a duplicate request.
+The library reads the snapshot on the client and skips the duplicate request.
 
-## Under the hood (implementation notes)
+## Implementation notes
 
-- **No writes during render**: the pipe only reads `lang()` to establish reactivity; the actual translation work is pure.
-- **Missing-key hygiene**: in dev mode, warnings are de-duplicated per key.
-- **Config tokens**: a small set of injection tokens wires config, catalogs store, locale loaders, and options cleanly (`RUNTIME_I18N_CONFIG`, `RUNTIME_I18N_CATALOGS`, `RUNTIME_I18N_LOCALE_LOADERS`, `RUNTIME_I18N_OPTIONS`).
-- **Locale data**: opt-in per language with `localeLoaders` so date/number pipes switch correctly without bundling every locale.
-- **Compat layer**: `I18nCompatService` mirrors the signals API with RxJS for gradual migrations.
+- No writes during render: the pipe only reads `lang()` to establish reactivity, and the translation work itself is pure.
+- Missing keys: in dev mode, warnings are de-duplicated per key.
+- Config tokens: four injection tokens wire up config, the catalogs store, locale loaders, and options (`RUNTIME_I18N_CONFIG`, `RUNTIME_I18N_CATALOGS`, `RUNTIME_I18N_LOCALE_LOADERS`, `RUNTIME_I18N_OPTIONS`).
+- Locale data: opt-in per language with `localeLoaders`, so date/number pipes switch correctly without bundling every locale.
+- Compat layer: `I18nCompatService` mirrors the signals API with RxJS for gradual migrations.
 
 ## Roadmap
 
 **Short-to-mid term:**
 
-- Full ICU message syntax
+- Full ICU message syntax.
 - Dev tooling: key extraction, dead-key detection, and catalogue linting.
 - First-class CMS adapters (filesystem, HTTP, popular headless CMS).
 - Schematics/Generators: generate per-feature catalog scaffolds and locale-data wiring.
@@ -201,13 +201,13 @@ The library will read the snapshot on the client and avoid a duplicate request.
 **Longer-term explorations:**
 
 - Message compilation to speed hot paths for large catalogs.
-- Polyglot mode: capability to compose multiple sources (base + module + A/B experiment layer) with predictable precedence.
+- Polyglot mode: composing multiple sources (base + module + A/B experiment layer) with predictable precedence.
 
 ## Where the library stands today
 
 - Core and Angular packages are production-ready for apps that need runtime i18n with SSR correctness and a signals-native API.
-- ICU-lite covers the majority of practical cases (interpolation + plural basics). If you need the full ICU grammar across the board, keep an eye on upcoming minors.
-- Demos include both CSR and SSR apps to showcase recommended setups (public JSON catalogs, locale loaders, auto-detect + persist).
+- If you need the full ICU grammar, watch the upcoming minor releases.
+- The demos include a CSR app and an SSR app that show the recommended setups (public JSON catalogs, locale loaders, auto-detect + persist).
 
 ## Adoption checklist
 
@@ -216,9 +216,5 @@ The library will read the snapshot on the client and avoid a duplicate request.
 3. Create `public/i18n/en.json` (and friends).
 4. Replace template calls with `| i18n` and imperative usages with `i18n.t(…)`.
 5. If needed, start on `I18nCompatService` (RxJS) and migrate to signals over time.
-
-## Closing thoughts
-
-If your app needs **runtime** language switching, **SSR correctness**, and **modern Angular ergonomics**, you shouldn't have to glue together a bag of tricks. `@ngx-runtime-i18n` tries to be that slim, boringly-reliable layer that "just works," while leaving room for your catalogs to come from anywhere and evolve independently of deploys.
 
 Feedback, issues, and PRs are welcome.

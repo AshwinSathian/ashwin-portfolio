@@ -23,9 +23,9 @@ The study has also aged. It measured Mistral, Falcon, and LLaMA. A 2026 paper th
 
 ## What the newer measurements say
 
-On 30 July *The Economist* published a comparison of its own articles with rewrites by ChatGPT, Claude, Gemini, and Grok: 55,940 sentences and 1.2 million words, set against human journalism and novels going back to 1950. The paper's summary is that the tells are now long words, long sentences, and thin punctuation. The models favor polysyllables and nouns made from verbs. Their sentences run long and are joined with "and," which is their most overused word. They use fewer commas and semicolons than people and almost no parentheses. They still reach for "not X but Y" and lists of three.
+On 30 July *The Economist* published a comparison of its own articles with rewrites by ChatGPT, Claude, Gemini, and Grok: 55,940 sentences and 1.2 million words, set against human journalism and novels going back to 1950. *The Economist*'s summary is that the tells are now long words, long sentences, and thin punctuation. The models favor polysyllables and nouns made from verbs. Their sentences run long and are joined with "and," which is their most overused word. They use fewer commas and semicolons than people and almost no parentheses. They still reach for "not X but Y" and lists of three.
 
-The em dash result surprised people. Of the four models, only Claude uses more em dashes than human writers. ChatGPT now uses fewer than any other writer in the study.
+Of the four models, only Claude uses more em dashes than human writers. ChatGPT now uses fewer than any other writer in the study.
 
 Two of those findings had been measured before. A 2025 paper in PNAS found instruction-tuned models using nominalizations at 1.5 to 2 times the human rate, and the trailing "-ing" clause ("underscoring its importance") at 2 to 5 times. Wikipedia's volunteer-maintained list of AI vocabulary, which I leaned on last time, is now sorted by model era. Its list for mid-2025 onward has four words on it, and "delve" is recorded as having fallen sharply.
 
@@ -43,7 +43,7 @@ There was no such release. The old skill's first rule was to commit to specific,
 
 The rewritten examples had the same fault in a quieter form. The rate-limiting rewrite mentioned a database connection pool and a `Retry-After` header. Both are plausible, and neither was in the original paragraph.
 
-The rule against invention is now second, directly under the rule that creates the pressure, and it names the forms the failure takes: the made-up incident, the mechanism the writer does not know, and anything a rewrite adds to its source. In the final test round, the model writing the same blog post under the new rules supported its point about stale flags with Knight Capital, which lost $440 million in 45 minutes in 2012 after a deploy reactivated dead code behind a reused flag. That happened.
+The rule against invention is now second, directly under the rule that creates the pressure, and it names the forms the failure takes: the made-up incident, the mechanism the writer does not know, and anything a rewrite adds to its source. In the final test round, the model writing the same blog post under the new rules supported its point about stale flags with a real incident: Knight Capital, which lost $440 million in 45 minutes in 2012 after a deploy reactivated dead code behind a reused flag.
 
 ## Testing it blind
 
@@ -53,7 +53,7 @@ My second draft of the new rules lost to the old skill. One judge called it the 
 
 I added a rule to say each thing once, an exception for analogies that explain how something works, and the fixes from a separate adversarial review that had found twenty problems, several of them in the skill's own prose. In the next round both judges preferred the new version to no skill in five pairs of six, and to the old skill in five of six and four of six.
 
-That is twelve pairs. The judges are Claude models, which may share blind spots with the writers, and I tuned the rules on the same three tasks I then scored them on. I would not put much weight on the exact numbers. I put more on the direction, and on one thing the counting script showed: across all eighteen passages, including the ones written with no skill, there was not one em dash and not one "it's not X, it's Y" that a pattern could match. The two tells people talk about most were absent. The judges were reacting to restatement, to stock transitions like "The speedup comes at a price, and writes pay it," and to invented history.
+That is twelve pairs. The judges are Claude models, which may share blind spots with the writers, and I tuned the rules on the same three tasks I then scored them on. I would not put much weight on the exact numbers. I put more on the direction, and on one thing the counting script showed: across all eighteen passages, including the ones written with no skill, there was not one em dash and not one "it's not X, it's Y" that a pattern could match, and those are the two tells people talk about most. The judges were reacting to restatement, to stock transitions like "The speedup comes at a price, and writes pay it," and to invented history.
 
 ## What it still does not do
 

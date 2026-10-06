@@ -1,41 +1,39 @@
 # Ashwin Sathian
 
-> Senior full-stack engineer, 8+ years. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.
+> Senior full-stack engineer with more than eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.
 
 ## Site
 
-/ (home) states the positioning in one line, a compact projects list, an
-experience snapshot, and the stack — everything below fans out to a
-dedicated page: /projects (index + 8 case studies), /experience (the full
-seven-role record), /writing. Four project case studies (Booklet, BRNR,
-Wayfarer, and Darkframe) are structured as Problem, Decision, and Outcome
-rather than a feature list; three of those four (Booklet, Wayfarer,
-Darkframe) also carry a dated Decision Record documenting a real, disclosed
-reversal (a rollback, a rename) with before/after reasoning. Booklet's case
-study additionally includes a real system architecture diagram (clients,
-application tier, data/infra).
+/ (home) has the positioning in one line, a compact projects list, an
+experience snapshot, and the stack. Each of those links to a dedicated
+page: /projects (index + 8 project pages, four of them full case
+studies), /experience (the full seven-role record), /writing. Four project case studies (Booklet, BRNR, Wayfarer, and
+Darkframe) are structured as Problem, Decision, and Outcome. Three of those
+four (Booklet, Wayfarer, Darkframe) also carry a dated Decision Record
+documenting a disclosed reversal (a rollback, a rename) with before/after
+reasoning. Booklet's case study also includes a system architecture diagram
+(clients, application tier, data/infra).
 
 ## About
 
-Ashwin Sathian is an engineer based in Kochi, Kerala, India, with 8+ years
+Ashwin Sathian is an engineer based in Kochi, Kerala, India, with more than eight years
 across full-stack and platform engineering. He joined Penny Software, a B2B
-procurement SaaS platform, as a founding engineer in June 2020 and stayed
+procurement SaaS platform, as a founding engineer in July 2020 and stayed
 five years, progressing from Full Stack Developer to Product Specialist to
-Lead Engineer. As Lead Engineer he owned platform architecture for a
-modular, multi-tenant procurement system that grew to $1B+ GTV across
-millions of records, designed to hold sub-200ms queries at that scale, built
-RBAC and multi-tenant security in-house, and mentored a 12-person team. As
-Product Specialist he sat directly with a customer who was vetting vendors
-by hand, wrote the spec himself, and built and owned the Vendor
-Pre-Qualification System solo, schema to UI; he also cut API/database
-response times by 40%+ and pushed the team onto iterative agile delivery,
-cutting release cycles by 1.5x.
+Lead Engineer. As Product Specialist he built RBAC and multi-tenant security
+in-house, cut API and database response times by about 40%, and moved the
+team to iterative agile delivery, cutting release cycles by 1.5x. As Lead
+Engineer he owned platform architecture for a modular SaaS procurement
+system that grew to $1B+ GTV across millions of records, expanded the stack
+to hold sub-200ms queries at that scale, and mentored the 12-person team
+building it. In that role he also sat with a customer who was vetting
+vendors by hand, distilled the spec, and built and owned the Vendor
+Pre-Qualification System from scratch, schema to UI.
 
 From March to June 2026 he was Lead Engineer for HighLevel's Funnels,
-Websites, and Webinars products, under a model with no dedicated PM or EM
-layer — each engineer ran the full SDLC alone, AI-augmented, as a
-full-stack builder. He reworked the reverse proxy engine serving every
-website and funnel built on the platform.
+Websites, and Webinars products, under a model where each engineer ran the
+full SDLC alone, AI-augmented, as a full-stack builder. He reworked the
+reverse proxy engine serving the websites and funnels built on the platform.
 
 Ashwin uses AI tooling (Claude Code and OpenAI Codex) to work faster
 without changing who owns the decisions: he still writes the spec and ships
@@ -45,10 +43,10 @@ the code himself.
 
 - **HighLevel**: Lead Engineer, Funnels/Websites/Webinars (Mar 2026–Jun 2026)
 - **Penny Software**: Lead Engineer (Jan 2024–Aug 2025)
-- **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022–Dec 2023)
-- **Penny Software**: Full Stack Developer, founding engineer (Jun 2020–Mar 2022)
+- **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022–Feb 2024)
+- **Penny Software**: Full Stack Developer, founding engineer (Jul 2020–Apr 2022)
 - **Manaraah**: Senior Full Stack Developer (Jan 2020–Jun 2020)
-- **WeCP**: Software Development Engineer (Jan 2019–Jan 2020)
+- **WeCP**: Software Development Engineer (Feb 2019–Jan 2020)
 - **Reubro International**: Junior Programmer (Aug 2018–Jan 2019)
 
 ## Skills & Stack
@@ -71,10 +69,10 @@ Eight projects designed, built, and run end to end, outside of work. Full case s
 - **Booklet** (booklet.ashwinsathian.com): Markdown-to-shareable-page SaaS product with a web editor, REST API, published CLI (booklet-cli on npm), a VS Code extension on the Marketplace, a GitHub Action, and an MCP server exposing 5 tools for AI assistants. Next.js 16, MongoDB, in-house auth. Self-hosted via PM2 behind a Cloudflare Tunnel, after rolling back off Cloudflare Workers/OpenNext in May 2026.
 - **BRNR**: End-to-end encrypted, ephemeral messaging. No accounts, 24-hour message expiry, Redis-only persistence with hard TTLs, X3DH handshake plus Double Ratchet encryption. NestJS, Socket.IO, Expo/React Native. AGPL-3.0.
 - **Wayfarer** (wayfarer.ashwinsathian.com): Local-first API testing client with no account. Collections, environments, client-side encrypted secrets vault (PBKDF2 + AES-GCM-256), sandboxed script execution. Angular, IndexedDB. Renamed from API Sandbox. MIT.
-- **ngx-runtime-i18n**: Signals-first runtime internationalisation for Angular; SSR-safe via TransferState, configurable fallback chains. Three packages published on npm. MIT.
-- **Typester**: Keyboard-first typing speed game (typester.ashwinsathian.com). Ground-up rebuild of a 2018 app; zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
-- **Darkframe** (github.com/AshwinSathian/umbra): Free, open-source, image-safe dark-mode engine for Chrome and Safari. OKLCH-native recoloring, 144 passing unit tests, real E2E-verified Chrome extension and buildable Safari Xcode project. Renamed from "Umbra" after finding a naming collision; disclosed and fixed a High-severity CSS injection vulnerability in the same changelog entry. MIT.
-- **better-auth-mongoose** (better-auth-mongoose.ashwinsathian.com): Published npm package (Mongoose-native database adapter for Better Auth) closing a real, long-documented gap in the Better Auth ecosystem. CI-proven .populate() support, a companion tenant-scoping plugin, a real NestJS integration example. MIT.
+- **ngx-runtime-i18n**: Signals-first runtime internationalisation for Angular. SSR-safe via TransferState, with configurable fallback chains. Six packages published on npm. MIT.
+- **Typester**: Keyboard-first typing speed game (typester.ashwinsathian.com). Ground-up rebuild of a 2018 app. Zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
+- **Darkframe** (github.com/AshwinSathian/umbra): Free, open-source, image-safe dark-mode engine for Chrome and Safari. OKLCH-native recoloring, 144 passing unit tests, an E2E-verified Chrome extension, and a Safari Xcode project that builds. Renamed from "Umbra" after finding a naming collision. The changelog entry for the rename also discloses a High-severity CSS injection vulnerability and its fix. MIT.
+- **better-auth-mongoose** (better-auth-mongoose.ashwinsathian.com): Published npm package: a Mongoose-native database adapter for Better Auth, closing a gap documented on Better Auth's issue tracker since February 2025. .populate() support tested in CI, a companion tenant-scoping plugin, and a NestJS integration example. MIT.
 - **humanize-writing-skill** (github.com/AshwinSathian/humanize-writing-skill): A Claude Code skill that guides how Claude writes prose so it does not read as machine-written, for human readers (it does not change AI-detector scores). Version 2.0.0 (October 2026) rewrote the rules against cited 2026 research and was judged in blind pairs before release. MIT.
 
 ## Writing
@@ -82,6 +80,7 @@ Eight projects designed, built, and run end to end, outside of work. Full case s
 Ashwin publishes technical notes at ashwinsathian.com/writing, newest first:
 
 - "The AI Tells Moved. My Tool for Avoiding Them Hadn't." (2026-10-05): a follow-up audit of humanize-writing-skill against 2026 research, what its own examples got wrong, and the blind test behind version 2.0.0.
+- "How Do You Check an Answer When Nobody Agrees How to Spell It?" (2026-08-28): building a fuzzy answer-checker for Manglish spellings in a Malayalam movie quiz, and three rounds that each turned up a real bug.
 - "Why \"Humanize My Writing\" Tools Don't Work" (2026-08-18): why AI-writing detection research points at structure, not word lists, and why most humanizer tools miss that.
 - "Why Better Auth's MongoDB adapter can't populate() a Mongoose ref" (2026-08-17): the gap in Better Auth's official MongoDB adapter that better-auth-mongoose closes.
 - "Why ngx-runtime-i18n treats the active language as a signal, not an Observable" (2026-08-17): the signals-first design decision behind ngx-runtime-i18n, and its RxJS compat layer.

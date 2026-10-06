@@ -10,7 +10,7 @@ export default function HowIWork() {
         </p>
         <div className="flex flex-col gap-5 md:col-span-8 md:col-start-4">
           <p className="font-body text-body-lg leading-[1.75] text-ink">
-            A customer&rsquo;s ask rarely arrives as a spec. I write it myself, then build against it end to end — no PM handoff, no EM rewrite in between.
+            A customer&rsquo;s ask rarely arrives as a spec. I write it myself, then build against it end to end.
           </p>
           <p className="font-body text-body leading-[1.7] text-ink-muted">
             Penny Software&rsquo;s Vendor Pre-Qualification System is the clearest example. It started as one customer&rsquo;s manual process and one conversation with me, and it ended as shipped software, schema to UI, built and owned alone.

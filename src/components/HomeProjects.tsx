@@ -25,7 +25,7 @@ export default function HomeProjects({ projects }: HomeProjectsProps) {
           </Reveal>
           <Reveal className="md:col-span-8 md:col-start-4">
             <p className="font-body text-body text-ink-muted">
-              Eight independent products, designed and run end to end. Four of them, below.
+              Eight independent products, designed and run end to end. Four of them are below.
             </p>
           </Reveal>
         </RevealGroup>

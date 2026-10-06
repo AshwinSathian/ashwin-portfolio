@@ -13,8 +13,8 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "HighLevel",
     dates: "Mar 2026 – Jun 2026",
     bullets: [
-      "Owned Funnels, Websites, and Webinars under a model with no dedicated PM or EM layer — each engineer ran the full SDLC alone, AI-augmented, as a full-stack builder.",
-      "Reworked the reverse proxy engine serving every website and funnel built on the platform, for better performance and resilience against cache purges and downtime.",
+      "Owned Funnels, Websites, and Webinars under a model where each engineer ran the full SDLC alone, AI-augmented, as a full-stack builder.",
+      "Reworked the reverse proxy engine serving the websites and funnels built on the platform, making it faster and more resilient to cache purges and downtime.",
     ],
   },
   {
@@ -22,22 +22,21 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Jan 2024 – Aug 2025",
     bullets: [
-      "Five years into Penny Software by now, still the one owning platform architecture.",
-      "Designed the modular, multi-tenant procurement system that grew to $1B+ GTV across millions of records, tuned to hold sub-200ms queries at that scale.",
-      "Built RBAC and multi-tenant security from scratch.",
-      "Mentored a 12-person team across frontend, backend, and QA — code review and clean-code standards that stuck, not just got proposed.",
+      "Owned platform architecture for a modular SaaS procurement system that grew to $1B+ GTV across millions of records, and mentored the 12-person team building it.",
+      "Designed and expanded the tech stack to hold sub-200ms queries at that scale.",
+      "Sat with a customer who was vetting vendors by hand, distilled the spec, then built and owned a Vendor Pre-Qualification System from scratch, schema to UI.",
+      // TODO: add a real adoption/impact figure for the Vendor Pre-Qualification
+      // System once Ashwin supplies one — do not invent a number here.
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx", "GCP"],
   },
   {
     role: "Product Specialist",
     company: "Penny Software",
-    dates: "Apr 2022 – Dec 2023",
+    dates: "Apr 2022 – Feb 2024",
     bullets: [
-      "Sat directly with a customer who was vetting vendors by hand, wrote the spec myself, then built and owned the Vendor Pre-Qualification System solo, schema to UI.",
-      // TODO: add a real adoption/impact figure for the Vendor Pre-Qualification
-      // System once Ashwin supplies one — do not invent a number here.
-      "Optimized APIs and database queries across critical paths, cutting response times by 40%+ as usage grew.",
+      "Built RBAC and multi-tenant security in-house, from scratch.",
+      "Optimized APIs and database queries, cutting response times by about 40%.",
       "Pushed the team onto iterative agile delivery, cutting release cycles by 1.5x.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx"],
@@ -45,10 +44,10 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
   {
     role: "Full Stack Developer",
     company: "Penny Software",
-    dates: "Jun 2020 – Mar 2022",
+    dates: "Jul 2020 – Apr 2022",
     bullets: [
-      "Joined Penny Software as a founding engineer, shipping features across the full stack while the product and the team were still being built.",
-      "Modularized the frontend and introduced lazy-loaded workspaces, keeping it scalable as usage grew past thousands of active users.",
+      "Joined Penny Software as a founding engineer and delivered SaaS features across the full stack.",
+      "Used lazy loading and modular design to keep the frontend scalable as usage grew past thousands of active users.",
     ],
     tech: ["Angular", "NestJS", "MongoDB"],
   },
@@ -57,18 +56,18 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Manaraah",
     dates: "Jan 2020 – Jun 2020",
     bullets: [
-      "Translated ambiguous requirements into maintainable, production-grade features.",
-      "Partnered with stakeholders to de-risk deployments and support adoption.",
+      "Built and deployed cloud-native, AI-powered business applications for construction clients moving off legacy systems.",
+      "Worked directly with clients to turn raw requirements into working software.",
     ],
     tech: ["Angular", "Node.js", "MongoDB", "AWS"],
   },
   {
     role: "Software Development Engineer",
     company: "WeCP",
-    dates: "Jan 2019 – Jan 2020",
+    dates: "Feb 2019 – Jan 2020",
     bullets: [
-      "Enhanced onboarding flows and stabilized critical evaluation journeys.",
-      "Guided interns and juniors through architecture, reviews, and delivery.",
+      "Built highly available SaaS platforms used for technical hiring.",
+      "Set up and led a mentorship program for interns and junior engineers.",
     ],
     tech: ["Angular", "Node.js", "MongoDB", "AWS"],
   },
@@ -77,7 +76,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Reubro International",
     dates: "Aug 2018 – Jan 2019",
     bullets: [
-      "Shipped incremental enhancements while learning enterprise release discipline.",
+      "Worked on reliability and usability improvements to the company's main SaaS products.",
     ],
     tech: ["Angular", "Node.js"],
   },

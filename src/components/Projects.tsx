@@ -29,9 +29,9 @@ export default function Projects({ projects }: ProjectsProps) {
         </Reveal>
         <Reveal>
           <p className="max-w-xl font-body text-body-lg leading-[1.7] text-ink-muted">
-            Most of what I ship at work isn&apos;t mine to show. Everything here is —
-            built, run, and where the record calls for it, corrected in public. Four below
-            go deep. The rest are listed just as plainly, further down.
+            Most of what I ship at work isn&apos;t mine to show. Everything here is. I built
+            it, I run it, and where I got something wrong, the correction is public. Four get
+            a full case study below, and the rest are listed further down.
           </p>
         </Reveal>
       </RevealGroup>
@@ -128,7 +128,7 @@ export default function Projects({ projects }: ProjectsProps) {
           </Reveal>
           <Reveal>
             <p className="max-w-lg font-body text-body text-ink-muted">
-              Smaller in scope, or built for a narrower audience — real, running, and worth a look.
+              Smaller in scope, or built for a narrower audience.
             </p>
           </Reveal>
         </RevealGroup>

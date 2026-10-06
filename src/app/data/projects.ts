@@ -65,35 +65,35 @@ export const PROJECTS: Project[] = [
     category: "SaaS product",
     tagline: "Write Markdown, get a shareable page, backed by an API, CLI, VS Code extension, GitHub Action, and MCP server.",
     description: [
-      "Booklet turns Markdown into a published, shareable page in one click. Live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth with argon2id password hashing and JWT sessions, and MongoDB as the store. Past the editor it's a full product, with version history, per-page analytics, password-protected pages, and collections.",
-      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a VS Code extension, a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first; I rolled that back to a self-hosted Node process behind a Cloudflare Tunnel in May 2026 once the operational tradeoffs became clear in production. It's the kind of call you only get right by shipping the wrong one first.",
+      "Booklet turns Markdown into a published, shareable page in one click. You get a live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth with argon2id password hashing and DB-backed sessions, and MongoDB as the store. Beyond the editor it has version history, per-page analytics, password-protected pages, and collections.",
+      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a VS Code extension, a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first. On 25 May 2026 I rolled that back to a self-hosted PM2 process behind a Cloudflare Tunnel, the same day the app dropped its external AI, email, and Stripe integrations.",
     ],
     stack: ["Next.js 16", "TypeScript", "React 19", "Tailwind CSS v4", "MongoDB", "unified / remark"],
     facts: [
       { label: "Interfaces", value: "Web, CLI, VS Code extension, REST API, GitHub Action, MCP server" },
-      { label: "Auth", value: "In-house: argon2id, JWT sessions" },
+      { label: "Auth", value: "In-house: argon2id, DB-backed sessions" },
       { label: "License", value: "MIT" },
     ],
     highlights: [
       {
-        title: "A real API surface, not an afterthought",
+        title: "One versioned REST API under every client",
         detail:
           "A versioned REST API, booklet-cli published on npm, a VS Code extension on the Marketplace, a GitHub Action for CI publishing, and a standalone MCP server exposing publish_page, update_page, get_page, list_pages, and delete_page to AI assistants.",
       },
       {
         title: "SSRF guard and origin checks, unit-tested",
         detail:
-          "Both live as dedicated, independently tested modules rather than inline checks. It's the kind of boring correctness that matters once a product accepts arbitrary published content.",
+          "Each is its own module with its own unit tests, not an inline check. Both matter once a product accepts arbitrary published content.",
       },
       {
         title: "A disclosed infrastructure rollback",
         detail:
-          "Shipped on Cloudflare Workers via OpenNext first, then moved back to a self-hosted PM2 process behind a Cloudflare Tunnel once the operational tradeoffs of the serverless path showed up in production.",
+          "Shipped on Cloudflare Workers via OpenNext first, then moved back to a self-hosted PM2 process behind a Cloudflare Tunnel on 25 May 2026, the same day the external AI, email, and Stripe integrations were removed.",
       },
       {
         title: "In-house auth, no vendor",
         detail:
-          "Email + password with argon2id hashing and JWT-backed sessions, with no third-party auth provider in the loop.",
+          "Email and password with argon2id hashing and DB-backed sessions. No third-party auth provider is involved.",
       },
     ],
     links: {
@@ -109,14 +109,14 @@ export const PROJECTS: Project[] = [
     decisionRecord: {
       date: "2026-05",
       before: "Cloudflare Workers via OpenNext",
-      after: "Self-hosted Node process behind a Cloudflare Tunnel",
-      why: "The operational tradeoffs of the serverless path showed up in production. It's the kind of call you only get right by shipping the wrong one first.",
+      after: "Self-hosted PM2 process behind a Cloudflare Tunnel",
+      why: "Part of a one-day move to self-hosting: the same day's commits removed the external AI, email, and Stripe integrations and deleted the Workers configuration.",
     },
     caseStudy: {
       problem:
-        "Sharing a Markdown file with someone means sending a raw .md file, pasting it into a doc tool that reformats it badly, or standing up a static site generator for one page. The fast options don't render properly; the option that renders properly isn't fast.",
+        "Sharing a Markdown file with someone means sending a raw .md file, pasting it into a doc tool that reformats it badly, or standing up a static site generator for one page.",
       decision:
-        "Built Booklet as a full product around one conversion: paste or write Markdown, get a rendered, shareable URL immediately, with the same pipeline (unified/remark, GFM, math, Mermaid) backing a web editor, a REST API, a CLI, a VS Code extension, a GitHub Action, and an MCP server. Shipped on Cloudflare Workers via OpenNext first, then rolled the app back to a self-hosted PM2 process behind a Cloudflare Tunnel in May 2026 once the operational tradeoffs of the serverless path showed up in production.",
+        "Built Booklet as a full product around one conversion: paste or write Markdown, get a rendered, shareable URL immediately, with the same pipeline (unified/remark, GFM, math, Mermaid) backing a web editor, a REST API, a CLI, a VS Code extension, a GitHub Action, and an MCP server. Shipped on Cloudflare Workers via OpenNext first, then rolled the app back to a self-hosted PM2 process behind a Cloudflare Tunnel in May 2026, the same day its external AI, email, and Stripe integrations were removed.",
       outcome:
         "One Markdown pipeline now serves five different ways of publishing a page: from a browser, a terminal, an editor, a CI pipeline, or an AI assistant, all against the same versioned API.",
     },
@@ -128,8 +128,8 @@ export const PROJECTS: Project[] = [
     category: "Encrypted messaging",
     tagline: "Burner chats. No accounts. No history. End-to-end encrypted, gone in 24 hours.",
     description: [
-      "BRNR is ephemeral, end-to-end encrypted messaging: a 12-character code starts a chat between two people, every message expires after 24 hours, and there's no account system to compromise. Redis is the only persistence layer: every key is TTL'd, so data doesn't outlive its purpose by design, not by policy. Encryption is an X3DH-style handshake feeding a Double Ratchet, implemented in a dedicated brnr-crypto workspace with its own test suite covering key derivation, padding, safety numbers, and the ratchet itself. That isolation means the cryptographic core can be reasoned about on its own.",
-      "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, a Vite/React web client, an Expo/React Native mobile client, and shared contracts and crypto primitives as their own workspaces in a Turbo monorepo. The web client is the currently published surface. The server is architecturally blind to plaintext (it only ever sees ciphertext once the handshake completes), and the logger is configured to redact message and ciphertext fields outright. It's licensed AGPL-3.0, deliberately: any modifications to the server-side code have to stay open.",
+      "BRNR is ephemeral, end-to-end encrypted messaging: a 12-character code starts a chat between two people, every message expires after 24 hours, and there's no account system to compromise. Redis is the only persistence layer and every key has a TTL, so expiry is enforced by the datastore and does not depend on a retention policy. Encryption is an X3DH-style handshake feeding a Double Ratchet, implemented in a dedicated brnr-crypto workspace with its own test suite covering key derivation, padding, safety numbers, and the ratchet itself. Keeping it in its own workspace means the cryptographic core can be reviewed and tested apart from the rest of the app.",
+      "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, a Vite/React web client, an Expo/React Native mobile client, and shared contracts and crypto primitives as their own workspaces in a Turbo monorepo. The web client is the currently published surface. The server never sees plaintext: once the handshake completes it handles only ciphertext, and the logger redacts message and ciphertext fields. It's licensed AGPL-3.0 so that anyone who runs a modified server has to publish the changes.",
     ],
     stack: ["NestJS 11", "Redis 7", "Socket.IO", "Vite / React", "Expo / React Native", "Turborepo"],
     facts: [
@@ -146,17 +146,17 @@ export const PROJECTS: Project[] = [
       {
         title: "Server-blind by architecture",
         detail:
-          "The backend only ever handles ciphertext once the handshake completes, and the logger redacts message/ciphertext fields outright. Privacy enforced in code, not policy.",
+          "The backend only ever handles ciphertext once the handshake completes, and the logger redacts message and ciphertext fields.",
       },
       {
         title: "Redis-only, hard TTLs, zero accounts",
         detail:
-          "No database, no user table, no message history past 24 hours. Nothing to breach because nothing durable exists to steal.",
+          "There is no user table and no message history past 24 hours, so a breach finds nothing durable to take.",
       },
       {
         title: "AGPL-3.0 on purpose",
         detail:
-          "Chosen specifically so that anyone running a modified server has to publish those modifications: a deliberate license decision, not a default.",
+          "Chosen so that anyone running a modified server has to publish those modifications.",
       },
     ],
     links: {
@@ -164,9 +164,9 @@ export const PROJECTS: Project[] = [
     },
     caseStudy: {
       problem:
-        "Most messaging apps that promise privacy still keep an account system or a message history somewhere on the server — either one is something to compromise or subpoena later.",
+        "Messaging apps that promise privacy often still keep an account system or a message history somewhere on the server, and either one can be compromised or subpoenaed later.",
       decision:
-        "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet implemented in its own tested crypto workspace, and Redis is the only datastore, with every key TTL'd so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes, and the AGPL-3.0 license was chosen specifically so a modified server has to stay open.",
+        "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet implemented in its own tested crypto workspace, and Redis is the only datastore, with every key TTL'd so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes, and the AGPL-3.0 license was chosen so that a modified server has to stay open.",
       outcome:
         "Nothing durable exists to breach: there's no user table or message history, and no plaintext touches the server after the handshake completes.",
     },
@@ -183,8 +183,8 @@ export const PROJECTS: Project[] = [
     category: "Developer tool",
     tagline: "The API client that can't rug-pull you: local-first, no account, client-side encrypted vault.",
     description: [
-      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a Postman-grade response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2 with 200,000 iterations derives an AES-GCM-256 key that's held in memory only, so only ciphertext ever touches storage. Scripts run sandboxed inside an isolated Web Worker with no DOM, cookie, or network access, so a pasted test script can't exfiltrate anything even if it wanted to.",
-      "It was renamed from API Sandbox to Wayfarer partway through its life: same app, same local-first storage model, same MIT license, just a name that fit better. There's also an optional local-bridge, a small Node CLI for CORS/intranet relay when a request needs to reach somewhere the browser can't. The positioning is direct: there's no update, acquisition, or pricing page that can gate access to data you already own.",
+      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a Postman-grade response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2 with 200,000 iterations derives an AES-GCM-256 key that's held in memory only, so only ciphertext ever touches storage. Scripts run sandboxed inside an isolated Web Worker with no DOM, cookie, or network access, so a pasted test script has no way to send data anywhere.",
+      "It was renamed from API Sandbox to Wayfarer partway through its life. The app, the local-first storage model, and the MIT license stayed the same. There's also an optional local-bridge, a small Node CLI for CORS/intranet relay when a request needs to reach somewhere the browser can't. No update, acquisition, or pricing change can gate access to data you already own.",
     ],
     stack: ["Angular 20", "PrimeNG", "IndexedDB", "Monaco Editor", "RxJS"],
     facts: [
@@ -201,17 +201,17 @@ export const PROJECTS: Project[] = [
       {
         title: "Sandboxed script execution",
         detail:
-          "Pre/post-request scripts run inside an isolated Web Worker with no DOM, cookie, or network access. Untrusted scripts stay untrusted.",
+          "Pre/post-request scripts run inside an isolated Web Worker with no DOM, cookie, or network access.",
       },
       {
         title: "Nothing to rug-pull",
         detail:
-          "No account, no hosted backend, no pricing tier that can change under you. HAR 1.2 export means your data leaves in a standard format whenever you want.",
+          "There is no account, hosted backend, or pricing tier that can change under you. HAR 1.2 export lets you take your data out in a standard format at any time.",
       },
       {
-        title: "A disclosed rename, not a silent rewrite",
+        title: "A disclosed rename",
         detail:
-          "API Sandbox became Wayfarer with the same storage model and license carried forward. The history is documented, not hidden.",
+          "API Sandbox became Wayfarer with the same storage model and license carried forward.",
       },
     ],
     links: {
@@ -228,15 +228,15 @@ export const PROJECTS: Project[] = [
       date: "2026-07",
       before: "API Sandbox",
       after: "Wayfarer",
-      why: "Same local-first storage model, same MIT license, just a name that fit the product better. Shipped as v1.0.0 of the new name, not a quiet find-and-replace.",
+      why: "The new name fit the product better. The local-first storage model and the MIT license carried over, and the rename shipped as v1.0.0 under the new name.",
     },
     caseStudy: {
       problem:
         "API clients that store your secrets ask you to trust their account system and their pricing page with the credentials you paste into them.",
       decision:
-        "Built Wayfarer to run entirely client-side: collections and requests live in IndexedDB, and secrets get their own vault where PBKDF2 (200,000 iterations) derives an AES-GCM-256 key held only in memory, so IndexedDB never sees anything but ciphertext. Renamed from API Sandbox to Wayfarer mid-life, same storage model and license carried forward, shipped as v1.0.0 of the new name rather than a quiet find-and-replace.",
+        "Built Wayfarer to run entirely client-side: collections and requests live in IndexedDB, and secrets get their own vault where PBKDF2 (200,000 iterations) derives an AES-GCM-256 key held only in memory, so IndexedDB never sees anything but ciphertext. Renamed from API Sandbox to Wayfarer mid-life, with the storage model and license carried forward, and shipped as v1.0.0 under the new name.",
       outcome:
-        "No account, no backend, nothing that can gate access to data that was always yours — and pre/post-request scripts run sandboxed in a Web Worker with no DOM, cookie, or network access, so a pasted script can't exfiltrate anything even if it tried.",
+        "There is no account or backend, so nothing can gate access to your own data. Pre/post-request scripts run sandboxed in a Web Worker with no DOM, cookie, or network access, so a pasted script has no way to send anything out.",
     },
   },
   {
@@ -245,12 +245,12 @@ export const PROJECTS: Project[] = [
     category: "Angular library",
     tagline: "Runtime internationalization for Angular: switch languages without a rebuild, without breaking SSR.",
     description: [
-      "Angular's built-in i18n compiles a separate build per locale, so switching languages means reloading against a different bundle. ngx-runtime-i18n fixes that: language catalogs load and swap at runtime behind a signal, while SSR output stays deterministic through Angular's TransferState. No flash of untranslated content, no DOM mutation before the app is stable.",
-      "It's three published, versioned npm packages inside an Nx monorepo: a framework-agnostic core, an Angular wrapper with signals and an optional RxJS compat layer, and a PrimeNG adapter, so consumers install only what they need. Two demo apps, one CSR and one SSR with Express, exercise the whole pipeline end to end.",
+      "Angular's built-in i18n compiles a separate build per locale, so switching languages means reloading against a different bundle. ngx-runtime-i18n fixes that: language catalogs load and swap at runtime behind a signal, while SSR output stays deterministic through Angular's TransferState. There is no flash of untranslated content and no DOM mutation before the app is stable.",
+      "It's six published, versioned npm packages inside an Nx monorepo: a framework-agnostic core, an Angular wrapper with signals and an optional RxJS compat layer, PrimeNG and Angular Material adapters, schematics, and a CLI. Consumers install only what they need. Two demo apps, one CSR and one SSR with Express, exercise the whole pipeline end to end.",
     ],
     stack: ["Angular (signals)", "TypeScript", "Nx monorepo", "Jest"],
     facts: [
-      { label: "Packages", value: "3 published on npm: core, angular, primeng" },
+      { label: "Packages", value: "6 published on npm: core, angular, primeng, material, schematics, cli" },
       { label: "Demos", value: "CSR + SSR/Express" },
       { label: "License", value: "MIT" },
     ],
@@ -263,7 +263,7 @@ export const PROJECTS: Project[] = [
       {
         title: "SSR-safe hydration",
         detail:
-          "Catalogs travel from server to client via TransferState snapshots, so the first paint and the hydrated app always agree. No flicker, no re-fetch.",
+          "Catalogs travel from server to client via TransferState snapshots, so the first paint and the hydrated app always agree, with no flicker and no re-fetch.",
       },
       {
         title: "Configurable fallback chains",
@@ -305,8 +305,8 @@ export const PROJECTS: Project[] = [
     category: "Web game",
     tagline: "A keyboard-first typing speed game: chase a streak multiplier, beat your best score.",
     description: [
-      "Typester is a ground-up rebuild of a 2018 Angular 7 app. Nothing carried forward but the core idea. The original manipulated the DOM directly with getElementById and setInterval outside Angular's reactivity, gated navigation through a mutable bag of untyped booleans, and shipped a settings screen that saved nothing. Every architectural decision in the rebuild traces back to one of those defects, logged with its own before/after reasoning in the project's ARCHITECTURE.md.",
-      "The result is zoneless, standalone, and signals-first with no NgRx. A game session is a couple of plain injectable signal services, unit-tested without TestBed. Game configuration lives in the URL, not shared-service state, so a round is shareable, bookmarkable, and safe to refresh mid-game. It builds to a fully static, prerendered site with no Node server at runtime, deployed straight from Git through Cloudflare Workers Builds. No CI pipeline, no server to patch.",
+      "Typester is a ground-up rebuild of a 2018 Angular 7 app that keeps only the core idea. The original manipulated the DOM directly with getElementById and setInterval outside Angular's reactivity, gated navigation through a mutable bag of untyped booleans, and shipped a settings screen that saved nothing. Every architectural decision in the rebuild traces back to one of those defects, logged with its own before/after reasoning in the project's ARCHITECTURE.md.",
+      "The result is zoneless, standalone, and signals-first with no NgRx. A game session is a couple of plain injectable signal services, unit-tested without TestBed. Game configuration lives in the URL, not shared-service state, so a round is shareable, bookmarkable, and safe to refresh mid-game. It builds to a fully static, prerendered site with no Node server at runtime, deployed straight from Git through Cloudflare Workers Builds, with no CI pipeline and no server to patch.",
     ],
     stack: ["Angular 22 (zoneless, signals)", "Tailwind CSS v4", "Vitest", "Playwright"],
     facts: [
@@ -318,7 +318,7 @@ export const PROJECTS: Project[] = [
       {
         title: "URL-driven game state",
         detail:
-          "The entire game config is validated route params, not a mutable service. Refresh, share, or bookmark a round mid-play and it just works.",
+          "The entire game config is validated route params, not a mutable service, so a round survives a refresh and can be shared or bookmarked mid-play.",
       },
       {
         title: "Deterministic daily challenge",
@@ -328,12 +328,12 @@ export const PROJECTS: Project[] = [
       {
         title: "Zoneless, signals-first, no NgRx",
         detail:
-          "The game engine, daily challenge, and stats/settings each live in a small, pure, testable signal service. No external state library.",
+          "The game engine, daily challenge, and stats/settings each live in a small, pure, testable signal service, with no external state library.",
       },
       {
         title: "Static, zero-ops deploy",
         detail:
-          "Prerendered output with no Node server at runtime, deployed straight from Git through Cloudflare Workers Builds. No GitHub Actions, no server to maintain.",
+          "Prerendered output with no Node server at runtime, deployed straight from Git through Cloudflare Workers Builds, with no GitHub Actions and no server to maintain.",
       },
     ],
     links: {
@@ -360,8 +360,8 @@ export const PROJECTS: Project[] = [
     category: "Browser extension",
     tagline: "A free, cross-browser dark-mode engine that never touches your photos or video.",
     description: [
-      "Darkframe is a free, open-source dark-mode engine for Chrome and Safari, built as a constructive overhaul of how tools in this category usually work. Images and video are never altered: a classifier scores color diversity and edge density rather than raw brightness, and leans toward leaving anything it's unsure about untouched, with <video>/<canvas>/<audio> unconditionally excluded. Theming applies as a single additive CSS Cascade Layer rather than rewriting a page's own stylesheets in place, with a CSSOM-direct-rewrite fallback for engines without Cascade Layer support.",
-      "The core engine (OKLCH-native perceptual recoloring, a WCAG 2.1 contrast solver, the image/media classifier) is framework-agnostic, with 144 passing unit tests. A Chrome MV3 extension is verified end-to-end against a real Chromium instance via Playwright, and a real, buildable macOS Safari Web Extension Xcode project is generated via Apple's own safari-web-extension-converter and confirmed to build and launch locally. The project has also been through a dedicated security audit and a separate architecture/quality review, with the findings from both disclosed in its CHANGELOG.md rather than quietly folded in.",
+      "Darkframe is a free, open-source dark-mode engine for Chrome and Safari. Images and video are never altered. A classifier scores color diversity and edge density rather than raw brightness and leaves anything it's unsure about untouched, and <video>/<canvas>/<audio> are excluded unconditionally. Theming applies as a single additive CSS Cascade Layer rather than rewriting a page's own stylesheets in place. Engines without Cascade Layer support get a CSSOM-direct-rewrite fallback.",
+      "The core engine (OKLCH-native perceptual recoloring, a WCAG 2.1 contrast solver, the image/media classifier) is framework-agnostic, with 144 passing unit tests. The Chrome MV3 extension is verified end to end against a Chromium instance via Playwright. The macOS Safari Web Extension Xcode project is generated with Apple's safari-web-extension-converter and confirmed to build and launch locally. The project has also been through a security audit and a separate architecture/quality review, and the findings from both are disclosed in its CHANGELOG.md.",
     ],
     stack: ["TypeScript", "Chrome MV3", "Safari Web Extension", "OKLCH", "Playwright", "Vitest"],
     facts: [
@@ -371,9 +371,9 @@ export const PROJECTS: Project[] = [
     ],
     highlights: [
       {
-        title: "Image-safe by construction, not by exception list",
+        title: "Image-safe by classifier, with no domain blocklist",
         detail:
-          "A color-diversity/edge-density classifier decides what's a photo, not a domain blocklist. <video>/<canvas>/<audio> are excluded unconditionally, and anything the classifier is unsure about is left alone.",
+          "A classifier that scores color diversity and edge density decides what is a photo. <video>/<canvas>/<audio> are excluded unconditionally, and anything the classifier is unsure about is left alone.",
       },
       {
         title: "Additive, not destructive",
@@ -381,14 +381,14 @@ export const PROJECTS: Project[] = [
           "Theming is a single injected CSS Cascade Layer; a page's own stylesheets are never rewritten in place. A CSSOM-direct-rewrite fallback covers engines without Cascade Layer support.",
       },
       {
-        title: "A disclosed security fix, not a silent patch",
+        title: "A disclosed security fix",
         detail:
-          "A High-severity CSS injection vulnerability, found via unescaped control characters in a generated image-selector attribute, is documented in CHANGELOG.md with the exact mechanism and the fix, not just a version bump.",
+          "A High-severity CSS injection vulnerability, found via unescaped control characters in a generated image-selector attribute, is documented in CHANGELOG.md with the exact mechanism and the fix.",
       },
       {
-        title: "Real store-ready builds, not a demo",
+        title: "Store-ready builds for both browsers",
         detail:
-          "Both the Chrome and Safari listings are fully prepared (packaged build, screenshots, promo art, privacy copy) — submission is blocked on account/identity steps outside the code, not on the software being unfinished.",
+          "Both the Chrome and Safari listings are fully prepared (packaged build, screenshots, promo art, privacy copy). Submission is waiting on account and identity steps outside the code.",
       },
     ],
     links: {
@@ -420,11 +420,11 @@ export const PROJECTS: Project[] = [
     },
     caseStudy: {
       problem:
-        "Most dark-mode browser extensions recolor everything indiscriminately, including photos and video, which is why so many of them get uninstalled the first time an image looks wrong.",
+        "Dark-mode browser extensions often recolor everything on the page, including photos and video.",
       decision:
-        "Built Darkframe's classifier to score color diversity and edge density rather than raw brightness, defaulting to leaving anything it's unsure about untouched, with video, canvas, and audio excluded unconditionally. Theming applies as one additive CSS Cascade Layer instead of rewriting a page's own stylesheets. Shipped under the name Umbra first, then renamed to Darkframe (npm scope, extension name, storage keys, CSS layer name, and the Safari Xcode project, all of it) after a shipping-readiness review found an existing, active Chrome extension called \"Umbra Dark Mode.\"",
+        "Built Darkframe's classifier to score color diversity and edge density rather than raw brightness, defaulting to leaving anything it's unsure about untouched, with video, canvas, and audio excluded unconditionally. Theming applies as one additive CSS Cascade Layer instead of rewriting a page's own stylesheets. Shipped under the name Umbra first, then renamed to Darkframe (npm scope, extension name, storage keys, CSS layer name, and the Safari Xcode project) after a shipping-readiness review found an existing, active Chrome extension called \"Umbra Dark Mode.\"",
       outcome:
-        "144 passing unit tests back a Chrome MV3 build that's E2E-verified against real Chromium, plus a real, buildable Safari Xcode project. One disclosed and fixed High-severity CSS injection vulnerability is documented in CHANGELOG.md, not quietly patched.",
+        "144 passing unit tests back a Chrome MV3 build that's E2E-verified against real Chromium, plus a Safari Xcode project that builds. One High-severity CSS injection vulnerability was found, fixed, and documented in CHANGELOG.md.",
     },
   },
   {
@@ -433,35 +433,35 @@ export const PROJECTS: Project[] = [
     category: "Open-source library",
     tagline: "The Mongoose-native database adapter Better Auth's own GitHub issues have been asking for since February 2025.",
     description: [
-      "Better Auth's official MongoDB adapter talks to the raw mongodb driver, not Mongoose, the standard ODM for Node and close to universal in NestJS or Express backends. For an app that already uses Mongoose, that forces an extra dependency, two parallel database connections with no shared schema or validation, and broken .populate() calls against anything Better Auth creates. Those are real, long-documented problems on Better Auth's own GitHub, with no first-party fix and no answer beyond a manual workaround that sidesteps the schema and validation problems rather than solving them.",
-      "better-auth-mongoose closes that gap properly: Better Auth's own collections become real, registered Mongoose models, extensible the same way any other model in the app is. The differentiator isn't a claim: packages/better-auth-mongoose/test/populate.test.ts is the unit-level proof, and examples/nestjs-mongoose runs the same thing end to end inside a real NestJS app over real HTTP, on every push via CI. It also passes Better Auth's own official adapter contract test suite. A companion tenant-scoping plugin adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin.",
+      "Better Auth's official MongoDB adapter talks to the raw mongodb driver, not Mongoose, the usual ODM in NestJS and Express backends. For an app that already uses Mongoose, that forces an extra dependency, two parallel database connections with no shared schema or validation, and broken .populate() calls against anything Better Auth creates. Those problems have been documented on Better Auth's own GitHub since February 2025. There is no first-party fix, and the manual workaround leaves the schema and validation problems in place.",
+      "better-auth-mongoose registers Better Auth's own collections as Mongoose models, extensible the same way any other model in the app is. packages/better-auth-mongoose/test/populate.test.ts tests .populate() directly, and examples/nestjs-mongoose runs the same path end to end inside a NestJS app over HTTP, on every push via CI. It also passes Better Auth's own official adapter contract test suite. A companion tenant-scoping plugin adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin.",
     ],
     stack: ["TypeScript", "Mongoose", "Better Auth", "Turborepo", "Changesets", "NestJS"],
     facts: [
-      { label: "Published", value: "npm, v0.1.1" },
-      { label: "Proof", value: "CI-run test + real NestJS example, not just a claim" },
+      { label: "Published", value: "npm, v0.1.2" },
+      { label: "Proof", value: "CI-run test + NestJS example app" },
       { label: "License", value: "MIT" },
     ],
     highlights: [
       {
-        title: "Closes a gap Better Auth's own issue tracker has open since Feb 2025",
+        title: "Closes a gap open on Better Auth's issue tracker since Feb 2025",
         detail:
-          "Cites the specific upstream issues and discussions the gap comes from, rather than asserting a problem exists. The fix is real, registered Mongoose models, not a workaround.",
+          "Cites the specific upstream issues and discussions the gap comes from. The fix is registered Mongoose models in place of the manual workaround.",
       },
       {
         title: ".populate() works, proven in CI",
         detail:
-          "A dedicated unit test proves the differentiator directly, and a full NestJS example app exercises the same path over real HTTP on every push.",
+          "A dedicated unit test covers .populate() against a user Better Auth created, and a full NestJS example app exercises the same path over HTTP on every push.",
       },
       {
         title: "Passes Better Auth's own adapter contract suite",
         detail:
-          "Not just internally tested: validated against @better-auth/test-utils, the same conformance suite the official adapters are held to.",
+          "Validated against @better-auth/test-utils, the same conformance suite the official adapters run.",
       },
       {
-        title: "A tenant-scoping plugin, not just an adapter",
+        title: "A companion tenant-scoping plugin",
         detail:
-          "A companion package adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin. The adapter and the multi-tenancy concern are separated, not bundled.",
+          "A companion package adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin. It ships separately from the adapter.",
       },
     ],
     links: {
@@ -496,7 +496,7 @@ export const auth = betterAuth({
     tagline: "A Claude Code skill that guides how Claude writes prose so it doesn't read as machine-written. Its rules come from cited 2026 research and were tested blind before release.",
     description: [
       "Text reads as machine-written when every choice in it would suit any reader and any subject: the safe claim, the impressive word, the sentence shape that worked last time. This skill applies while Claude is writing, where the widely used alternatives are rewrite tools run over a finished draft. Its rules cover claims (specific, checkable, never invented), sentence shape, and endings, and a Scope section says where they give way: API docs, legal text, fiction, marketing copy, someone else's own writing. It is written for human readers and says plainly that it does not change AI-detector scores.",
-      "Version 2.0.0 (October 2026) came out of an audit of the first release. The tells had moved since 2023: a four-model study by The Economist found the signal now sits in long noun-heavy sentences and thin punctuation, and Anthropic's own prompting guide names metaphor in place of plain statement as a habit of its current model. The 1.x rewritten examples had swapped the old tells for the new ones and added facts their originals did not contain. The rules were rewritten against those sources and judged in shuffled blind pairs. Two model judges each preferred 2.0.0 to no skill in 5 of 6 pairs. An earlier draft did no better than the previous version, and that round is published in the repo along with the pairs it lost.",
+      "Version 2.0.0 (October 2026) came out of an audit of the first release. The tells had moved since 2023: a four-model study by The Economist found the signal now sits in long noun-heavy sentences and thin punctuation, and Anthropic's own prompting guide names metaphor in place of plain statement as a habit of its current model. The 1.x rewritten examples had swapped the old tells for the new ones and added facts their originals did not contain. The rules were rewritten against those sources and judged in shuffled blind pairs. Two model judges each preferred 2.0.0 to no skill in 5 of 6 pairs. An earlier draft lost to the previous version, and that round is published in the repo along with the pairs it lost.",
     ],
     stack: ["Claude Code", "Markdown", "Python", "Research synthesis"],
     facts: [

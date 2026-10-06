@@ -56,9 +56,9 @@ the code himself.
 **Backend:** Node.js, NestJS, Express
 **Data:** MongoDB
 **Cloud & DevOps:** GCP, AWS, Docker, GitHub Actions
-**Languages:** TypeScript, JavaScript, Python, HTML/CSS
+**Languages:** TypeScript, JavaScript, Python
 **AI & Tooling:** Claude Code, OpenAI Codex
-**Practices:** SaaS architecture, multi-tenancy, RBAC, Agile and Scrum
+**Practices:** SaaS architecture, multi-tenancy, RBAC
 
 ## Education
 

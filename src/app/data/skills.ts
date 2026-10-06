@@ -30,7 +30,6 @@ export const SKILL_GROUPS: SkillGroup[] = [
       { name: "TypeScript" },
       { name: "JavaScript" },
       { name: "Python" },
-      { name: "HTML / CSS" },
     ],
   },
   {
@@ -43,7 +42,6 @@ export const SKILL_GROUPS: SkillGroup[] = [
       { name: "SaaS Architecture" },
       { name: "Multi-tenancy" },
       { name: "RBAC" },
-      { name: "Agile & Scrum" },
     ],
   },
 ];

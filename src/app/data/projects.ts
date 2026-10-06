@@ -179,10 +179,10 @@ export const PROJECTS: Project[] = [
     },
     media: {
       kind: "screenshot",
-      src: "/projects/brnr/hero.png",
+      src: "/projects/brnr/chat.png",
       width: 1280,
       height: 800,
-      alt: "BRNR's cryptographic fingerprint screen: four emoji derived from the session's safety number, used to confirm a connection hasn't been intercepted.",
+      alt: "A BRNR chat between two browsers: four end-to-end encrypted messages under a header showing the 12-character chat code, an Encrypted status, session expiry and the emoji safety number.",
     },
   },
   {

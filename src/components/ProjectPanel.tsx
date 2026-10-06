@@ -3,6 +3,7 @@ import { ViewTransition } from "react";
 import type { Project } from "@/app/data/projects";
 import ArrowLink from "@/components/ArrowLink";
 import ProjectMedia from "@/components/ProjectMedia";
+import { StatusTag } from "@/components/ProjectRow";
 
 export type ProjectPanelProps = {
   project: Project;
@@ -39,9 +40,10 @@ export default function ProjectPanel({ project, index, flip, priority, as: Headi
       </Link>
 
       <div className="reveal flex min-w-0 flex-col gap-5 lg:col-span-5">
-        <p className="flex items-baseline gap-3 font-mono text-meta text-fg-3">
+        <p className="flex flex-wrap items-center gap-3 font-mono text-meta text-fg-3">
           <span>{String(index + 1).padStart(2, "0")}</span>
           <span>{project.category}</span>
+          {project.status && <StatusTag>{project.status}</StatusTag>}
         </p>
         <Heading className="font-display text-display-m font-semibold tracking-[-0.03em] wrap-anywhere">
           {project.name}

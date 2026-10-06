@@ -130,11 +130,14 @@ export const PROJECTS: Project[] = [
     slug: "brnr",
     name: "BRNR",
     featured: true,
+    // Hosted instance taken down 2026-10-06. Restore `links.live`
+    // (https://brnr.ashwinsathian.com) and drop this when it is back up.
+    status: "Hosted instance offline",
     category: "Encrypted messaging",
     tagline: "Burner chats. No accounts. No history. End-to-end encrypted, gone in 24 hours.",
     description: [
       "BRNR is ephemeral, end-to-end encrypted messaging: a 12-character code starts a chat between two people, every message expires after 24 hours, and there's no account system to compromise. Redis is the only persistence layer and every key has a TTL, so expiry is enforced by the datastore and does not depend on a retention policy. Encryption is an X3DH-style handshake feeding a Double Ratchet, implemented in a dedicated brnr-crypto workspace with its own test suite covering key derivation, padding, safety numbers, and the ratchet itself. Keeping it in its own workspace means the cryptographic core can be reviewed and tested apart from the rest of the app.",
-      "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, a Vite/React web client, an Expo/React Native mobile client, and shared contracts and crypto primitives as their own workspaces in a Turbo monorepo. The web client is the currently published surface. The server never sees plaintext: once the handshake completes it handles only ciphertext, and the logger redacts message and ciphertext fields. It's licensed AGPL-3.0 so that anyone who runs a modified server has to publish the changes.",
+      "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, a Vite/React web client, an Expo/React Native mobile client, and shared contracts and crypto primitives as their own workspaces in a Turbo monorepo. The web client is the published surface; its hosted instance is offline for now. The server never sees plaintext: once the handshake completes it handles only ciphertext, and the logger redacts message and ciphertext fields. It's licensed AGPL-3.0 so that anyone who runs a modified server has to publish the changes.",
     ],
     stack: ["NestJS 11", "Redis 7", "Socket.IO", "Vite / React", "Expo / React Native", "Turborepo"],
     facts: [
@@ -165,7 +168,6 @@ export const PROJECTS: Project[] = [
       },
     ],
     links: {
-      live: "https://brnr.ashwinsathian.com",
       github: "https://github.com/AshwinSathian/brnr",
     },
     repo: { owner: "AshwinSathian", repo: "brnr" },

@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPost, getPostSlugs } from "@/lib/writing";
+import { getAllPosts, getPost, getPostSlugs } from "@/lib/writing";
+import KineticHeading from "@/components/KineticHeading";
 import PostBody from "@/components/writing/PostBody";
 import type { Metadata } from "next";
 
@@ -9,6 +10,9 @@ const siteUrl = "https://ashwinsathian.com";
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+// Posts are files in the repo, so every valid slug is known at build time.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return getPostSlugs().map((slug) => ({ slug }));
@@ -92,75 +96,75 @@ export default async function PostPage({ params }: Props) {
     ...(meta.tags && { keywords: meta.tags.join(", ") }),
   };
 
+  const posts = getAllPosts();
+  const position = posts.findIndex((p) => p.slug === slug);
+  // List is newest-first, so the previous index is the newer post.
+  const newer = position > 0 ? posts[position - 1] : undefined;
+  const older = position >= 0 ? posts[position + 1] : undefined;
+
   return (
-    <div className="min-h-svh px-6 pb-24 pt-40 md:px-16">
+    <article>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <div className="mx-auto max-w-3xl">
-        <Link
-          href="/writing"
-          className="font-ui text-micro font-medium uppercase tracking-widest text-ink-muted transition-colors duration-200 hover:text-ink"
-        >
-          Writing
+      <div aria-hidden className="progress" />
+
+      <header className="shell pb-10 pt-28 lg:pb-16 lg:pt-40">
+        <Link href="/writing" className="load-rise mb-6 inline-flex min-h-11 items-center gap-2 text-small text-fg-3 hover:text-fg active:text-fg">
+          <span aria-hidden>←</span>
+          <span className="link">Writing</span>
         </Link>
 
-        <h1 className="mt-6 font-display text-display-2 font-semibold text-ink leading-tight tracking-[-0.02em]">
-          {meta.title}
-        </h1>
+        <KineticHeading
+          text={meta.title}
+          className="max-w-4xl font-display text-display-l font-semibold tracking-[-0.035em]"
+        />
 
-        <div className="mt-4 flex flex-wrap items-center gap-2 font-data text-[13px] text-ink-muted">
-          <span>{meta.formattedDate}</span>
-          {meta.formattedUpdatedAt && meta.formattedUpdatedAt !== meta.formattedDate && (
-            <>
-              <span>·</span>
-              <span>Updated {meta.formattedUpdatedAt}</span>
-            </>
-          )}
-          <span>·</span>
-          <span>{meta.readingTime} min read</span>
-          {meta.draft && (
-            <span className="rounded-full border border-line px-2 py-0.5 text-[10px] text-ink-muted">
-              Draft
-            </span>
-          )}
-        </div>
-
-        <p className="mt-6 max-w-2xl font-body text-[17px] leading-relaxed text-ink-muted">
+        <p className="load-rise mt-6 max-w-2xl text-[1.1875rem] leading-[1.5] text-fg-2" style={{ "--d": "350ms" } as React.CSSProperties}>
           {meta.description}
         </p>
 
-        {meta.tags && meta.tags.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {meta.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-line px-3 py-0.5 font-ui text-[11px] text-ink-muted"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
+        <p className="load-rise mt-6 flex flex-wrap gap-x-3 gap-y-1 font-mono text-meta text-fg-3" style={{ "--d": "450ms" } as React.CSSProperties}>
+          <span>{meta.formattedDate}</span>
+          {meta.formattedUpdatedAt && meta.formattedUpdatedAt !== meta.formattedDate && (
+            <span>· Updated {meta.formattedUpdatedAt}</span>
+          )}
+          <span>· {meta.readingTime} min read</span>
+          {meta.draft && <span>· Draft</span>}
+          {meta.tags && meta.tags.length > 0 && <span>· {meta.tags.join(", ")}</span>}
+        </p>
+      </header>
 
-        <hr className="mt-12 border-t border-line" />
-
-        <div className="mt-12">
-          <PostBody content={content} />
-        </div>
-
-        <hr className="mt-16 border-t border-line" />
-
-        <div className="mt-8">
-          <Link
-            href="/writing"
-            className="font-ui text-[15px] text-ink-muted transition-colors duration-200 hover:text-ink"
-          >
-            ← Writing
-          </Link>
-        </div>
+      <div className="shell border-t border-line py-12 lg:py-20">
+        <PostBody content={content} />
       </div>
-    </div>
+
+      {(newer || older) && (
+        <nav aria-label="More writing" className="border-t border-line">
+          <div className="shell grid sm:grid-cols-2 sm:gap-x-12">
+            {[
+              ["Older", older],
+              ["Newer", newer],
+            ].map(([label, post], i) =>
+              post && typeof post !== "string" ? (
+                <Link
+                  key={post.slug}
+                  href={`/writing/${post.slug}`}
+                  className={`row flex flex-col gap-2 rounded-control border-b border-line py-8 last:border-b-0 sm:border-b-0 sm:py-12 ${i === 1 ? "sm:items-end sm:text-right" : ""}`}
+                >
+                  <span className="text-small text-fg-3">{label as string}</span>
+                  <span className="font-display text-title font-semibold tracking-[-0.02em] text-fg">
+                    {post.title}
+                  </span>
+                </Link>
+              ) : (
+                <span key={label as string} className="hidden sm:block" />
+              )
+            )}
+          </div>
+        </nav>
+      )}
+    </article>
   );
 }

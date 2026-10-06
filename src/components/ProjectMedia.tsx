@@ -4,49 +4,41 @@ import type { ProjectMedia as ProjectMediaData } from "@/app/data/projects";
 export type ProjectMediaProps = {
   media: ProjectMediaData;
   priority?: boolean;
+  /** `sizes` hint for the screenshot; defaults to full container width. */
+  sizes?: string;
 };
 
-export default function ProjectMedia({ media, priority }: ProjectMediaProps) {
-  return (
-    <div className="flex h-64 items-center justify-center overflow-hidden rounded border border-line bg-paper-raised md:h-80">
-      {media.kind === "screenshot" && (
-        <div className="flex h-full w-full min-w-0 flex-col">
-          <div className="flex shrink-0 items-center gap-1.5 border-b border-line bg-paper px-4 py-2.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-ink-muted/40" />
-            <span className="h-2.5 w-2.5 rounded-full bg-ink-muted/40" />
-            <span className="h-2.5 w-2.5 rounded-full bg-ink-muted/40" />
-          </div>
-          {/* A screenshot's own UI can be light or dark; the inset ring plus
-             corner scrim keep any capture from reading as a stark rectangle
-             cut into the dark page. */}
-          <div className="relative flex-1">
-            <Image
-              src={media.src}
-              alt={media.alt}
-              fill
-              priority={priority}
-              className="object-cover object-top"
-              sizes="(min-width: 768px) 50vw, 100vw"
-            />
-            <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.35)]" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-black/25 to-transparent" />
-          </div>
-        </div>
-      )}
+/** A project's hero media: the real screenshot at its natural ratio, or a code sample. */
+export default function ProjectMedia({
+  media,
+  priority,
+  sizes = "(min-width: 1200px) 1104px, 100vw",
+}: ProjectMediaProps) {
+  if (media.kind === "screenshot") {
+    return (
+      <div className="overflow-hidden rounded-panel border border-line-strong bg-surface">
+        <Image
+          src={media.src}
+          alt={media.alt}
+          width={media.width}
+          height={media.height}
+          priority={priority}
+          sizes={sizes}
+          className="block h-auto w-full"
+        />
+      </div>
+    );
+  }
 
-      {media.kind === "code" && (
-        <div className="flex h-full w-full min-w-0 flex-col">
-          <div className="flex shrink-0 items-center justify-between border-b border-line bg-paper px-4 py-2.5">
-            <span className="font-data text-[12px] text-ink-muted">{media.caption}</span>
-            <span className="font-data text-[11px] uppercase tracking-widest text-ink-muted">
-              {media.language}
-            </span>
-          </div>
-          <pre className="flex-1 overflow-auto p-5 font-data text-[13px] leading-[1.7] text-ink">
-            <code>{media.snippet}</code>
-          </pre>
-        </div>
-      )}
-    </div>
+  return (
+    <figure className="overflow-hidden rounded-panel border border-line-strong bg-surface shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]">
+      <figcaption className="flex items-center justify-between border-b border-line px-5 py-3 font-mono text-meta text-fg-3">
+        <span>{media.caption}</span>
+        <span>{media.language}</span>
+      </figcaption>
+      <pre className="code p-5 text-fg">
+        <code>{media.snippet}</code>
+      </pre>
+    </figure>
   );
 }

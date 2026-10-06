@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
+  experimental: { viewTransition: true },
   images: {
     // This deploy targets Cloudflare Workers via OpenNext with no `images`
     // binding in wrangler.jsonc, so Next's default optimizer (which needs

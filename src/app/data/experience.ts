@@ -25,8 +25,6 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
       "Owned platform architecture for a modular SaaS procurement system that grew to $1B+ GTV across millions of records, and mentored the 12-person team building it.",
       "Designed and expanded the Angular, NestJS, and MongoDB stack to hold sub-200ms queries at that scale.",
       "Sat with a customer who was vetting vendors by hand, distilled the spec, then built and owned a Vendor Pre-Qualification System from scratch, schema to UI.",
-      // TODO: add a real adoption/impact figure for the Vendor Pre-Qualification
-      // System once Ashwin supplies one — do not invent a number here.
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx", "GCP"],
   },

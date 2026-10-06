@@ -35,7 +35,7 @@ export type CaseStudy = {
 };
 
 export type ProjectMedia =
-  | { kind: "screenshot"; src: string; alt: string }
+  | { kind: "screenshot"; src: string; alt: string; width: number; height: number }
   | { kind: "code"; snippet: string; language: string; caption: string };
 
 export type Project = {
@@ -53,6 +53,8 @@ export type Project = {
   repo?: { owner: string; repo: string };
   decisionRecord?: DecisionRecord;
   caseStudy?: CaseStudy;
+  /** Set only when the project is not finished or not released; shown as a tag. */
+  status?: string;
   /** Deepest technical substance / most differentiated — gets the full case-study treatment on /projects and the home teaser. */
   featured?: boolean;
 };
@@ -63,14 +65,14 @@ export const PROJECTS: Project[] = [
     name: "Booklet",
     featured: true,
     category: "SaaS product",
-    tagline: "Write Markdown, get a shareable page, backed by an API, CLI, VS Code extension, GitHub Action, and MCP server.",
+    tagline: "Write Markdown, get a shareable page, backed by an API, CLI, GitHub Action, and MCP server.",
     description: [
       "Booklet turns Markdown into a published, shareable page in one click. You get a live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth with argon2id password hashing and DB-backed sessions, and MongoDB as the store. Beyond the editor it has version history, per-page analytics, password-protected pages, and collections.",
-      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a VS Code extension, a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first. On 25 May 2026 I rolled that back to a self-hosted PM2 process behind a Cloudflare Tunnel, the same day the app dropped its external AI, email, and Stripe integrations.",
+      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. A VS Code extension is built in the repo but not yet on the Marketplace. It shipped on Cloudflare Workers via OpenNext first. On 25 May 2026 I rolled that back to a self-hosted PM2 process behind a Cloudflare Tunnel, the same day the app dropped its external AI, email, and Stripe integrations.",
     ],
     stack: ["Next.js 16", "TypeScript", "React 19", "Tailwind CSS v4", "MongoDB", "unified / remark"],
     facts: [
-      { label: "Interfaces", value: "Web, CLI, VS Code extension, REST API, GitHub Action, MCP server" },
+      { label: "Interfaces", value: "Web, CLI, REST API, GitHub Action, MCP server" },
       { label: "Auth", value: "In-house: argon2id, DB-backed sessions" },
       { label: "License", value: "MIT" },
     ],
@@ -78,7 +80,7 @@ export const PROJECTS: Project[] = [
       {
         title: "One versioned REST API under every client",
         detail:
-          "A versioned REST API, booklet-cli published on npm, a VS Code extension on the Marketplace, a GitHub Action for CI publishing, and a standalone MCP server exposing publish_page, update_page, get_page, list_pages, and delete_page to AI assistants.",
+          "A versioned REST API, booklet-cli published on npm, a GitHub Action for CI publishing, and a standalone MCP server exposing publish_page, update_page, get_page, list_pages, and delete_page to AI assistants.",
       },
       {
         title: "SSRF guard and origin checks, unit-tested",
@@ -98,12 +100,15 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       live: "https://booklet.ashwinsathian.com",
+      github: "https://github.com/AshwinSathian/booklet",
       npm: "https://www.npmjs.com/package/booklet-cli",
-      vscode: "https://marketplace.visualstudio.com/items?itemName=AshwinSathian.booklet-vscode",
     },
+    repo: { owner: "AshwinSathian", repo: "booklet" },
     media: {
       kind: "screenshot",
       src: "/projects/booklet/hero.png",
+      width: 1280,
+      height: 800,
       alt: "Booklet's editor: Markdown source on the left, a live formatted preview with a rendered code block on the right.",
     },
     decisionRecord: {
@@ -116,9 +121,9 @@ export const PROJECTS: Project[] = [
       problem:
         "Sharing a Markdown file with someone means sending a raw .md file, pasting it into a doc tool that reformats it badly, or standing up a static site generator for one page.",
       decision:
-        "Built Booklet as a full product around one conversion: paste or write Markdown, get a rendered, shareable URL immediately, with the same pipeline (unified/remark, GFM, math, Mermaid) backing a web editor, a REST API, a CLI, a VS Code extension, a GitHub Action, and an MCP server. Shipped on Cloudflare Workers via OpenNext first, then rolled the app back to a self-hosted PM2 process behind a Cloudflare Tunnel in May 2026, the same day its external AI, email, and Stripe integrations were removed.",
+        "Built Booklet as a full product around one conversion: paste or write Markdown, get a rendered, shareable URL immediately, with the same pipeline (unified/remark, GFM, math, Mermaid) backing a web editor, a REST API, a CLI, a GitHub Action, and an MCP server. Shipped on Cloudflare Workers via OpenNext first, then rolled the app back to a self-hosted PM2 process behind a Cloudflare Tunnel in May 2026, the same day its external AI, email, and Stripe integrations were removed.",
       outcome:
-        "One Markdown pipeline now serves five different ways of publishing a page: from a browser, a terminal, an editor, a CI pipeline, or an AI assistant, all against the same versioned API.",
+        "One Markdown pipeline now serves four different ways of publishing a page: from a browser, a terminal, a CI pipeline, or an AI assistant, all against the same versioned API.",
     },
   },
   {
@@ -161,7 +166,9 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       live: "https://brnr.ashwinsathian.com",
+      github: "https://github.com/AshwinSathian/brnr",
     },
+    repo: { owner: "AshwinSathian", repo: "brnr" },
     caseStudy: {
       problem:
         "Messaging apps that promise privacy often still keep an account system or a message history somewhere on the server, and either one can be compromised or subpoenaed later.",
@@ -173,6 +180,8 @@ export const PROJECTS: Project[] = [
     media: {
       kind: "screenshot",
       src: "/projects/brnr/hero.png",
+      width: 1280,
+      height: 800,
       alt: "BRNR's cryptographic fingerprint screen: four emoji derived from the session's safety number, used to confirm a connection hasn't been intercepted.",
     },
   },
@@ -183,7 +192,7 @@ export const PROJECTS: Project[] = [
     category: "Developer tool",
     tagline: "The API client that can't rug-pull you: local-first, no account, client-side encrypted vault.",
     description: [
-      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a Postman-grade response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2 with 200,000 iterations derives an AES-GCM-256 key that's held in memory only, so only ciphertext ever touches storage. Scripts run sandboxed inside an isolated Web Worker with no DOM, cookie, or network access, so a pasted test script has no way to send data anywhere.",
+      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a Postman-grade response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2 with 200,000 iterations derives an AES-GCM-256 key that's held in memory only, so only ciphertext ever touches storage. Scripts are switched off in the hosted app while their sandbox is rebuilt, after a September 2026 audit found gaps between the docs and the code.",
       "It was renamed from API Sandbox to Wayfarer partway through its life. The app, the local-first storage model, and the MIT license stayed the same. There's also an optional local-bridge, a small Node CLI for CORS/intranet relay when a request needs to reach somewhere the browser can't. No update, acquisition, or pricing change can gate access to data you already own.",
     ],
     stack: ["Angular 20", "PrimeNG", "IndexedDB", "Monaco Editor", "RxJS"],
@@ -199,9 +208,9 @@ export const PROJECTS: Project[] = [
           "PBKDF2 at 200,000 iterations derives an AES-GCM-256 key held only in memory. IndexedDB never sees anything but ciphertext.",
       },
       {
-        title: "Sandboxed script execution",
+        title: "Audit findings kept in the open",
         detail:
-          "Pre/post-request scripts run inside an isolated Web Worker with no DOM, cookie, or network access.",
+          "A September 2026 audit found gaps between the docs and the code. Each one is an open issue labelled audit-2026-09, and scripts are disabled in the hosted app while the sandbox is rebuilt.",
       },
       {
         title: "Nothing to rug-pull",
@@ -221,6 +230,8 @@ export const PROJECTS: Project[] = [
     media: {
       kind: "screenshot",
       src: "/projects/wayfarer/hero.png",
+      width: 1280,
+      height: 800,
       alt: "Wayfarer's request builder: headers editor on the left, a syntax-highlighted JSON response with status and timing on the right.",
     },
     repo: { owner: "AshwinSathian", repo: "wayfarer" },
@@ -236,12 +247,13 @@ export const PROJECTS: Project[] = [
       decision:
         "Built Wayfarer to run entirely client-side: collections and requests live in IndexedDB, and secrets get their own vault where PBKDF2 (200,000 iterations) derives an AES-GCM-256 key held only in memory, so IndexedDB never sees anything but ciphertext. Renamed from API Sandbox to Wayfarer mid-life, with the storage model and license carried forward, and shipped as v1.0.0 under the new name.",
       outcome:
-        "There is no account or backend, so nothing can gate access to your own data. Pre/post-request scripts run sandboxed in a Web Worker with no DOM, cookie, or network access, so a pasted script has no way to send anything out.",
+        "There is no account or backend, so nothing can gate access to your own data. Scripts are disabled in the hosted app while the sandbox is rebuilt.",
     },
   },
   {
     slug: "ngx-runtime-i18n",
     name: "ngx-runtime-i18n",
+    featured: true,
     category: "Angular library",
     tagline: "Runtime internationalization for Angular: switch languages without a rebuild, without breaking SSR.",
     description: [
@@ -343,6 +355,8 @@ export const PROJECTS: Project[] = [
     media: {
       kind: "screenshot",
       src: "/projects/typester/hero.png",
+      width: 1280,
+      height: 800,
       alt: "Typester mid-round: the current word large on screen, upcoming words queued behind it, timer counting down.",
     },
     repo: { owner: "AshwinSathian", repo: "typester" },
@@ -356,7 +370,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "darkframe",
     name: "Darkframe",
-    featured: true,
+    status: "Store submission pending",
     category: "Browser extension",
     tagline: "A free, cross-browser dark-mode engine that never touches your photos or video.",
     description: [
@@ -552,14 +566,36 @@ export type AlsoShipped = {
   name: string;
   description: string;
   href: string;
+  /** Set only when the repo is not finished; shown as a tag. */
+  status?: string;
 };
 
 export const ALSO_SHIPPED: AlsoShipped[] = [
+  {
+    name: "mergehand",
+    description:
+      "Claude Code plugin that runs a project as cards: one card per session, with a scope gate, a separate reviewer agent and one pull request. v0.1.2, MIT.",
+    href: "https://github.com/AshwinSathian/mergehand",
+  },
   {
     name: "github-issue-analyzer",
     description:
       "Fastify + TypeScript service that caches a repo's GitHub issues in SQLite and analyzes them with a local LLM over Ollama, so triage never leaves your machine.",
     href: "https://github.com/AshwinSathian/github-issue-analyzer",
+  },
+  {
+    name: "angularjs-migration-copilot",
+    description:
+      "AngularJS to Angular migration CLI: deterministic AST codemods, an LLM fallback, and a compile-and-test gate on every AI-touched change. Ingest and inventory stages are built; the rest is not.",
+    href: "https://github.com/AshwinSathian/angularjs-migration-copilot",
+    status: "In progress",
+  },
+  {
+    name: "weir",
+    description:
+      "Go library for shared HTTP caching in front of an origin that has to stay up: RFC 9111 caching with stampede, outage and poisoning defenses. Design complete, implementation not started.",
+    href: "https://github.com/AshwinSathian/weir",
+    status: "In progress",
   },
 ];
 

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import Projects from "@/components/Projects";
-import { getProjects } from "@/app/(helpers)/projects";
-import { ALSO_SHIPPED } from "@/app/data/projects";
+import ProjectPanel from "@/components/ProjectPanel";
+import ProjectRow from "@/components/ProjectRow";
+import { PageHeader } from "@/components/Section";
+import { ALSO_SHIPPED, PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
 
 const description =
@@ -29,33 +30,56 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 3600;
-
-export default async function ProjectsPage() {
-  const projects = await getProjects();
+export default function ProjectsPage() {
+  const featured = PROJECTS.filter((p) => p.featured);
+  const rest = PROJECTS.filter((p) => !p.featured);
 
   return (
     <>
-      <Projects projects={projects} />
-      <section aria-labelledby="also-shipped-heading" className="mx-auto max-w-5xl px-6 pb-24 md:px-16 md:pb-32">
-        <p id="also-shipped-heading" className="font-ui text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">
-          Also shipped
-        </p>
-        <ul className="mt-6 flex flex-col">
-          {ALSO_SHIPPED.map((item) => (
-            <li key={item.href} className="border-t border-line py-5 first:border-t-0 first:pt-0">
-              <a href={item.href} target="_blank" rel="noopener noreferrer" className="group flex flex-col gap-1 md:flex-row md:items-baseline md:gap-6">
-                <span className="font-display text-[15px] font-semibold text-ink transition-colors duration-200 group-hover:text-accent">
-                  {item.name} ↗
-                </span>
-                <span className="font-body text-[14px] leading-relaxed text-ink-muted">
-                  {item.description}
-                </span>
-              </a>
-            </li>
+      <PageHeader
+        title="Eight products, designed and run end to end."
+        intro="Most of what I ship at work isn't mine to show. Everything here is. I built it, I run it, and where I got something wrong, the correction is public."
+      />
+
+      <div className="shell flex flex-col gap-20 pb-20 lg:gap-36 lg:pb-36">
+        {featured.map((project, i) => (
+          <ProjectPanel
+            key={project.slug}
+            project={project}
+            index={i}
+            flip={i % 2 === 1}
+            priority={i === 0}
+            as="h2"
+          />
+        ))}
+      </div>
+
+      <div className="shell pb-24 lg:pb-40">
+        <div className="flex flex-col border-b border-line">
+          {rest.map((project, i) => (
+            <ProjectRow
+              key={project.slug}
+              href={`/projects/${project.slug}`}
+              name={project.name}
+              description={project.tagline}
+              status={project.status}
+              marker={String(featured.length + i + 1).padStart(2, "0")}
+              as="h2"
+            />
           ))}
-        </ul>
-      </section>
+          {ALSO_SHIPPED.map((item) => (
+            <ProjectRow
+              key={item.href}
+              href={item.href}
+              name={item.name}
+              description={item.description}
+              status={item.status}
+              marker="Also"
+              as="h2"
+            />
+          ))}
+        </div>
+      </div>
     </>
   );
 }

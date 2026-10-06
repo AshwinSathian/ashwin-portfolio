@@ -1,15 +1,14 @@
 import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
 
-// Dark-first, matching the site's default theme.
-const CANVAS = "#0A0B0D";
-const LABEL_1 = "#EDEEF0";
-const LABEL_3 = "#8B8E94";
-const LABEL_4 = "#6B6660";
-const ACCENT = "#E8492A";
+// Same tokens as globals.css; Satori cannot read CSS variables.
+const NIGHT = "#050505";
+const FG = "#F5F5F4";
+const FG_2 = "#A6A6A6";
+const FG_3 = "#8A8A8A";
 
-const MONO_FONT_FAMILY = "Martian Mono";
-const DISPLAY_FONT_FAMILY = "Public Sans";
+const MONO_FONT_FAMILY = "Geist Mono";
+const DISPLAY_FONT_FAMILY = "Bricolage Grotesque";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
@@ -18,7 +17,7 @@ function truncate(str: string, max: number) {
 // Satori (the OG image renderer) has no access to system/CSS fonts — it only
 // renders fonts explicitly handed to it as binary data. Without this, the
 // `fontFamily` below was a no-op and every OG image silently fell back to
-// Satori's default sans, contradicting the site's monospace identity.
+// Satori's default sans, ignoring the site's typefaces.
 async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuffer> {
   const cssUrl = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weight}&text=${encodeURIComponent(
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,·—$%×↗ "
@@ -63,7 +62,7 @@ export async function GET(request: NextRequest) {
             flexDirection: "column",
             justifyContent: "space-between",
             padding: "72px 80px",
-            backgroundColor: CANVAS,
+            backgroundColor: NIGHT,
             fontFamily: MONO_FONT_FAMILY,
           }}
         >
@@ -79,7 +78,7 @@ export async function GET(request: NextRequest) {
               style={{
                 width: 20,
                 height: 2,
-                backgroundColor: ACCENT,
+                backgroundColor: FG,
               }}
             />
             <span
@@ -88,7 +87,7 @@ export async function GET(request: NextRequest) {
                 fontWeight: 700,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: LABEL_4,
+                color: FG_3,
               }}
             >
               {label}
@@ -113,8 +112,8 @@ export async function GET(request: NextRequest) {
                 fontWeight: 700,
                 fontFamily: DISPLAY_FONT_FAMILY,
                 lineHeight: 1.1,
-                letterSpacing: "-0.02em",
-                color: LABEL_1,
+                letterSpacing: "-0.035em",
+                color: FG,
                 maxWidth: 900,
               }}
             >
@@ -126,7 +125,7 @@ export async function GET(request: NextRequest) {
                   fontSize: 18,
                   fontWeight: 400,
                   lineHeight: 1.5,
-                  color: LABEL_3,
+                  color: FG_2,
                   maxWidth: 760,
                 }}
               >
@@ -147,7 +146,7 @@ export async function GET(request: NextRequest) {
               style={{
                 fontSize: 15,
                 fontWeight: 400,
-                color: LABEL_3,
+                color: FG_2,
                 letterSpacing: "-0.01em",
               }}
             >
@@ -157,7 +156,7 @@ export async function GET(request: NextRequest) {
               style={{
                 fontSize: 13,
                 fontWeight: 400,
-                color: LABEL_4,
+                color: FG_3,
                 letterSpacing: "0.02em",
               }}
             >
@@ -181,7 +180,7 @@ export async function GET(request: NextRequest) {
           flexDirection: "column",
           justifyContent: "flex-end",
           padding: "80px",
-          backgroundColor: CANVAS,
+          backgroundColor: NIGHT,
           fontFamily: MONO_FONT_FAMILY,
         }}
       >
@@ -191,7 +190,7 @@ export async function GET(request: NextRequest) {
             fontWeight: 700,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            color: LABEL_4,
+            color: FG_3,
             marginBottom: 28,
           }}
         >
@@ -204,7 +203,7 @@ export async function GET(request: NextRequest) {
             fontFamily: DISPLAY_FONT_FAMILY,
             lineHeight: 1.0,
             letterSpacing: "-0.03em",
-            color: LABEL_1,
+            color: FG,
           }}
         >
           Ashwin Sathian.
@@ -214,7 +213,7 @@ export async function GET(request: NextRequest) {
             marginTop: 32,
             fontSize: 17,
             fontWeight: 400,
-            color: LABEL_3,
+            color: FG_2,
             letterSpacing: "-0.01em",
           }}
         >
@@ -225,7 +224,7 @@ export async function GET(request: NextRequest) {
             marginTop: 48,
             fontSize: 14,
             fontWeight: 400,
-            color: LABEL_4,
+            color: FG_3,
             letterSpacing: "0.02em",
           }}
         >

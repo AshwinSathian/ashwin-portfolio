@@ -1,55 +1,39 @@
-"use client";
-
 import Link from "next/link";
 import type { PostMeta } from "@/lib/writing";
-import { Reveal, RevealGroup } from "@/components/Reveal";
 
 type Props = {
   posts: PostMeta[];
+  as?: "h2" | "h3";
 };
 
-export default function PostList({ posts }: Props) {
+export default function PostList({ posts, as: Heading = "h2" }: Props) {
   if (posts.length === 0) return null;
 
   return (
-    <RevealGroup onMount amount={0} className="mt-16 list-none" aria-label="Posts">
+    <ul className="flex flex-col">
       {posts.map((post) => (
-        <Reveal key={post.slug}>
+        <li key={post.slug}>
           <Link
             href={`/writing/${post.slug}`}
-            className="group block border-t border-line py-8 last:border-b last:border-line focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="row reveal grid gap-x-8 gap-y-2 rounded-control border-t border-line py-7 md:grid-cols-[11rem_1fr_auto] md:items-baseline"
           >
-            <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between md:gap-8">
-              <div className="flex flex-col gap-1.5">
-                <span className="font-data text-micro font-medium uppercase tracking-[0.12em] text-ink-muted">
-                  {post.formattedDate}
-                  {post.draft && (
-                    <span className="ml-3 rounded-full border border-line px-2 py-0.5 text-[10px] normal-case tracking-normal text-ink-muted">
-                      Draft
-                    </span>
-                  )}
-                </span>
-                <h2 className="font-display text-heading font-semibold leading-snug tracking-[-0.01em] text-ink transition-colors duration-200 group-hover:text-accent">
-                  {post.title}
-                </h2>
-                <p className="font-body text-body leading-[1.6] text-ink-muted">{post.description}</p>
-              </div>
-              <div className="shrink-0 font-ui text-small text-ink-muted md:text-right">
-                {post.readingTime} min
-              </div>
-            </div>
-            {post.tags && post.tags.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-line px-3 py-0.5 font-ui text-[11px] text-ink-muted">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
+            <span className="font-mono text-meta text-fg-3">
+              {post.formattedDate}
+              {post.draft && " · Draft"}
+            </span>
+            <span className="flex flex-col gap-2">
+              <Heading className="font-display text-[1.375rem] font-semibold leading-[1.2] tracking-[-0.02em] text-fg">
+                {post.title}
+              </Heading>
+              <span className="max-w-2xl text-small text-fg-2">{post.description}</span>
+              {post.tags && post.tags.length > 0 && (
+                <span className="font-mono text-meta text-fg-3">{post.tags.join(" · ")}</span>
+              )}
+            </span>
+            <span className="font-mono text-meta text-fg-3">{post.readingTime} min</span>
           </Link>
-        </Reveal>
+        </li>
       ))}
-    </RevealGroup>
+    </ul>
   );
 }

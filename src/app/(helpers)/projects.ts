@@ -15,10 +15,6 @@ async function withLiveStats(project: Project): Promise<ProjectWithStats> {
   return { ...project, stars: meta.stargazers_count, language: meta.language };
 }
 
-export async function getProjects(): Promise<ProjectWithStats[]> {
-  return Promise.all(PROJECTS.map(withLiveStats));
-}
-
 export async function getProject(slug: string): Promise<ProjectWithStats | undefined> {
   const project = PROJECTS.find((p) => p.slug === slug);
   if (!project) return undefined;

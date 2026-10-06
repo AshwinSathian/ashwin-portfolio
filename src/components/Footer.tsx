@@ -1,42 +1,30 @@
 import { SITE } from "@/app/data/site";
 
+const LINKS = [
+  { label: "Email", href: `mailto:${SITE.email}` },
+  { label: "LinkedIn", href: SITE.linkedin, external: true },
+  { label: "GitHub", href: SITE.github, external: true },
+  { label: "Résumé", href: SITE.resumePath, external: true },
+];
+
 export default function Footer() {
   return (
-    <footer className="border-t border-line px-6 py-8 md:px-16">
-      <div className="mx-auto flex max-w-5xl flex-col gap-4 font-ui text-[13px] text-ink-muted md:flex-row md:items-center md:justify-between">
+    <footer className="border-t border-line">
+      <div className="shell flex flex-col gap-2 py-6 text-meta text-fg-3 sm:flex-row sm:items-center sm:justify-between">
         <span>© {new Date().getFullYear()} {SITE.name}</span>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-          <a
-            href={`mailto:${SITE.email}`}
-            className="transition-colors duration-200 hover:text-ink"
-          >
-            {SITE.email}
-          </a>
-          <a
-            href={SITE.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors duration-200 hover:text-ink"
-          >
-            LinkedIn
-          </a>
-          <a
-            href={SITE.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors duration-200 hover:text-ink"
-          >
-            GitHub
-          </a>
-          <a
-            href={SITE.resumePath}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors duration-200 hover:text-ink"
-          >
-            Résumé ↓
-          </a>
-        </div>
+        <ul className="-mx-2 flex flex-wrap">
+          {LINKS.map(({ label, href, external }) => (
+            <li key={label}>
+              <a
+                href={href}
+                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="flex min-h-11 items-center px-2 transition-colors duration-200 hover:text-fg active:text-fg"
+              >
+                <span className="link">{label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   );

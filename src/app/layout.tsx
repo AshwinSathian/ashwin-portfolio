@@ -1,33 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Martian_Mono, Public_Sans } from "next/font/google";
+import { ViewTransition } from "react";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-// Data/metadata only — dates, tags, code, fact labels. Not display type.
-const dataMono = Martian_Mono({
+const display = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-mono",
+  axes: ["wdth"],
+  variable: "--font-bricolage",
   display: "swap",
 });
 
-// Serves display, body, and UI chrome — one sans-serif family, deliberately
-// not a serif/sans split. Public Sans is designed to hold up at both
-// heading and body-copy sizes, unlike a display-only optical size.
-const uiSans = Public_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "700", "800"],
-  variable: "--font-sans",
-  display: "swap",
-});
+const sans = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
+
+// Data only: dates, counts, versions, code.
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
   "Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.";
 
 export const viewport: Viewport = {
-  themeColor: "#0A0B0D",
+  themeColor: "#050505",
   width: "device-width",
   initialScale: 1,
 };
@@ -94,9 +89,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
-    apple: "/apple-touch-icon.png",
+    icon: "/favicon.svg?v=7",
+    shortcut: "/favicon.svg?v=7",
+    apple: "/apple-touch-icon.png?v=7",
   },
 };
 
@@ -164,11 +159,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${dataMono.variable} ${uiSans.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <head>
         <script
           type="application/ld+json"
@@ -179,18 +170,17 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </head>
-      <body
-        className="min-h-screen bg-paper text-ink"
-        style={{ fontFamily: "var(--font-ui)" }}
-      >
+      <body className="flex min-h-dvh flex-col">
         <a
           href="#main-content"
-          className="fixed left-4 top-4 z-100 -translate-y-16 rounded-full bg-accent px-4 py-2 font-ui text-[13px] font-medium text-paper transition-transform duration-150 focus-visible:translate-y-0 focus:outline-none"
+          className="fixed left-4 top-4 z-100 -translate-y-24 rounded-control bg-fg px-4 py-3 text-small font-medium text-night transition-transform duration-200 focus-visible:translate-y-0"
         >
           Skip to content
         </a>
         <Navbar />
-        <main id="main-content">{children}</main>
+        <main id="main-content" className="flex-1">
+          <ViewTransition default="page">{children}</ViewTransition>
+        </main>
         <Footer />
       </body>
     </html>

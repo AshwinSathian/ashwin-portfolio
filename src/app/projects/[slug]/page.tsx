@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ViewTransition } from "react";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
-import BackToProjectsButton from "@/components/BackToProjectsButton";
+import ArrowLink from "@/components/ArrowLink";
 import DecisionRecord from "@/components/DecisionRecord";
+import KineticHeading from "@/components/KineticHeading";
 import ProjectMedia from "@/components/ProjectMedia";
+import { StatusTag } from "@/components/ProjectRow";
 import { getProject } from "@/app/(helpers)/projects";
 import { PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
@@ -84,8 +87,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     ],
   };
 
+  const narrative: [string, string][] = project.caseStudy
+    ? [
+        ["Problem", project.caseStudy.problem],
+        ["Decision", project.caseStudy.decision],
+        ["Outcome", project.caseStudy.outcome],
+      ]
+    : [];
+
   return (
-    <div className="mx-auto max-w-5xl px-6 py-24 pt-29 md:px-8 md:py-32 md:pt-33">
+    <article>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
@@ -95,169 +106,167 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 font-ui text-[13px] text-ink-muted">
-        <Link href="/" className="transition-colors duration-200 hover:text-ink">
-          Home
-        </Link>
-        <span aria-hidden>/</span>
-        <BackToProjectsButton />
-        <span aria-hidden>/</span>
-        <span aria-current="page" className="text-ink-muted">
-          {project.name}
-        </span>
-      </nav>
+      <header className="shell pb-10 pt-28 lg:pb-16 lg:pt-40">
+        <nav aria-label="Breadcrumb" className="load-rise mb-8 text-small text-fg-3 lg:mb-12">
+          <ol className="flex flex-wrap items-center gap-x-2">
+            <li>
+              <Link href="/" className="inline-flex min-h-11 items-center hover:text-fg active:text-fg">
+                <span className="link">Home</span>
+              </Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li>
+              <Link href="/projects" className="inline-flex min-h-11 items-center hover:text-fg active:text-fg">
+                <span className="link">Projects</span>
+              </Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li aria-current="page" className="text-fg-2">
+              {project.name}
+            </li>
+          </ol>
+        </nav>
 
-      {/* Header */}
-      <p className="mb-3 font-data text-[11px] uppercase tracking-widest text-ink-muted">
-        {project.category}
-      </p>
-      <h1 className="mb-4 font-display text-display-2 font-semibold leading-[1.05] tracking-[-0.02em] text-ink">
-        {project.name}
-      </h1>
-      <p className="mb-10 max-w-2xl font-body text-body-lg leading-[1.7] text-ink-muted">
-        {project.tagline}
-      </p>
-
-      {/* Links */}
-      <div className="mb-10 flex flex-wrap gap-3">
-        {(Object.entries(project.links) as [keyof typeof LINK_LABELS, string][]).map(
-          ([key, href]) => (
-            <a
-              key={key}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-line px-4 py-2 font-ui text-[13px] text-ink-muted transition-colors duration-200 hover:text-ink"
-            >
-              {LINK_LABELS[key]} ↗
-            </a>
-          )
-        )}
-        {(project.language || typeof project.stars === "number") && (
-          <span className="flex items-center gap-3 rounded-full border border-line px-4 py-2 font-ui text-[13px] text-ink-muted">
-            {project.language && <span>{project.language}</span>}
-            {typeof project.stars === "number" && project.stars > 0 && (
-              <span>★ {project.stars}</span>
-            )}
-          </span>
-        )}
-      </div>
-
-      {/* Media */}
-      <div className="mb-12">
-        <ProjectMedia media={project.media} priority />
-      </div>
-
-      {/* Quick facts */}
-      <div className="mb-12 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {project.facts.map((fact) => (
-          <div
-            key={fact.label}
-            className="rounded border border-line bg-paper-raised p-5"
-          >
-            <p className="mb-1.5 font-ui text-[11px] font-medium uppercase tracking-widest text-ink-muted">
-              {fact.label}
-            </p>
-            <p className="font-body text-[14px] leading-snug text-ink">{fact.value}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Problem / Decision / Outcome — the four featured case studies get
-          this explicit structure; other projects fall back to the plain
-          description paragraphs so nothing regresses for them. */}
-      {project.caseStudy ? (
-        <div className="mb-12 flex max-w-2xl flex-col gap-8">
-          {(
-            [
-              ["Problem", project.caseStudy.problem],
-              ["Decision", project.caseStudy.decision],
-              ["Outcome", project.caseStudy.outcome],
-            ] as const
-          ).map(([label, text]) => (
-            <div key={label}>
-              <h2 className="mb-2 font-ui text-xs font-medium uppercase tracking-[0.08em] text-ink-muted">
-                {label}
-              </h2>
-              <p className="font-body text-[16px] leading-[1.8] text-ink-muted">{text}</p>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="mb-12 flex max-w-2xl flex-col gap-5">
-          {project.description.map((paragraph, i) => (
-            <p key={i} className="font-body text-[16px] leading-[1.8] text-ink-muted">
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      )}
-
-      {/* Architecture diagram — Booklet only, the flagship technical case
-          study, per the design brief's requirement for at least one real
-          system diagram on the site. */}
-      {project.slug === "booklet" && (
-        <div className="mb-16 rounded border border-line bg-paper p-6 md:p-10">
-          <ArchitectureDiagram />
-        </div>
-      )}
-
-      {/* Stack */}
-      <div className="mb-16 flex flex-wrap gap-2">
-        {project.stack.map((tech) => (
-          <span
-            key={tech}
-            className="rounded-full bg-paper-raised px-3.5 py-1.5 font-ui text-[13px] font-medium text-ink-muted"
-          >
-            {tech}
-          </span>
-        ))}
-      </div>
-
-      {/* Highlights */}
-      <div className="mb-20">
-        <h2 className="mb-6 font-ui text-xs font-medium uppercase tracking-[0.08em] text-ink-muted">
-          Highlights
-        </h2>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {project.highlights.map((highlight) => (
-            <div
-              key={highlight.title}
-              className="rounded border border-line bg-paper-raised p-7"
-            >
-              <h3 className="mb-2.5 font-body text-[16px] font-semibold leading-snug text-ink">
-                {highlight.title}
-              </h3>
-              <p className="font-body text-[14px] leading-[1.7] text-ink-muted">{highlight.detail}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Decision Record — only for projects with a real, disclosed reversal */}
-      {project.decisionRecord && (
-        <div className="mb-20">
-          <h2 className="mb-6 font-ui text-xs font-medium uppercase tracking-[0.08em] text-ink-muted">
-            Decision record
-          </h2>
-          <DecisionRecord record={project.decisionRecord} />
-        </div>
-      )}
-
-      {/* Next project */}
-      <div className="flex items-center justify-between border-t border-line pt-8">
-        <span className="font-ui text-[13px] text-ink-muted">Next</span>
-        <Link
-          href={`/projects/${next.slug}`}
-          className="group flex items-center gap-2 font-ui text-[15px] text-ink-muted transition-colors duration-200 hover:text-ink"
+        <p className="load-rise mb-4 flex flex-wrap items-center gap-3 font-mono text-meta text-fg-3">
+          {project.category}
+          {project.status && <StatusTag>{project.status}</StatusTag>}
+        </p>
+        <KineticHeading
+          text={project.name}
+          className="font-display text-display-xl font-bold tracking-[-0.045em] wrap-anywhere"
+        />
+        <p
+          className="load-rise mt-6 max-w-3xl text-[1.1875rem] leading-[1.5] text-fg-2 lg:mt-8 lg:text-[1.375rem]"
+          style={{ "--d": "300ms" } as React.CSSProperties}
         >
-          {next.name}
-          <span className="text-accent transition-transform duration-200 group-hover:translate-x-1">
-            →
-          </span>
-        </Link>
+          {project.tagline}
+        </p>
+
+        <div className="load-rise mt-6 flex flex-wrap gap-x-8" style={{ "--d": "400ms" } as React.CSSProperties}>
+          {(Object.entries(project.links) as [keyof typeof LINK_LABELS, string][]).map(([key, href]) => (
+            <ArrowLink key={key} href={href} external>
+              {LINK_LABELS[key]}
+            </ArrowLink>
+          ))}
+        </div>
+      </header>
+
+      <div className="shell">
+        <ViewTransition name={`project-media-${project.slug}`} share="morph">
+          <ProjectMedia media={project.media} priority />
+        </ViewTransition>
       </div>
-    </div>
+
+      <div className="shell grid grid-cols-1 gap-x-16 gap-y-14 py-16 lg:grid-cols-12 lg:py-28">
+        {/* Rail: first in source so it follows the media on mobile; sticky at desktop. */}
+        <aside aria-label="Project facts" className="min-w-0 lg:order-2 lg:col-span-4">
+          <div className="flex flex-col gap-8 lg:sticky lg:top-24">
+            <dl className="flex flex-col border-t border-line">
+              {project.facts.map((fact) => (
+                <div key={fact.label} className="flex flex-col gap-1 border-b border-line py-4">
+                  <dt className="text-small text-fg-3">{fact.label}</dt>
+                  <dd className="text-fg">{fact.value}</dd>
+                </div>
+              ))}
+              {project.language && (
+                <div className="flex flex-col gap-1 border-b border-line py-4">
+                  <dt className="text-small text-fg-3">Primary language</dt>
+                  <dd className="text-fg">{project.language}</dd>
+                </div>
+              )}
+              {typeof project.stars === "number" && project.stars > 0 && (
+                <div className="flex flex-col gap-1 border-b border-line py-4">
+                  <dt className="text-small text-fg-3">GitHub stars</dt>
+                  <dd className="font-mono text-fg">{project.stars}</dd>
+                </div>
+              )}
+            </dl>
+            <div>
+              <h2 className="mb-3 text-small text-fg-3">Stack</h2>
+              <p className="font-mono text-meta leading-[1.9] text-fg-2">{project.stack.join(" · ")}</p>
+            </div>
+          </div>
+        </aside>
+
+        <div className="flex min-w-0 flex-col gap-16 lg:order-1 lg:col-span-8 lg:gap-24">
+          {/* Case study where one exists, otherwise the plain description. Never both. */}
+          {narrative.length > 0 ? (
+            <div className="flex flex-col gap-12">
+              {narrative.map(([label, text], i) => (
+                <section key={label} aria-labelledby={`cs-${label}`} className="reveal flex flex-col gap-3">
+                  <h2 id={`cs-${label}`} className="flex items-baseline gap-4 font-display text-display-m font-semibold tracking-[-0.03em]">
+                    <span aria-hidden className="font-mono text-meta font-normal tracking-normal text-fg-3">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    {label}
+                  </h2>
+                  <p className={i === 0 ? "text-[1.1875rem] leading-[1.6] text-fg" : "text-fg-2"}>{text}</p>
+                </section>
+              ))}
+            </div>
+          ) : (
+            <div className="reveal flex flex-col gap-5">
+              {project.description.map((paragraph, i) => (
+                <p key={i} className={i === 0 ? "text-[1.1875rem] leading-[1.6] text-fg" : "text-fg-2"}>
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          )}
+
+          {project.slug === "booklet" && (
+            <section aria-labelledby="architecture-heading" className="flex flex-col gap-6">
+              <h2 id="architecture-heading" className="reveal font-display text-display-m font-semibold tracking-[-0.03em]">
+                Architecture
+              </h2>
+              <ArchitectureDiagram />
+            </section>
+          )}
+
+          <section aria-labelledby="highlights-heading" className="flex flex-col gap-2">
+            <h2 id="highlights-heading" className="reveal font-display text-display-m font-semibold tracking-[-0.03em]">
+              Highlights
+            </h2>
+            <ol className="flex flex-col">
+              {project.highlights.map((highlight, i) => (
+                <li key={highlight.title} className="reveal grid gap-x-6 gap-y-2 border-b border-line py-7 sm:grid-cols-[2.5rem_1fr]">
+                  <span aria-hidden className="font-mono text-meta text-fg-3 sm:pt-1.5">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-title font-medium text-fg">{highlight.title}</h3>
+                    <p className="text-fg-2">{highlight.detail}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {project.decisionRecord && (
+            <section aria-labelledby="decision-heading" className="flex flex-col gap-6">
+              <h2 id="decision-heading" className="reveal font-display text-display-m font-semibold tracking-[-0.03em]">
+                Revised in public
+              </h2>
+              <DecisionRecord record={project.decisionRecord} />
+            </section>
+          )}
+        </div>
+      </div>
+
+      <Link
+        href={`/projects/${next.slug}`}
+        className="group block border-t border-line transition-colors duration-300 hover:bg-surface active:bg-surface"
+      >
+        <div className="shell flex items-end justify-between gap-6 py-14 lg:py-24">
+          <div className="flex min-w-0 flex-col gap-3">
+            <span className="text-small text-fg-3">Next project</span>
+            <span className="font-display text-display-l font-semibold tracking-[-0.035em] wrap-anywhere">
+              {next.name}
+            </span>
+          </div>
+          <span aria-hidden className="arrow font-display text-display-m text-fg-2">→</span>
+        </div>
+      </Link>
+    </article>
   );
 }

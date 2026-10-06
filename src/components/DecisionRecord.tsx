@@ -4,26 +4,22 @@ export type DecisionRecordProps = {
   record: DecisionRecordType;
 };
 
+/** A disclosed reversal: what it was, what it is now, and why. */
 export default function DecisionRecord({ record }: DecisionRecordProps) {
   return (
-    <div className="decision-record rounded border border-line bg-paper-raised p-6 md:p-8">
-      <p className="font-data text-[11px] uppercase tracking-[0.12em] text-ink-muted">
-        Revised · {record.date}
-      </p>
-      <div className="mt-4 flex flex-col gap-2 font-data text-[14px] leading-relaxed">
-        <p className="decision-line flex gap-3 text-ink-muted">
-          <span aria-hidden className="shrink-0 text-ink-muted/60">was</span>
-          <span className="line-through decoration-ink-muted/50">{record.before}</span>
-        </p>
-        <p className="decision-line flex gap-3 text-ink">
-          <span aria-hidden className="shrink-0 text-accent">now</span>
-          <span>{record.after}</span>
-        </p>
-      </div>
-      <p className="mt-5 font-body text-[15px] leading-relaxed text-ink-muted">
-        <span className="font-ui text-[11px] font-semibold uppercase tracking-widest text-ink">
-          Why
-        </span>{" "}
+    <div className="panel reveal overflow-hidden">
+      <dl className="grid md:grid-cols-2">
+        <div className="flex flex-col gap-2 border-b border-line p-6 md:border-b-0 md:border-r lg:p-8">
+          <dt className="font-mono text-meta text-fg-3">Was</dt>
+          <dd className="text-fg-2 line-through decoration-fg-3/60">{record.before}</dd>
+        </div>
+        <div className="flex flex-col gap-2 p-6 lg:p-8">
+          <dt className="font-mono text-meta text-fg-3">Now, since {record.date}</dt>
+          <dd className="font-medium text-fg">{record.after}</dd>
+        </div>
+      </dl>
+      <p className="border-t border-line p-6 text-small text-fg-2 lg:p-8">
+        <span className="font-medium text-fg">Why. </span>
         {record.why}
       </p>
     </div>

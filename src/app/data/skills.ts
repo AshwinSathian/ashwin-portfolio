@@ -18,11 +18,11 @@ export const SKILL_GROUPS: SkillGroup[] = [
   },
   {
     title: "Data",
-    items: [{ name: "MongoDB" }, { name: "AWS DynamoDB" }],
+    items: [{ name: "MongoDB" }],
   },
   {
     title: "Cloud & DevOps",
-    items: [{ name: "AWS" }, { name: "GCP" }, { name: "Docker" }, { name: "GitHub Actions" }],
+    items: [{ name: "GCP" }, { name: "AWS" }, { name: "Docker" }, { name: "GitHub Actions" }],
   },
   {
     title: "Languages",
@@ -36,5 +36,14 @@ export const SKILL_GROUPS: SkillGroup[] = [
   {
     title: "AI & Tooling",
     items: [{ name: "Claude Code" }, { name: "OpenAI Codex" }],
+  },
+  {
+    title: "Practices",
+    items: [
+      { name: "SaaS Architecture" },
+      { name: "Multi-tenancy" },
+      { name: "RBAC" },
+      { name: "Agile & Scrum" },
+    ],
   },
 ];

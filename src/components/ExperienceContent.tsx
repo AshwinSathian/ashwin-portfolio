@@ -6,7 +6,7 @@ import Skills from "@/components/Skills";
 import { Reveal, RevealGroup } from "@/components/Reveal";
 
 const introText =
-  "More than eight years across seven roles and five companies, from junior programmer to owning platform architecture at Penny Software. Each role below lists its dates, and most list the stack they shipped on.";
+  "Eight years across seven roles and five companies, from junior programmer to owning platform architecture at Penny Software. Each role below lists its dates, and most list the stack they shipped on.";
 
 export default function ExperienceContent() {
   return (

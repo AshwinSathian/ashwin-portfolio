@@ -1,6 +1,6 @@
 # Ashwin Sathian
 
-> Senior full-stack engineer with more than eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.
+> Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.
 
 ## Site
 
@@ -16,19 +16,17 @@ reasoning. Booklet's case study also includes a system architecture diagram
 
 ## About
 
-Ashwin Sathian is an engineer based in Kochi, Kerala, India, with more than eight years
+Ashwin Sathian is an engineer based in Kochi, Kerala, India, with eight years
 across full-stack and platform engineering. He joined Penny Software, a B2B
 procurement SaaS platform, as a founding engineer in June 2020 and stayed
 five years, progressing from Full Stack Developer to Product Specialist to
-Lead Engineer. As Product Specialist he owned feature lifecycles end to
-end, cut API and database response times by 40%+, and worked across
-engineering, QA, and product to move the team to iterative agile delivery,
-cutting release cycles by 1.5x. As Lead Engineer he owned platform
-architecture and roadmap for a modular SaaS procurement system that grew to
-$1B+ GTV across millions of records, designed its Angular, NestJS, and
-MongoDB architecture to hold sub-200ms queries at that scale, and built
-RBAC and multi-tenant security in-house. He mentored a 12-person team and
-introduced code review practices and clean-code standards. In that role he
+Lead Engineer. As Product Specialist he built RBAC and multi-tenant security
+in-house, cut API and database response times by about 40%, and moved the
+team to iterative agile delivery, cutting release cycles by 1.5x. As Lead
+Engineer he owned platform architecture for a modular SaaS procurement
+system that grew to $1B+ GTV across millions of records, designed and
+expanded the Angular, NestJS, and MongoDB stack to hold sub-200ms queries at
+that scale, and mentored the 12-person team building it. In that role he
 also sat with a customer who was vetting vendors by hand, distilled the
 spec, and built and owned the Vendor Pre-Qualification System from scratch,
 schema to UI.
@@ -56,10 +54,11 @@ the code himself.
 
 **Frontend:** Angular, React, Next.js
 **Backend:** Node.js, NestJS, Express
-**Data:** MongoDB, AWS DynamoDB
-**Cloud & DevOps:** AWS, GCP, Docker, GitHub Actions
+**Data:** MongoDB
+**Cloud & DevOps:** GCP, AWS, Docker, GitHub Actions
 **Languages:** TypeScript, JavaScript, Python, HTML/CSS
 **AI & Tooling:** Claude Code, OpenAI Codex
+**Practices:** SaaS architecture, multi-tenancy, RBAC, Agile and Scrum
 
 ## Education
 

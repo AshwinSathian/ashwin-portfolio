@@ -22,7 +22,7 @@ export default function HomeExperience() {
           </div>
 
           <p className="max-w-2xl font-body text-body leading-[1.7] text-ink-muted">
-            More than eight years, seven roles, and five companies, including five years as a founding engineer at Penny Software.
+            Eight years, seven roles, and five companies, including five years as a founding engineer at Penny Software.
           </p>
 
           <Link

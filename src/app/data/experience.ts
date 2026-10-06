@@ -33,7 +33,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
   {
     role: "Product Specialist",
     company: "Penny Software",
-    dates: "Apr 2022 – Feb 2024",
+    dates: "Apr 2022 – Dec 2023",
     bullets: [
       "Built RBAC and multi-tenant security in-house, from scratch.",
       "Optimized APIs and database queries, cutting response times by about 40%.",
@@ -44,7 +44,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
   {
     role: "Full Stack Developer",
     company: "Penny Software",
-    dates: "Jul 2020 – Apr 2022",
+    dates: "Jun 2020 – Mar 2022",
     bullets: [
       "Joined Penny Software as a founding engineer and delivered SaaS features across the full stack.",
       "Used lazy loading and modular design to keep the frontend scalable as usage grew past thousands of active users.",
@@ -64,7 +64,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
   {
     role: "Software Development Engineer",
     company: "WeCP",
-    dates: "Feb 2019 – Jan 2020",
+    dates: "Jan 2019 – Jan 2020",
     bullets: [
       "Built highly available SaaS platforms used for technical hiring.",
       "Set up and led a mentorship program for interns and junior engineers.",

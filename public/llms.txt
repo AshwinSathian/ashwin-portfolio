@@ -18,7 +18,7 @@ reasoning. Booklet's case study also includes a system architecture diagram
 
 Ashwin Sathian is an engineer based in Kochi, Kerala, India, with more than eight years
 across full-stack and platform engineering. He joined Penny Software, a B2B
-procurement SaaS platform, as a founding engineer in July 2020 and stayed
+procurement SaaS platform, as a founding engineer in June 2020 and stayed
 five years, progressing from Full Stack Developer to Product Specialist to
 Lead Engineer. As Product Specialist he built RBAC and multi-tenant security
 in-house, cut API and database response times by about 40%, and moved the
@@ -43,10 +43,10 @@ the code himself.
 
 - **HighLevel**: Lead Engineer, Funnels/Websites/Webinars (Mar 2026–Jun 2026)
 - **Penny Software**: Lead Engineer (Jan 2024–Aug 2025)
-- **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022–Feb 2024)
-- **Penny Software**: Full Stack Developer, founding engineer (Jul 2020–Apr 2022)
+- **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022–Dec 2023)
+- **Penny Software**: Full Stack Developer, founding engineer (Jun 2020–Mar 2022)
 - **Manaraah**: Senior Full Stack Developer (Jan 2020–Jun 2020)
-- **WeCP**: Software Development Engineer (Feb 2019–Jan 2020)
+- **WeCP**: Software Development Engineer (Jan 2019–Jan 2020)
 - **Reubro International**: Junior Programmer (Aug 2018–Jan 2019)
 
 ## Skills & Stack

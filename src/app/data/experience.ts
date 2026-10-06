@@ -22,8 +22,10 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Jan 2024 – Aug 2025",
     bullets: [
-      "Owned platform architecture for a modular SaaS procurement system that grew to $1B+ GTV across millions of records, and mentored the 12-person team building it.",
-      "Designed and expanded the tech stack to hold sub-200ms queries at that scale.",
+      "Owned platform architecture and roadmap for a modular SaaS procurement system that grew to $1B+ GTV across millions of records.",
+      "Designed the Angular, NestJS, and MongoDB architecture to hold sub-200ms queries at that scale.",
+      "Built RBAC and multi-tenant security in-house, from scratch.",
+      "Mentored a 12-person team and introduced code review practices and clean-code standards.",
       "Sat with a customer who was vetting vendors by hand, distilled the spec, then built and owned a Vendor Pre-Qualification System from scratch, schema to UI.",
       // TODO: add a real adoption/impact figure for the Vendor Pre-Qualification
       // System once Ashwin supplies one — do not invent a number here.
@@ -35,9 +37,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Apr 2022 – Dec 2023",
     bullets: [
-      "Built RBAC and multi-tenant security in-house, from scratch.",
-      "Optimized APIs and database queries, cutting response times by about 40%.",
-      "Pushed the team onto iterative agile delivery, cutting release cycles by 1.5x.",
+      "Owned feature lifecycles end to end, aligning engineering with customer priorities.",
+      "Optimized APIs and database queries, cutting response times by 40%+.",
+      "Worked across engineering, QA, and product to move the team onto iterative agile delivery, cutting release cycles by 1.5x.",
     ],
     tech: ["Angular", "NestJS", "MongoDB", "Nx"],
   },
@@ -46,8 +48,9 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Penny Software",
     dates: "Jun 2020 – Mar 2022",
     bullets: [
-      "Joined Penny Software as a founding engineer and delivered SaaS features across the full stack.",
-      "Used lazy loading and modular design to keep the frontend scalable as usage grew past thousands of active users.",
+      "Joined Penny Software as a founding engineer and delivered SaaS features across the stack.",
+      "Used lazy loading and modular design to keep the frontend scalable.",
+      "Improved application responsiveness and stability across thousands of active users.",
     ],
     tech: ["Angular", "NestJS", "MongoDB"],
   },
@@ -66,7 +69,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "WeCP",
     dates: "Jan 2019 – Jan 2020",
     bullets: [
-      "Built highly available SaaS platforms used for technical hiring.",
+      "Built highly available SaaS assessment platforms used for technical hiring.",
       "Set up and led a mentorship program for interns and junior engineers.",
     ],
     tech: ["Angular", "Node.js", "MongoDB", "AWS"],

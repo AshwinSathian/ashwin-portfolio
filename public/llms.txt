@@ -6,12 +6,14 @@
 
 / (home) has the positioning in one line, a compact projects list, an
 experience snapshot, and the stack. Each of those links to a dedicated
-page: /projects (index + 8 project pages, four of them full case
-studies), /experience (the full seven-role record), /writing. Four project case studies (Booklet, BRNR, Wayfarer, and
-Darkframe) are structured as Problem, Decision, and Outcome. Three of those
-four (Booklet, Wayfarer, Darkframe) also carry a dated Decision Record
-documenting a disclosed reversal (a rollback, a rename) with before/after
-reasoning. Booklet's case study also includes a system architecture diagram
+page: /projects (index + 8 project pages, five of them full case
+studies), /experience (the full seven-role record), /writing. Five project
+case studies (Booklet, BRNR, Wayfarer, Darkframe, and humanize-writing-skill)
+are structured as Problem, Decision, and Outcome. Four of those five
+(Booklet, Wayfarer, Darkframe, humanize-writing-skill) also carry a dated
+Decision Record documenting a disclosed reversal (a rollback, a rename, a
+rule that was replaced) with before/after reasoning, and Typester carries
+one for its rebuild. Booklet's case study also includes a system architecture diagram
 (clients, application tier, data/infra).
 
 ## About
@@ -75,7 +77,7 @@ Eight projects designed, built, and run end to end, outside of work. Full case s
 - **Typester**: Keyboard-first typing speed game (typester.ashwinsathian.com). Ground-up rebuild of a 2018 app. Zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
 - **Darkframe** (github.com/AshwinSathian/umbra): Free, open-source, image-safe dark-mode engine for Chrome and Safari. OKLCH-native recoloring, 144 passing unit tests, an E2E-verified Chrome extension, and a Safari Xcode project that builds. Renamed from "Umbra" after finding a naming collision. The changelog entry for the rename also discloses a High-severity CSS injection vulnerability and its fix. MIT.
 - **better-auth-mongoose** (better-auth-mongoose.ashwinsathian.com): Published npm package: a Mongoose-native database adapter for Better Auth, closing a gap documented on Better Auth's issue tracker since February 2025. .populate() support tested in CI, a companion tenant-scoping plugin, and a NestJS integration example. MIT.
-- **humanize-writing-skill** (humanize.ashwinsathian.com, github.com/AshwinSathian/humanize-writing-skill): A Claude Code skill that guides how Claude writes prose so it does not read as machine-written, for human readers (it does not change AI-detector scores). It applies while Claude is writing. Version 2.0.0 (October 2026) rewrote the rules against cited 2026 research; version 2.1.0 lets an author's own voice outrank the rules. Tested in blind pairs on Claude Haiku, Sonnet, and Opus (18 pairs), with the losses published. The project site lists the 2026 AI-writing tells with sources and has its own llms.txt at humanize.ashwinsathian.com/llms.txt. MIT.
+- **humanize-writing-skill** (humanize.ashwinsathian.com, github.com/AshwinSathian/humanize-writing-skill): A Claude Code skill that guides how Claude writes prose so it does not read as machine-written, for human readers (it does not change AI-detector scores). It applies while Claude is writing. Version 2.0.0 (October 2026) rewrote the rules against cited 2026 research; version 2.1.0 lets an author's own voice outrank the rules. Tested in blind pairs on Claude Haiku, Sonnet, and Opus (18 pairs), with the losses published. A pre-registered test of one proposed rule change was run on new tasks and the change was not adopted; that result is published too. The project site lists the 2026 AI-writing tells with sources and has its own llms.txt at humanize.ashwinsathian.com/llms.txt. MIT.
 
 ## Writing
 

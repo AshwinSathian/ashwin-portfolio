@@ -85,7 +85,7 @@ export const PROJECTS: Project[] = [
       {
         title: "SSRF guard and origin checks, unit-tested",
         detail:
-          "Each is its own module with its own unit tests, not an inline check. Both matter once a product accepts arbitrary published content.",
+          "Each is its own module with its own unit tests. Both matter once a product accepts arbitrary published content.",
       },
       {
         title: "A disclosed infrastructure rollback",
@@ -194,7 +194,7 @@ export const PROJECTS: Project[] = [
     category: "Developer tool",
     tagline: "The API client that can't rug-pull you: local-first, no account, client-side encrypted vault.",
     description: [
-      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a Postman-grade response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2 with 200,000 iterations derives an AES-GCM-256 key that's held in memory only, so only ciphertext ever touches storage. Scripts are switched off in the hosted app while their sandbox is rebuilt, after a September 2026 audit found gaps between the docs and the code.",
+      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2 with 200,000 iterations derives an AES-GCM-256 key that's held in memory only, so only ciphertext ever touches storage. Scripts are switched off in the hosted app while their sandbox is rebuilt, after a September 2026 audit found gaps between the docs and the code.",
       "It was renamed from API Sandbox to Wayfarer partway through its life. The app, the local-first storage model, and the MIT license stayed the same. There's also an optional local-bridge, a small Node CLI for CORS/intranet relay when a request needs to reach somewhere the browser can't. No update, acquisition, or pricing change can gate access to data you already own.",
     ],
     stack: ["Angular 20", "PrimeNG", "IndexedDB", "Monaco Editor", "RxJS"],
@@ -287,7 +287,7 @@ export const PROJECTS: Project[] = [
       {
         title: "Three caching modes",
         detail:
-          "none, memory, or storage (localStorage revalidation), tuned per app instead of one policy for everyone. Server environments never touch localStorage.",
+          "none, memory, or storage (localStorage revalidation), chosen per app. Server environments never touch localStorage.",
       },
     ],
     links: {
@@ -514,7 +514,7 @@ export const auth = betterAuth({
     description: [
       "Text reads as machine-written when every choice in it would suit any reader and any subject: the safe claim, the impressive word, the sentence shape that worked last time. This skill applies while Claude is writing, where the widely used alternatives are rewrite tools run over a finished draft. Its rules cover claims (specific, checkable, never invented), sentence shape, and endings, and a Scope section says where they give way: API docs, legal text, fiction, marketing copy, someone else's own writing. It is written for human readers and says plainly that it does not change AI-detector scores.",
       "Version 2.0.0 (October 2026) came out of an audit of the first release. The tells had moved since 2023: a four-model study by The Economist found the signal now sits in long noun-heavy sentences and thin punctuation, and Anthropic's own prompting guide names metaphor in place of plain statement as a habit of its current model. The 1.x rewritten examples had swapped the old tells for the new ones and added facts their originals did not contain. The rules were rewritten against those sources and judged in shuffled blind pairs. Two model judges each preferred 2.0.0 to no skill in 5 of 6 pairs. An earlier draft lost to the previous version, and that round is published in the repo along with the pairs it lost.",
-      "Version 2.1.0 lets an author's own habits outrank the style rules when Claude drafts in their voice from a sample or a voice profile. A second blind round on 10 October 2026 used Claude Haiku as the writer: three judges each preferred the skill's text to no-skill text in 3 of 3 pairs, and two of them flagged one passage for stating a team's current practice as fact. The project has its own site at humanize.ashwinsathian.com, with the 2026 tells and their sources, the worked examples, the test results, and a comparison with four other humanizer skills.",
+      "Version 2.1.0 lets an author's own habits outrank the style rules when Claude drafts in their voice from a sample or a voice profile. A second blind round on 10 October 2026 used Claude Haiku as the writer: three judges each preferred the skill's text to no-skill text in 3 of 3 pairs, and two of them flagged one passage for stating a team's current practice as fact. A pre-registered test of a reworded rule followed on four new tasks, and the rewording was not adopted. The project has its own site at humanize.ashwinsathian.com, with the 2026 tells and their sources, the worked examples, the test results, and a comparison with four other humanizer skills.",
     ],
     stack: ["Claude Code", "Markdown", "Python", "Research synthesis", "Next.js (site)"],
     facts: [
@@ -531,7 +531,7 @@ export const auth = betterAuth({
       {
         title: "Never invents to sound specific",
         detail:
-          "Blind testing caught the previous version making up a past incident for an internal blog post. The rule against invention now sits directly under the rule that asks for specifics, and covers anything a rewrite adds to its source. It still slipped once on Haiku, where a passage stated a team's current practice as fact, and that miss is published with the rest.",
+          "Blind testing caught the previous version making up a past incident for an internal blog post. The rule against invention now sits directly under the rule that asks for specifics, and covers anything a rewrite adds to its source. It still slips. On four tasks the rules were never tuned on, 2 of 9 passages said something about the reader's team that nobody had supplied. A reworded rule brought that to 1 of 9, short of the bar set before the test ran, so the rule was left alone and the result is published.",
       },
       {
         title: "Tested blind, with the losses on record",
@@ -573,7 +573,7 @@ export const auth = betterAuth({
       decision:
         "Wrote a skill that applies while Claude is writing, with rules on claims, sentence shape, and endings, and a Scope section for the genres where those rules give way. In October 2026 I audited my own first release against newer research, found that its rewritten examples had swapped the 2023 tells for the 2026 ones and added facts their originals did not contain, and rewrote the rules. Each blind round is published, including a draft that lost to the previous version.",
       outcome:
-        "In blind pairs, two model judges each preferred the skill's text to no-skill text in 5 of 6 pairs with Sonnet and Opus writing, and three judges each preferred it in 3 of 3 with Haiku writing. The samples are small and the judges are Claude models. One Haiku passage was flagged by two judges for stating a team's current practice as fact, and that is on record too. The skill does not change AI-detector scores and says so.",
+        "In blind pairs, two model judges each preferred the skill's text to no-skill text in 5 of 6 pairs with Sonnet and Opus writing, and three judges each preferred it in 3 of 3 with Haiku writing. The samples are small and the judges are Claude models. A later test on new tasks found 2 of 9 passages stating something about the reader's team that nobody had supplied. A reworded rule did not clear the bar set in advance, and that is on record too. The skill does not change AI-detector scores and says so.",
     },
   },
 ];

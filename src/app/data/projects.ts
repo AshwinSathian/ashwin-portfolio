@@ -508,17 +508,19 @@ export const auth = betterAuth({
   {
     slug: "humanize-writing-skill",
     name: "humanize-writing-skill",
+    featured: true,
     category: "Claude Code skill",
-    tagline: "A Claude Code skill that guides how Claude writes prose so it doesn't read as machine-written. Its rules come from cited 2026 research and were tested blind before release.",
+    tagline: "A Claude Code skill that guides how Claude writes prose so it doesn't read as machine-written. Its rules come from cited 2026 research and were tested blind on Haiku, Sonnet, and Opus.",
     description: [
       "Text reads as machine-written when every choice in it would suit any reader and any subject: the safe claim, the impressive word, the sentence shape that worked last time. This skill applies while Claude is writing, where the widely used alternatives are rewrite tools run over a finished draft. Its rules cover claims (specific, checkable, never invented), sentence shape, and endings, and a Scope section says where they give way: API docs, legal text, fiction, marketing copy, someone else's own writing. It is written for human readers and says plainly that it does not change AI-detector scores.",
       "Version 2.0.0 (October 2026) came out of an audit of the first release. The tells had moved since 2023: a four-model study by The Economist found the signal now sits in long noun-heavy sentences and thin punctuation, and Anthropic's own prompting guide names metaphor in place of plain statement as a habit of its current model. The 1.x rewritten examples had swapped the old tells for the new ones and added facts their originals did not contain. The rules were rewritten against those sources and judged in shuffled blind pairs. Two model judges each preferred 2.0.0 to no skill in 5 of 6 pairs. An earlier draft lost to the previous version, and that round is published in the repo along with the pairs it lost.",
+      "Version 2.1.0 lets an author's own habits outrank the style rules when Claude drafts in their voice from a sample or a voice profile. A second blind round on 10 October 2026 used Claude Haiku as the writer: three judges each preferred the skill's text to no-skill text in 3 of 3 pairs, and two of them flagged one passage for stating a team's current practice as fact. The project has its own site at humanize.ashwinsathian.com, with the 2026 tells and their sources, the worked examples, the test results, and a comparison with four other humanizer skills.",
     ],
-    stack: ["Claude Code", "Markdown", "Python", "Research synthesis"],
+    stack: ["Claude Code", "Markdown", "Python", "Research synthesis", "Next.js (site)"],
     facts: [
-      { label: "Release", value: "2.0.0, October 2026, MIT" },
-      { label: "Basis", value: "1.x research plus 18 newer sources, cited in reference/" },
-      { label: "Validation", value: "12 blind pairs, 2 model judges, losses published" },
+      { label: "Release", value: "2.1.0, October 2026, MIT" },
+      { label: "Install", value: "npx skills add AshwinSathian/humanize-writing-skill" },
+      { label: "Validation", value: "18 blind pairs on Haiku, Sonnet, and Opus, losses published" },
     ],
     highlights: [
       {
@@ -529,38 +531,50 @@ export const auth = betterAuth({
       {
         title: "Never invents to sound specific",
         detail:
-          "Blind testing caught the previous version making up a past incident for an internal blog post. The rule against invention now sits directly under the rule that asks for specifics, and covers anything a rewrite adds to its source.",
+          "Blind testing caught the previous version making up a past incident for an internal blog post. The rule against invention now sits directly under the rule that asks for specifics, and covers anything a rewrite adds to its source. It still slipped once on Haiku, where a passage stated a team's current practice as fact, and that miss is published with the rest.",
       },
       {
         title: "Tested blind, with the losses on record",
         detail:
-          "Passages written with no skill, with 1.1.1, and with 2.0.0 were shuffled and judged unlabeled. The pairs, the key, both judges' answers, and a 20-finding adversarial review are in reference/validation-2.0.0/, and reference/research/2026-update.md lists the 1.x claims that newer sources weakened.",
+          "Passages written with no skill, with 1.1.1, and with the current rules were shuffled and judged unlabeled, first on Sonnet and Opus (12 pairs, two judges) and then on Haiku (6 pairs, three judges). The passages, the pairs, the keys, every judge's answers, and a 20-finding adversarial review are in reference/, and reference/research/2026-update.md lists the 1.x claims that newer sources weakened.",
       },
       {
-        title: "The tool that wrote this site's copy",
+        title: "Your voice outranks the rules",
         detail:
-          "The first release was in use for the writing on this redesign. This entry was written under 2.0.0.",
+          "Since 2.1.0, a draft in a person's own voice keeps their dashes, rhetorical questions, and \"not X but Y\" at about their rate. The repo has one worked profile, mine, built from about 55,000 words I wrote without AI assistance and described as counts with no quoted text. In its test the drafts moved toward my use of \"we\" and of questions, and still came out with shorter sentences and fewer dashes than I write.",
+      },
+      {
+        title: "It wrote its own landing page",
+        detail:
+          "humanize.ashwinsathian.com was drafted with the skill and that voice profile, and prints the counts for its own copy from the repo's measuring script: 15.9 words a sentence against my 18, and 3.3 dashes per 1,000 words against my 6. The first release was in use for the writing on this redesign. This entry was written under 2.1.0.",
       },
     ],
     links: {
+      live: "https://humanize.ashwinsathian.com",
       github: "https://github.com/AshwinSathian/humanize-writing-skill",
     },
     media: {
-      kind: "code",
-      language: "sh",
-      caption: "install",
-      snippet: `# inside Claude Code:
-/plugin marketplace add AshwinSathian/humanize-writing-skill
-/plugin install humanizing-writing@humanize-writing-skill
-
-# or clone and symlink:
-git clone https://github.com/AshwinSathian/humanize-writing-skill.git
-ln -s "$(pwd)/humanize-writing-skill" ~/.claude/skills/humanizing-writing
-
-# or:
-npx skills add AshwinSathian/humanize-writing-skill`,
+      kind: "screenshot",
+      src: "/projects/humanize-writing-skill/hero.png",
+      width: 1280,
+      height: 800,
+      alt: "The humanizing-writing site: the headline, an install command, and a paragraph marked up like a copy-edit, with machine habits struck through in red and notes beside them.",
     },
     repo: { owner: "AshwinSathian", repo: "humanize-writing-skill" },
+    decisionRecord: {
+      date: "2026-10",
+      before: "Vary sentence rhythm on purpose",
+      after: "Let sentence length follow the content",
+      why: "A model told to vary its rhythm writes short sentences for effect: the one-line closer, the fragment, the colon reveal. Sources from 2026 list those among the most recognizable habits of current models, and the skill's own 1.x examples contained them.",
+    },
+    caseStudy: {
+      problem:
+        "Prose from Claude is easy to recognize, and most public humanizer skills answer that with a list of banned words run over a finished draft. The lists go stale. Wikipedia's list of AI vocabulary for mid-2025 onward is four words long, and current models have mostly dropped \"delve\" for long noun-heavy sentences, metaphor in place of plain statement, and closing lines written for effect.",
+      decision:
+        "Wrote a skill that applies while Claude is writing, with rules on claims, sentence shape, and endings, and a Scope section for the genres where those rules give way. In October 2026 I audited my own first release against newer research, found that its rewritten examples had swapped the 2023 tells for the 2026 ones and added facts their originals did not contain, and rewrote the rules. Each blind round is published, including a draft that lost to the previous version.",
+      outcome:
+        "In blind pairs, two model judges each preferred the skill's text to no-skill text in 5 of 6 pairs with Sonnet and Opus writing, and three judges each preferred it in 3 of 3 with Haiku writing. The samples are small and the judges are Claude models. One Haiku passage was flagged by two judges for stating a team's current practice as fact, and that is on record too. The skill does not change AI-detector scores and says so.",
+    },
   },
 ];
 

@@ -1,6 +1,7 @@
 ---
 title: "The AI Tells Moved. My Tool for Avoiding Them Hadn't."
 date: "2026-10-05"
+updatedAt: "2026-10-10"
 description: "I audited my own anti-AI-writing skill against 2026 research. Its showcase examples had swapped the 2023 tells for the 2026 ones, and a blind test caught it inventing facts."
 tags: ["ai", "writing", "llm", "claude"]
 ---
@@ -60,3 +61,11 @@ That is twelve pairs. The judges are Claude models, which may share blind spots 
 It does not get text past an AI detector. Current detectors are trained classifiers. A 2026 paper found that GPTZero and Pangram often label text from a base model as human and text from the instruction-tuned version of the same model as AI, which suggests they are reading the tuning and not the phrasing. A style guide does not change how a model was tuned. The skill now says so in its overview, and tells the model to say so if asked.
 
 Version 2.0.0 is in the same repository as before, along with the blind pairs, both judges' answers, the comparisons it lost, and the review that found the twenty problems: [github.com/AshwinSathian/humanize-writing-skill](https://github.com/AshwinSathian/humanize-writing-skill). The part I expect to rewrite first is the file listing the habits of current Claude models, which is dated October 2026 and will be wrong after the next release.
+
+## Update, 10 October 2026
+
+Every test above had Sonnet or Opus doing the writing, so I ran the same three tasks on Haiku, the smallest current Claude model, and added a Haiku judge to the other two. All three judges preferred the skill's passage to the no-skill one in three pairs of three. Against the old skill, one judge preferred the new version in all three, one in two with a tie, and one in two with a loss.
+
+It also turned up the first invention I have seen from the rules as released. Writing for a team it had been told nothing about, Haiku began a sentence with "Right now a half-finished feature either sits on a long-lived branch or reaches every user at once." Two of the three judges flagged it. The rule names made-up incidents, figures, quotes, and sources, and a claim about how the reader's own team works is none of those. I have not changed the wording yet. A fix written after seeing that passage would need a task the rules were not tuned on, and that is the test I skipped the first time.
+
+That is six more pairs with the same caveats as before. The passages, the judges' answers, and the prompts are in the repository, and the skill now has a page of its own with the 2026 tells and their sources: [humanize.ashwinsathian.com](https://humanize.ashwinsathian.com).

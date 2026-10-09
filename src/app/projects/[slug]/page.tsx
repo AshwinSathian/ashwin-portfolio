@@ -72,6 +72,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     url: `${SITE.website}/projects/${project.slug}`,
     applicationCategory: project.category,
     ...(project.links.github ? { codeRepository: project.links.github } : {}),
+    ...(project.links.live ? { sameAs: project.links.live } : {}),
     author: { "@id": `${SITE.website}/#person` },
     creator: { "@id": `${SITE.website}/#person` },
     softwareRequirements: project.stack.join(", "),

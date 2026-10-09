@@ -86,7 +86,7 @@ export default function Page() {
             {RECORD.figures.map((figure) => (
               <div key={figure.value} className="reveal flex flex-col-reverse gap-2 border-t border-line-strong pt-4">
                 <dt className="text-small text-fg-2">{figure.label}</dt>
-                <dd className="font-display text-display-m font-semibold tracking-[-0.03em] text-fg">
+                <dd className="text-display-m font-semibold tracking-[-0.03em] text-fg">
                   {figure.value}
                 </dd>
               </div>
@@ -125,14 +125,14 @@ export default function Page() {
         <div className="shell relative py-24 lg:py-44">
           <h2
             id="contact-heading"
-            className="reveal font-display text-display-xl font-bold tracking-[-0.045em]"
+            className="reveal text-display-xl font-bold tracking-[-0.045em]"
           >
             Let&apos;s talk.
           </h2>
           <div className="reveal mt-10 flex flex-col gap-6 border-t border-line pt-6 lg:mt-16 lg:flex-row lg:items-center lg:justify-between">
             <a
               href={`mailto:${SITE.email}`}
-              className="flex min-h-11 items-center font-display text-[clamp(1.125rem,4.6vw,2rem)] font-medium tracking-[-0.02em] text-fg"
+              className="flex min-h-11 items-center text-[clamp(1.125rem,4.6vw,2rem)] font-medium tracking-[-0.02em] text-fg"
             >
               <span className="link">{SITE.email}</span>
             </a>

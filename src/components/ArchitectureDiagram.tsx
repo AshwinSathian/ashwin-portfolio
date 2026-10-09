@@ -21,9 +21,9 @@ export default function ArchitectureDiagram() {
           viewBox="0 0 1000 560"
           role="img"
           aria-label="Four clients (browser, CLI, CI and AI assistants) call one REST API served by booklet-app. AI assistants reach it through booklet-mcp over loopback HTTP. booklet-app reads and writes MongoDB and uses in-house auth."
-          className="w-full min-w-160 font-sans text-fg lg:min-w-0"
+          className="w-full min-w-160 text-fg lg:min-w-0"
         >
-          <text x="0" y="18" className="fill-fg-3 font-mono text-[13px]">Clients: all consumers of one REST API</text>
+          <text x="0" y="18" className="fill-fg-3 text-[13px]">Clients: all consumers of one REST API</text>
           {CLIENTS.map(([name, sub], i) => {
             const x = i * 256;
             const cx = x + 116;
@@ -33,35 +33,35 @@ export default function ArchitectureDiagram() {
               <g key={name}>
                 <rect x={x} y="36" width="232" height="76" rx="10" className={BOX} />
                 <text x={cx} y="70" textAnchor="middle" className="fill-fg text-[15px] font-medium">{name}</text>
-                <text x={cx} y="92" textAnchor="middle" className="fill-fg-2 font-mono text-[12px]">{sub}</text>
+                <text x={cx} y="92" textAnchor="middle" className="fill-fg-2 text-[12px]">{sub}</text>
                 <path d={`M${cx} 112 V168 H${targetX} V226`} className={WIRE} />
               </g>
             );
           })}
 
-          <text x="0" y="212" className="fill-fg-3 font-mono text-[13px]">Application tier: PM2, self-hosted, behind a Cloudflare Tunnel</text>
+          <text x="0" y="212" className="fill-fg-3 text-[13px]">Application tier: PM2, self-hosted, behind a Cloudflare Tunnel</text>
           <rect x="60" y="226" width="380" height="92" rx="10" className={BOX} />
           <text x="250" y="264" textAnchor="middle" className="fill-fg text-[16px] font-medium">booklet-app</text>
-          <text x="250" y="290" textAnchor="middle" className="fill-fg-2 font-mono text-[12px]">Next.js 16 · web UI + REST API · :3100</text>
+          <text x="250" y="290" textAnchor="middle" className="fill-fg-2 text-[12px]">Next.js 16 · web UI + REST API · :3100</text>
 
           <rect x="560" y="226" width="380" height="92" rx="10" className={BOX} />
           <text x="750" y="264" textAnchor="middle" className="fill-fg text-[16px] font-medium">booklet-mcp</text>
-          <text x="750" y="290" textAnchor="middle" className="fill-fg-2 font-mono text-[12px]">MCP bridge · :8788 · 5 tools</text>
+          <text x="750" y="290" textAnchor="middle" className="fill-fg-2 text-[12px]">MCP bridge · :8788 · 5 tools</text>
 
           <path d="M560 272 H440" className={WIRE} markerEnd="url(#arrow)" />
-          <text x="500" y="262" textAnchor="middle" className="fill-fg-3 font-mono text-[11px]">loopback HTTP</text>
+          <text x="500" y="262" textAnchor="middle" className="fill-fg-3 text-[11px]">loopback HTTP</text>
 
           <path d="M180 318 V436" className={WIRE} />
           <path d="M320 318 V396 H750 V436" className={WIRE} />
 
-          <text x="0" y="422" className="fill-fg-3 font-mono text-[13px]">Data + auth</text>
+          <text x="0" y="422" className="fill-fg-3 text-[13px]">Data + auth</text>
           <rect x="60" y="436" width="380" height="92" rx="10" className={BOX} />
           <text x="250" y="474" textAnchor="middle" className="fill-fg text-[16px] font-medium">MongoDB</text>
-          <text x="250" y="500" textAnchor="middle" className="fill-fg-2 font-mono text-[12px]">pages, users, sessions</text>
+          <text x="250" y="500" textAnchor="middle" className="fill-fg-2 text-[12px]">pages, users, sessions</text>
 
           <rect x="560" y="436" width="380" height="92" rx="10" className={BOX} />
           <text x="750" y="474" textAnchor="middle" className="fill-fg text-[16px] font-medium">In-house auth</text>
-          <text x="750" y="500" textAnchor="middle" className="fill-fg-2 font-mono text-[12px]">argon2id hashing, HMAC-peppered session tokens</text>
+          <text x="750" y="500" textAnchor="middle" className="fill-fg-2 text-[12px]">argon2id hashing, HMAC-peppered session tokens</text>
 
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">

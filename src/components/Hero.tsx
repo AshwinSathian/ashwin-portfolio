@@ -22,14 +22,14 @@ export default function Hero() {
         <KineticHeading
           id="hero-heading"
           text={HERO.title}
-          className="max-w-[15ch] font-display text-display-xl font-bold tracking-[-0.045em]"
+          className="max-w-[15ch] text-display-xl font-bold tracking-[-0.045em]"
         />
 
         <div
           className="load-rise mt-10 flex flex-col gap-6 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between lg:mt-16"
           style={delay(900)}
         >
-          <p className="font-display text-title font-medium tracking-[-0.01em] text-fg">{HERO.thesis}</p>
+          <p className="text-title font-medium tracking-[-0.01em] text-fg">{HERO.thesis}</p>
           <div className="flex flex-wrap gap-x-8">
             <ArrowLink href="/projects">See the work</ArrowLink>
             <ArrowLink href={SITE.resumePath} external>

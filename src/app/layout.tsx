@@ -1,21 +1,18 @@
 import type { Metadata, Viewport } from "next";
 import { ViewTransition } from "react";
-import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const display = Bricolage_Grotesque({
+// The one typeface. Optical size stays at the font default (14), the text cut,
+// so the same file serves body copy and headings. Code uses the system monospace.
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   axes: ["wdth"],
   variable: "--font-bricolage",
   display: "swap",
 });
-
-const sans = Geist({ subsets: ["latin"], variable: "--font-geist", display: "swap" });
-
-// Data only: dates, counts, versions, code.
-const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", display: "swap" });
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
@@ -159,7 +156,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={bricolage.variable}>
       <head>
         <script
           type="application/ld+json"

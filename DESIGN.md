@@ -32,10 +32,14 @@ dimmer text colour.
 
 ## Type
 
-- Display: Bricolage Grotesque (variable weight and width). Headings only.
-  Tight tracking (-0.03 to -0.045em), line-height near 0.95.
-- Body and UI: Geist, 17px base, line-height 1.6.
-- Data: Geist Mono, for dates, counts, versions and code. Never for prose.
+- One typeface on every surface: Bricolage Grotesque (variable weight and
+  width, optical size fixed at the text cut). Headings, body, UI, metadata
+  and the OG images all use it. Do not add a second family.
+- Headings: tight tracking (-0.03 to -0.045em), line-height near 0.95.
+- Body and UI: 17px base, line-height 1.6.
+- Metadata (dates, counts, versions): `text-meta` with `tabular-nums`.
+- Code blocks and inline code are the only exception: the system monospace
+  stack, so columns still align. No monospace web font is loaded.
 
 Scale: `display-xl`, `display-l`, `display-m`, `title`, `body`, `small`,
 `meta`. Section labels are sentence case. No uppercase tracked eyebrows.

@@ -127,13 +127,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </ol>
         </nav>
 
-        <p className="load-rise mb-4 flex flex-wrap items-center gap-3 font-mono text-meta text-fg-3">
+        <p className="load-rise mb-4 flex flex-wrap items-center gap-3 text-meta tabular-nums text-fg-3">
           {project.category}
           {project.status && <StatusTag>{project.status}</StatusTag>}
         </p>
         <KineticHeading
           text={project.name}
-          className="font-display text-display-xl font-bold tracking-[-0.045em] wrap-anywhere"
+          className="text-display-xl font-bold tracking-[-0.045em] wrap-anywhere"
         />
         <p
           className="load-rise mt-6 max-w-3xl text-[1.1875rem] leading-[1.5] text-fg-2 lg:mt-8 lg:text-[1.375rem]"
@@ -177,13 +177,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               {typeof project.stars === "number" && project.stars > 0 && (
                 <div className="flex flex-col gap-1 border-b border-line py-4">
                   <dt className="text-small text-fg-3">GitHub stars</dt>
-                  <dd className="font-mono text-fg">{project.stars}</dd>
+                  <dd className="tabular-nums text-fg">{project.stars}</dd>
                 </div>
               )}
             </dl>
             <div>
               <h2 className="mb-3 text-small text-fg-3">Stack</h2>
-              <p className="font-mono text-meta leading-[1.9] text-fg-2">{project.stack.join(" · ")}</p>
+              <p className="text-meta tabular-nums leading-[1.9] text-fg-2">{project.stack.join(" · ")}</p>
             </div>
           </div>
         </aside>
@@ -194,8 +194,8 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             <div className="flex flex-col gap-12">
               {narrative.map(([label, text], i) => (
                 <section key={label} aria-labelledby={`cs-${label}`} className="reveal flex flex-col gap-3">
-                  <h2 id={`cs-${label}`} className="flex items-baseline gap-4 font-display text-display-m font-semibold tracking-[-0.03em]">
-                    <span aria-hidden className="font-mono text-meta font-normal tracking-normal text-fg-3">
+                  <h2 id={`cs-${label}`} className="flex items-baseline gap-4 text-display-m font-semibold tracking-[-0.03em]">
+                    <span aria-hidden className="text-meta tabular-nums font-normal tracking-normal text-fg-3">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {label}
@@ -216,7 +216,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
           {project.slug === "booklet" && (
             <section aria-labelledby="architecture-heading" className="flex flex-col gap-6">
-              <h2 id="architecture-heading" className="reveal font-display text-display-m font-semibold tracking-[-0.03em]">
+              <h2 id="architecture-heading" className="reveal text-display-m font-semibold tracking-[-0.03em]">
                 Architecture
               </h2>
               <ArchitectureDiagram />
@@ -224,13 +224,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           )}
 
           <section aria-labelledby="highlights-heading" className="flex flex-col gap-2">
-            <h2 id="highlights-heading" className="reveal font-display text-display-m font-semibold tracking-[-0.03em]">
+            <h2 id="highlights-heading" className="reveal text-display-m font-semibold tracking-[-0.03em]">
               Highlights
             </h2>
             <ol className="flex flex-col">
               {project.highlights.map((highlight, i) => (
                 <li key={highlight.title} className="reveal grid gap-x-6 gap-y-2 border-b border-line py-7 sm:grid-cols-[2.5rem_1fr]">
-                  <span aria-hidden className="font-mono text-meta text-fg-3 sm:pt-1.5">
+                  <span aria-hidden className="text-meta tabular-nums text-fg-3 sm:pt-1.5">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="flex flex-col gap-2">
@@ -244,7 +244,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
           {project.decisionRecord && (
             <section aria-labelledby="decision-heading" className="flex flex-col gap-6">
-              <h2 id="decision-heading" className="reveal font-display text-display-m font-semibold tracking-[-0.03em]">
+              <h2 id="decision-heading" className="reveal text-display-m font-semibold tracking-[-0.03em]">
                 Revised in public
               </h2>
               <DecisionRecord record={project.decisionRecord} />
@@ -260,11 +260,11 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         <div className="shell flex items-end justify-between gap-6 py-14 lg:py-24">
           <div className="flex min-w-0 flex-col gap-3">
             <span className="text-small text-fg-3">Next project</span>
-            <span className="font-display text-display-l font-semibold tracking-[-0.035em] wrap-anywhere">
+            <span className="text-display-l font-semibold tracking-[-0.035em] wrap-anywhere">
               {next.name}
             </span>
           </div>
-          <span aria-hidden className="arrow font-display text-display-m text-fg-2">→</span>
+          <span aria-hidden className="arrow text-display-m text-fg-2">→</span>
         </div>
       </Link>
     </article>

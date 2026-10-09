@@ -29,7 +29,7 @@ export function RoleList() {
           key={`${item.company}-${item.role}`}
           className="reveal grid gap-x-8 gap-y-1 border-t border-line py-4 text-small md:grid-cols-[12rem_1fr_auto] md:items-baseline"
         >
-          <span className="font-mono text-meta text-fg-3">{item.dates}</span>
+          <span className="text-meta tabular-nums text-fg-3">{item.dates}</span>
           <span className="text-fg">{item.role}</span>
           <span className="text-fg-2">{item.company}</span>
         </li>
@@ -50,10 +50,10 @@ export function RoleGroups() {
         >
           <header className="reveal lg:col-span-4">
             <div className="lg:sticky lg:top-24">
-              <h2 className="font-display text-display-m font-semibold tracking-[-0.03em]">
+              <h2 className="text-display-m font-semibold tracking-[-0.03em]">
                 {group.company}
               </h2>
-              <p className="mt-2 font-mono text-meta text-fg-3">{group.span}</p>
+              <p className="mt-2 text-meta tabular-nums text-fg-3">{group.span}</p>
             </div>
           </header>
 
@@ -63,7 +63,7 @@ export function RoleGroups() {
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
                   <h3 className="text-title font-medium text-fg">{item.role}</h3>
                   {group.roles.length > 1 && (
-                    <p className="shrink-0 font-mono text-meta text-fg-3">{item.dates}</p>
+                    <p className="shrink-0 text-meta tabular-nums text-fg-3">{item.dates}</p>
                   )}
                 </div>
                 <ul className="flex flex-col gap-3 text-fg-2">
@@ -74,7 +74,7 @@ export function RoleGroups() {
                   ))}
                 </ul>
                 {item.tech && item.tech.length > 0 && (
-                  <p className="font-mono text-meta text-fg-3">{item.tech.join(" · ")}</p>
+                  <p className="text-meta tabular-nums text-fg-3">{item.tech.join(" · ")}</p>
                 )}
               </article>
             ))}

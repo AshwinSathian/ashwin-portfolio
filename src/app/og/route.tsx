@@ -7,8 +7,7 @@ const FG = "#F5F5F4";
 const FG_2 = "#A6A6A6";
 const FG_3 = "#8A8A8A";
 
-const MONO_FONT_FAMILY = "Geist Mono";
-const DISPLAY_FONT_FAMILY = "Bricolage Grotesque";
+const FONT_FAMILY = "Bricolage Grotesque";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
@@ -36,15 +35,10 @@ export async function GET(request: NextRequest) {
   const description = searchParams.get("description");
   const label = searchParams.get("label") ?? "Writing";
 
-  const [regular, bold, displayBold] = await Promise.all([
-    loadGoogleFont(MONO_FONT_FAMILY, 400),
-    loadGoogleFont(MONO_FONT_FAMILY, 700),
-    loadGoogleFont(DISPLAY_FONT_FAMILY, 700),
-  ]);
+  const [regular, bold] = await Promise.all([loadGoogleFont(FONT_FAMILY, 400), loadGoogleFont(FONT_FAMILY, 700)]);
   const fonts = [
-    { name: MONO_FONT_FAMILY, data: regular, weight: 400 as const, style: "normal" as const },
-    { name: MONO_FONT_FAMILY, data: bold, weight: 700 as const, style: "normal" as const },
-    { name: DISPLAY_FONT_FAMILY, data: displayBold, weight: 700 as const, style: "normal" as const },
+    { name: FONT_FAMILY, data: regular, weight: 400 as const, style: "normal" as const },
+    { name: FONT_FAMILY, data: bold, weight: 700 as const, style: "normal" as const },
   ];
 
   // Post card, when a title is supplied
@@ -63,7 +57,7 @@ export async function GET(request: NextRequest) {
             justifyContent: "space-between",
             padding: "72px 80px",
             backgroundColor: NIGHT,
-            fontFamily: MONO_FONT_FAMILY,
+            fontFamily: FONT_FAMILY,
           }}
         >
           {/* Top: section label */}
@@ -110,7 +104,6 @@ export async function GET(request: NextRequest) {
               style={{
                 fontSize: 54,
                 fontWeight: 700,
-                fontFamily: DISPLAY_FONT_FAMILY,
                 lineHeight: 1.1,
                 letterSpacing: "-0.035em",
                 color: FG,
@@ -181,7 +174,7 @@ export async function GET(request: NextRequest) {
           justifyContent: "flex-end",
           padding: "80px",
           backgroundColor: NIGHT,
-          fontFamily: MONO_FONT_FAMILY,
+          fontFamily: FONT_FAMILY,
         }}
       >
         <div
@@ -200,7 +193,6 @@ export async function GET(request: NextRequest) {
           style={{
             fontSize: 96,
             fontWeight: 700,
-            fontFamily: DISPLAY_FONT_FAMILY,
             lineHeight: 1.0,
             letterSpacing: "-0.03em",
             color: FG,

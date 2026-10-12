@@ -127,6 +127,77 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    slug: "weir",
+    name: "Weir",
+    featured: true,
+    category: "Go library",
+    tagline: "HTTP caching in front of an origin that has to stay up. It forwards the request it keyed, so a header the cache ignores cannot poison an entry, and a stampede cannot reach the origin faster than a budget you set.",
+    description: [
+      "Weir sits between an HTTP server and an origin and decides, for each request, whether the cache can answer. It implements RFC 9111 caching and adds defenses I could not find together in one Go library. Each lifetime is shortened by up to 10%, so entries stored together do not expire together. Concurrent requests for one key share one origin fetch. Every origin fetch, whatever its key, holds a slot from a limiter of 64. Stale-while-revalidate, stale-if-error and a circuit breaker cover an origin outage, and a soft purge revalidates through the same limiter. The core module imports only the Go standard library. Three more modules add a Caddy handler, a Valkey store for several nodes, and Prometheus metrics.",
+      "The cache key is treated as a security boundary. On a cacheable request the origin receives only the headers that are in the key, the ones the operator allowed, and a short fixed list, so the forwarded request is the keyed request. That has a cost: an origin that reads Accept-Language or a cookie does not see it until the operator keys or allows it. The threat model lists 51 threats with the answer and the test for each, and 10 risks the defaults do not remove.",
+      "It was built in fifteen days through Claude Code sessions: a seed design document, ten numbered design documents with requirement IDs, and 103 task cards, one session per card, each ending in a pull request that I reviewed and merged. Version 1.0.0 was tagged on 12 October 2026 after two release-candidate rehearsals. It is a new library with no production history yet.",
+    ],
+    stack: ["Go 1.27", "net/http", "Caddy", "Valkey", "Prometheus", "Claude Code"],
+    facts: [
+      { label: "Release", value: "1.0.1, October 2026, Apache-2.0" },
+      { label: "Install", value: "go get github.com/AshwinSathian/weir@v1.0.1" },
+      { label: "Checks", value: "147 requirement IDs traced to tests, 29 fuzz targets, a 51-threat model" },
+    ],
+    highlights: [
+      {
+        title: "The origin sees only what the cache keyed",
+        detail:
+          "Cache poisoning needs an input that changes the origin's response and is not in the cache key. By default Weir does not forward such an input, so an unkeyed header cannot shape what is stored for other clients. For its first five minutes it counts the cookie names it dropped and logs the common ones once, so an operator can find the ones the origin needs.",
+      },
+      {
+        title: "One origin budget for every key",
+        detail:
+          "Coalescing protects one hot key and does nothing when thousands of different keys go cold together. Every fetch holds a limiter slot, with a share per path. In the load test that lets 10,000 keys expire at once with the limit set to 32, all 10,000 were refetched, the origin never had more than 32 requests in flight, and no client saw an error.",
+      },
+      {
+        title: "Stale answers and a breaker when the origin fails",
+        detail:
+          "Weir serves stale content only where the origin allowed it with stale-while-revalidate or stale-if-error, unless the operator sets a default. In the brownout scenario of the load test every request got a 2xx and 52,975 were served stale.",
+      },
+      {
+        title: "Requirements traced to tests by a script",
+        detail:
+          "Every behavior in the spec has an ID and each test cites the IDs it covers. The build fails if an ID has no test citing it: 147 at release. Before the tag, 29 fuzz targets ran for an hour each without a crash and the engine tests passed 100 consecutive runs under the race detector.",
+      },
+      {
+        title: "Reviewed adversarially, with the misses on record",
+        detail:
+          "Six adversarial reviews of the finished code found a 304 that could bring back a body a hard purge had removed, %2e decoded into a dot-segment of the path, and a named pipe at the snapshot path that hung startup. The release candidates found a module tagged without its go.sum lines and a runbook that promised a cache hit after a restart. The changelog inside the v1.0.0 tag still says \"unreleased\". It is all written down in the repository.",
+      },
+    ],
+    links: {
+      live: "https://weir.ashwinsathian.com",
+      github: "https://github.com/AshwinSathian/weir",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/weir/hero.png",
+      width: 1280,
+      height: 800,
+      alt: "The Weir site: the headline \"Shared HTTP caching in front of an origin that has to stay up\", an install command, and a terminal transcript in which the second request, 13 seconds later, is answered from the cache with ttl=43.",
+    },
+    repo: { owner: "AshwinSathian", repo: "weir" },
+    decisionRecord: {
+      date: "2026-10",
+      before: "A Range request that also carried If-Match was answered with a 206 slice",
+      after: "Range is ignored in that case and the answer is the full 200",
+      why: "Weir does not evaluate If-Match and removes it from the forwarded request, so nobody had checked the slice against the bytes the client already held, from the cache or from the origin. A resumed download could have joined two versions of a file. The release review noted it for cache hits, and the work between the first release candidate and 1.0.0 found the same gap on the origin path.",
+    },
+    caseStudy: {
+      problem:
+        "Weir began with a caching layer that had three weaknesses. A full flush turned every request into a cold miss at once, nothing held requests back when they arrived faster than the origin could regenerate entries, and entries stored in a batch expired in a batch. None of the fixes is new. Varnish coalesces requests for one object, nginx has proxy_cache_lock, and Souin covers RFC 7234 and surrogate keys in Go. What I could not find in one Go library was lifetime jitter, an origin limit shared across keys, and a default that keeps unkeyed headers from the origin.",
+      decision:
+        "Built it as a library that makes the cache decision and leaves the wire to adapters for net/http and Caddy. Put every origin fetch behind one limiter and tied the forwarded request to the cache key by default, accepting that operators have to name the headers their origin reads. Wrote the behavior down as requirement IDs before any code, and had Claude Code sessions build it one task card at a time, with separate adversarial reviews and two release-candidate rehearsals before the tag.",
+      outcome:
+        "Version 1.0.0 shipped on 12 October 2026, and 1.0.1 followed with documentation and no change to behavior. On an Apple M4 Pro a cached hit takes 852 ns and 12 allocations. The reviews and rehearsals found defects that a green test suite had not, and each was fixed with a test. Weir has no production history yet, it has two storage backends where Souin has many, and its Valkey store is tested only against Valkey 8.1.",
+    },
+  },
+  {
     slug: "brnr",
     name: "BRNR",
     featured: true,
@@ -604,13 +675,6 @@ export const ALSO_SHIPPED: AlsoShipped[] = [
     description:
       "AngularJS to Angular migration CLI: deterministic AST codemods, an LLM fallback, and a compile-and-test gate on every AI-touched change. Ingest and inventory stages are built; the rest is not.",
     href: "https://github.com/AshwinSathian/angularjs-migration-copilot",
-    status: "In progress",
-  },
-  {
-    name: "weir",
-    description:
-      "Go library for shared HTTP caching in front of an origin that has to stay up: RFC 9111 caching with stampede, outage and poisoning defenses. Design complete, implementation not started.",
-    href: "https://github.com/AshwinSathian/weir",
     status: "In progress",
   },
 ];

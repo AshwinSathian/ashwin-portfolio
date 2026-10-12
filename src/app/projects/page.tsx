@@ -6,7 +6,7 @@ import { ALSO_SHIPPED, PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
 
 const description =
-  "Eight independent products, designed and run end to end, outside of a full-time lead role.";
+  "Nine independent products, designed and run end to end, outside of a full-time lead role.";
 
 const ogImageUrl = `/og?title=Projects&description=${encodeURIComponent(description)}&label=Projects`;
 
@@ -37,7 +37,7 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHeader
-        title="Eight products, designed and run end to end."
+        title="Nine products, designed and run end to end."
         intro="Most of what I ship at work isn't mine to show. Everything here is. I built it, I run it, and where I got something wrong, the correction is public."
       />
 

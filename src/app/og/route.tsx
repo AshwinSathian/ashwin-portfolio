@@ -209,7 +209,7 @@ export async function GET(request: NextRequest) {
             letterSpacing: "-0.01em",
           }}
         >
-          Senior full-stack engineer. Founding engineer at Penny Software, five years. Eight independent products shipped on his own time.
+          Senior full-stack engineer. Founding engineer at Penny Software, five years. Nine independent products shipped on his own time.
         </div>
         <div
           style={{

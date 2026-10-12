@@ -16,7 +16,7 @@ const bricolage = Bricolage_Grotesque({
 
 const siteUrl = "https://ashwinsathian.com";
 const siteDescription =
-  "Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.";
+  "Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Nine independent products shipped on his own time, each checked against the actual repo.";
 
 export const viewport: Viewport = {
   themeColor: "#050505",

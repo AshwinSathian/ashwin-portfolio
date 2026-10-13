@@ -139,9 +139,10 @@ export const PROJECTS: Project[] = [
     ],
     stack: ["Go 1.27", "net/http", "Caddy", "Valkey", "Prometheus", "Claude Code"],
     facts: [
-      { label: "Release", value: "1.0.1, October 2026, Apache-2.0" },
-      { label: "Install", value: "go get github.com/AshwinSathian/weir@v1.0.1" },
-      { label: "Checks", value: "147 requirement IDs traced to tests, 29 fuzz targets, a 51-threat model" },
+      { label: "Release", value: "1.1.0, October 2026, Apache-2.0" },
+      { label: "Install", value: "go get github.com/AshwinSathian/weir@v1.1.0" },
+      { label: "Checks", value: "151 requirement IDs traced to tests, 30 fuzz targets, a 51-threat model" },
+      { label: "Latest", value: "1.1.0: fixes from a seventh adversarial review, and a cached hit at 669 ns" },
     ],
     highlights: [
       {
@@ -169,6 +170,11 @@ export const PROJECTS: Project[] = [
         detail:
           "Six adversarial reviews of the finished code found a 304 that could bring back a body a hard purge had removed, %2e decoded into a dot-segment of the path, and a named pipe at the snapshot path that hung startup. The release candidates found a module tagged without its go.sum lines and a runbook that promised a cache hit after a restart. The changelog inside the v1.0.0 tag still says \"unreleased\". It is all written down in the repository.",
       },
+      {
+        title: "A seventh review, after the release",
+        detail:
+          "The day after 1.0.1 a seventh review went looking for trouble and found it, each finding confirmed by a test first. With an origin that took 15 seconds to answer, 100 requests for one key made 16 fetches and 84 of them got a 503. Twenty errors from one path opened the circuit breaker for every path. Half a million POSTs to uncached URLs sent about half of all other entries back to the origin. The fixes shipped as 1.1.0 on 13 October 2026. A reviewer reading those fixes found three defects in them, and the existing tests caught a fourth: behind Caddy, every GET had stopped being cached.",
+      },
     ],
     links: {
       live: "https://weir.ashwinsathian.com",
@@ -194,7 +200,7 @@ export const PROJECTS: Project[] = [
       decision:
         "Built it as a library that makes the cache decision and leaves the wire to adapters for net/http and Caddy. Put every origin fetch behind one limiter and tied the forwarded request to the cache key by default, accepting that operators have to name the headers their origin reads. Wrote the behavior down as requirement IDs before any code, and had Claude Code sessions build it one task card at a time, with separate adversarial reviews and two release-candidate rehearsals before the tag.",
       outcome:
-        "Version 1.0.0 shipped on 12 October 2026, and 1.0.1 followed with documentation and no change to behavior. On an Apple M4 Pro a cached hit takes 852 ns and 12 allocations. The reviews and rehearsals found defects that a green test suite had not, and each was fixed with a test. Weir has no production history yet, it has two storage backends where Souin has many, and its Valkey store is tested only against Valkey 8.1.",
+        "Version 1.0.0 shipped on 12 October 2026, and 1.0.1 followed with documentation and no change to behavior. On an Apple M4 Pro a cached hit takes 852 ns and 12 allocations. The reviews and rehearsals found defects that a green test suite had not, and each was fixed with a test. A seventh review after the release found eight more serious ones, and 1.1.0, released the next day, fixes them and takes the hit to 669 ns and 8 allocations, measured against 964 ns for 1.0.1 in the same run on a machine that was not idle. Weir has no production history yet, it has two storage backends where Souin has many, and its Valkey store is tested only against Valkey 8.1.",
     },
   },
   {

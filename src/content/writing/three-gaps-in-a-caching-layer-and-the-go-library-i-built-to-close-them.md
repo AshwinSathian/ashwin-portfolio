@@ -55,12 +55,12 @@ The day after 1.0.1 I asked for one more review, this time with instructions to 
 
 The worst was in coalescing, the first thing the library promises. When the origin took 15 seconds to answer, 100 requests waiting on one key made 16 fetches between them, and 84 got a 503 - the waiters gave up at 10 seconds and fetched for themselves, which is the stampede the library exists to stop. Twenty errors from one path opened the circuit breaker for every path. Half a million POSTs to URLs nobody had cached sent about half of all the other entries back to the origin.
 
-The fixes are a pull request for 1.1.0, in review as I write this and not released. They weren't clean either. A reviewer reading them found three defects in the fixes themselves, and the existing tests caught a fourth: behind Caddy, every GET had quietly stopped being cached. One performance claim I made along the way was noise from a run that wasn't compared against its baseline, and the record now says so.
+The fixes shipped as 1.1.0 on 13 October. They weren't clean either. A reviewer reading them found three defects in the fixes themselves, and the existing tests caught a fourth: behind Caddy, every GET had quietly stopped being cached. One performance claim I made along the way was noise from a run that wasn't compared against its baseline, and the record now says so.
 
-The same pull request makes a cached hit cheaper: 669 nanoseconds and 8 allocations, against 964 and 12 for 1.0.1 in the same run on a machine that wasn't idle.
+The same release makes a cached hit cheaper: 669 nanoseconds and 8 allocations, against 964 and 12 for 1.0.1 in the same run on a machine that wasn't idle.
 
 ## Where it stands
 
-Weir is days old. Varnish and nginx have years of production behind them and Weir has none yet - 29 fuzz targets running an hour each without a crash don't change that. It isn't a CDN, a WAF or a rate limiter. It has two stores, memory and Valkey, and the Valkey one has only been tested against Valkey 8.1. Its threat model lists 51 threats with the answer and the test for each, and ten risks it doesn't remove.
+Weir is days old. Varnish and nginx have years of production behind them and Weir has none yet - 30 fuzz targets running an hour each without a crash don't change that. It isn't a CDN, a WAF or a rate limiter. It has two stores, memory and Valkey, and the Valkey one has only been tested against Valkey 8.1. Its threat model lists 51 threats with the answer and the test for each, and ten risks it doesn't remove.
 
 The documentation is at [weir.ashwinsathian.com](https://weir.ashwinsathian.com) and the code is at [github.com/AshwinSathian/weir](https://github.com/AshwinSathian/weir), under Apache-2.0. Whether the combination earns its place is for the people who run it to say.

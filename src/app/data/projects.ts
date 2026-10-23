@@ -134,15 +134,15 @@ export const PROJECTS: Project[] = [
     tagline: "HTTP caching in front of an origin that has to stay up. It forwards the request it keyed, so a header the cache ignores cannot poison an entry, and a stampede cannot reach the origin faster than a budget you set.",
     description: [
       "Weir sits between an HTTP server and an origin and decides, for each request, whether the cache can answer. It implements RFC 9111 caching and adds defenses I could not find together in one Go library. Each lifetime is shortened by up to 10%, so entries stored together do not expire together. Concurrent requests for one key share one origin fetch. Every origin fetch, whatever its key, holds a slot from a limiter of 64. Stale-while-revalidate, stale-if-error and a circuit breaker cover an origin outage, and a soft purge revalidates through the same limiter. The core module imports only the Go standard library. Three more modules add a Caddy handler, a Valkey store for several nodes, and Prometheus metrics.",
-      "The cache key is treated as a security boundary. On a cacheable request the origin receives only the headers that are in the key, the ones the operator allowed, and a short fixed list, so the forwarded request is the keyed request. That has a cost: an origin that reads Accept-Language or a cookie does not see it until the operator keys or allows it. The threat model lists 51 threats with the answer and the test for each, and 10 risks the defaults do not remove.",
+      "The cache key is treated as a security boundary. On a cacheable request the origin receives only the headers that are in the key, the ones the operator allowed, and a short fixed list, so the forwarded request is the keyed request. That has a cost: an origin that reads Accept-Language or a cookie does not see it until the operator keys or allows it. The threat model lists 51 threats with the answer and the test for each, and 15 risks the defaults do not remove.",
       "It was built in fifteen days through Claude Code sessions: a seed design document, ten numbered design documents with requirement IDs, and 103 task cards, one session per card, each ending in a pull request that I reviewed and merged. Version 1.0.0 was tagged on 12 October 2026 after two release-candidate rehearsals. It is a new library with no production history yet.",
     ],
-    stack: ["Go 1.27", "net/http", "Caddy", "Valkey", "Prometheus", "Claude Code"],
+    stack: ["Go 1.26", "net/http", "Caddy", "Valkey", "Prometheus", "Claude Code"],
     facts: [
-      { label: "Release", value: "1.1.0, October 2026, Apache-2.0" },
-      { label: "Install", value: "go get github.com/AshwinSathian/weir@v1.1.0" },
-      { label: "Checks", value: "151 requirement IDs traced to tests, 30 fuzz targets, a 51-threat model" },
-      { label: "Latest", value: "1.1.0: fixes from a seventh adversarial review, and a cached hit at 669 ns" },
+      { label: "Release", value: "1.2.0, October 2026, Apache-2.0" },
+      { label: "Install", value: "go get github.com/AshwinSathian/weir@v1.2.0" },
+      { label: "Checks", value: "155 requirement IDs traced to tests, 30 fuzz targets, a 51-threat model" },
+      { label: "Latest", value: "1.2.0: one origin download shared by every client waiting for a large response, and coalescing across nodes" },
     ],
     highlights: [
       {
@@ -200,7 +200,7 @@ export const PROJECTS: Project[] = [
       decision:
         "Built it as a library that makes the cache decision and leaves the wire to adapters for net/http and Caddy. Put every origin fetch behind one limiter and tied the forwarded request to the cache key by default, accepting that operators have to name the headers their origin reads. Wrote the behavior down as requirement IDs before any code, and had Claude Code sessions build it one task card at a time, with separate adversarial reviews and two release-candidate rehearsals before the tag.",
       outcome:
-        "Version 1.0.0 shipped on 12 October 2026, and 1.0.1 followed with documentation and no change to behavior. On an Apple M4 Pro a cached hit takes 852 ns and 12 allocations. The reviews and rehearsals found defects that a green test suite had not, and each was fixed with a test. A seventh review after the release found eight more serious ones, and 1.1.0, released the next day, fixes them and takes the hit to 669 ns and 8 allocations, measured against 964 ns for 1.0.1 in the same run on a machine that was not idle. Weir has no production history yet, it has two storage backends where Souin has many, and its Valkey store is tested only against Valkey 8.1.",
+        "Version 1.0.0 shipped on 12 October 2026, and 1.0.1 followed with documentation and no change to behavior. On an Apple M4 Pro a cached hit takes 852 ns and 12 allocations. The reviews and rehearsals found defects that a green test suite had not, and each was fixed with a test. A seventh review after the release found eight more serious ones, and 1.1.0, released the next day, fixes them and takes the hit to 669 ns and 8 allocations, measured against 964 ns for 1.0.1 in the same run on a machine that was not idle. 1.2.0 followed on 22 October. Clients waiting for a response too large to store now share one origin download instead of fetching it each, nodes on one Valkey server can fetch a missing key once between them, and the library builds on Go 1.26. A cached hit is 615 ns, the same as 1.1.0 within noise. A third comparison round also measured memory, and there Weir does worst: it holds about 3.6 KB of memory for a cached 100-byte response, where Varnish holds about 1 KB. Weir has no production history yet, it has two storage backends where Souin has many, and its Valkey store is tested against Valkey 7.2 and 8.1.",
     },
   },
   {

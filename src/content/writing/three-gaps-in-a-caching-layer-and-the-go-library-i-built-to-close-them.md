@@ -1,6 +1,7 @@
 ---
 title: "Three Gaps in a Caching Layer, and the Go Library I Built to Close Them"
 date: "2026-10-13"
+updatedAt: "2026-10-23"
 description: "Weir is a Go library for HTTP caching in front of an origin that has to stay up. What Varnish, nginx and Souin already solve, the three things I couldn't find in one place, and how it got built with Claude Code."
 tags: ["go", "caching", "http", "claude", "buildinpublic"]
 ---
@@ -64,3 +65,9 @@ The same release makes a cached hit cheaper: 669 nanoseconds and 8 allocations, 
 Weir is days old. Varnish and nginx have years of production behind them and Weir has none yet - 30 fuzz targets running an hour each without a crash don't change that. It isn't a CDN, a WAF or a rate limiter. It has two stores, memory and Valkey, and the Valkey one has only been tested against Valkey 8.1. Its threat model lists 51 threats with the answer and the test for each, and ten risks it doesn't remove.
 
 The documentation is at [weir.ashwinsathian.com](https://weir.ashwinsathian.com) and the code is at [github.com/AshwinSathian/weir](https://github.com/AshwinSathian/weir), under Apache-2.0. Whether the combination earns its place is for the people who run it to say.
+
+## Update, 23 October 2026
+
+Weir 1.2.0 is out. Part of it answers a second comparison round that showed where Weir lost. When several clients waited for a response too large to store, each of them downloaded it from the origin. Now they read one download together, and in the comparison's over-size test the origin calls went from 150 to 3. Nodes that share a Valkey server can fetch a missing key once between them instead of once each, and the Valkey store can keep a local copy in front of the server so a hit skips the round trip. Both are off by default. The library builds on Go 1.26 now, and CI tests the Valkey store against 7.2 as well as 8.1.
+
+The third round, run against 1.2.0, found what it still does badly. Weir holds about 3.6 KB of memory for a cached 100-byte response, where Varnish holds about 1 KB. In a cache-busting flood it turns away more of the flooded path's clients than any other cache does, even while the origin still has room, though none of the other traffic fails. I also measured latency for the first time, but the control moved too much between runs to trust, so none of those numbers are published. Memory and a measurement I can trust are the work for 1.3.0.

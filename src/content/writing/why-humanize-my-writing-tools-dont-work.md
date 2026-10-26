@@ -1,5 +1,5 @@
 ---
-title: "Why \"Humanize My Writing\" Tools Don't Work"
+title: "Why \"humanize my writing\" tools don't work"
 date: "2026-08-18"
 description: "A look at AI-writing detection research and why most 'humanize my writing' tools lean on brittle word lists instead of the more durable structural signal."
 tags: ["ai", "writing", "llm", "claude"]

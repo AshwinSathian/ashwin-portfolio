@@ -1,5 +1,5 @@
 ---
-title: "How Do You Check an Answer When Nobody Agrees How to Spell It?"
+title: "How do you check an answer when nobody agrees how to spell it?"
 date: "2026-08-28"
 description: "Building a fuzzy answer-checker for a Malayalam movie quiz, and finding a real bug in my own work three rounds in a row."
 tags: ["typescript", "nlp", "claude", "buildinpublic"]

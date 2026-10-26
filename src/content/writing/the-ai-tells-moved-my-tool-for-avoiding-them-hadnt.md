@@ -1,5 +1,5 @@
 ---
-title: "The AI Tells Moved. My Tool for Avoiding Them Hadn't."
+title: "The AI tells moved. My tool for avoiding them hadn't."
 date: "2026-10-05"
 updatedAt: "2026-10-10"
 description: "I audited my own anti-AI-writing skill against 2026 research. Its showcase examples had swapped the 2023 tells for the 2026 ones, and a blind test caught it inventing facts."

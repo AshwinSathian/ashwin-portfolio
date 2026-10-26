@@ -21,7 +21,7 @@ export default function Navbar() {
   const close = () => sheetRef.current?.close();
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-night/75 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 bar border-b border-line bg-night/75 backdrop-blur-xl">
       <div className="shell flex h-16 items-center justify-between">
         <Link
           href="/"
@@ -36,7 +36,7 @@ export default function Navbar() {
               key={href}
               href={href}
               aria-current={current(href)}
-              className="flex min-h-11 items-center text-small text-fg-2 transition-colors duration-200 hover:text-fg active:text-fg aria-[current=page]:text-fg"
+              className="-mx-1 flex min-h-11 min-w-11 items-center justify-center px-1 text-small text-fg-2 transition-colors duration-200 hover:text-fg active:text-fg aria-[current=page]:text-fg"
             >
               <span className="link" aria-current={current(href)}>
                 {label}
@@ -47,7 +47,7 @@ export default function Navbar() {
             href={SITE.resumePath}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex min-h-10 items-center rounded-control border border-line-strong px-4 text-small text-fg transition-colors duration-200 hover:bg-fg hover:text-night active:bg-fg active:text-night"
+            className="flex min-h-11 items-center rounded-control border border-line-strong px-4 text-small text-fg transition-colors duration-200 hover:bg-fg hover:text-night active:bg-fg active:text-night"
           >
             Résumé
           </a>

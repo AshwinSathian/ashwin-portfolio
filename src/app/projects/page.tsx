@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import ProjectPanel from "@/components/ProjectPanel";
 import ProjectRow from "@/components/ProjectRow";
 import { PageHeader } from "@/components/Section";
 import { ALSO_SHIPPED, PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
 
-const description =
-  "Nine independent products, designed and run end to end, outside of a full-time lead role.";
+const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+const total = NUMBER_WORDS[PROJECTS.length] ?? String(PROJECTS.length);
+const capitalized = total[0].toUpperCase() + total.slice(1);
+
+const description = `${capitalized} independent products, designed and run end to end.`;
 
 const ogImageUrl = `/og?title=Projects&description=${encodeURIComponent(description)}&label=Projects`;
 
@@ -31,39 +33,23 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
-  const featured = PROJECTS.filter((p) => p.featured);
-  const rest = PROJECTS.filter((p) => !p.featured);
-
   return (
     <>
       <PageHeader
-        title="Nine products, designed and run end to end."
-        intro="Most of what I ship at work isn't mine to show. Everything here is. I built it, I run it, and where I got something wrong, the correction is public."
+        title={`${capitalized} products, designed and run end to end.`}
+        intro="Products I built on my own time, each checked against its repo. Where I got something wrong, the correction is public."
       />
-
-      <div className="shell flex flex-col gap-20 pb-20 lg:gap-36 lg:pb-36">
-        {featured.map((project, i) => (
-          <ProjectPanel
-            key={project.slug}
-            project={project}
-            index={i}
-            flip={i % 2 === 1}
-            priority={i === 0}
-            as="h2"
-          />
-        ))}
-      </div>
 
       <div className="shell pb-24 lg:pb-40">
         <div className="flex flex-col border-b border-line">
-          {rest.map((project, i) => (
+          {PROJECTS.map((project) => (
             <ProjectRow
               key={project.slug}
               href={`/projects/${project.slug}`}
               name={project.name}
               description={project.tagline}
               status={project.status}
-              marker={String(featured.length + i + 1).padStart(2, "0")}
+              marker={project.category}
               as="h2"
             />
           ))}

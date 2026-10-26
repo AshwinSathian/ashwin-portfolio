@@ -10,7 +10,7 @@ export default function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="relative overflow-clip border-b border-line">
       <div aria-hidden className="glow -right-[35%] -top-[12%] h-[130vmin] w-[130vmin] sm:-right-[20%] sm:-top-[30%] sm:h-[110vmin] sm:w-[110vmin]" />
-      <div aria-hidden className="glow -bottom-[55%] -left-[25%] h-[90vmin] w-[90vmin] [animation-delay:-8s]" />
+      <div aria-hidden className="glow -bottom-[55%] -left-[25%] h-[90vmin] w-[90vmin]" />
 
       <div className="hero-away shell relative flex min-h-svh flex-col justify-end pb-10 pt-28 lg:pb-16">
         <p className="load-rise mb-6 flex flex-col gap-x-3 gap-y-1 text-small text-fg-2 sm:flex-row sm:items-baseline lg:mb-8">

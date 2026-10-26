@@ -5,7 +5,7 @@ export type ProjectRowProps = {
   href: string;
   name: string;
   description: string;
-  /** Left-hand marker, e.g. "05" or a category. */
+  /** Left-hand marker, e.g. a category. */
   marker?: string;
   /** Shown as a tag beside the name, e.g. "In progress". */
   status?: string;
@@ -16,7 +16,7 @@ export type ProjectRowProps = {
 export function StatusTag({ children }: { children: string }) {
   return (
     <span className="inline-flex items-center gap-2 rounded-md border border-line-strong px-2 py-0.5 text-meta tabular-nums text-fg-2">
-      <span aria-hidden className="h-1.5 w-1.5 animate-pulse rounded-full bg-fg-2" />
+      <span aria-hidden className="h-1.5 w-1.5 rounded-full border border-fg-2" />
       {children}
     </span>
   );
@@ -26,7 +26,7 @@ export function StatusTag({ children }: { children: string }) {
 export default function ProjectRow({ href, name, description, marker, status, as: Heading = "h3" }: ProjectRowProps) {
   const external = href.startsWith("http");
   const cls =
-    "row reveal grid gap-x-8 gap-y-1.5 rounded-control border-t border-line py-6 md:grid-cols-[3.5rem_16rem_1fr_auto] md:items-baseline";
+    "row reveal grid gap-x-8 gap-y-1.5 rounded-control border-t border-line py-6 md:grid-cols-[9rem_16rem_1fr_auto] md:items-baseline";
   const inner = (
     <>
       <span className="text-meta tabular-nums text-fg-3">{marker}</span>

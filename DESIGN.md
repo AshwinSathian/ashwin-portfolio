@@ -43,6 +43,7 @@ dimmer text colour.
 
 Scale: `display-xl`, `display-l`, `display-m`, `title`, `body`, `small`,
 `meta`. Section labels are sentence case. No uppercase tracked eyebrows.
+No `01 / 02` markers on things that are not a sequence.
 
 ## Layout
 
@@ -51,8 +52,25 @@ Scale: `display-xl`, `display-l`, `display-m`, `title`, `body`, `small`,
 - Section rhythm: 80px mobile, 144px desktop.
 - Radius: 10px controls, 16px panels and media. No pill chips.
 - No drop shadows. Depth comes from surface steps and light.
+- One glass surface: the caption plate on the home gallery stage. It sits
+  over a product preview, so the blur has something under it. Nothing
+  else is translucent except the nav bar, and both turn opaque under
+  `prefers-reduced-transparency` and `prefers-contrast: more`.
+
 - Mobile and desktop are designed separately, not scaled. Touch targets are
   at least 44px. Nothing is revealed only on hover.
+
+## Home gallery
+
+Featured work is shown like Finder's Gallery view (`ProjectGallery`): one
+large preview, a strip of thumbnails under it, and the selected project's
+facts beside it. The preview has a short reflection
+(`-webkit-box-reflect`, no reflection in Firefox). The strip is an ARIA
+tab list, so arrow keys, Home and End move the selection. The preview has
+a fixed 16:10 ratio, so the strip never moves when the selection changes.
+Projects with no screenshot get a file tile showing their code sample's
+filename. `/projects` is a plain index of every project, not a second
+copy of the gallery.
 
 ## Motion
 

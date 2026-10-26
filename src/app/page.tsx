@@ -1,6 +1,6 @@
 import ArrowLink from "@/components/ArrowLink";
 import Hero from "@/components/Hero";
-import ProjectPanel from "@/components/ProjectPanel";
+import ProjectGallery from "@/components/ProjectGallery";
 import ProjectRow from "@/components/ProjectRow";
 import { RoleList } from "@/components/RoleRows";
 import Section from "@/components/Section";
@@ -10,7 +10,7 @@ import { RECORD } from "@/app/data/record";
 import { SITE } from "@/app/data/site";
 import { getAllPosts } from "@/lib/writing";
 
-const HOME_HIDDEN = ["darkframe", "typester"];
+const HOME_HIDDEN = ["typester"];
 const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
 
@@ -40,27 +40,22 @@ export default function Page() {
 
       <Section
         id="work"
-        index="01"
         title="Selected work"
         intro={`${capitalize(total)} independent products shipped on my own time, each documented against the actual repo. These ${NUMBER_WORDS[featured.length]} go deepest.`}
       >
-        <div className="flex flex-col gap-20 lg:gap-36">
-          {featured.map((project, i) => (
-            <ProjectPanel key={project.slug} project={project} index={i} flip={i % 2 === 1} priority={i === 0} />
-          ))}
-        </div>
+        <ProjectGallery projects={featured} />
 
         <div className="mt-20 lg:mt-36">
           <h3 className="reveal mb-4 text-small text-fg-3">More shipped</h3>
           <div className="flex flex-col border-b border-line">
-            {rest.map((project, i) => (
+            {rest.map((project) => (
               <ProjectRow
                 key={project.slug}
                 href={`/projects/${project.slug}`}
                 name={project.name}
                 description={project.tagline}
                 status={project.status}
-                marker={String(featured.length + i + 1).padStart(2, "0")}
+                marker={project.category}
                 as="h4"
               />
             ))}
@@ -71,7 +66,7 @@ export default function Page() {
         </div>
       </Section>
 
-      <Section id="record" index="02" title="The record">
+      <Section id="record" title="The record">
         <div className="grid gap-x-12 gap-y-12 lg:grid-cols-12">
           <div className="reveal flex flex-col gap-5 lg:col-span-6">
             {RECORD.paragraphs.map((paragraph, i) => (
@@ -107,7 +102,6 @@ export default function Page() {
       {posts.length > 0 && (
         <Section
           id="writing"
-          index="03"
           title="Writing"
           intro="Technical notes from the libraries and tools I build, including what I got wrong."
         >

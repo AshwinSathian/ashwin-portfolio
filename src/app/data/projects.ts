@@ -65,22 +65,22 @@ export const PROJECTS: Project[] = [
     name: "Booklet",
     featured: true,
     category: "SaaS product",
-    tagline: "Write Markdown, get a shareable page, backed by an API, CLI, GitHub Action, and MCP server.",
+    tagline: "Publish Markdown incident reports, ADRs, RFCs and runbooks as web pages, from a browser, a terminal, CI or an AI assistant.",
     description: [
-      "Booklet turns Markdown into a published, shareable page in one click. You get a live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth with argon2id password hashing and DB-backed sessions, and MongoDB as the store. Beyond the editor it has version history, per-page analytics, password-protected pages, and collections.",
-      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. A VS Code extension is built in the repo but not yet on the Marketplace. It shipped on Cloudflare Workers via OpenNext first. On 25 May 2026 I rolled that back to a self-hosted PM2 process behind a Cloudflare Tunnel, the same day the app dropped its external AI, email, and Stripe integrations.",
+      "Booklet turns Markdown into a published, shareable page in one click. You get a live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth (argon2id passwords, passkeys, DB-backed sessions), and MongoDB as the store. A page can declare a document type (incident, ADR, RFC, runbook, postmortem, release notes) and link to other pages with [[wikilinks]], and team spaces keep a team's documents together.",
+      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first. On 25 May 2026 I rolled that back to a self-hosted PM2 process behind a Cloudflare Tunnel, the same day the app dropped its external AI, email, and Stripe integrations. Email has since come back for account confirmation, password resets and team invites. The repository is private.",
     ],
     stack: ["Next.js 16", "TypeScript", "React 19", "Tailwind CSS v4", "MongoDB", "unified / remark"],
     facts: [
       { label: "Interfaces", value: "Web, CLI, REST API, GitHub Action, MCP server" },
-      { label: "Auth", value: "In-house: argon2id, DB-backed sessions" },
-      { label: "License", value: "MIT" },
+      { label: "Auth", value: "In-house: argon2id, passkeys, DB-backed sessions" },
+      { label: "License", value: "AGPL-3.0 (CLI and MCP server: MIT)" },
     ],
     highlights: [
       {
         title: "One versioned REST API under every client",
         detail:
-          "A versioned REST API, booklet-cli published on npm, a GitHub Action for CI publishing, and a standalone MCP server exposing publish_page, update_page, get_page, list_pages, and delete_page to AI assistants.",
+          "A versioned REST API, booklet-cli published on npm, a GitHub Action for CI publishing, and a standalone MCP server with seven tools (publish_page, update_page, get_page, list_pages, delete_page, create_document, search_pages) and six document templates, signed in with OAuth or an API key.",
       },
       {
         title: "SSRF guard and origin checks, unit-tested",
@@ -93,17 +93,15 @@ export const PROJECTS: Project[] = [
           "Shipped on Cloudflare Workers via OpenNext first, then moved back to a self-hosted PM2 process behind a Cloudflare Tunnel on 25 May 2026, the same day the external AI, email, and Stripe integrations were removed.",
       },
       {
-        title: "In-house auth, no vendor",
+        title: "Auth built in-house",
         detail:
-          "Email and password with argon2id hashing and DB-backed sessions. No third-party auth provider is involved.",
+          "Email and password with argon2id hashing, passkeys, and DB-backed sessions, all inside the app. GitHub and Google sign-in are optional and appear only when the host configures them.",
       },
     ],
     links: {
       live: "https://booklet.ashwinsathian.com",
-      github: "https://github.com/AshwinSathian/booklet",
       npm: "https://www.npmjs.com/package/booklet-cli",
     },
-    repo: { owner: "AshwinSathian", repo: "booklet" },
     media: {
       kind: "screenshot",
       src: "/projects/booklet/hero.png",
@@ -158,7 +156,7 @@ export const PROJECTS: Project[] = [
       {
         title: "Stale answers and a breaker when the origin fails",
         detail:
-          "Weir serves stale content only where the origin allowed it with stale-while-revalidate or stale-if-error, unless the operator sets a default. In the brownout scenario of the load test every request got a 2xx and 52,975 were served stale.",
+          "Weir serves stale content only where the origin allowed it with stale-while-revalidate or stale-if-error, unless the operator sets a default. In the brownout scenario of the load test every request got a 2xx and 54,155 were served stale.",
       },
       {
         title: "Requirements traced to tests by a script",
@@ -182,7 +180,7 @@ export const PROJECTS: Project[] = [
     },
     media: {
       kind: "screenshot",
-      src: "/projects/weir/hero.png",
+      src: "/projects/weir/hero-1-2.png",
       width: 1280,
       height: 800,
       alt: "The Weir site: the headline \"Shared HTTP caching in front of an origin that has to stay up\", an install command, and a terminal transcript in which the second request, 13 seconds later, is answered from the cache with ttl=43.",
@@ -207,26 +205,23 @@ export const PROJECTS: Project[] = [
     slug: "brnr",
     name: "BRNR",
     featured: true,
-    // Hosted instance taken down 2026-10-06. Restore `links.live`
-    // (https://brnr.ashwinsathian.com) and drop this when it is back up.
-    status: "Hosted instance offline",
     category: "Encrypted messaging",
     tagline: "Burner chats. No accounts. No history. End-to-end encrypted, gone in 24 hours.",
     description: [
-      "BRNR is ephemeral, end-to-end encrypted messaging: a 12-character code starts a chat between two people, every message expires after 24 hours, and there's no account system to compromise. Redis is the only persistence layer and every key has a TTL, so expiry is enforced by the datastore and does not depend on a retention policy. Encryption is an X3DH-style handshake feeding a Double Ratchet, implemented in a dedicated brnr-crypto workspace with its own test suite covering key derivation, padding, safety numbers, and the ratchet itself. Keeping it in its own workspace means the cryptographic core can be reviewed and tested apart from the rest of the app.",
-      "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, a Vite/React web client, an Expo/React Native mobile client, and shared contracts and crypto primitives as their own workspaces in a Turbo monorepo. The web client is the published surface; its hosted instance is offline for now. The server never sees plaintext: once the handshake completes it handles only ciphertext, and the logger redacts message and ciphertext fields. It's licensed AGPL-3.0 so that anyone who runs a modified server has to publish the changes.",
+      "BRNR is ephemeral, end-to-end encrypted messaging: a 12-character code starts a chat between two people, every message expires after 24 hours, and there's no account system to compromise. Redis is the only persistence layer and every key has a TTL, so expiry is enforced by the datastore and does not depend on a retention policy. Encryption is an X3DH handshake feeding a Double Ratchet (XChaCha20-Poly1305, HKDF-SHA256) from @brnr/e2ee, my own library, which the app vendors as a signed release and verifies before every install. Neither BRNR nor the library has had an independent security audit.",
+      "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, a Vite/React web client, an Expo/React Native mobile client, and shared contracts in their own workspace, in a Turbo monorepo. The web client is the published surface, at brnr.ashwinsathian.com. The server never sees plaintext: once the handshake completes it handles only ciphertext, and the logger redacts message and ciphertext fields. The source is private and proprietary.",
     ],
     stack: ["NestJS 11", "Redis 7", "Socket.IO", "Vite / React", "Expo / React Native", "Turborepo"],
     facts: [
       { label: "Persistence", value: "Redis only: every key TTL'd, zero PII" },
       { label: "Encryption", value: "X3DH handshake + Double Ratchet" },
-      { label: "License", value: "AGPL-3.0" },
+      { label: "License", value: "Proprietary" },
     ],
     highlights: [
       {
-        title: "Double Ratchet, implemented and tested",
+        title: "Double Ratchet from a signed library",
         detail:
-          "An X3DH-style handshake feeds a Double Ratchet implementation in its own brnr-crypto workspace. Key derivation, padding, safety numbers, and the ratchet each have a dedicated test suite.",
+          "X3DH with separate Ed25519 and X25519 device keys feeds a Double Ratchet (XChaCha20-Poly1305, HKDF-SHA256) from @brnr/e2ee 1.0.0. The app vendors the library as a signed tarball and checks the signature before every install. It has not had an independent audit.",
       },
       {
         title: "Server-blind by architecture",
@@ -238,21 +233,15 @@ export const PROJECTS: Project[] = [
         detail:
           "There is no user table and no message history past 24 hours, so a breach finds nothing durable to take.",
       },
-      {
-        title: "AGPL-3.0 on purpose",
-        detail:
-          "Chosen so that anyone running a modified server has to publish those modifications.",
-      },
     ],
     links: {
-      github: "https://github.com/AshwinSathian/brnr",
+      live: "https://brnr.ashwinsathian.com",
     },
-    repo: { owner: "AshwinSathian", repo: "brnr" },
     caseStudy: {
       problem:
         "Messaging apps that promise privacy often still keep an account system or a message history somewhere on the server, and either one can be compromised or subpoenaed later.",
       decision:
-        "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet implemented in its own tested crypto workspace, and Redis is the only datastore, with every key TTL'd so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes, and the AGPL-3.0 license was chosen so that a modified server has to stay open.",
+        "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet from my own signed, vendored @brnr/e2ee library, and Redis is the only datastore, with every key TTL'd so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes.",
       outcome:
         "Nothing durable exists to breach: there's no user table or message history, and no plaintext touches the server after the handshake completes.",
     },
@@ -271,25 +260,25 @@ export const PROJECTS: Project[] = [
     category: "Developer tool",
     tagline: "The API client that can't rug-pull you: local-first, no account, client-side encrypted vault.",
     description: [
-      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2 with 200,000 iterations derives an AES-GCM-256 key that's held in memory only, so only ciphertext ever touches storage. Scripts are switched off in the hosted app while their sandbox is rebuilt, after a September 2026 audit found gaps between the docs and the code.",
+      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key that is held in memory only, so only ciphertext ever touches storage. Pre-request and post-response scripts run in QuickJS, a JavaScript engine compiled to WebAssembly, in their own worker, so the browser never evaluates a script's text.",
       "It was renamed from API Sandbox to Wayfarer partway through its life. The app, the local-first storage model, and the MIT license stayed the same. There's also an optional local-bridge, a small Node CLI for CORS/intranet relay when a request needs to reach somewhere the browser can't. No update, acquisition, or pricing change can gate access to data you already own.",
     ],
-    stack: ["Angular 20", "PrimeNG", "IndexedDB", "Monaco Editor", "RxJS"],
+    stack: ["Angular 22", "IndexedDB", "QuickJS (WebAssembly)", "Monaco Editor", "RxJS"],
     facts: [
       { label: "Persistence", value: "100% client-side: IndexedDB, no backend" },
-      { label: "Secrets vault", value: "PBKDF2 (200k) + AES-GCM-256, key in memory only" },
+      { label: "Secrets vault", value: "PBKDF2 (600k) wraps an AES-GCM-256 key, held in memory only" },
       { label: "License", value: "MIT" },
     ],
     highlights: [
       {
         title: "Client-side encrypted secrets vault",
         detail:
-          "PBKDF2 at 200,000 iterations derives an AES-GCM-256 key held only in memory. IndexedDB never sees anything but ciphertext.",
+          "PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key held only in memory. IndexedDB never sees anything but ciphertext.",
       },
       {
         title: "Audit findings kept in the open",
         detail:
-          "A September 2026 audit found gaps between the docs and the code. Each one is an open issue labelled audit-2026-09, and scripts are disabled in the hosted app while the sandbox is rebuilt.",
+          "A September 2026 audit found gaps between the docs and the code. Each became an issue labelled audit-2026-09, and 47 of the 50 are closed. Scripts came back in 2.1.0 on a QuickJS sandbox that runs under the production Content-Security-Policy.",
       },
       {
         title: "Nothing to rug-pull",
@@ -324,9 +313,9 @@ export const PROJECTS: Project[] = [
       problem:
         "API clients that store your secrets ask you to trust their account system and their pricing page with the credentials you paste into them.",
       decision:
-        "Built Wayfarer to run entirely client-side: collections and requests live in IndexedDB, and secrets get their own vault where PBKDF2 (200,000 iterations) derives an AES-GCM-256 key held only in memory, so IndexedDB never sees anything but ciphertext. Renamed from API Sandbox to Wayfarer mid-life, with the storage model and license carried forward, and shipped as v1.0.0 under the new name.",
+        "Built Wayfarer to run entirely client-side: collections and requests live in IndexedDB, and secrets get their own vault where PBKDF2-SHA-256 (600,000 iterations) wraps an AES-GCM-256 key held only in memory, so IndexedDB never sees anything but ciphertext. Renamed from API Sandbox to Wayfarer mid-life, with the storage model and license carried forward, and shipped as v1.0.0 under the new name.",
       outcome:
-        "There is no account or backend, so nothing can gate access to your own data. Scripts are disabled in the hosted app while the sandbox is rebuilt.",
+        "There is no account or backend, so nothing can gate access to your own data. Scripts, switched off after the audit, run again in every build on a QuickJS sandbox.",
     },
   },
   {
@@ -368,6 +357,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     links: {
+      live: "https://i18n.ashwinsathian.com",
       github: "https://github.com/AshwinSathian/ngx-runtime-i18n",
       npm: "https://www.npmjs.com/package/@ngx-runtime-i18n/angular",
     },
@@ -444,80 +434,6 @@ export const PROJECTS: Project[] = [
       before: "2018 Angular 7 app: direct DOM manipulation outside Angular's reactivity, navigation gated by a mutable bag of untyped booleans, a settings screen that saved nothing",
       after: "Zoneless Angular 22, signals-first, no NgRx, URL-driven game state, static prerendered deploy",
       why: "Every architectural decision in the rebuild traces back to a specific defect in the original, logged with its own before/after reasoning in the project's ARCHITECTURE.md.",
-    },
-  },
-  {
-    slug: "darkframe",
-    name: "Darkframe",
-    status: "Store submission pending",
-    category: "Browser extension",
-    tagline: "A free, cross-browser dark-mode engine that never touches your photos or video.",
-    description: [
-      "Darkframe is a free, open-source dark-mode engine for Chrome and Safari. Images and video are never altered. A classifier scores color diversity and edge density rather than raw brightness and leaves anything it's unsure about untouched, and <video>/<canvas>/<audio> are excluded unconditionally. Theming applies as a single additive CSS Cascade Layer rather than rewriting a page's own stylesheets in place. Engines without Cascade Layer support get a CSSOM-direct-rewrite fallback.",
-      "The core engine (OKLCH-native perceptual recoloring, a WCAG 2.1 contrast solver, the image/media classifier) is framework-agnostic, with 144 passing unit tests. The Chrome MV3 extension is verified end to end against a Chromium instance via Playwright. The macOS Safari Web Extension Xcode project is generated with Apple's safari-web-extension-converter and confirmed to build and launch locally. The project has also been through a security audit and a separate architecture/quality review, and the findings from both are disclosed in its CHANGELOG.md.",
-    ],
-    stack: ["TypeScript", "Chrome MV3", "Safari Web Extension", "OKLCH", "Playwright", "Vitest"],
-    facts: [
-      { label: "Testing", value: "144 unit tests, E2E-verified against real Chromium" },
-      { label: "Platforms", value: "Chrome (MV3) + Safari (macOS), built from one core engine" },
-      { label: "License", value: "MIT" },
-    ],
-    highlights: [
-      {
-        title: "Image-safe by classifier, with no domain blocklist",
-        detail:
-          "A classifier that scores color diversity and edge density decides what is a photo. <video>/<canvas>/<audio> are excluded unconditionally, and anything the classifier is unsure about is left alone.",
-      },
-      {
-        title: "Additive, not destructive",
-        detail:
-          "Theming is a single injected CSS Cascade Layer; a page's own stylesheets are never rewritten in place. A CSSOM-direct-rewrite fallback covers engines without Cascade Layer support.",
-      },
-      {
-        title: "A disclosed security fix",
-        detail:
-          "A High-severity CSS injection vulnerability, found via unescaped control characters in a generated image-selector attribute, is documented in CHANGELOG.md with the exact mechanism and the fix.",
-      },
-      {
-        title: "Store-ready builds for both browsers",
-        detail:
-          "Both the Chrome and Safari listings are fully prepared (packaged build, screenshots, promo art, privacy copy). Submission is waiting on account and identity steps outside the code.",
-      },
-    ],
-    links: {
-      github: "https://github.com/AshwinSathian/umbra",
-    },
-    media: {
-      kind: "code",
-      language: "json",
-      caption: "manifest.json",
-      snippet: `{
-  "name": "Darkframe",
-  "description": "Free, cross-browser dark-mode engine",
-  "manifest_version": 3,
-  "permissions": ["storage", "scripting"],
-  "host_permissions": ["http://*/*", "https://*/*"],
-  "content_scripts": [{
-    "matches": ["<all_urls>"],
-    "run_at": "document_start",
-    "js": ["content-script.js"]
-  }]
-}`,
-    },
-    repo: { owner: "AshwinSathian", repo: "umbra" },
-    decisionRecord: {
-      date: "2026-08",
-      before: "Umbra",
-      after: "Darkframe",
-      why: "A shipping-readiness review found an existing, active, same-category Chrome extension called \"Umbra Dark Mode.\" Renamed across the npm scope, extension name, storage keys, CSS layer name, and the Safari Xcode project before either store listing went live.",
-    },
-    caseStudy: {
-      problem:
-        "Dark-mode browser extensions often recolor everything on the page, including photos and video.",
-      decision:
-        "Built Darkframe's classifier to score color diversity and edge density rather than raw brightness, defaulting to leaving anything it's unsure about untouched, with video, canvas, and audio excluded unconditionally. Theming applies as one additive CSS Cascade Layer instead of rewriting a page's own stylesheets. Shipped under the name Umbra first, then renamed to Darkframe (npm scope, extension name, storage keys, CSS layer name, and the Safari Xcode project) after a shipping-readiness review found an existing, active Chrome extension called \"Umbra Dark Mode.\"",
-      outcome:
-        "144 passing unit tests back a Chrome MV3 build that's E2E-verified against real Chromium, plus a Safari Xcode project that builds. One High-severity CSS injection vulnerability was found, fixed, and documented in CHANGELOG.md.",
     },
   },
   {
@@ -623,7 +539,7 @@ export const auth = betterAuth({
       {
         title: "It wrote its own landing page",
         detail:
-          "humanize.ashwinsathian.com was drafted with the skill and that voice profile, and prints the counts for its own copy from the repo's measuring script: 15.9 words a sentence against my 18, and 3.3 dashes per 1,000 words against my 6. The first release was in use for the writing on this redesign. This entry was written under 2.1.0.",
+          "humanize.ashwinsathian.com was drafted with the skill and that voice profile, and prints the counts for its own copy from the repo's measuring script: 16.2 words a sentence against my 18, and 3.1 dashes per 1,000 words against my 6. The first release was in use for the writing on this redesign. This entry was written under 2.1.0.",
       },
     ],
     links: {
@@ -665,10 +581,10 @@ export type AlsoShipped = {
 
 export const ALSO_SHIPPED: AlsoShipped[] = [
   {
-    name: "mergehand",
+    name: "WorkDeck",
     description:
-      "Claude Code plugin that runs a project as cards: one card per session, with a scope gate, a separate reviewer agent and one pull request. v0.1.2, MIT.",
-    href: "https://github.com/AshwinSathian/mergehand",
+      "Claude Code plugin that runs a project as cards: one card per session, with a scope gate, a separate reviewer agent and one pull request. v0.1.3, MIT.",
+    href: "https://github.com/AshwinSathian/workdeck",
   },
   {
     name: "github-issue-analyzer",
@@ -679,7 +595,7 @@ export const ALSO_SHIPPED: AlsoShipped[] = [
   {
     name: "angularjs-migration-copilot",
     description:
-      "AngularJS to Angular migration CLI: deterministic AST codemods, an LLM fallback, and a compile-and-test gate on every AI-touched change. Ingest and inventory stages are built; the rest is not.",
+      "AngularJS to Angular migration CLI: deterministic AST codemods, an LLM fallback, and a compile-and-test gate on every AI-touched change. Inventory, scaffold, the codemods and the compile-and-test gate are built; the LLM fallback and a hosted demo are not.",
     href: "https://github.com/AshwinSathian/angularjs-migration-copilot",
     status: "In progress",
   },

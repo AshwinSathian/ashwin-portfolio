@@ -1,16 +1,17 @@
 # Ashwin Sathian
 
-> Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Nine independent products shipped on his own time, each checked against the actual repo.
+> Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.
 
 ## Site
 
-/ (home) has the positioning in one line, a compact projects list, an
-experience snapshot, and the stack. Each of those links to a dedicated
-page: /projects (index + 9 project pages, six of them full case
-studies), /experience (the full seven-role record), /writing. Six project
-case studies (Booklet, Weir, BRNR, Wayfarer, Darkframe, and humanize-writing-skill)
-are structured as Problem, Decision, and Outcome. Five of those six
-(Booklet, Weir, Wayfarer, Darkframe, humanize-writing-skill) also carry a dated
+/ (home) has the positioning in one line, a gallery of featured projects
+with a short list of the rest, an experience snapshot, and recent writing.
+Each of those links to a dedicated page: /projects (index + 8 project
+pages, five of them full case studies), /experience (the full seven-role
+record), /writing. Five project case studies (Booklet, Weir, BRNR,
+Wayfarer, and humanize-writing-skill) are structured as Problem, Decision,
+and Outcome. Four of those five (Booklet, Weir, Wayfarer,
+humanize-writing-skill) also carry a dated
 Decision Record documenting a disclosed reversal (a rollback, a rename, a
 rule that was replaced) with before/after reasoning, and Typester carries
 one for its rebuild. Booklet's case study also includes a system architecture diagram
@@ -68,15 +69,14 @@ B.Tech, Electronics and Communication Engineering, National Institute of Technol
 
 ## Projects
 
-Nine projects designed, built, and run end to end, outside of work. Full case studies at ashwinsathian.com/projects/[slug].
+Eight projects designed, built, and run end to end, outside of work. Full case studies at ashwinsathian.com/projects/[slug].
 
-- **Booklet** (booklet.ashwinsathian.com): Markdown-to-shareable-page SaaS product with a web editor, REST API, published CLI (booklet-cli on npm), a GitHub Action, and an MCP server exposing 5 tools for AI assistants. Next.js 16, MongoDB, in-house auth. Self-hosted via PM2 behind a Cloudflare Tunnel, after rolling back off Cloudflare Workers/OpenNext in May 2026.
+- **Booklet** (booklet.ashwinsathian.com): Publishes Markdown incident reports, ADRs, RFCs and runbooks as web pages, with team spaces. A web editor, REST API, published CLI (booklet-cli on npm), a GitHub Action (publish-to-booklet), and an MCP server with 7 tools for AI assistants. Next.js 16, MongoDB, in-house auth with passkeys. Private repository; the app is AGPL-3.0, the CLI and MCP server MIT. Self-hosted via PM2 behind a Cloudflare Tunnel, after rolling back off Cloudflare Workers/OpenNext in May 2026.
 - **Weir** (weir.ashwinsathian.com, github.com/AshwinSathian/weir): Go library for shared HTTP caching in front of an origin that has to stay up. RFC 9111 caching with lifetime jitter, request coalescing, an origin concurrency limit shared across keys, stale serving, a circuit breaker, and a default that forwards to the origin only what the cache keyed. Adapters for net/http and Caddy, a Valkey store, Prometheus metrics. Built through Claude Code sessions from 103 task cards; 155 requirement IDs traced to tests and a 51-threat model. v1.2.0, October 2026, Apache-2.0: large responses downloaded once for every waiting client, coalescing across nodes on a shared Valkey server, Go 1.26 support. New, with no production history yet.
-- **BRNR**: End-to-end encrypted, ephemeral messaging. No accounts, 24-hour message expiry, Redis-only persistence with hard TTLs, X3DH handshake plus Double Ratchet encryption. NestJS, Socket.IO, Expo/React Native. AGPL-3.0.
-- **Wayfarer** (wayfarer.ashwinsathian.com): Local-first API testing client with no account. Collections, environments, client-side encrypted secrets vault (PBKDF2 + AES-GCM-256), pre/post-request scripts (disabled in the hosted app while the sandbox is rebuilt after a September 2026 audit). Angular, IndexedDB. Renamed from API Sandbox. MIT.
-- **ngx-runtime-i18n**: Signals-first runtime internationalisation for Angular. SSR-safe via TransferState, with configurable fallback chains. Six packages published on npm. MIT.
+- **BRNR** (brnr.ashwinsathian.com): End-to-end encrypted, ephemeral messaging. No accounts, 24-hour message expiry, Redis-only persistence with hard TTLs, X3DH handshake plus Double Ratchet from a signed, vendored library (not independently audited). NestJS, Socket.IO, Expo/React Native. Private repository, proprietary.
+- **Wayfarer** (wayfarer.ashwinsathian.com): Local-first API testing client with no account. Collections, environments, client-side encrypted secrets vault (PBKDF2 at 600,000 iterations + AES-GCM-256), pre/post-request scripts in a QuickJS sandbox (back in every build since 2.1.0, after a September 2026 audit). Angular 22, IndexedDB. Renamed from API Sandbox. MIT.
+- **ngx-runtime-i18n** (i18n.ashwinsathian.com): Signals-first runtime internationalisation for Angular. SSR-safe via TransferState, with configurable fallback chains. Six packages published on npm. MIT.
 - **Typester**: Keyboard-first typing speed game (typester.ashwinsathian.com). Ground-up rebuild of a 2018 app. Zoneless Angular 22, signals-first, no NgRx, static prerendered deploy via Cloudflare Workers Builds. MIT.
-- **Darkframe** (github.com/AshwinSathian/umbra): Free, open-source, image-safe dark-mode engine for Chrome and Safari. OKLCH-native recoloring, 144 passing unit tests, an E2E-verified Chrome extension, and a Safari Xcode project that builds. Renamed from "Umbra" after finding a naming collision. The changelog entry for the rename also discloses a High-severity CSS injection vulnerability and its fix. MIT.
 - **better-auth-mongoose** (better-auth-mongoose.ashwinsathian.com): Published npm package: a Mongoose-native database adapter for Better Auth, closing a gap documented on Better Auth's issue tracker since February 2025. .populate() support tested in CI, a companion tenant-scoping plugin, and a NestJS integration example. MIT.
 - **humanize-writing-skill** (humanize.ashwinsathian.com, github.com/AshwinSathian/humanize-writing-skill): A Claude Code skill that guides how Claude writes prose so it does not read as machine-written, for human readers (it does not change AI-detector scores). It applies while Claude is writing. Version 2.0.0 (October 2026) rewrote the rules against cited 2026 research; version 2.1.0 lets an author's own voice outrank the rules. Tested in blind pairs on Claude Haiku, Sonnet, and Opus (18 pairs), with the losses published. A pre-registered test of one proposed rule change was run on new tasks and the change was not adopted; that result is published too. The project site lists the 2026 AI-writing tells with sources and has its own llms.txt at humanize.ashwinsathian.com/llms.txt. MIT.
 
@@ -84,10 +84,10 @@ Nine projects designed, built, and run end to end, outside of work. Full case st
 
 Ashwin publishes technical notes at ashwinsathian.com/writing, newest first:
 
-- "Three Gaps in a Caching Layer, and the Go Library I Built to Close Them" (2026-10-13): why Weir exists when Varnish, nginx and Souin already cache, the cross-key origin limit and strict forwarding, and how it was built and released with Claude Code.
-- "The AI Tells Moved. My Tool for Avoiding Them Hadn't." (2026-10-05): a follow-up audit of humanize-writing-skill against 2026 research, what its own examples got wrong, and the blind test behind version 2.0.0. Updated 2026-10-10 with a third test round on Claude Haiku.
-- "How Do You Check an Answer When Nobody Agrees How to Spell It?" (2026-08-28): building a fuzzy answer-checker for Manglish spellings in a Malayalam movie quiz, and three rounds that each turned up a real bug.
-- "Why \"Humanize My Writing\" Tools Don't Work" (2026-08-18): why AI-writing detection research points at structure, not word lists, and why most humanizer tools miss that.
+- "Three gaps in a caching layer, and the Go library I built to close them" (2026-10-13): why Weir exists when Varnish, nginx and Souin already cache, the cross-key origin limit and strict forwarding, and how it was built and released with Claude Code.
+- "The AI tells moved. My tool for avoiding them hadn't." (2026-10-05): a follow-up audit of humanize-writing-skill against 2026 research, what its own examples got wrong, and the blind test behind version 2.0.0. Updated 2026-10-10 with a third test round on Claude Haiku.
+- "How do you check an answer when nobody agrees how to spell it?" (2026-08-28): building a fuzzy answer-checker for Manglish spellings in a Malayalam movie quiz, and three rounds that each turned up a real bug.
+- "Why \"humanize my writing\" tools don't work" (2026-08-18): why AI-writing detection research points at structure, not word lists, and why most humanizer tools miss that.
 - "Why Better Auth's MongoDB adapter can't populate() a Mongoose ref" (2026-08-17): the gap in Better Auth's official MongoDB adapter that better-auth-mongoose closes.
 - "Why ngx-runtime-i18n treats the active language as a signal, not an Observable" (2026-08-17): the signals-first design decision behind ngx-runtime-i18n, and its RxJS compat layer.
 - "Runtime i18n for Angular, done right: @ngx-runtime-i18n" (2025-10-27): the original introduction to ngx-runtime-i18n's SSR-safe, signals-first approach.

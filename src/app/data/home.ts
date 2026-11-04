@@ -4,7 +4,7 @@
 export const INTRO = {
   greeting: "Hi, I’m Ashwin.",
   paragraphs: [
-    "I build software in Kochi, Kerala. For five years I was a founding engineer at Penny Software, where I designed the RBAC and multi-tenant security of a procurement platform that grew past $1B in GTV.",
+    "I build software in Kochi, Kerala. I joined Penny Software as a founding engineer and stayed five years, through its growth into a procurement platform with $1B+ in GTV, owning its platform architecture and mentoring the 12-person team that built it.",
     "The part of the job I like most is the start: a customer describes a problem, nobody has written it down yet, and I get to turn it into a spec. Then I build it, schema to UI.",
     "On my own time I make tools and libraries, and I write about them, including the parts I got wrong.",
   ],

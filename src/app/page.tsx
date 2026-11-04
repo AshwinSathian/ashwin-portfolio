@@ -32,10 +32,10 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
       />
 
-      {/* Intro: who, where, what I like doing. The place sits beside it. */}
+      {/* Intro: who, where, what I like doing. */}
       <section aria-labelledby="hello-heading" className="shell pb-20 pt-28 lg:pb-32 lg:pt-40">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="flex flex-col gap-6 lg:col-span-7">
+          <div className="flex flex-col gap-6 lg:col-span-8">
             <h1 id="hello-heading" className="load-rise text-display-xl font-medium tracking-[-0.015em] text-fg">
               {INTRO.greeting}
             </h1>
@@ -64,34 +64,6 @@ export default function Page() {
             </ul>
           </div>
 
-          <figure className="load-rise flex flex-col gap-3 lg:col-span-5 lg:pt-4" style={{ "--d": "200ms" } as React.CSSProperties}>
-            <Image
-              src="/place/kochi-net.webp"
-              alt="A Chinese fishing net raised over the backwater in Kochi"
-              width={960}
-              height={1182}
-              priority
-              sizes="(min-width: 1024px) 40vw, 100vw"
-              className="aspect-[3/2] w-full rounded-panel object-cover lg:aspect-[4/5]"
-            />
-            <figcaption className="flex flex-col gap-0.5 text-meta text-fg-3">
-              <span className="text-fg-2">
-                Chinese fishing nets in Kochi. <KochiTime />
-              </span>
-              <span>
-                Photo by{" "}
-                <a
-                  href="https://commons.wikimedia.org/w/index.php?curid=4062876"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline decoration-line-strong underline-offset-2 hover:text-fg-2"
-                >
-                  Hans A. Rosbach
-                </a>
-                , CC BY-SA 3.0
-              </span>
-            </figcaption>
-          </figure>
         </div>
       </section>
 
@@ -200,7 +172,7 @@ export default function Page() {
           <div className="flex flex-col gap-5 lg:col-span-9">
             <p className="reveal max-w-2xl text-fg-2">
               Email is the quickest way to reach me. Write about a system you’re building or a problem you’re
-              stuck on.
+              stuck on. I’m in Kochi, on IST. <KochiTime />
             </p>
             <a
               href={`mailto:${SITE.email}`}

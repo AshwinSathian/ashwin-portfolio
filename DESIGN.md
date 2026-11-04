@@ -7,9 +7,8 @@ Tokens live in `src/app/globals.css`; this file explains them.
 
 ## The idea
 
-A personal site, writing first. It opens with a person, a place and a
-voice: "Hi, I'm Ashwin", who I am in my own words, Kochi beside it with the
-time there right now. Then what I've been doing lately, then the things I've
+A personal site, writing first. It opens with a person and a voice:
+"Hi, I'm Ashwin" and who I am in my own words, with no picture beside it. Then what I've been doing lately, then the things I've
 made told as short stories, then work, writing and a way to say hello.
 
 The palette comes from the Kerala kasavu sari, off-white cotton with a gold
@@ -59,18 +58,18 @@ layout.tsx after changing any of them.
 
 ## Home, in order
 
-1. Hello: the greeting as the `h1`, three short paragraphs (`data/home.ts`),
-   contact links, and the Kochi photograph with the live local time
-   (`home/KochiTime`; the server HTML states the time zone, so it reads
-   fine without JavaScript). Photo: Hans A. Rosbach, CC BY-SA 3.0, credited
-   in the caption.
+1. Hello: the greeting as the `h1`, three short paragraphs (`data/home.ts`)
+   and contact links. Text only. The Penny Software line covers the whole
+   role (architecture, growth, the team), not one feature.
 2. Lately: dated entries, newest first, each linking to its proof.
 3. Things I've made: each featured project as a short story (what prompted
    it, what it does) with one in-app picture or a real code sample,
    alternating sides; the rest as one-line entries.
 4. Work: one paragraph and the role list.
 5. Writing: the latest posts.
-6. Say hello: the email address, large, in italic zari.
+6. Say hello: the email address, large, in italic zari, and the time in
+   Kochi right now (`home/KochiTime`; the server HTML states the time zone,
+   so it reads fine without JavaScript).
 
 ## Motion
 

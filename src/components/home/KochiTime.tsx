@@ -28,7 +28,7 @@ export default function KochiTime() {
 
   return (
     <span>
-      {time ? <>It’s {time} in Kochi right now.</> : <>Kochi runs on IST, UTC+5:30.</>}
+      {time ? <>It’s {time} here right now.</> : <>That’s UTC+5:30.</>}
     </span>
   );
 }

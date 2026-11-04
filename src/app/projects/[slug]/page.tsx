@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
 import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 import ArrowLink from "@/components/ArrowLink";
 import DecisionRecord from "@/components/DecisionRecord";
-import KineticHeading from "@/components/KineticHeading";
+import KineticHeading, { twoLineSize } from "@/components/KineticHeading";
 import ProjectMedia from "@/components/ProjectMedia";
 import { StatusTag } from "@/components/ProjectRow";
 import PostList from "@/components/writing/PostList";
@@ -110,6 +111,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const next = PROJECTS[(index + 1) % PROJECTS.length];
 
   const schema = projectSchema(project);
+  const liveHost = project.links.live ? new URL(project.links.live).host : "";
   const relatedSlugs = PROJECT_POSTS[project.slug] ?? [];
   const relatedPosts = getAllPosts().filter((post) => relatedSlugs.includes(post.slug));
 
@@ -163,19 +165,23 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           </ol>
         </nav>
 
-        <p className="load-rise mb-4 flex flex-wrap items-center gap-3 text-meta tabular-nums text-fg-3">
-          {project.category}
-          {project.status && <StatusTag>{project.status}</StatusTag>}
-        </p>
         <KineticHeading
           text={project.name}
           className="text-display-xl font-bold tracking-[-0.03em] wrap-anywhere"
+          style={{ fontSize: twoLineSize(project.name, "var(--text-display-xl)") }}
         />
         <p
-          className="load-rise mt-6 max-w-3xl text-[1.1875rem] leading-[1.5] text-fg-2 lg:mt-8 lg:text-[1.375rem]"
+          className="load-rise mt-6 max-w-3xl text-[1.1875rem] leading-[1.5] text-fg lg:mt-8 lg:text-[1.375rem]"
           style={{ "--d": "300ms" } as React.CSSProperties}
         >
           {project.tagline}
+        </p>
+        <p
+          className="load-rise mt-4 flex flex-wrap items-center gap-3 text-fg-2"
+          style={{ "--d": "350ms" } as React.CSSProperties}
+        >
+          {project.category}
+          {project.status && <StatusTag>{project.status}</StatusTag>}
         </p>
 
         <div className="load-rise mt-6 flex flex-wrap gap-x-8" style={{ "--d": "400ms" } as React.CSSProperties}>
@@ -193,50 +199,48 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </ViewTransition>
       </div>
 
-      <div className="shell grid grid-cols-1 gap-x-16 gap-y-14 py-16 lg:grid-cols-12 lg:py-28">
+      <div className="shell grid grid-cols-1 gap-x-16 gap-y-20 py-20 lg:grid-cols-12 lg:py-32">
         {/* Rail: first in source so it follows the media on mobile; sticky at desktop. */}
         <aside aria-label="Project facts" className="min-w-0 lg:order-2 lg:col-span-4">
-          <div className="flex flex-col gap-8 lg:sticky lg:top-24">
-            <dl className="flex flex-col border-t border-line">
+          <div className="panel flex flex-col gap-8 p-6 lg:sticky lg:top-24 lg:p-8">
+            <h2 className="text-title font-semibold tracking-[-0.02em]">Facts</h2>
+            <dl className="flex flex-col gap-5">
               {project.facts.map((fact) => (
-                <div key={fact.label} className="flex flex-col gap-1 border-b border-line py-4">
+                <div key={fact.label} className="flex flex-col gap-1">
                   <dt className="text-small text-fg-3">{fact.label}</dt>
                   <dd className="text-fg">{fact.value}</dd>
                 </div>
               ))}
               {project.language && (
-                <div className="flex flex-col gap-1 border-b border-line py-4">
+                <div className="flex flex-col gap-1">
                   <dt className="text-small text-fg-3">Primary language</dt>
                   <dd className="text-fg">{project.language}</dd>
                 </div>
               )}
               {typeof project.stars === "number" && project.stars > 0 && (
-                <div className="flex flex-col gap-1 border-b border-line py-4">
+                <div className="flex flex-col gap-1">
                   <dt className="text-small text-fg-3">GitHub stars</dt>
                   <dd className="tabular-nums text-fg">{project.stars}</dd>
                 </div>
               )}
+              <div className="flex flex-col gap-1">
+                <dt className="text-small text-fg-3">Stack</dt>
+                <dd className="text-small text-fg-2">{project.stack.join(" · ")}</dd>
+              </div>
             </dl>
-            <div>
-              <h2 className="mb-3 text-small text-fg-3">Stack</h2>
-              <p className="text-meta tabular-nums leading-[1.9] text-fg-2">{project.stack.join(" · ")}</p>
-            </div>
           </div>
         </aside>
 
-        <div className="flex min-w-0 flex-col gap-16 lg:order-1 lg:col-span-8 lg:gap-24">
+        <div className="flex min-w-0 flex-col gap-20 lg:order-1 lg:col-span-8 lg:gap-32">
           {/* Case study where one exists, otherwise the plain description. Never both. */}
           {narrative.length > 0 ? (
-            <div className="flex flex-col gap-12">
+            <div className="flex flex-col gap-14">
               {narrative.map(([label, text], i) => (
                 <section key={label} aria-labelledby={`cs-${label}`} className="reveal flex flex-col gap-3">
-                  <h2 id={`cs-${label}`} className="flex items-baseline gap-4 text-display-m font-semibold tracking-[-0.03em]">
-                    <span aria-hidden className="text-meta tabular-nums font-normal tracking-normal text-fg-3">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                  <h2 id={`cs-${label}`} className="text-display-m font-semibold tracking-[-0.03em]">
                     {label}
                   </h2>
-                  <p className={i === 0 ? "text-[1.1875rem] leading-[1.6] text-fg" : "text-fg-2"}>{text}</p>
+                  <p className={i === 0 ? "text-[1.1875rem] leading-[1.6] text-fg" : "text-fg"}>{text}</p>
                 </section>
               ))}
             </div>
@@ -259,13 +263,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             </section>
           )}
 
-          <section aria-labelledby="highlights-heading" className="flex flex-col gap-2">
+          <section aria-labelledby="highlights-heading" className="flex flex-col gap-8">
             <h2 id="highlights-heading" className="reveal text-display-m font-semibold tracking-[-0.03em]">
               Highlights
             </h2>
-            <ul className="flex flex-col">
+            <ul className="flex flex-col gap-10">
               {project.highlights.map((highlight) => (
-                <li key={highlight.title} className="reveal flex flex-col gap-2 border-b border-line py-7">
+                <li key={highlight.title} className="reveal flex flex-col gap-2">
                   <h3 className="text-title font-medium text-fg">{highlight.title}</h3>
                   <p className="text-fg-2">{highlight.detail}</p>
                 </li>
@@ -283,32 +287,55 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           )}
 
           {relatedPosts.length > 0 && (
-            <section aria-labelledby="writing-heading" className="flex flex-col gap-2">
+            <section aria-labelledby="writing-heading" className="flex flex-col gap-4">
               <h2 id="writing-heading" className="reveal text-display-m font-semibold tracking-[-0.03em]">
                 Writing about this
               </h2>
-              <div className="border-b border-line">
-                <PostList posts={relatedPosts} as="h3" />
-              </div>
+              <PostList posts={relatedPosts} as="h3" />
             </section>
           )}
         </div>
       </div>
 
-      <Link
-        href={`/projects/${next.slug}`}
-        className="group block border-t border-line transition-colors duration-300 hover:bg-surface active:bg-surface"
-      >
-        <div className="shell flex items-end justify-between gap-6 py-14 lg:py-24">
-          <div className="flex min-w-0 flex-col gap-3">
-            <span className="text-small text-fg-3">Next project</span>
-            <span className="text-display-l font-semibold tracking-[-0.025em] wrap-anywhere">
-              {next.name}
-            </span>
-          </div>
+      {project.links.live && (
+        <section aria-labelledby="live-heading" className="shell pb-20 lg:pb-32">
+          <h2 id="live-heading" className="reveal mb-6 text-display-m font-semibold tracking-[-0.03em] lg:mb-10">
+            The live site
+          </h2>
+          <figure className="reveal-media flex flex-col gap-4">
+            <div className="panel p-2 md:p-3">
+              <Image
+                src={`/projects/${project.slug}/live.webp`}
+                alt={`The live ${project.name} site at ${liveHost}`}
+                width={2400}
+                height={1500}
+                sizes="(min-width: 1200px) 1104px, 100vw"
+                className="block h-auto w-full rounded-control"
+              />
+            </div>
+            <figcaption className="text-small text-fg-2">
+              <a href={project.links.live} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 text-fg">
+                <span className="link">{liveHost}</span>
+                <span aria-hidden className="arrow arrow-out">↗</span>
+                <span className="sr-only"> (opens in new tab)</span>
+              </a>
+            </figcaption>
+          </figure>
+        </section>
+      )}
+
+      <div className="shell pb-20 lg:pb-32">
+        <Link
+          href={`/projects/${next.slug}`}
+          className="panel group flex items-end justify-between gap-6 p-6 md:p-10 lg:p-14"
+        >
+          <span className="flex min-w-0 flex-col gap-3">
+            <span className="text-display-l font-semibold tracking-[-0.025em] wrap-anywhere">{next.name}</span>
+            <span className="text-fg-2">Next project: {next.category}</span>
+          </span>
           <span aria-hidden className="arrow text-display-m text-fg-2">→</span>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </article>
   );
 }

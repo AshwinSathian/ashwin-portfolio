@@ -21,7 +21,7 @@ export default function Navbar() {
   const close = () => sheetRef.current?.close();
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bar border-b border-line bg-night/80 backdrop-blur-md">
+    <header className="fixed inset-x-0 top-0 z-50 bg-night">
       <div className="shell flex h-16 items-center justify-between">
         {/* The wordmark: lowercase, bold, ending on the full stop every display
             headline on the site ends with. The accessible name keeps the
@@ -29,7 +29,7 @@ export default function Navbar() {
         <Link
           href="/"
           aria-label={`${SITE.name}, home`}
-          className="wordmark flex min-h-11 items-center text-[1.1875rem] text-fg"
+          className="wordmark flex min-h-11 items-center text-title text-fg"
         >
           ashwin sathian.
         </Link>
@@ -51,7 +51,7 @@ export default function Navbar() {
             href={SITE.resumePath}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex min-h-11 items-center rounded-control border border-line-strong px-4 text-small text-fg transition-colors duration-200 hover:bg-fg hover:text-night active:bg-fg active:text-night"
+            className="flex min-h-11 items-center rounded-control bg-surface-2 px-4 text-small text-fg transition-colors duration-200 hover:bg-fg hover:text-night active:bg-fg active:text-night"
           >
             Résumé
           </a>
@@ -86,7 +86,7 @@ export default function Navbar() {
               href={href}
               onClick={close}
               aria-current={href === "/" ? (pathname === "/" ? "page" : undefined) : current(href)}
-              className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.02em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
+              className="flex min-h-14 items-center justify-between text-[1.75rem] font-semibold tracking-[-0.02em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
             >
               {label}
               <span aria-hidden className="arrow text-fg-3">→</span>
@@ -97,7 +97,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.02em] text-fg-2 active:text-fg"
+            className="flex min-h-14 items-center justify-between text-[1.75rem] font-semibold tracking-[-0.02em] text-fg-2 active:text-fg"
           >
             Résumé
             <span aria-hidden className="arrow arrow-out text-fg-3">↗</span>
@@ -106,7 +106,7 @@ export default function Navbar() {
         <button
           type="button"
           onClick={close}
-          className="mt-5 flex h-12 w-full items-center justify-center rounded-control border border-line-strong text-small text-fg active:bg-surface-2"
+          className="mt-5 flex h-12 w-full items-center justify-center rounded-control bg-surface-2 text-small text-fg active:bg-night"
         >
           Close
         </button>

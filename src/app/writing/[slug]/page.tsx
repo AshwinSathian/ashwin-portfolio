@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllPosts, getPost, getPostSlugs } from "@/lib/writing";
-import KineticHeading from "@/components/KineticHeading";
+import KineticHeading, { twoLineSize } from "@/components/KineticHeading";
 import PostBody from "@/components/writing/PostBody";
 import ArrowLink from "@/components/ArrowLink";
 import { PROJECTS } from "@/app/data/projects";
@@ -113,17 +113,30 @@ export default async function PostPage({ params }: Props) {
       <div aria-hidden className="progress" />
 
       <header className="shell pb-10 pt-28 lg:pb-16 lg:pt-40">
-        <Link href="/writing" className="load-rise mb-6 inline-flex min-h-11 items-center gap-2 text-small text-fg-3 hover:text-fg active:text-fg">
-          <span aria-hidden>←</span>
-          <span className="link">Writing</span>
-        </Link>
+        <nav aria-label="Breadcrumb" className="load-rise mb-8 text-small text-fg-3 lg:mb-12">
+          <ol className="flex flex-wrap items-center gap-x-2">
+            <li>
+              <Link href="/" className="inline-flex min-h-11 items-center hover:text-fg active:text-fg">
+                <span className="link">Home</span>
+              </Link>
+            </li>
+            <li aria-hidden>/</li>
+            <li>
+              <Link href="/writing" className="inline-flex min-h-11 items-center hover:text-fg active:text-fg">
+                <span className="link">Writing</span>
+              </Link>
+            </li>
+          </ol>
+        </nav>
 
         <KineticHeading
           text={meta.title}
-          className="max-w-4xl text-display-l font-semibold tracking-[-0.025em]"
+          className="text-display-l font-semibold tracking-[-0.025em]"
+          // A long title may take three lines on a phone rather than drop below 24px.
+          style={{ fontSize: `max(1.5rem, ${twoLineSize(meta.title, "var(--text-display-l)")})` }}
         />
 
-        <p className="load-rise mt-6 max-w-2xl text-[1.1875rem] leading-[1.5] text-fg-2" style={{ "--d": "350ms" } as React.CSSProperties}>
+        <p className="load-rise mt-6 max-w-2xl leading-[1.5] text-fg sm:text-[1.1875rem]" style={{ "--d": "350ms" } as React.CSSProperties}>
           {meta.description}
         </p>
 
@@ -144,13 +157,14 @@ export default async function PostPage({ params }: Props) {
         )}
       </header>
 
-      <div className="shell border-t border-line py-12 lg:py-20">
+      <div className="shell pb-20 pt-8 lg:pb-32 lg:pt-12">
         <PostBody content={content} />
       </div>
 
       {(newer || older) && (
-        <nav aria-label="More writing" className="border-t border-line">
-          <div className="shell grid sm:grid-cols-2 sm:gap-x-12">
+        <nav aria-label="More writing" className="shell pb-20 lg:pb-32">
+          <h2 className="mb-6 text-display-m font-semibold tracking-[-0.025em] lg:mb-10">More writing</h2>
+          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
             {[
               ["Older", older],
               ["Newer", newer],
@@ -159,16 +173,14 @@ export default async function PostPage({ params }: Props) {
                 <Link
                   key={post.slug}
                   href={`/writing/${post.slug}`}
-                  className={`row flex flex-col gap-2 rounded-control border-b border-line py-8 last:border-b-0 sm:border-b-0 sm:py-12 ${i === 1 ? "sm:items-end sm:text-right" : ""}`}
+                  className={`panel flex flex-col gap-3 p-6 lg:p-8 ${i === 1 ? "sm:col-start-2 sm:items-end sm:text-right" : ""}`}
                 >
-                  <span className="text-small text-fg-3">{label as string}</span>
                   <span className="text-title font-semibold tracking-[-0.02em] text-fg">
                     {post.title}
                   </span>
+                  <span className="text-small text-fg-2">{label === "Older" ? "Older post" : "Newer post"}</span>
                 </Link>
-              ) : (
-                <span key={label as string} className="hidden sm:block" />
-              )
+              ) : null
             )}
           </div>
         </nav>

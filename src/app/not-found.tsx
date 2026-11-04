@@ -11,13 +11,15 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="shell flex min-h-[80svh] flex-col justify-end pb-16 pt-32 lg:pb-24">
-      <p className="load-rise mb-4 text-meta tabular-nums text-fg-3">404</p>
+    <div className="shell flex min-h-[70svh] flex-col justify-center pb-20 pt-32 lg:pb-32">
       <KineticHeading
         text="Nothing at this address."
         className="max-w-4xl text-display-xl font-bold tracking-[-0.03em]"
       />
-      <div className="load-rise mt-10 flex flex-wrap gap-x-8 border-t border-line pt-6" style={{ "--d": "400ms" } as React.CSSProperties}>
+      <p className="load-rise mt-6 max-w-2xl text-[1.1875rem] leading-[1.5] text-fg" style={{ "--d": "300ms" } as React.CSSProperties}>
+        This address returned a 404. One of these pages should have what you were after.
+      </p>
+      <div className="load-rise mt-6 flex flex-wrap gap-x-8" style={{ "--d": "400ms" } as React.CSSProperties}>
         <ArrowLink href="/">Home</ArrowLink>
         <ArrowLink href="/projects">Projects</ArrowLink>
         <ArrowLink href="/writing">Writing</ArrowLink>

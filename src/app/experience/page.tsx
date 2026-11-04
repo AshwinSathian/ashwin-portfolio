@@ -37,16 +37,16 @@ export default function ExperiencePage() {
         intro="Eight years across seven roles and five companies, from junior programmer to owning platform architecture at Penny Software."
       />
 
-      <div className="shell pb-24 lg:pb-40">
+      <div className="shell flex flex-col gap-20 pb-24 lg:gap-32 lg:pb-40">
         <RoleGroups />
 
         {EDUCATION.map((item) => (
           <section
             key={item.school}
             aria-labelledby="education-heading"
-            className="grid gap-x-12 gap-y-6 border-t border-line py-10 lg:grid-cols-12 lg:py-14"
+            className="panel grid gap-x-12 gap-y-6 p-6 md:p-10 lg:grid-cols-12 lg:p-14"
           >
-            <h2 id="education-heading" className="reveal text-display-m font-semibold tracking-[-0.03em] lg:col-span-4">
+            <h2 id="education-heading" className="reveal self-start text-display-m font-semibold tracking-[-0.03em] lg:col-span-4">
               Education
             </h2>
             <div className="reveal flex flex-col gap-1 lg:col-span-8">
@@ -59,14 +59,14 @@ export default function ExperiencePage() {
 
         <section
           aria-labelledby="stack-heading"
-          className="grid gap-x-12 gap-y-6 border-y border-line py-10 lg:grid-cols-12 lg:py-14"
+          className="panel grid gap-x-12 gap-y-6 p-6 md:p-10 lg:grid-cols-12 lg:p-14"
         >
-          <h2 id="stack-heading" className="reveal text-display-m font-semibold tracking-[-0.03em] lg:col-span-4">
+          <h2 id="stack-heading" className="reveal self-start text-display-m font-semibold tracking-[-0.03em] lg:col-span-4">
             Stack
           </h2>
-          <dl className="reveal flex flex-col lg:col-span-8">
+          <dl className="reveal flex flex-col gap-5 lg:col-span-8">
             {SKILL_GROUPS.map((group) => (
-              <div key={group.title} className="grid gap-x-8 gap-y-1 border-b border-line py-4 last:border-b-0 sm:grid-cols-[11rem_1fr]">
+              <div key={group.title} className="grid gap-x-8 gap-y-1 sm:grid-cols-[11rem_1fr]">
                 <dt className="text-small text-fg-3">{group.title}</dt>
                 <dd className="text-fg">{group.items.map((item) => item.name).join(", ")}</dd>
               </div>

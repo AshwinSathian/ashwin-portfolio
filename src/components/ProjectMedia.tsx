@@ -16,7 +16,7 @@ export default function ProjectMedia({
 }: ProjectMediaProps) {
   if (media.kind === "screenshot") {
     return (
-      <div className="overflow-hidden rounded-panel border border-line-strong bg-surface">
+      <div className="panel p-2 md:p-3">
         <Image
           // Every PNG under public/projects has a .webp sibling (quality 82), about a third the size.
           src={media.src.replace(/\.png$/, ".webp")}
@@ -26,15 +26,15 @@ export default function ProjectMedia({
           priority={priority}
           fetchPriority={priority ? "high" : undefined}
           sizes={sizes}
-          className="block h-auto w-full"
+          className="block h-auto w-full rounded-control"
         />
       </div>
     );
   }
 
   return (
-    <figure className="overflow-hidden rounded-panel border border-line-strong bg-surface shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]">
-      <figcaption className="flex items-center justify-between border-b border-line px-5 py-3 text-meta tabular-nums text-fg-3">
+    <figure className="panel overflow-hidden">
+      <figcaption className="flex items-center justify-between bg-surface-2 px-5 py-3 text-meta tabular-nums text-fg-2">
         <span>{media.caption}</span>
         <span>{media.language}</span>
       </figcaption>

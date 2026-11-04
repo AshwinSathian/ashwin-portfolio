@@ -61,9 +61,7 @@ export default function WritingPage() {
         }
       />
       <div className="shell pb-24 lg:pb-40">
-        <div className="border-b border-line">
-          <PostList posts={posts} />
-        </div>
+        <PostList posts={posts} />
       </div>
     </>
   );

@@ -9,7 +9,7 @@ const CLIENTS = [
   ["AI assistants", "via MCP"],
 ];
 
-const BOX = "fill-surface-2 stroke-line-strong";
+const BOX = "fill-surface-2";
 const WIRE = "fill-none stroke-fg-3";
 
 export default function ArchitectureDiagram() {

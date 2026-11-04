@@ -38,19 +38,26 @@ export default function ProjectsPage() {
         intro="Products and libraries I built on my own time. Each page covers what it does and how it is built."
       />
 
-      <div className="shell pb-24 lg:pb-40">
-        <div className="flex flex-col border-b border-line">
-          {PROJECTS.map((project) => (
-            <ProjectRow
-              key={project.slug}
-              href={`/projects/${project.slug}`}
-              name={project.name}
-              description={project.tagline}
-              status={project.status}
-              marker={project.category}
-              as="h2"
-            />
-          ))}
+      <div className="shell flex flex-col gap-3 md:gap-4">
+        {PROJECTS.map((project) => (
+          <ProjectRow
+            key={project.slug}
+            href={`/projects/${project.slug}`}
+            name={project.name}
+            description={project.tagline}
+            status={project.status}
+            marker={project.category}
+            image={{ src: `/projects/${project.slug}/live.webp`, alt: "" }}
+            as="h2"
+          />
+        ))}
+      </div>
+
+      <section aria-labelledby="also-heading" className="shell pb-24 pt-20 lg:pb-40 lg:pt-32">
+        <h2 id="also-heading" className="reveal mb-6 text-display-m font-semibold tracking-[-0.025em] lg:mb-10">
+          Also on GitHub
+        </h2>
+        <div className="flex flex-col">
           {ALSO_SHIPPED.map((item) => (
             <ProjectRow
               key={item.href}
@@ -58,12 +65,11 @@ export default function ProjectsPage() {
               name={item.name}
               description={item.description}
               status={item.status}
-              marker="Also"
-              as="h2"
+              as="h3"
             />
           ))}
         </div>
-      </div>
+      </section>
     </>
   );
 }

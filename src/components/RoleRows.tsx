@@ -20,33 +20,15 @@ function groupByCompany(items: readonly ExperienceItem[]): CompanyGroup[] {
   return groups;
 }
 
-/** Home: every role as one compact line. */
-export function RoleList() {
-  return (
-    <ol className="flex flex-col">
-      {RECENT_EXPERIENCE.map((item) => (
-        <li
-          key={`${item.company}-${item.role}`}
-          className="reveal grid gap-x-8 gap-y-1 border-t border-line py-4 text-small md:grid-cols-[12rem_1fr_auto] md:items-baseline"
-        >
-          <span className="text-meta tabular-nums text-fg-3">{item.dates}</span>
-          <span className="text-fg">{item.role}</span>
-          <span className="text-fg-2">{item.company}</span>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
 /** /experience: roles grouped under their company, with bullets and stack. */
 export function RoleGroups() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-20 lg:gap-32">
       {groupByCompany(RECENT_EXPERIENCE).map((group) => (
         <section
           key={group.company}
           aria-label={group.company}
-          className="grid gap-x-12 gap-y-6 border-t border-line py-10 lg:grid-cols-12 lg:py-14"
+          className="grid gap-x-12 gap-y-6 lg:grid-cols-12"
         >
           <header className="reveal lg:col-span-4">
             <div className="lg:sticky lg:top-24">
@@ -66,9 +48,9 @@ export function RoleGroups() {
                     <p className="shrink-0 text-meta tabular-nums text-fg-3">{item.dates}</p>
                   )}
                 </div>
-                <ul className="flex flex-col gap-3 text-fg-2">
+                <ul className="flex flex-col gap-3 text-fg">
                   {item.bullets.map((bullet) => (
-                    <li key={bullet} className="relative pl-6 before:absolute before:left-0 before:top-[0.8em] before:h-px before:w-3 before:bg-fg-3">
+                    <li key={bullet} className="relative pl-5 before:absolute before:left-0 before:top-[0.68em] before:size-1.5 before:rounded-full before:bg-fg-3">
                       {bullet}
                     </li>
                   ))}

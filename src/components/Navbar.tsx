@@ -23,15 +23,13 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 bar border-b border-line bg-night/80 backdrop-blur-md">
       <div className="shell flex h-16 items-center justify-between">
-        {/* The wordmark: lowercase, bold, ending on the full stop every display
-            headline on the site ends with. The accessible name keeps the
-            proper-case name. */}
+        {/* The wordmark: the name in the text face, set slightly heavier. */}
         <Link
           href="/"
           aria-label={`${SITE.name}, home`}
-          className="wordmark flex min-h-11 items-center text-[1.1875rem] text-fg"
+          className="wordmark flex min-h-11 items-center text-[1.25rem] text-fg"
         >
-          ashwin sathian.
+          Ashwin Sathian
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
@@ -86,7 +84,7 @@ export default function Navbar() {
               href={href}
               onClick={close}
               aria-current={href === "/" ? (pathname === "/" ? "page" : undefined) : current(href)}
-              className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.02em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
+              className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.015em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
             >
               {label}
               <span aria-hidden className="arrow text-fg-3">→</span>
@@ -97,7 +95,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.02em] text-fg-2 active:text-fg"
+            className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.015em] text-fg-2 active:text-fg"
           >
             Résumé
             <span aria-hidden className="arrow arrow-out text-fg-3">↗</span>

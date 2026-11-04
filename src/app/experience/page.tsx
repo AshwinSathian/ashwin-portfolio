@@ -46,7 +46,7 @@ export default function ExperiencePage() {
             aria-labelledby="education-heading"
             className="grid gap-x-12 gap-y-6 border-t border-line py-10 lg:grid-cols-12 lg:py-14"
           >
-            <h2 id="education-heading" className="reveal text-display-m font-semibold tracking-[-0.03em] lg:col-span-4">
+            <h2 id="education-heading" className="reveal text-display-m font-semibold tracking-[-0.015em] lg:col-span-4">
               Education
             </h2>
             <div className="reveal flex flex-col gap-1 lg:col-span-8">
@@ -61,7 +61,7 @@ export default function ExperiencePage() {
           aria-labelledby="stack-heading"
           className="grid gap-x-12 gap-y-6 border-y border-line py-10 lg:grid-cols-12 lg:py-14"
         >
-          <h2 id="stack-heading" className="reveal text-display-m font-semibold tracking-[-0.03em] lg:col-span-4">
+          <h2 id="stack-heading" className="reveal text-display-m font-semibold tracking-[-0.015em] lg:col-span-4">
             Stack
           </h2>
           <dl className="reveal flex flex-col lg:col-span-8">

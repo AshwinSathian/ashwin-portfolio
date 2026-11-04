@@ -120,7 +120,7 @@ export default async function PostPage({ params }: Props) {
 
         <KineticHeading
           text={meta.title}
-          className="max-w-4xl text-display-l font-semibold tracking-[-0.025em]"
+          className="max-w-4xl text-display-l font-semibold tracking-[-0.015em]"
         />
 
         <p className="load-rise mt-6 max-w-2xl text-[1.1875rem] leading-[1.5] text-fg-2" style={{ "--d": "350ms" } as React.CSSProperties}>
@@ -162,7 +162,7 @@ export default async function PostPage({ params }: Props) {
                   className={`row flex flex-col gap-2 rounded-control border-b border-line py-8 last:border-b-0 sm:border-b-0 sm:py-12 ${i === 1 ? "sm:items-end sm:text-right" : ""}`}
                 >
                   <span className="text-small text-fg-3">{label as string}</span>
-                  <span className="text-title font-semibold tracking-[-0.02em] text-fg">
+                  <span className="text-title font-semibold tracking-[-0.015em] text-fg">
                     {post.title}
                   </span>
                 </Link>

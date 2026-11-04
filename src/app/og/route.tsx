@@ -2,12 +2,12 @@ import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
 
 // Same tokens as globals.css; Satori cannot read CSS variables.
-const NIGHT = "#050505";
-const FG = "#F5F5F4";
-const FG_2 = "#A6A6A6";
-const FG_3 = "#8A8A8A";
+const NIGHT = "#15120f";
+const FG = "#EFE8DA";
+const FG_2 = "#BDB2A0";
+const FG_3 = "#968B7A";
 
-const FONT_FAMILY = "Bricolage Grotesque";
+const FONT_FAMILY = "Newsreader";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
@@ -148,10 +148,10 @@ export async function GET(request: NextRequest) {
                 fontSize: 26,
                 fontWeight: 800,
                 color: FG,
-                letterSpacing: "-0.035em",
+                letterSpacing: "-0.015em",
               }}
             >
-              ashwin sathian.
+              Ashwin Sathian
             </span>
             <span
               style={{
@@ -185,8 +185,8 @@ export async function GET(request: NextRequest) {
           fontFamily: FONT_FAMILY,
         }}
       >
-        <div style={{ fontSize: 132, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.035em", color: FG }}>
-          ashwin sathian.
+        <div style={{ fontSize: 132, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.015em", color: FG }}>
+          Ashwin Sathian
         </div>
         <div style={{ marginTop: 40, fontSize: 34, fontWeight: 400, lineHeight: 1.3, color: FG_2, letterSpacing: "-0.01em", maxWidth: 900 }}>
           I turn a customer’s problem into a spec, then I ship it.

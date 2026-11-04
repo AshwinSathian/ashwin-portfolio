@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ViewTransition } from "react";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Newsreader } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,13 +8,14 @@ import { PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
 import { capitalize, numberWord } from "@/lib/text";
 
-// The one typeface. The opsz axis is loaded so the browser picks the optical
-// size from the font size (font-optical-sizing: auto): the text cut for body
-// copy, the sharper display cut for headings. Code uses the system monospace.
-const bricolage = Bricolage_Grotesque({
+// The one typeface: Newsreader, a reading serif with an optical-size axis, so
+// body copy gets the text cut and headings the display cut automatically.
+// Italic is loaded for emphasis in prose. Code uses the system monospace.
+const newsreader = Newsreader({
   subsets: ["latin"],
-  axes: ["wdth", "opsz"],
-  variable: "--font-bricolage",
+  axes: ["opsz"],
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
   display: "swap",
 });
 
@@ -26,7 +27,7 @@ const siteDescription =
 const personDescription = `Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. ${capitalize(numberWord(PROJECTS.length))} independent products shipped on his own time.`;
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#15120f",
   width: "device-width",
   initialScale: 1,
 };
@@ -78,9 +79,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.svg?v=8",
-    shortcut: "/favicon.svg?v=8",
-    apple: "/apple-touch-icon.png?v=8",
+    icon: "/favicon.svg?v=9",
+    shortcut: "/favicon.svg?v=9",
+    apple: "/apple-touch-icon.png?v=9",
   },
 };
 
@@ -90,7 +91,7 @@ const personSchema = {
   "@id": `${siteUrl}/#person`,
   name: "Ashwin Sathian",
   url: siteUrl,
-  email: "mailto:ashwinsathyan19@gmail.com",
+  email: "mailto:hello@ashwinsathian.com",
   description: personDescription,
   image: `${siteUrl}/og`,
   sameAs: [SITE.linkedin, SITE.github, "https://dev.to/ashwinsathian"],
@@ -144,7 +145,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={bricolage.variable}>
+    <html lang="en" className={newsreader.variable}>
       <head>
         <script
           type="application/ld+json"

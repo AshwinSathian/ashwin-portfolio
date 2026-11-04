@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import ArrowLink from "@/components/ArrowLink";
-import KochiTime from "@/components/home/KochiTime";
 import { RoleList } from "@/components/RoleRows";
 import PostList from "@/components/writing/PostList";
 import { INTRO, LATELY, STORIES } from "@/app/data/home";
@@ -172,7 +171,7 @@ export default function Page() {
           <div className="flex flex-col gap-5 lg:col-span-9">
             <p className="reveal max-w-2xl text-fg-2">
               Email is the quickest way to reach me. Write about a system you’re building or a problem you’re
-              stuck on. I’m in Kochi, on IST. <KochiTime />
+              stuck on.
             </p>
             <a
               href={`mailto:${SITE.email}`}

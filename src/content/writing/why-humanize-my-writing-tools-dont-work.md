@@ -3,7 +3,6 @@ title: "Why “humanize my writing” tools don’t work"
 date: "2026-08-18"
 description: "A look at AI-writing detection research and why most ‘humanize my writing’ tools lean on brittle word lists instead of the more durable structural signal."
 tags: ["ai", "writing", "llm", "claude"]
-canonical: "https://dev.to/ashwinsathian/why-humanize-my-writing-tools-dont-work-3l76"
 ---
 
 In December 2024, Florida State University linguists Tom Juzek and Zina Ward set out to answer a question that had become a running joke among people who read a lot of AI output: why does ChatGPT say "delve" so much?

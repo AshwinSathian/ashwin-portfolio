@@ -94,7 +94,7 @@ const personSchema = {
   email: "mailto:hello@ashwinsathian.com",
   description: personDescription,
   image: `${siteUrl}/og`,
-  sameAs: [SITE.linkedin, SITE.github, "https://dev.to/ashwinsathian"],
+  sameAs: [SITE.linkedin, SITE.github],
   jobTitle: "Senior Full-Stack Engineer",
   alumniOf: {
     "@type": "EducationalOrganization",

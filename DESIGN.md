@@ -67,9 +67,7 @@ layout.tsx after changing any of them.
    alternating sides; the rest as one-line entries.
 4. Work: one paragraph and the role list.
 5. Writing: the latest posts.
-6. Say hello: the email address, large, in italic zari, and the time in
-   Kochi right now (`home/KochiTime`; the server HTML states the time zone,
-   so it reads fine without JavaScript).
+6. Say hello: the email address, large, in italic zari.
 
 ## Motion
 

@@ -5,13 +5,16 @@ const LINKS = [
   { label: "LinkedIn", href: SITE.linkedin, external: true },
   { label: "GitHub", href: SITE.github, external: true },
   { label: "Résumé", href: SITE.resumePath, external: true },
+  { label: "Colophon", href: "/colophon" },
 ];
 
 export default function Footer() {
   return (
     <footer className="border-t border-line">
       <div className="shell flex flex-col gap-2 py-6 text-meta text-fg-3 sm:flex-row sm:items-center sm:justify-between">
-        <span>© {new Date().getFullYear()} {SITE.name}</span>
+        <span>
+          © {new Date().getFullYear()} {SITE.name}. Writing software since 2018.
+        </span>
         <ul className="-mx-2 flex flex-wrap">
           {LINKS.map(({ label, href, external }) => (
             <li key={label}>

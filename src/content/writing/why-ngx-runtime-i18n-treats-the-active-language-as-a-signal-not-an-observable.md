@@ -3,7 +3,6 @@ title: "Why ngx-runtime-i18n treats the active language as a signal, not an Obse
 date: "2026-08-17"
 description: "Why ngx-runtime-i18n was built signals-first from day one instead of retrofitting signals onto an RxJS core, and how its compat layer works."
 tags: ["angular", "signals", "rxjs", "i18n"]
-canonical: "https://dev.to/ashwinsathian/why-ngx-runtime-i18n-treats-the-active-language-as-a-signal-not-an-observable-4i3g"
 ---
 
 The idea of building **@ngx-runtime-i18n** came from my personal experience and, if I may daresay, frustration with the popular options for internationalisation in Angular apps. In applications of scale, especially at an enterprise level, it was no picnic. One of the critical decisions was whether to use signals, which were clearly the road ahead and yet, even as we speak, are not the standard for the community at large.

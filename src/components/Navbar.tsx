@@ -6,7 +6,7 @@ import Link from "next/link";
 import { SITE } from "@/app/data/site";
 
 const NAV_LINKS = [
-  { label: "Work", href: "/projects" },
+  { label: "Projects", href: "/projects" },
   { label: "Experience", href: "/experience" },
   { label: "Writing", href: "/writing" },
 ];
@@ -21,11 +21,13 @@ export default function Navbar() {
   const close = () => sheetRef.current?.close();
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bar border-b border-line bg-night/75 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 bar border-b border-line bg-night/80 backdrop-blur-md">
       <div className="shell flex h-16 items-center justify-between">
+        {/* The wordmark: the name in the text face, set slightly heavier. */}
         <Link
           href="/"
-          className="flex min-h-11 items-center text-[1.0625rem] font-semibold tracking-[-0.02em] text-fg"
+          aria-label={`${SITE.name}, home`}
+          className="wordmark flex min-h-11 items-center text-[1.25rem] text-fg"
         >
           Ashwin Sathian
         </Link>
@@ -75,14 +77,14 @@ export default function Navbar() {
         onClick={(e) => e.target === e.currentTarget && close()}
       >
         <div aria-hidden className="mx-auto mb-3 h-1 w-10 rounded-full bg-line-strong" />
-        <nav aria-label="Main" className="flex flex-col">
+        <nav className="flex flex-col">
           {[{ label: "Home", href: "/" }, ...NAV_LINKS].map(({ label, href }) => (
             <Link
               key={href}
               href={href}
               onClick={close}
               aria-current={href === "/" ? (pathname === "/" ? "page" : undefined) : current(href)}
-              className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.02em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
+              className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.015em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
             >
               {label}
               <span aria-hidden className="arrow text-fg-3">→</span>
@@ -93,7 +95,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.02em] text-fg-2 active:text-fg"
+            className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.015em] text-fg-2 active:text-fg"
           >
             Résumé
             <span aria-hidden className="arrow arrow-out text-fg-3">↗</span>

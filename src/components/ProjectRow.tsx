@@ -31,7 +31,7 @@ export default function ProjectRow({ href, name, description, marker, status, as
     <>
       <span className="text-meta tabular-nums text-fg-3">{marker}</span>
       <span className="flex flex-col items-start gap-2">
-        <Heading className="text-title font-semibold tracking-[-0.02em] text-fg wrap-anywhere">
+        <Heading className="text-title font-semibold tracking-[-0.015em] text-fg wrap-anywhere">
           {name}
         </Heading>
         {status && <StatusTag>{status}</StatusTag>}

@@ -1,9 +1,8 @@
 ---
-title: "Why Better Auth's MongoDB adapter can't populate() a Mongoose ref"
+title: "Why Better Auth’s MongoDB adapter can’t populate() a Mongoose ref"
 date: "2026-08-17"
-description: "Better Auth's official MongoDB adapter bypasses Mongoose, so populate() silently fails on its tables. better-auth-mongoose fixes that."
+description: "Better Auth’s official MongoDB adapter bypasses Mongoose, so populate() silently fails on its tables. better-auth-mongoose fixes that."
 tags: ["mongodb", "mongoose", "node", "typescript"]
-canonical: "https://dev.to/ashwinsathian/why-better-auths-mongodb-adapter-cant-populate-a-mongoose-ref-e2c"
 ---
 
 If your Node app already uses Mongoose and you wire up Better Auth with its official MongoDB adapter, this looks fine at first:

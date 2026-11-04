@@ -3,12 +3,11 @@ import ProjectRow from "@/components/ProjectRow";
 import { PageHeader } from "@/components/Section";
 import { ALSO_SHIPPED, PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
+import { capitalize, numberWord } from "@/lib/text";
 
-const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
-const total = NUMBER_WORDS[PROJECTS.length] ?? String(PROJECTS.length);
-const capitalized = total[0].toUpperCase() + total.slice(1);
+const capitalized = capitalize(numberWord(PROJECTS.length));
 
-const description = `${capitalized} independent products, designed and run end to end.`;
+const description = `${capitalized} projects I built: a Markdown publisher, Go, Angular and TypeScript libraries, an encrypted messenger, an API client, a typing game and a Claude skill.`;
 
 const ogImageUrl = `/og?title=Projects&description=${encodeURIComponent(description)}&label=Projects`;
 
@@ -27,7 +26,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Projects | Ashwin Sathian",
     description,
-    creator: "@ashwinsathian",
     images: [ogImageUrl],
   },
 };
@@ -36,8 +34,8 @@ export default function ProjectsPage() {
   return (
     <>
       <PageHeader
-        title={`${capitalized} products, designed and run end to end.`}
-        intro="Products I built on my own time, each checked against its repo. Where I got something wrong, the correction is public."
+        title={`${capitalized} projects, built and shipped end to end.`}
+        intro="Products and libraries I built on my own time. Each page covers what it does and how it is built."
       />
 
       <div className="shell pb-24 lg:pb-40">

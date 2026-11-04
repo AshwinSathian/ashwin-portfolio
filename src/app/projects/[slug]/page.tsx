@@ -8,14 +8,16 @@ import DecisionRecord from "@/components/DecisionRecord";
 import KineticHeading from "@/components/KineticHeading";
 import ProjectMedia from "@/components/ProjectMedia";
 import { StatusTag } from "@/components/ProjectRow";
-import { getProject } from "@/app/(helpers)/projects";
+import PostList from "@/components/writing/PostList";
+import { getProject, type ProjectWithStats } from "@/app/(helpers)/projects";
 import { PROJECTS } from "@/app/data/projects";
+import { PROJECT_POSTS } from "@/app/data/related";
 import { SITE } from "@/app/data/site";
+import { truncate } from "@/lib/text";
+import { getAllPosts } from "@/lib/writing";
 
 type RouteParams = { slug: string };
 type PageProps = { params: Promise<RouteParams> };
-
-export const revalidate = 3600;
 
 export function generateStaticParams(): RouteParams[] {
   return PROJECTS.map((project) => ({ slug: project.slug }));
@@ -26,15 +28,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const project = await getProject(slug);
   if (!project) return { title: "Project not found" };
 
+  const description = truncate(project.tagline, 160);
   const ogUrl = `/og?title=${encodeURIComponent(project.name)}&description=${encodeURIComponent(project.tagline)}&label=Projects`;
 
   return {
-    title: project.name,
-    description: project.tagline,
+    title: `${project.name}: ${project.category}`,
+    description,
     alternates: { canonical: `${SITE.website}/projects/${project.slug}` },
     openGraph: {
       title: `${project.name} | Ashwin Sathian`,
-      description: project.tagline,
+      description,
       url: `${SITE.website}/projects/${project.slug}`,
       images: [{ url: ogUrl, width: 1200, height: 630, alt: project.name }],
       type: "website",
@@ -42,9 +45,52 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     twitter: {
       card: "summary_large_image",
       title: `${project.name} | Ashwin Sathian`,
-      description: project.tagline,
+      description,
       images: [ogUrl],
     },
+  };
+}
+
+// Apps whose project data says outright that they cost nothing (Wayfarer: "no account, hosted
+// backend, or pricing tier"). The others don't say, so they get no Offer.
+const FREE_TO_USE = new Set(["wayfarer"]);
+const LANGUAGES = ["Go", "TypeScript", "JavaScript", "Python"];
+
+/** Libraries and skills are source code; everything else is an app people use in a browser. */
+function projectSchema(project: ProjectWithStats) {
+  const id = `${SITE.website}/projects/${project.slug}`;
+  const common = {
+    "@context": "https://schema.org",
+    "@id": `${id}#software`,
+    name: project.name,
+    description: project.tagline,
+    author: { "@id": `${SITE.website}/#person` },
+  };
+
+  if (/library|skill/i.test(project.category)) {
+    const languages = LANGUAGES.filter((lang) => project.stack.some((s) => new RegExp(`^${lang}\\b`).test(s)));
+    return {
+      ...common,
+      "@type": "SoftwareSourceCode",
+      url: id,
+      ...(project.links.github ? { codeRepository: project.links.github } : {}),
+      ...(languages.length ? { programmingLanguage: languages.length === 1 ? languages[0] : languages } : {}),
+    };
+  }
+
+  return {
+    ...common,
+    "@type": "WebApplication",
+    url: project.links.live ?? id,
+    applicationCategory: /game/i.test(project.category)
+      ? "GameApplication"
+      : /messaging/i.test(project.category)
+        ? "CommunicationApplication"
+        : "DeveloperApplication",
+    operatingSystem: "Any (web browser)",
+    ...(FREE_TO_USE.has(project.slug)
+      ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } }
+      : {}),
   };
 }
 
@@ -63,20 +109,9 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   const index = PROJECTS.findIndex((p) => p.slug === project.slug);
   const next = PROJECTS[(index + 1) % PROJECTS.length];
 
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "@id": `${SITE.website}/projects/${project.slug}#software`,
-    name: project.name,
-    description: project.tagline,
-    url: `${SITE.website}/projects/${project.slug}`,
-    applicationCategory: project.category,
-    ...(project.links.github ? { codeRepository: project.links.github } : {}),
-    ...(project.links.live ? { sameAs: project.links.live } : {}),
-    author: { "@id": `${SITE.website}/#person` },
-    creator: { "@id": `${SITE.website}/#person` },
-    softwareRequirements: project.stack.join(", "),
-  };
+  const schema = projectSchema(project);
+  const relatedSlugs = PROJECT_POSTS[project.slug] ?? [];
+  const relatedPosts = getAllPosts().filter((post) => relatedSlugs.includes(post.slug));
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -134,7 +169,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </p>
         <KineticHeading
           text={project.name}
-          className="text-display-xl font-bold tracking-[-0.045em] wrap-anywhere"
+          className="text-display-xl font-medium tracking-[-0.015em] wrap-anywhere"
         />
         <p
           className="load-rise mt-6 max-w-3xl text-[1.1875rem] leading-[1.5] text-fg-2 lg:mt-8 lg:text-[1.375rem]"
@@ -195,7 +230,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             <div className="flex flex-col gap-12">
               {narrative.map(([label, text], i) => (
                 <section key={label} aria-labelledby={`cs-${label}`} className="reveal flex flex-col gap-3">
-                  <h2 id={`cs-${label}`} className="flex items-baseline gap-4 text-display-m font-semibold tracking-[-0.03em]">
+                  <h2 id={`cs-${label}`} className="flex items-baseline gap-4 text-display-m font-semibold tracking-[-0.015em]">
                     <span aria-hidden className="text-meta tabular-nums font-normal tracking-normal text-fg-3">
                       {String(i + 1).padStart(2, "0")}
                     </span>
@@ -217,7 +252,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
           {project.slug === "booklet" && (
             <section aria-labelledby="architecture-heading" className="flex flex-col gap-6">
-              <h2 id="architecture-heading" className="reveal text-display-m font-semibold tracking-[-0.03em]">
+              <h2 id="architecture-heading" className="reveal text-display-m font-semibold tracking-[-0.015em]">
                 Architecture
               </h2>
               <ArchitectureDiagram />
@@ -225,30 +260,36 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           )}
 
           <section aria-labelledby="highlights-heading" className="flex flex-col gap-2">
-            <h2 id="highlights-heading" className="reveal text-display-m font-semibold tracking-[-0.03em]">
+            <h2 id="highlights-heading" className="reveal text-display-m font-semibold tracking-[-0.015em]">
               Highlights
             </h2>
-            <ol className="flex flex-col">
-              {project.highlights.map((highlight, i) => (
-                <li key={highlight.title} className="reveal grid gap-x-6 gap-y-2 border-b border-line py-7 sm:grid-cols-[2.5rem_1fr]">
-                  <span aria-hidden className="text-meta tabular-nums text-fg-3 sm:pt-1.5">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="flex flex-col gap-2">
-                    <h3 className="text-title font-medium text-fg">{highlight.title}</h3>
-                    <p className="text-fg-2">{highlight.detail}</p>
-                  </div>
+            <ul className="flex flex-col">
+              {project.highlights.map((highlight) => (
+                <li key={highlight.title} className="reveal flex flex-col gap-2 border-b border-line py-7">
+                  <h3 className="text-title font-medium text-fg">{highlight.title}</h3>
+                  <p className="text-fg-2">{highlight.detail}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           </section>
 
           {project.decisionRecord && (
             <section aria-labelledby="decision-heading" className="flex flex-col gap-6">
-              <h2 id="decision-heading" className="reveal text-display-m font-semibold tracking-[-0.03em]">
+              <h2 id="decision-heading" className="reveal text-display-m font-semibold tracking-[-0.015em]">
                 Revised in public
               </h2>
               <DecisionRecord record={project.decisionRecord} />
+            </section>
+          )}
+
+          {relatedPosts.length > 0 && (
+            <section aria-labelledby="writing-heading" className="flex flex-col gap-2">
+              <h2 id="writing-heading" className="reveal text-display-m font-semibold tracking-[-0.015em]">
+                Writing about this
+              </h2>
+              <div className="border-b border-line">
+                <PostList posts={relatedPosts} as="h3" />
+              </div>
             </section>
           )}
         </div>
@@ -261,7 +302,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         <div className="shell flex items-end justify-between gap-6 py-14 lg:py-24">
           <div className="flex min-w-0 flex-col gap-3">
             <span className="text-small text-fg-3">Next project</span>
-            <span className="text-display-l font-semibold tracking-[-0.035em] wrap-anywhere">
+            <span className="text-display-l font-semibold tracking-[-0.015em] wrap-anywhere">
               {next.name}
             </span>
           </div>

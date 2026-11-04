@@ -6,7 +6,10 @@
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
     "directory": ".open-next/assets",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    // The only .html file in assets is the Google verification file; "none"
+    // serves it at its exact path instead of redirecting to the extensionless URL.
+    "html_handling": "none"
   },
   "r2_buckets": [
     {

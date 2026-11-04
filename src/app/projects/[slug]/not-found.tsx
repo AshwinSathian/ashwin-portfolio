@@ -1,1 +1,1 @@
-export { default } from "@/app/not-found";
+export { default, metadata } from "@/app/not-found";

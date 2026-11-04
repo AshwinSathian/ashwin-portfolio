@@ -13,7 +13,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "HighLevel",
     dates: "Mar 2026 – Jun 2026",
     bullets: [
-      "Owned Funnels, Websites, and Webinars under a model where each engineer ran the full SDLC alone, AI-augmented, as a full-stack builder.",
+      "Owned Funnels, Websites, and Webinars end to end, in a model where each engineer ran the whole SDLC with AI tooling.",
       "Reworked the reverse proxy engine serving the websites and funnels built on the platform, making it faster and more resilient to cache purges and downtime.",
     ],
   },
@@ -74,7 +74,7 @@ export const RECENT_EXPERIENCE: ExperienceItem[] = [
     company: "Reubro International",
     dates: "Aug 2018 – Jan 2019",
     bullets: [
-      "Worked on reliability and usability improvements to the company's main SaaS products.",
+      "Worked on reliability and usability improvements to the company’s main SaaS products.",
     ],
     tech: ["Angular", "Node.js"],
   },

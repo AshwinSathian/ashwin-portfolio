@@ -1,0 +1,19 @@
+# Cloudflare Workers static assets. The Worker doesn't run in front of these
+# files, so next.config.ts headers() never reaches them in production.
+
+# Hashed build output (JS, CSS, fonts under /_next/static/media): never changes.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Project screenshots: unhashed names, so a week rather than forever.
+/projects/*
+  Cache-Control: public, max-age=604800
+
+/Resume.pdf
+  Cache-Control: public, max-age=86400
+
+# Same security headers next.config.ts sets on Worker responses.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()

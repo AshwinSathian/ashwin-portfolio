@@ -3,7 +3,6 @@ title: "Runtime i18n for Angular, done right: @ngx-runtime-i18n"
 date: "2025-10-27"
 description: "A signals-first, SSR-safe runtime i18n library for Angular that swaps compile-time locale builds and RxJS-only APIs for a small, modern core."
 tags: ["angular", "i18n", "typescript", "ssr"]
-canonical: "https://levelup.gitconnected.com/runtime-i18n-for-angular-done-right-ngx-runtime-i18n-d8922f92a327"
 ---
 
 Internationalisation in Angular tends to force a choice between two options:

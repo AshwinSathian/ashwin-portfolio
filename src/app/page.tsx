@@ -1,32 +1,21 @@
+import Link from "next/link";
 import ArrowLink from "@/components/ArrowLink";
-import Hero from "@/components/Hero";
-import ProjectGallery from "@/components/ProjectGallery";
-import ProjectRow from "@/components/ProjectRow";
-import { RoleList } from "@/components/RoleRows";
-import Section from "@/components/Section";
-import PostList from "@/components/writing/PostList";
+import { GROUPS, INTRO, LATELY, STORIES, WORK } from "@/app/data/home";
 import { PROJECTS } from "@/app/data/projects";
-import { RECORD } from "@/app/data/record";
 import { SITE } from "@/app/data/site";
+import { capitalize, numberWord } from "@/lib/text";
 import { getAllPosts } from "@/lib/writing";
 
-const HOME_HIDDEN = ["typester"];
-const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
-const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
-
 export default function Page() {
-  const featured = PROJECTS.filter((p) => p.featured);
-  // Home shows a short list; these stay on /projects only.
-  const rest = PROJECTS.filter((p) => !p.featured && !HOME_HIDDEN.includes(p.slug));
-  const posts = getAllPosts().slice(0, 3);
-  const total = NUMBER_WORDS[PROJECTS.length] ?? String(PROJECTS.length);
+  const posts = getAllPosts().slice(0, 4);
+  const total = numberWord(PROJECTS.length);
 
   const profilePageSchema = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
     "@id": `${SITE.website}/#profilepage`,
     url: SITE.website,
-    name: `${SITE.name}, Engineer`,
+    name: `${SITE.name}, senior full-stack engineer`,
     mainEntity: { "@id": `${SITE.website}/#person` },
   };
 
@@ -36,114 +25,184 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePageSchema) }}
       />
-      <Hero />
 
-      <Section
-        id="work"
-        title="Selected work"
-        intro={`${capitalize(total)} independent products shipped on my own time, each documented against the actual repo. These ${NUMBER_WORDS[featured.length]} go deepest.`}
-      >
-        <ProjectGallery projects={featured} />
-
-        <div className="mt-20 lg:mt-36">
-          <h3 className="reveal mb-4 text-small text-fg-3">More shipped</h3>
-          <div className="flex flex-col border-b border-line">
-            {rest.map((project) => (
-              <ProjectRow
-                key={project.slug}
-                href={`/projects/${project.slug}`}
-                name={project.name}
-                description={project.tagline}
-                status={project.status}
-                marker={project.category}
-                as="h4"
-              />
-            ))}
-          </div>
-          <ArrowLink href="/projects" className="mt-6">
-            All {total} projects
-          </ArrowLink>
-        </div>
-      </Section>
-
-      <Section id="record" title="The record">
-        <div className="grid gap-x-12 gap-y-12 lg:grid-cols-12">
-          <div className="reveal flex flex-col gap-5 lg:col-span-6">
-            {RECORD.paragraphs.map((paragraph, i) => (
-              <p key={i} className={i === 0 ? "text-[1.1875rem] leading-[1.55] text-fg" : "text-fg-2"}>
-                {paragraph}
-              </p>
-            ))}
-            <p className="text-small text-fg-3">{RECORD.footnote}</p>
+      {/* Intro: who, where, what I like doing. */}
+      <section aria-labelledby="hello-heading" className="shell pb-20 pt-28 lg:pb-32 lg:pt-40">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="flex flex-col gap-6 lg:col-span-8">
+            <h1 id="hello-heading" className="load-rise text-display-xl font-medium tracking-[-0.015em] text-fg">
+              {INTRO.greeting}
+            </h1>
+            <div className="load-rise flex flex-col gap-5" style={{ "--d": "150ms" } as React.CSSProperties}>
+              {INTRO.paragraphs.map((p, i) => (
+                <p key={i} className={i === 0 ? "text-title leading-[1.5] text-fg" : "text-fg-2"}>
+                  {p}
+                </p>
+              ))}
+            </div>
+            <ul className="load-rise mt-2 flex flex-wrap gap-x-7 gap-y-1" style={{ "--d": "300ms" } as React.CSSProperties}>
+              <li>
+                <a href={`mailto:${SITE.email}`} className="inline-flex min-h-11 items-center text-zari">
+                  <span className="link">{SITE.email}</span>
+                </a>
+              </li>
+              <li>
+                <ArrowLink href={SITE.github} external>GitHub</ArrowLink>
+              </li>
+              <li>
+                <ArrowLink href={SITE.linkedin} external>LinkedIn</ArrowLink>
+              </li>
+              <li>
+                <ArrowLink href={SITE.resumePath} external>Résumé</ArrowLink>
+              </li>
+            </ul>
           </div>
 
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-10 self-start lg:col-span-6">
-            {RECORD.figures.map((figure) => (
-              <div key={figure.value} className="reveal flex flex-col-reverse gap-2 border-t border-line-strong pt-4">
-                <dt className="text-small text-fg-2">{figure.label}</dt>
-                <dd className="text-display-m font-semibold tracking-[-0.03em] text-fg">
-                  {figure.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </div>
+      </section>
 
-        <div className="mt-16 lg:mt-24">
-          <div className="border-b border-line">
-            <RoleList />
-          </div>
-          <ArrowLink href="/experience" className="mt-6">
-            Full experience
-          </ArrowLink>
+      {/* Lately: a dated log. */}
+      <section aria-labelledby="lately-heading" className="shell py-16 lg:py-24">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <h2 id="lately-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
+            Lately
+          </h2>
+          <ol className="flex flex-col border-b border-line lg:col-span-9">
+            {LATELY.map((item) => (
+              <li key={item.text} className="reveal">
+                <Link
+                  href={item.href}
+                  className="row group grid gap-x-8 gap-y-1 rounded-control border-t border-line py-5 sm:grid-cols-[6.5rem_1fr_auto] sm:items-baseline"
+                >
+                  <span className="text-meta tabular-nums text-zari">{item.when}</span>
+                  <span className="text-fg">{item.text}</span>
+                  <span aria-hidden className="arrow hidden text-fg-3 sm:block">→</span>
+                </Link>
+              </li>
+            ))}
+          </ol>
         </div>
-      </Section>
+      </section>
 
       {posts.length > 0 && (
-        <Section
-          id="writing"
-          title="Writing"
-          intro="Technical notes from the libraries and tools I build, including what I got wrong."
-        >
-          <div className="border-b border-line">
-            <PostList posts={posts} as="h3" />
+        <section aria-labelledby="writing-heading" className="shell py-16 lg:py-24">
+          <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+            <div className="flex flex-col gap-3 lg:col-span-3">
+              <h2 id="writing-heading" className="reveal text-display-m font-medium tracking-[-0.015em]">
+                Writing
+              </h2>
+              <p className="reveal text-small text-fg-2">
+                Notes from the things I build.{" "}
+                <a href="/writing/feed.xml" className="text-fg-3 hover:text-fg-2">
+                  <span className="link">RSS</span>
+                </a>
+              </p>
+            </div>
+            <div className="flex flex-col gap-6 lg:col-span-9">
+              <ul className="flex flex-col border-b border-line">
+                {posts.map((post) => (
+                  <li key={post.slug} className="reveal">
+                    <Link
+                      href={`/writing/${post.slug}`}
+                      className="row grid gap-x-8 gap-y-1 rounded-control border-t border-line py-5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline"
+                    >
+                      <span className="text-meta tabular-nums text-fg-3">{monthYear(post.date)}</span>
+                      <span className="flex flex-col gap-1">
+                        <h3 className="text-title font-medium leading-snug text-fg">{post.title}</h3>
+                        <span className="text-small text-fg-2">{post.description}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <ArrowLink href="/writing">All writing</ArrowLink>
+            </div>
           </div>
-          <ArrowLink href="/writing" className="mt-6">
-            All writing
-          </ArrowLink>
-        </Section>
+        </section>
       )}
 
-      <section aria-labelledby="contact-heading" className="relative overflow-clip border-t border-line">
-        <div aria-hidden className="glow -bottom-[70%] left-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2" />
-        <div className="shell relative py-24 lg:py-44">
-          <h2
-            id="contact-heading"
-            className="reveal text-display-xl font-bold tracking-[-0.045em]"
-          >
-            Let&apos;s talk.
+      {/* Things I've made: text first, grouped by kind. Pictures live on the project pages. */}
+      <section aria-labelledby="made-heading" className="shell py-16 lg:py-24">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <div className="flex flex-col gap-3 lg:col-span-3">
+            <h2 id="made-heading" className="reveal text-display-m font-medium tracking-[-0.015em]">
+              Things I’ve made
+            </h2>
+            <p className="reveal text-small text-fg-2">{capitalize(total)} projects, built on my own time.</p>
+          </div>
+          <div className="flex flex-col gap-14 lg:col-span-9">
+            {GROUPS.map((group) => (
+              <div key={group.title} className="flex flex-col gap-2">
+                <h3 className="reveal text-small italic text-fg-3">{group.title}</h3>
+                <ul className="flex flex-col">
+                  {group.slugs.map((slug) => {
+                    const p = PROJECTS.find((x) => x.slug === slug);
+                    if (!p) return null;
+                    return (
+                      <li key={slug} className="reveal">
+                        <Link
+                          href={`/projects/${slug}`}
+                          className="row flex flex-col gap-1.5 rounded-control border-t border-line py-5"
+                        >
+                          <span className="flex flex-wrap items-baseline gap-x-3">
+                            <span className="text-title font-medium text-fg">{p.name}</span>
+                            <span className="text-small italic text-fg-3">{p.category}</span>
+                            {p.status && <span className="text-small text-zari">{p.status}</span>}
+                          </span>
+                          <span className="max-w-3xl text-fg-2">{STORIES[slug] ?? p.tagline}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+            <ArrowLink href="/projects">All projects, with how each was built</ArrowLink>
+          </div>
+        </div>
+      </section>
+
+      {/* Work: the career in a paragraph, with durations. */}
+      <section aria-labelledby="work-heading" className="shell py-16 lg:py-24">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <h2 id="work-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
+            Work
           </h2>
-          <div className="reveal mt-10 flex flex-col gap-6 border-t border-line pt-6 lg:mt-16 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex flex-col gap-6 lg:col-span-9">
+            {WORK.map((p, i) => (
+              <p key={i} className={`reveal max-w-3xl ${i === 0 ? "text-fg" : "text-fg-2"}`}>
+                {p}
+              </p>
+            ))}
+            <ArrowLink href="/experience">Every role, in detail</ArrowLink>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="contact-heading" className="shell py-20 lg:py-32">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <h2 id="contact-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
+            Say hello
+          </h2>
+          <div className="flex flex-col gap-5 lg:col-span-9">
+            <p className="reveal max-w-2xl text-fg-2">
+              Email is the quickest way to reach me. Write about a system you’re building or a problem you’re
+              stuck on.
+            </p>
             <a
               href={`mailto:${SITE.email}`}
-              className="flex min-h-11 items-center text-[clamp(1.125rem,4.6vw,2rem)] font-medium tracking-[-0.02em] text-fg"
+              className="reveal self-start text-[clamp(1.75rem,5vw,3.5rem)] italic leading-tight text-zari"
             >
               <span className="link">{SITE.email}</span>
             </a>
-            <p className="max-w-xs text-small text-fg-2">
-              Engineering, ideas, or interesting problems welcome.
-            </p>
-            <div className="flex gap-x-8">
-              <ArrowLink href={SITE.linkedin} external>
-                LinkedIn
-              </ArrowLink>
-              <ArrowLink href={SITE.github} external>
-                GitHub
-              </ArrowLink>
-            </div>
           </div>
         </div>
       </section>
     </>
   );
+}
+
+/** "2026-10-13" → "Oct 2026", matching the Lately dates. */
+function monthYear(iso: string) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 }

@@ -50,7 +50,7 @@ export function RoleGroups() {
         >
           <header className="reveal lg:col-span-4">
             <div className="lg:sticky lg:top-24">
-              <h2 className="text-display-m font-semibold tracking-[-0.03em]">
+              <h2 className="text-display-m font-semibold tracking-[-0.015em]">
                 {group.company}
               </h2>
               <p className="mt-2 text-meta tabular-nums text-fg-3">{group.span}</p>

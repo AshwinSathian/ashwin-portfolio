@@ -22,7 +22,7 @@ export default function PostList({ posts, as: Heading = "h2" }: Props) {
               {post.draft && " · Draft"}
             </span>
             <span className="flex flex-col gap-2">
-              <Heading className="text-[1.375rem] font-semibold leading-[1.2] tracking-[-0.02em] text-fg">
+              <Heading className="text-[1.375rem] font-semibold leading-[1.2] tracking-[-0.015em] text-fg">
                 {post.title}
               </Heading>
               <span className="max-w-2xl text-small text-fg-2">{post.description}</span>

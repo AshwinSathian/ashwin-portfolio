@@ -1,20 +1,28 @@
 import type { MetadataRoute } from "next";
 import { SITE } from "@/app/data/site";
 
-// Selective AI crawler policy: retrieval bots (the ones that fetch a page live
-// to answer a specific query: ChatGPT-User, PerplexityBot, Claude search) are
-// allowed, since this site publishes an llms.txt specifically to be readable
-// by them. Bulk training crawlers (GPTBot, Google-Extended, CCBot, the raw
-// anthropic-ai UA) are disallowed. This content shouldn't be scraped into a
-// model's training set without attribution, independent of whether it can be
-// cited in an answer.
-const TRAINING_CRAWLERS = ["GPTBot", "Google-Extended", "CCBot", "anthropic-ai", "Bytespider"];
+// Training crawlers (bulk collection for model training) are disallowed.
+// Search and retrieval agents that fetch a page to answer or cite a query
+// (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot)
+// are not listed, so the `*` rule allows them, along with ordinary search engines.
+// Google-Extended and Applebot-Extended are opt-out tokens, not separate bots:
+// blocking them keeps Google and Apple search indexing but opts out of AI training.
+const TRAINING_CRAWLERS = [
+  "GPTBot",
+  "ClaudeBot",
+  "anthropic-ai",
+  "Google-Extended",
+  "CCBot",
+  "Bytespider",
+  "meta-externalagent",
+  "Applebot-Extended",
+];
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       { userAgent: "*", allow: "/" },
-      ...TRAINING_CRAWLERS.map((userAgent) => ({ userAgent, disallow: "/" })),
+      { userAgent: TRAINING_CRAWLERS, disallow: "/" },
     ],
     sitemap: `${SITE.website}/sitemap.xml`,
   };

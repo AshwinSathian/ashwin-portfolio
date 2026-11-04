@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
     // binding in wrangler.jsonc, so Next's default optimizer (which needs
     // either that binding or a custom Cloudflare Images loader) isn't
     // available. Source screenshots are already small; served unoptimized
-    // with the existing immutable cache headers below, this is fine.
+    // (as pre-generated WebP) with the cache headers in public/_headers, this is fine.
     unoptimized: true,
   },
   async headers() {
@@ -22,15 +22,14 @@ const nextConfig: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+      // Files in public/ and /_next/static are served by Workers static assets
+      // without running the Worker, so their cache headers live in public/_headers.
+      // This rule now only reaches Worker-served routes such as /favicon.ico.
       {
         source: "/(.*)\\.(png|jpg|jpeg|gif|webp|ico|svg)",
         headers: [
           { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
         ],
-      },
-      {
-        source: "/Resume.pdf",
-        headers: [{ key: "Cache-Control", value: "public, max-age=86400" }],
       },
       {
         source: "/(sitemap\\.xml|robots\\.txt)",

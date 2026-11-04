@@ -20,7 +20,9 @@ export default function KineticHeading({ text, as: Tag = "h1", id, className = "
   let i = 0;
 
   return (
-    <Tag id={id} aria-label={text} className={`kinetic ${className}`}>
+    <Tag id={id} className={`kinetic ${className}`}>
+      {/* Real text for assistive tech, translation and copy; the animated copy is hidden from them. */}
+      <span className="sr-only">{text}</span>
       {words.map((parts, w) => (
         <span key={w} aria-hidden>
           {parts.map((part) => (

@@ -2,12 +2,12 @@ import { ImageResponse } from "next/og";
 import { type NextRequest } from "next/server";
 
 // Same tokens as globals.css; Satori cannot read CSS variables.
-const NIGHT = "#050505";
-const FG = "#F5F5F4";
-const FG_2 = "#A6A6A6";
-const FG_3 = "#8A8A8A";
+const NIGHT = "#15120f";
+const FG = "#EFE8DA";
+const FG_2 = "#BDB2A0";
+const FG_3 = "#968B7A";
 
-const FONT_FAMILY = "Bricolage Grotesque";
+const FONT_FAMILY = "Newsreader";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
@@ -19,7 +19,7 @@ function truncate(str: string, max: number) {
 // Satori's default sans, ignoring the site's typefaces.
 async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuffer> {
   const cssUrl = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weight}&text=${encodeURIComponent(
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,·—$%×↗ "
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;·–$%×↗’'?!()/+& "
   )}`;
   const css = await (await fetch(cssUrl)).text();
   const match = css.match(/src: url\(([^)]+)\) format\('(?:opentype|truetype)'\)/);
@@ -29,16 +29,26 @@ async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuff
   return res.arrayBuffer();
 }
 
+// Browsers keep a card for a day; the CDN keeps it for a year and revalidates in the background.
+const CACHE_HEADERS = {
+  "Cache-Control": "public, max-age=86400, s-maxage=31536000, stale-while-revalidate=86400",
+};
+
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const title = searchParams.get("title");
   const description = searchParams.get("description");
   const label = searchParams.get("label") ?? "Writing";
 
-  const [regular, bold] = await Promise.all([loadGoogleFont(FONT_FAMILY, 400), loadGoogleFont(FONT_FAMILY, 700)]);
+  const [regular, bold, heavy] = await Promise.all([
+    loadGoogleFont(FONT_FAMILY, 400),
+    loadGoogleFont(FONT_FAMILY, 700),
+    loadGoogleFont(FONT_FAMILY, 800),
+  ]);
   const fonts = [
     { name: FONT_FAMILY, data: regular, weight: 400 as const, style: "normal" as const },
     { name: FONT_FAMILY, data: bold, weight: 700 as const, style: "normal" as const },
+    { name: FONT_FAMILY, data: heavy, weight: 800 as const, style: "normal" as const },
   ];
 
   // Post card, when a title is supplied
@@ -77,10 +87,8 @@ export async function GET(request: NextRequest) {
             />
             <span
               style={{
-                fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
+                fontSize: 18,
+                fontWeight: 400,
                 color: FG_3,
               }}
             >
@@ -102,12 +110,12 @@ export async function GET(request: NextRequest) {
           >
             <div
               style={{
-                fontSize: 54,
+                fontSize: safeTitle.length > 40 ? 64 : 96,
                 fontWeight: 700,
-                lineHeight: 1.1,
-                letterSpacing: "-0.035em",
+                lineHeight: 1.05,
+                letterSpacing: "-0.03em",
                 color: FG,
-                maxWidth: 900,
+                maxWidth: 1000,
               }}
             >
               {safeTitle}
@@ -115,11 +123,11 @@ export async function GET(request: NextRequest) {
             {safeDesc && (
               <div
                 style={{
-                  fontSize: 18,
+                  fontSize: 28,
                   fontWeight: 400,
-                  lineHeight: 1.5,
+                  lineHeight: 1.4,
                   color: FG_2,
-                  maxWidth: 760,
+                  maxWidth: 960,
                 }}
               >
                 {safeDesc}
@@ -137,10 +145,10 @@ export async function GET(request: NextRequest) {
           >
             <span
               style={{
-                fontSize: 15,
-                fontWeight: 400,
-                color: FG_2,
-                letterSpacing: "-0.01em",
+                fontSize: 26,
+                fontWeight: 800,
+                color: FG,
+                letterSpacing: "-0.015em",
               }}
             >
               Ashwin Sathian
@@ -158,7 +166,7 @@ export async function GET(request: NextRequest) {
           </div>
         </div>
       ),
-      { width: 1200, height: 630, fonts }
+      { width: 1200, height: 630, fonts, headers: CACHE_HEADERS }
     );
   }
 
@@ -177,53 +185,18 @@ export async function GET(request: NextRequest) {
           fontFamily: FONT_FAMILY,
         }}
       >
-        <div
-          style={{
-            fontSize: 12,
-            fontWeight: 700,
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: FG_3,
-            marginBottom: 28,
-          }}
-        >
-          Engineer
+        <div style={{ fontSize: 132, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.015em", color: FG }}>
+          Ashwin Sathian
         </div>
-        <div
-          style={{
-            fontSize: 96,
-            fontWeight: 700,
-            lineHeight: 1.0,
-            letterSpacing: "-0.03em",
-            color: FG,
-          }}
-        >
-          Ashwin Sathian.
+        <div style={{ marginTop: 40, fontSize: 34, fontWeight: 400, lineHeight: 1.3, color: FG_2, letterSpacing: "-0.01em", maxWidth: 900 }}>
+          I turn a customer’s problem into a spec, then I ship it.
         </div>
-        <div
-          style={{
-            marginTop: 32,
-            fontSize: 17,
-            fontWeight: 400,
-            color: FG_2,
-            letterSpacing: "-0.01em",
-          }}
-        >
-          Senior full-stack engineer. Founding engineer at Penny Software, five years. Eight independent products shipped on his own time.
-        </div>
-        <div
-          style={{
-            marginTop: 48,
-            fontSize: 14,
-            fontWeight: 400,
-            color: FG_3,
-            letterSpacing: "0.02em",
-          }}
-        >
-          ashwinsathian.com
+        <div style={{ marginTop: 56, display: "flex", justifyContent: "space-between", fontSize: 20, color: FG_3 }}>
+          <span>Senior full-stack engineer · Kochi, India</span>
+          <span>ashwinsathian.com</span>
         </div>
       </div>
     ),
-    { width: 1200, height: 630, fonts }
+    { width: 1200, height: 630, fonts, headers: CACHE_HEADERS }
   );
 }

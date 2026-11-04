@@ -1,105 +1,96 @@
-# DESIGN.md: v7.0 "Lumen"
+# DESIGN.md: v9 "Kasavu"
 
-Date: 2026-10-06. Supersedes every earlier identity.
-Full spec: `docs/superpowers/specs/2026-10-06-lumen-rebuild-design.md`.
+Date: 2026-11-04. Supersedes v7 "Lumen". (A v8 "pinned poster" redesign was
+tried the same day and dropped: it read as a template, the giant pinned name
+was too much, and the page was mostly other sites' screenshots.)
 Tokens live in `src/app/globals.css`; this file explains them.
 
 ## The idea
 
-The interface has no hue. Light is the material: a slow glow behind the hero,
-a highlight along the top edge of panels, fine grain over flat black. Product
-screenshots are the only colour on the site, so the work is the brightest
-thing on every page.
+A personal site, writing first. It opens with a person and a voice:
+"Hi, I'm Ashwin" and who I am in my own words, with no picture beside it. Then what I've been doing lately, then the things I've
+made told as short stories, then work, writing and a way to say hello.
+
+The palette comes from the Kerala kasavu sari, off-white cotton with a gold
+zari border, set on a warm dark ground. Dark only.
 
 ## Colour
 
 | Token | Value | Use |
 |---|---|---|
-| `night` | `#050505` | Page background |
-| `surface` | `#0C0C0D` | Panels, code |
-| `surface-2` | `#141415` | Raised or pressed surface |
-| `line` | white 8% | Hairlines |
-| `line-strong` | white 16% | Hover and focus borders, media frames |
-| `fg` | `#F5F5F4` | Primary text |
-| `fg-2` | `#A6A6A6` | Secondary text |
-| `fg-3` | `#8A8A8A` | Metadata |
+| `night` | `#15120F` | Page background |
+| `surface` | `#1C1814` | Panels, code |
+| `surface-2` | `#24201A` | Raised or pressed surface |
+| `fg` | `#EFE8DA` | Primary text (kasavu off-white) |
+| `fg-2` | `#BDB2A0` | Secondary text |
+| `fg-3` | `#968B7A` | Metadata |
+| `zari` | `#D6AA52` | The one accent: the email address, dates in Lately |
+| `line`, `line-strong` | off-white 10% / 18% | Hairlines between list rows |
 
-Computed contrast on `night`: `fg` 18.7:1, `fg-2` 8.4:1, `fg-3` 5.9:1. On
-`surface-2`: 16.9, 7.6, 5.3. All pass WCAG AA for body text. Do not add a
-dimmer text colour.
-
-`color-scheme: dark` is unconditional. There is no light theme.
+Contrast on `night`: `fg` 15.3:1, `fg-2` 8.9:1, `fg-3` 5.6:1, `zari` 8.7:1.
+Zari is used sparingly: never on buttons, never as a background.
 
 ## Type
 
-- One typeface on every surface: Bricolage Grotesque (variable weight and
-  width, optical size fixed at the text cut). Headings, body, UI, metadata
-  and the OG images all use it. Do not add a second family.
-- Headings: tight tracking (-0.03 to -0.045em), line-height near 0.95.
-- Body and UI: 17px base, line-height 1.6.
-- Metadata (dates, counts, versions): `text-meta` with `tabular-nums`.
-- Code blocks and inline code are the only exception: the system monospace
-  stack, so columns still align. No monospace web font is loaded.
+- One typeface, Newsreader, a reading serif with an optical-size axis
+  (6 to 72), roman and italic. `font-optical-sizing: auto` gives body copy
+  the text cut and headings the display cut. Code uses the system monospace.
+- Headings at weight 500, tracking -0.015em. Italic for categories and the
+  email line. Body 19px, line-height 1.6; article prose 19px, 1.7, 66ch.
+- Scale: `display-xl` (the greeting), `display-l`, `display-m` (section
+  heads), `title`, `body`, `small`, `meta`.
 
-Scale: `display-xl`, `display-l`, `display-m`, `title`, `body`, `small`,
-`meta`. Section labels are sentence case. No uppercase tracked eyebrows.
-No `01 / 02` markers on things that are not a sequence.
+## Wordmark and favicon
+
+The wordmark is the name, "Ashwin Sathian", in the text face at 600
+(`.wordmark`). The favicon is an italic Newsreader "a" in zari on night,
+drawn from the font's outlines. `public/favicon.svg`, `src/app/favicon.ico`
+and `public/apple-touch-icon.png` are generated from it; bump the `?v=` in
+layout.tsx after changing any of them.
 
 ## Layout
 
-- One container, `.shell`: 1200px max, gutters 20 / 32 / 48px. Every page
-  uses it, so there is one left edge.
-- Section rhythm: 80px mobile, 144px desktop.
-- Radius: 10px controls, 16px panels and media. No pill chips.
-- No drop shadows. Depth comes from surface steps and light.
-- One glass surface: the caption plate on the home gallery stage. It sits
-  over a product preview, so the blur has something under it. Nothing
-  else is translucent except the nav bar, and both turn opaque under
-  `prefers-reduced-transparency` and `prefers-contrast: more`.
+- One container, `.shell`: 1200px max, gutters 20 / 32 / 48px.
+- Home sections share one grid: the heading in the first three columns, the
+  content in the other nine, so the page reads down one left edge.
+- Lists (Lately, roles, posts) are rows divided by hairlines.
+- Radius 10px controls, 16px panels and media. No drop shadows.
 
-- Mobile and desktop are designed separately, not scaled. Touch targets are
-  at least 44px. Nothing is revealed only on hover.
+## Home, in order
 
-## Home gallery
+1. Hello: the greeting as the `h1`, three short paragraphs (`data/home.ts`)
+   and contact links. Text only. The Penny Software line covers the whole
+   role (architecture, growth, the team), not one feature.
+2. Lately: dated entries, newest first, each linking to its proof.
+3. Writing: the latest posts as month, title and one-line teaser. Writing
+   sits above the projects on purpose.
+4. Things I've made: text only, grouped by kind (`GROUPS`: Products,
+   Libraries and tools). Each entry is the name, category and a two-sentence
+   story. Pictures appear on project pages only.
+5. Work: the career in two prose paragraphs with durations (`WORK`). The
+   role table lives on /experience only.
+6. Say hello: the email address, large, in italic zari.
 
-Featured work is shown like Finder's Gallery view (`ProjectGallery`): one
-large preview, a strip of thumbnails under it, and the selected project's
-facts beside it. The preview has a short reflection
-(`-webkit-box-reflect`, no reflection in Firefox). The strip is an ARIA
-tab list, so arrow keys, Home and End move the selection. The preview has
-a fixed 16:10 ratio, so the strip never moves when the selection changes.
-Projects with no screenshot get a file tile showing their code sample's
-filename. `/projects` is a plain index of every project, not a second
-copy of the gallery.
+Other pages: /projects, /projects/[slug], /experience, /writing, and
+/colophon (how the site is built). There is deliberately no /now page.
+The footer carries the one signature line: "Writing software since 2018."
 
 ## Motion
 
-One easing, `cubic-bezier(0.16, 1, 0.3, 1)`. Hover 200 to 450ms, reveals tied
-to scroll position, hero 950ms.
-
-1. Kinetic headings (`KineticHeading`): words rise through a clip while weight
-   runs 200 to final and width 75% to 100%. An invisible sizing copy keeps
-   line breaks fixed during the animation.
-2. Scroll reveals (`.reveal`, `.reveal-media`): CSS `animation-timeline:
-   view()` inside `@supports`. Content is visible by default.
-3. Hero scroll response (`.hero-away`) and reading progress (`.progress`):
-   `animation-timeline: scroll()`.
-4. Page transitions: React `<ViewTransition>`. Pages crossfade and rise; a
-   project's media morphs between list and detail.
-5. Hover, press and focus share the same feedback: panel highlight, underline
-   draw (`.link`), arrow nudge (`.arrow`), row shift (`.row`).
-
-Rules:
-
-- Nothing may be hidden in server HTML waiting for JavaScript. Animation
-  enhances a page that is already complete.
-- Every `:hover` rule has an `:active` or `:focus-visible` twin.
-- `prefers-reduced-motion: reduce` switches all of it off.
+One easing, `cubic-bezier(0.16, 1, 0.3, 1)`. CSS only and quiet. Headings
+settle in as one piece (a 0.7s fade with 6px of lift); there is no per-word
+animation. Load and scroll reveals move 6 to 10px and start part-visible.
+Underline and arrow feedback on links; page transitions through React
+`<ViewTransition>`.
+Nothing is hidden in server HTML waiting for JavaScript; every `:hover`
+has an `:active` or `:focus-visible` twin; `prefers-reduced-motion` turns
+it all off.
 
 ## Content rules
 
-- Facts in `src/app/data` come from the project's GitHub repo, checked at the
-  time of writing. The repo wins over the résumé and over older site copy.
-- Only finished, released work is showcased (`featured`). Unfinished or
-  unreleased work may be listed, with a `status` tag saying so.
-- First person throughout. No em dashes, no stock AI vocabulary.
+- Facts in `src/app/data` come from the project's GitHub repo, checked at
+  the time of writing. The repo wins over the résumé and older site copy.
+- Home copy restates facts already in the data files or the posts.
+- Only finished, released work is featured. Unreleased work carries a
+  `status` tag.
+- First person, plain and specific. No em dashes, no stock AI vocabulary.

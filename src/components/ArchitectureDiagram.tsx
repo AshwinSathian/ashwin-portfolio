@@ -16,7 +16,12 @@ export default function ArchitectureDiagram() {
   return (
     <figure aria-labelledby="architecture-caption" className="reveal flex flex-col gap-5">
       {/* Scrolls sideways on narrow screens instead of shrinking the labels. */}
-      <div className="panel overflow-x-auto p-4 lg:p-8">
+      <div
+        tabIndex={0}
+        role="region"
+        aria-labelledby="architecture-caption"
+        className="panel overflow-x-auto p-4 lg:p-8"
+      >
         <svg
           viewBox="0 0 1000 560"
           role="img"

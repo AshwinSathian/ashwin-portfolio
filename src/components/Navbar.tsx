@@ -6,7 +6,7 @@ import Link from "next/link";
 import { SITE } from "@/app/data/site";
 
 const NAV_LINKS = [
-  { label: "Work", href: "/projects" },
+  { label: "Projects", href: "/projects" },
   { label: "Experience", href: "/experience" },
   { label: "Writing", href: "/writing" },
 ];
@@ -21,13 +21,17 @@ export default function Navbar() {
   const close = () => sheetRef.current?.close();
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bar border-b border-line bg-night/75 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 bar border-b border-line bg-night/80 backdrop-blur-md">
       <div className="shell flex h-16 items-center justify-between">
+        {/* The wordmark: lowercase, bold, ending on the full stop every display
+            headline on the site ends with. The accessible name keeps the
+            proper-case name. */}
         <Link
           href="/"
-          className="flex min-h-11 items-center text-[1.0625rem] font-semibold tracking-[-0.02em] text-fg"
+          aria-label={`${SITE.name}, home`}
+          className="wordmark flex min-h-11 items-center text-[1.1875rem] text-fg"
         >
-          Ashwin Sathian
+          ashwin sathian.
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-8 md:flex">
@@ -75,7 +79,7 @@ export default function Navbar() {
         onClick={(e) => e.target === e.currentTarget && close()}
       >
         <div aria-hidden className="mx-auto mb-3 h-1 w-10 rounded-full bg-line-strong" />
-        <nav aria-label="Main" className="flex flex-col">
+        <nav className="flex flex-col">
           {[{ label: "Home", href: "/" }, ...NAV_LINKS].map(({ label, href }) => (
             <Link
               key={href}

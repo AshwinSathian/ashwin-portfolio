@@ -28,7 +28,8 @@ export async function fetchRepoMeta({ owner, repo }: RepoRef): Promise<RepoMeta 
   try {
     const response = await fetch(`${API_ROOT}/repos/${owner}/${repo}`, {
       headers: buildHeaders(),
-      next: { revalidate: 3600 },
+      // Fetched once at build: project pages are static, so stars refresh on each deploy.
+      cache: "force-cache",
     });
     if (!response.ok) return null;
     return (await response.json()) as RepoMeta;

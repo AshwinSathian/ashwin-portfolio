@@ -32,10 +32,15 @@ dimmer text colour.
 
 ## Type
 
-- One typeface on every surface: Bricolage Grotesque (variable weight and
-  width, optical size fixed at the text cut). Headings, body, UI, metadata
-  and the OG images all use it. Do not add a second family.
-- Headings: tight tracking (-0.03 to -0.045em), line-height near 0.95.
+- One typeface on every surface: Bricolage Grotesque (variable weight, width
+  and optical size). Headings, body, UI, metadata and the OG images all use
+  it. Do not add a second family.
+- Optical size is automatic (`font-optical-sizing: auto`, the default), so
+  body copy gets the open text cut and display sizes get the sharper display
+  cut with its ink traps. This is where the face's character lives; before
+  2026-11-04 only the text cut was loaded and headings looked generic.
+- Headings: tracking -0.02 to -0.03em (the display cut is already tight, so
+  the old -0.045em collided letters), line-height near 0.95.
 - Body and UI: 17px base, line-height 1.6.
 - Metadata (dates, counts, versions): `text-meta` with `tabular-nums`.
 - Code blocks and inline code are the only exception: the system monospace
@@ -44,6 +49,19 @@ dimmer text colour.
 Scale: `display-xl`, `display-l`, `display-m`, `title`, `body`, `small`,
 `meta`. Section labels are sentence case. No uppercase tracked eyebrows.
 No `01 / 02` markers on things that are not a sequence.
+
+## Wordmark
+
+`ashwin sathian.` in lowercase, weight 800, tracking -0.035em (`.wordmark`
+in globals.css). It ends on a full stop because every display headline on
+the site does: the voice is declarative, and the mark says so. The nav,
+the OG cards and the favicon use it. Body copy and structured data keep the
+proper-case name; the nav link's accessible name is "Ashwin Sathian, home".
+
+The favicon is `a.` drawn from the font's own outlines (opsz 96, wght 800),
+on night with a 14/64 corner radius. `public/favicon.svg`, `src/app/favicon.ico`
+(32 and 48 px) and `public/apple-touch-icon.png` (180 px, square) are
+generated from it. Bump the `?v=` in layout.tsx after changing any of them.
 
 ## Layout
 

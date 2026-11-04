@@ -3,56 +3,25 @@ import { PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
 import { getAllPosts } from "@/lib/writing";
 
+// lastModified only where a real date exists (posts). Cross-posted entries are
+// left out: their canonical points at the original, so they aren't ours to index.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const baseUrl = SITE.website;
 
-  const postEntries: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
-    url: `${baseUrl}/writing/${post.slug}`,
-    lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
-
-  const projectEntries: MetadataRoute.Sitemap = PROJECTS.map((project) => ({
-    url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const posts: MetadataRoute.Sitemap = getAllPosts()
+    .filter((post) => !post.canonical)
+    .map((post) => ({
+      url: `${baseUrl}/writing/${post.slug}`,
+      lastModified: post.updatedAt ?? post.date,
+    }));
 
   return [
-    {
-      url: `${baseUrl}/`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/writing`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/experience`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    ...postEntries,
-    ...projectEntries,
-    {
-      url: `${baseUrl}${SITE.resumePath}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.3,
-    },
+    { url: `${baseUrl}/` },
+    { url: `${baseUrl}/writing` },
+    { url: `${baseUrl}/projects` },
+    { url: `${baseUrl}/experience` },
+    ...posts,
+    ...PROJECTS.map((project) => ({ url: `${baseUrl}/projects/${project.slug}` })),
+    { url: `${baseUrl}${SITE.resumePath}` },
   ];
 }

@@ -10,14 +10,12 @@ import { RECORD } from "@/app/data/record";
 import { SITE } from "@/app/data/site";
 import { getAllPosts } from "@/lib/writing";
 
-const HOME_HIDDEN = ["typester"];
 const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
 
 export default function Page() {
   const featured = PROJECTS.filter((p) => p.featured);
-  // Home shows a short list; these stay on /projects only.
-  const rest = PROJECTS.filter((p) => !p.featured && !HOME_HIDDEN.includes(p.slug));
+  const rest = PROJECTS.filter((p) => !p.featured);
   const posts = getAllPosts().slice(0, 3);
   const total = NUMBER_WORDS[PROJECTS.length] ?? String(PROJECTS.length);
 
@@ -41,12 +39,12 @@ export default function Page() {
       <Section
         id="work"
         title="Selected work"
-        intro={`${capitalize(total)} independent products shipped on my own time, each documented against the actual repo. These ${NUMBER_WORDS[featured.length]} go deepest.`}
+        intro={`${capitalize(total)} projects I built on my own time. These ${NUMBER_WORDS[featured.length]} go deepest.`}
       >
         <ProjectGallery projects={featured} />
 
         <div className="mt-20 lg:mt-36">
-          <h3 className="reveal mb-4 text-small text-fg-3">More shipped</h3>
+          <h3 className="reveal mb-4 text-small text-fg-3">Also shipped</h3>
           <div className="flex flex-col border-b border-line">
             {rest.map((project) => (
               <ProjectRow
@@ -66,7 +64,7 @@ export default function Page() {
         </div>
       </Section>
 
-      <Section id="record" title="The record">
+      <Section id="record" title="Experience">
         <div className="grid gap-x-12 gap-y-12 lg:grid-cols-12">
           <div className="reveal flex flex-col gap-5 lg:col-span-6">
             {RECORD.paragraphs.map((paragraph, i) => (
@@ -79,7 +77,7 @@ export default function Page() {
 
           <dl className="grid grid-cols-2 gap-x-6 gap-y-10 self-start lg:col-span-6">
             {RECORD.figures.map((figure) => (
-              <div key={figure.value} className="reveal flex flex-col-reverse gap-2 border-t border-line-strong pt-4">
+              <div key={figure.value} className="reveal flex flex-col-reverse justify-end gap-2 border-t border-line-strong pt-4">
                 <dt className="text-small text-fg-2">{figure.label}</dt>
                 <dd className="text-display-m font-semibold tracking-[-0.03em] text-fg">
                   {figure.value}
@@ -119,9 +117,9 @@ export default function Page() {
         <div className="shell relative py-24 lg:py-44">
           <h2
             id="contact-heading"
-            className="reveal text-display-xl font-bold tracking-[-0.045em]"
+            className="reveal text-display-xl font-bold tracking-[-0.03em]"
           >
-            Let&apos;s talk.
+            Let’s talk.
           </h2>
           <div className="reveal mt-10 flex flex-col gap-6 border-t border-line pt-6 lg:mt-16 lg:flex-row lg:items-center lg:justify-between">
             <a
@@ -131,7 +129,7 @@ export default function Page() {
               <span className="link">{SITE.email}</span>
             </a>
             <p className="max-w-xs text-small text-fg-2">
-              Engineering, ideas, or interesting problems welcome.
+              Write about a system you’re building or a problem you’re stuck on.
             </p>
             <div className="flex gap-x-8">
               <ArrowLink href={SITE.linkedin} external>

@@ -1,17 +1,23 @@
 import { getAllPosts } from "@/lib/writing";
 import PostList from "@/components/writing/PostList";
 import { PageHeader } from "@/components/Section";
+import ArrowLink from "@/components/ArrowLink";
 import type { Metadata } from "next";
 
-const writingDescription =
+const writingIntro =
   "Technical notes from the libraries and tools I build, including what I got wrong.";
+const writingDescription =
+  "Technical notes on the Go, Angular and TypeScript libraries and tools I build: HTTP caching, runtime i18n, Better Auth with Mongoose, and AI writing tells.";
 
 const ogImageUrl = `/og?title=Writing&description=${encodeURIComponent(writingDescription)}&label=Writing`;
 
 export const metadata: Metadata = {
   title: "Writing",
   description: writingDescription,
-  alternates: { canonical: "https://ashwinsathian.com/writing" },
+  alternates: {
+    canonical: "https://ashwinsathian.com/writing",
+    types: { "application/rss+xml": [{ url: "/writing/feed.xml", title: "Ashwin Sathian: Writing" }] },
+  },
   openGraph: {
     title: "Writing | Ashwin Sathian",
     description: writingDescription,
@@ -30,7 +36,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Writing | Ashwin Sathian",
     description: writingDescription,
-    creator: "@ashwinsathian",
     images: [ogImageUrl],
   },
 };
@@ -44,8 +49,15 @@ export default function WritingPage() {
         title="Writing."
         intro={
           posts.length === 0
-            ? "Nothing published yet. Entries will be dated, like the rest of this site, and posted only when there's something worth logging."
-            : writingDescription
+            ? "Nothing published yet. Entries will be dated, like the rest of this site, and posted only when there’s something worth logging."
+            : (
+                <>
+                  {writingIntro}{" "}
+                  <ArrowLink href="/writing/feed.xml" external>
+                    RSS
+                  </ArrowLink>
+                </>
+              )
         }
       />
       <div className="shell pb-24 lg:pb-40">

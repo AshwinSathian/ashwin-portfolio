@@ -1,6 +1,6 @@
 # Ashwin Sathian
 
-> Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.
+> Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time.
 
 ## Site
 
@@ -45,13 +45,13 @@ the code himself.
 
 ## Career History
 
-- **HighLevel**: Lead Engineer, Funnels/Websites/Webinars (Mar 2026–Jun 2026)
-- **Penny Software**: Lead Engineer (Jan 2024–Aug 2025)
-- **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022–Dec 2023)
-- **Penny Software**: Full Stack Developer, founding engineer (Jun 2020–Mar 2022)
-- **Manaraah**: Senior Full Stack Developer (Jan 2020–Jun 2020)
-- **WeCP**: Software Development Engineer (Jan 2019–Jan 2020)
-- **Reubro International**: Junior Programmer (Aug 2018–Jan 2019)
+- **HighLevel**: Lead Engineer, Funnels/Websites/Webinars (Mar 2026 – Jun 2026)
+- **Penny Software**: Lead Engineer (Jan 2024 – Aug 2025)
+- **Penny Software**: Product Specialist, hybrid engineering and product (Apr 2022 – Dec 2023)
+- **Penny Software**: Full Stack Developer, founding engineer (Jun 2020 – Mar 2022)
+- **Manaraah**: Senior Full Stack Developer (Jan 2020 – Jun 2020)
+- **WeCP**: Software Development Engineer (Jan 2019 – Jan 2020)
+- **Reubro International**: Junior Programmer (Aug 2018 – Jan 2019)
 
 ## Skills & Stack
 
@@ -65,7 +65,7 @@ the code himself.
 
 ## Education
 
-B.Tech, Electronics and Communication Engineering, National Institute of Technology Calicut (2014–2018)
+B.Tech, Electronics and Communication Engineering, National Institute of Technology Calicut (2014 – 2018)
 
 ## Projects
 
@@ -80,9 +80,17 @@ Eight projects designed, built, and run end to end, outside of work. Full case s
 - **better-auth-mongoose** (better-auth-mongoose.ashwinsathian.com): Published npm package: a Mongoose-native database adapter for Better Auth, closing a gap documented on Better Auth's issue tracker since February 2025. .populate() support tested in CI, a companion tenant-scoping plugin, and a NestJS integration example. MIT.
 - **humanize-writing-skill** (humanize.ashwinsathian.com, github.com/AshwinSathian/humanize-writing-skill): A Claude Code skill that guides how Claude writes prose so it does not read as machine-written, for human readers (it does not change AI-detector scores). It applies while Claude is writing. Version 2.0.0 (October 2026) rewrote the rules against cited 2026 research; version 2.1.0 lets an author's own voice outrank the rules. Tested in blind pairs on Claude Haiku, Sonnet, and Opus (18 pairs), with the losses published. A pre-registered test of one proposed rule change was run on new tasks and the change was not adopted; that result is published too. The project site lists the 2026 AI-writing tells with sources and has its own llms.txt at humanize.ashwinsathian.com/llms.txt. MIT.
 
+## Also shipped
+
+Smaller repos, listed on /projects without a case study:
+
+- **WorkDeck** (github.com/AshwinSathian/workdeck): Claude Code plugin that runs a project as cards: one card per session, with a scope gate, a separate reviewer agent and one pull request. v0.1.3, MIT.
+- **github-issue-analyzer** (github.com/AshwinSathian/github-issue-analyzer): Fastify + TypeScript service that caches a repo's GitHub issues in SQLite and analyzes them with a local LLM over Ollama, so triage never leaves your machine.
+- **angularjs-migration-copilot** (github.com/AshwinSathian/angularjs-migration-copilot), in progress: AngularJS to Angular migration CLI: deterministic AST codemods, an LLM fallback, and a compile-and-test gate on every AI-touched change. Inventory, scaffold, the codemods and the compile-and-test gate are built; the LLM fallback and a hosted demo are not.
+
 ## Writing
 
-Ashwin publishes technical notes at ashwinsathian.com/writing, newest first:
+Ashwin publishes technical notes at ashwinsathian.com/writing (RSS: ashwinsathian.com/writing/feed.xml), newest first:
 
 - "Three gaps in a caching layer, and the Go library I built to close them" (2026-10-13): why Weir exists when Varnish, nginx and Souin already cache, the cross-key origin limit and strict forwarding, and how it was built and released with Claude Code.
 - "The AI tells moved. My tool for avoiding them hadn't." (2026-10-05): a follow-up audit of humanize-writing-skill against 2026 research, what its own examples got wrong, and the blind test behind version 2.0.0. Updated 2026-10-10 with a third test round on Claude Haiku.
@@ -98,4 +106,4 @@ Ashwin publishes technical notes at ashwinsathian.com/writing, newest first:
 - LinkedIn: https://linkedin.com/in/ashwinsathian
 - GitHub: https://github.com/AshwinSathian
 - Website: https://ashwinsathian.com
-- Resume: https://ashwinsathian.com/Resume.pdf
+- Résumé: https://ashwinsathian.com/Resume.pdf

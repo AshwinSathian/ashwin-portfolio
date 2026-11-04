@@ -15,7 +15,7 @@ export default function Section({ id, title, intro, children }: SectionProps) {
       <header className="reveal mb-10 grid gap-4 lg:mb-16 lg:grid-cols-12 lg:gap-12">
         <h2
           id={`${id}-heading`}
-          className="text-display-l font-semibold tracking-[-0.035em] lg:col-span-7"
+          className="text-display-l font-semibold tracking-[-0.025em] lg:col-span-7"
         >
           {title}
         </h2>
@@ -37,7 +37,7 @@ export function PageHeader({ title, intro }: PageHeaderProps) {
     <header className="shell pb-12 pt-32 lg:pb-20 lg:pt-44">
       <KineticHeading
         text={title}
-        className="max-w-5xl text-display-l font-semibold tracking-[-0.035em]"
+        className="max-w-5xl text-display-l font-semibold tracking-[-0.025em]"
       />
       {intro && (
         <p className="load-rise mt-6 max-w-2xl text-fg-2 lg:mt-8 lg:text-[1.1875rem]" style={{ "--d": "350ms" } as React.CSSProperties}>

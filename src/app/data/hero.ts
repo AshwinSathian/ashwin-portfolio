@@ -1,7 +1,6 @@
 export const HERO = {
   name: "Ashwin Sathian",
-  eyebrow: "Senior Full-Stack Engineer · Eight years",
-  title: "I write the spec a customer never gave me, then I ship it.",
-  thesis:
-    "No PM or EM in between.",
+  eyebrow: "Senior Full-Stack Engineer · Kochi, India",
+  title: "I turn a customer’s problem into a spec, then I ship it.",
+  thesis: "Eight years in, five of them as a founding engineer.",
 } as const;

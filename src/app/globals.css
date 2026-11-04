@@ -84,12 +84,19 @@ li {
 :focus-visible {
   outline: 2px solid var(--color-fg);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
 ::selection {
   background: var(--color-fg);
   color: var(--color-night);
+}
+
+/* The wordmark. Lowercase, heaviest weight, tight, and always ending on the
+   full stop. Set at whatever size the context needs; the settings travel. */
+.wordmark {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
 }
 
 /* ─── Layout ─────────────────────────────────────────────────────────────── */
@@ -242,7 +249,7 @@ a.panel:focus-visible::before,
 }
 .thumb[aria-selected="true"] {
   background: rgb(255 255 255 / 0.06);
-  border-color: var(--color-line-strong);
+  border-color: var(--color-fg-2);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12);
 }
 

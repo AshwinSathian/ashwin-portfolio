@@ -18,11 +18,13 @@ export default function ProjectMedia({
     return (
       <div className="overflow-hidden rounded-panel border border-line-strong bg-surface">
         <Image
-          src={media.src}
+          // Every PNG under public/projects has a .webp sibling (quality 82), about a third the size.
+          src={media.src.replace(/\.png$/, ".webp")}
           alt={media.alt}
           width={media.width}
           height={media.height}
           priority={priority}
+          fetchPriority={priority ? "high" : undefined}
           sizes={sizes}
           className="block h-auto w-full"
         />

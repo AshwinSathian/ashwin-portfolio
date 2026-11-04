@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useRef, useState, type KeyboardEvent, type MouseEvent } from "react";
 import { ViewTransition } from "react";
 import type { Project } from "@/app/data/projects";
 import ArrowLink from "@/components/ArrowLink";
@@ -20,7 +20,7 @@ export type ProjectGalleryProps = {
  */
 export default function ProjectGallery({ projects }: ProjectGalleryProps) {
   const [selected, setSelected] = useState(0);
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tabs = useRef<(HTMLAnchorElement | null)[]>([]);
   const project = projects[selected];
   const href = `/projects/${project.slug}`;
 
@@ -30,6 +30,15 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
     const tab = tabs.current[next];
     if (focus) tab?.focus();
     tab?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  };
+
+  // Each tab is a real link to its project, so crawlers and no-JS readers
+  // reach every case study. A plain click selects instead of navigating;
+  // a modified click (new tab, new window) still follows the link.
+  const onTabClick = (e: MouseEvent, i: number) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    select(i);
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -79,24 +88,24 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
           className="-mx-5 flex snap-x scroll-px-5 gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:mx-0 sm:px-0 lg:gap-4"
         >
           {projects.map((p, i) => (
-            <button
+            <a
               key={p.slug}
               ref={(el) => {
                 tabs.current[i] = el;
               }}
-              type="button"
+              href={`/projects/${p.slug}`}
               role="tab"
               id={`gallery-tab-${p.slug}`}
               aria-selected={i === selected}
               aria-controls="gallery-panel"
               tabIndex={i === selected ? 0 : -1}
-              onClick={() => select(i)}
+              onClick={(e) => onTabClick(e, i)}
               className="thumb group flex w-36 shrink-0 snap-start flex-col gap-2 p-1.5 text-left sm:w-44 lg:w-auto lg:min-w-0 lg:flex-1 lg:basis-0"
             >
               <span className="block aspect-[16/10] overflow-hidden rounded-[8px] border border-line bg-surface">
                 {p.media.kind === "screenshot" ? (
                   <Image
-                    src={p.media.src}
+                    src={p.media.src.replace(/[^/]+\.png$/, "thumb.webp")}
                     alt=""
                     width={p.media.width}
                     height={p.media.height}
@@ -105,14 +114,14 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
                   />
                 ) : (
                   // Code-only projects get a file tile instead of a screenshot.
-                  <span className="flex h-full flex-col justify-between p-3 font-mono text-meta text-fg-3">
+                  <span aria-hidden className="flex h-full flex-col justify-between p-3 font-mono text-meta text-fg-3">
                     <span className="text-fg-2">{p.media.caption}</span>
                     <span className="self-end text-[1.25rem] font-semibold text-fg">.{p.media.language}</span>
                   </span>
                 )}
               </span>
-              <span className="truncate px-1 text-meta text-fg-2 group-aria-selected:text-fg">{p.name}</span>
-            </button>
+              <span className="line-clamp-2 px-1 text-meta text-fg-2 group-aria-selected:text-fg">{p.name}</span>
+            </a>
           ))}
         </div>
       </div>
@@ -139,7 +148,8 @@ export default function ProjectGallery({ projects }: ProjectGalleryProps) {
           ))}
         </dl>
         <ArrowLink href={href}>
-          Read the case study<span className="sr-only">: {project.name}</span>
+          {project.caseStudy ? "Read the case study" : "See the project"}
+          <span className="sr-only">: {project.name}</span>
         </ArrowLink>
       </div>
     </div>

@@ -4,19 +4,26 @@ import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PROJECTS } from "@/app/data/projects";
+import { SITE } from "@/app/data/site";
+import { capitalize, numberWord } from "@/lib/text";
 
-// The one typeface. Optical size stays at the font default (14), the text cut,
-// so the same file serves body copy and headings. Code uses the system monospace.
+// The one typeface. The opsz axis is loaded so the browser picks the optical
+// size from the font size (font-optical-sizing: auto): the text cut for body
+// copy, the sharper display cut for headings. Code uses the system monospace.
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  axes: ["wdth"],
+  axes: ["wdth", "opsz"],
   variable: "--font-bricolage",
   display: "swap",
 });
 
 const siteUrl = "https://ashwinsathian.com";
+// Meta description: under 160 chars, facts already on the site.
 const siteDescription =
-  "Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eight independent products shipped on his own time, each checked against the actual repo.";
+  "Ashwin Sathian, senior full-stack engineer in Kochi. Five years as founding engineer at Penny Software, a procurement platform that grew to $1B+ GTV.";
+// Longer form for the Person and WebSite schema.
+const personDescription = `Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. ${capitalize(numberWord(PROJECTS.length))} independent products shipped on his own time.`;
 
 export const viewport: Viewport = {
   themeColor: "#050505",
@@ -31,25 +38,11 @@ export const metadata: Metadata = {
     template: "%s | Ashwin Sathian",
   },
   description: siteDescription,
-  keywords: [
-    "Ashwin Sathian",
-    "Senior Full-Stack Engineer",
-    "Founding Engineer",
-    "Product Engineer",
-    "SaaS platform engineer",
-    "Angular expert",
-    "NestJS",
-    "Next.js",
-    "TypeScript engineer",
-    "HighLevel engineer",
-    "multi-tenant SaaS",
-    "Kochi",
-    "India",
-  ],
   authors: [{ name: "Ashwin Sathian", url: siteUrl }],
   creator: "Ashwin Sathian",
   alternates: {
     canonical: siteUrl,
+    types: { "application/rss+xml": [{ url: "/writing/feed.xml", title: "Ashwin Sathian: Writing" }] },
   },
   openGraph: {
     title: "Ashwin Sathian | Senior Full-Stack Engineer",
@@ -71,7 +64,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ashwin Sathian | Senior Full-Stack Engineer",
     description: siteDescription,
-    creator: "@ashwinsathian",
     images: ["/og"],
   },
   robots: {
@@ -86,9 +78,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.svg?v=7",
-    shortcut: "/favicon.svg?v=7",
-    apple: "/apple-touch-icon.png?v=7",
+    icon: "/favicon.svg?v=8",
+    shortcut: "/favicon.svg?v=8",
+    apple: "/apple-touch-icon.png?v=8",
   },
 };
 
@@ -99,13 +91,9 @@ const personSchema = {
   name: "Ashwin Sathian",
   url: siteUrl,
   email: "mailto:ashwinsathyan19@gmail.com",
-  description: siteDescription,
+  description: personDescription,
   image: `${siteUrl}/og`,
-  sameAs: [
-    "https://www.linkedin.com/in/ashwinsathian",
-    "https://github.com/AshwinSathian",
-    "https://ashwinsathian.com",
-  ],
+  sameAs: [SITE.linkedin, SITE.github, "https://dev.to/ashwinsathian"],
   jobTitle: "Senior Full-Stack Engineer",
   alumniOf: {
     "@type": "EducationalOrganization",
@@ -148,7 +136,7 @@ const websiteSchema = {
   name: "Ashwin Sathian",
   url: siteUrl,
   author: { "@id": `${siteUrl}/#person` },
-  description: siteDescription,
+  description: personDescription,
   inLanguage: "en-US",
 };
 

@@ -67,8 +67,8 @@ export const PROJECTS: Project[] = [
     category: "SaaS product",
     tagline: "Publish Markdown incident reports, ADRs, RFCs and runbooks as web pages, from a browser, a terminal, CI or an AI assistant.",
     description: [
-      "Booklet turns Markdown into a published, shareable page in one click. You get a live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth (argon2id passwords, passkeys, DB-backed sessions), and MongoDB as the store. A page can declare a document type (incident, ADR, RFC, runbook, postmortem, release notes) and link to other pages with [[wikilinks]], and team spaces keep a team's documents together.",
-      "It's also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first. On 25 May 2026 I rolled that back to a self-hosted PM2 process behind a Cloudflare Tunnel, the same day the app dropped its external AI, email, and Stripe integrations. Email has since come back for account confirmation, password resets and team invites. The repository is private.",
+      "Booklet turns Markdown into a published, shareable page in one click. You get a live preview first, then a read-only URL. I built the whole surface: a custom Markdown pipeline (unified/remark, GFM, math, Mermaid) that renders into a typed page rather than trusting raw HTML, in-house auth (argon2id passwords, passkeys, DB-backed sessions), and MongoDB as the store. A page can declare a document type (incident, ADR, RFC, runbook, postmortem, release notes) and link to other pages with [[wikilinks]], and team spaces keep a team’s documents together.",
+      "It’s also a platform: a versioned REST API, a published CLI (booklet-cli on npm), a GitHub Action for publishing docs from CI, and a standalone MCP server so AI assistants can publish and update pages directly. It shipped on Cloudflare Workers via OpenNext first. On 25 May 2026 I rolled that back to a self-hosted PM2 process behind a Cloudflare Tunnel, the same day the app dropped its external AI, email, and Stripe integrations. Email has since come back for account confirmation, password resets and team invites. The repository is private.",
     ],
     stack: ["Next.js 16", "TypeScript", "React 19", "Tailwind CSS v4", "MongoDB", "unified / remark"],
     facts: [
@@ -88,7 +88,7 @@ export const PROJECTS: Project[] = [
           "Each is its own module with its own unit tests. Both matter once a product accepts arbitrary published content.",
       },
       {
-        title: "A disclosed infrastructure rollback",
+        title: "Rolled back from Workers to self-hosted",
         detail:
           "Shipped on Cloudflare Workers via OpenNext first, then moved back to a self-hosted PM2 process behind a Cloudflare Tunnel on 25 May 2026, the same day the external AI, email, and Stripe integrations were removed.",
       },
@@ -107,13 +107,13 @@ export const PROJECTS: Project[] = [
       src: "/projects/booklet/hero.png",
       width: 1280,
       height: 800,
-      alt: "Booklet's editor: Markdown source on the left, a live formatted preview with a rendered code block on the right.",
+      alt: "Booklet’s editor: Markdown source on the left, a live formatted preview with a rendered code block on the right.",
     },
     decisionRecord: {
       date: "2026-05",
       before: "Cloudflare Workers via OpenNext",
       after: "Self-hosted PM2 process behind a Cloudflare Tunnel",
-      why: "Part of a one-day move to self-hosting: the same day's commits removed the external AI, email, and Stripe integrations and deleted the Workers configuration.",
+      why: "Part of a one-day move to self-hosting: the same day’s commits removed the external AI, email, and Stripe integrations and deleted the Workers configuration.",
     },
     caseStudy: {
       problem:
@@ -129,7 +129,7 @@ export const PROJECTS: Project[] = [
     name: "Weir",
     featured: true,
     category: "Go library",
-    tagline: "HTTP caching in front of an origin that has to stay up. It forwards the request it keyed, so a header the cache ignores cannot poison an entry, and a stampede cannot reach the origin faster than a budget you set.",
+    tagline: "A Go HTTP cache for an origin that has to stay up. It forwards only what it keyed and caps how fast a stampede can reach the origin.",
     description: [
       "Weir sits between an HTTP server and an origin and decides, for each request, whether the cache can answer. It implements RFC 9111 caching and adds defenses I could not find together in one Go library. Each lifetime is shortened by up to 10%, so entries stored together do not expire together. Concurrent requests for one key share one origin fetch. Every origin fetch, whatever its key, holds a slot from a limiter of 64. Stale-while-revalidate, stale-if-error and a circuit breaker cover an origin outage, and a soft purge revalidates through the same limiter. The core module imports only the Go standard library. Three more modules add a Caddy handler, a Valkey store for several nodes, and Prometheus metrics.",
       "The cache key is treated as a security boundary. On a cacheable request the origin receives only the headers that are in the key, the ones the operator allowed, and a short fixed list, so the forwarded request is the keyed request. That has a cost: an origin that reads Accept-Language or a cookie does not see it until the operator keys or allows it. The threat model lists 51 threats with the answer and the test for each, and 15 risks the defaults do not remove.",
@@ -146,7 +146,7 @@ export const PROJECTS: Project[] = [
       {
         title: "The origin sees only what the cache keyed",
         detail:
-          "Cache poisoning needs an input that changes the origin's response and is not in the cache key. By default Weir does not forward such an input, so an unkeyed header cannot shape what is stored for other clients. For its first five minutes it counts the cookie names it dropped and logs the common ones once, so an operator can find the ones the origin needs.",
+          "Cache poisoning needs an input that changes the origin’s response and is not in the cache key. By default Weir does not forward such an input, so an unkeyed header cannot shape what is stored for other clients. For its first five minutes it counts the cookie names it dropped and logs the common ones once, so an operator can find the ones the origin needs.",
       },
       {
         title: "One origin budget for every key",
@@ -164,7 +164,7 @@ export const PROJECTS: Project[] = [
           "Every behavior in the spec has an ID and each test cites the IDs it covers. The build fails if an ID has no test citing it: 147 at release. Before the tag, 29 fuzz targets ran for an hour each without a crash and the engine tests passed 100 consecutive runs under the race detector.",
       },
       {
-        title: "Reviewed adversarially, with the misses on record",
+        title: "Six adversarial reviews before the tag",
         detail:
           "Six adversarial reviews of the finished code found a 304 that could bring back a body a hard purge had removed, %2e decoded into a dot-segment of the path, and a named pipe at the snapshot path that hung startup. The release candidates found a module tagged without its go.sum lines and a runbook that promised a cache hit after a restart. The changelog inside the v1.0.0 tag still says \"unreleased\". It is all written down in the repository.",
       },
@@ -206,14 +206,14 @@ export const PROJECTS: Project[] = [
     name: "BRNR",
     featured: true,
     category: "Encrypted messaging",
-    tagline: "Burner chats. No accounts. No history. End-to-end encrypted, gone in 24 hours.",
+    tagline: "End-to-end encrypted burner chats with no accounts, where every message expires after 24 hours.",
     description: [
-      "BRNR is ephemeral, end-to-end encrypted messaging: a 12-character code starts a chat between two people, every message expires after 24 hours, and there's no account system to compromise. Redis is the only persistence layer and every key has a TTL, so expiry is enforced by the datastore and does not depend on a retention policy. Encryption is an X3DH handshake feeding a Double Ratchet (XChaCha20-Poly1305, HKDF-SHA256) from @brnr/e2ee, my own library, which the app vendors as a signed release and verifies before every install. Neither BRNR nor the library has had an independent security audit.",
+      "BRNR is ephemeral, end-to-end encrypted messaging: a 12-character code starts a chat between two people, every message expires after 24 hours, and there’s no account system to compromise. Redis is the only persistence layer and every key has a TTL, so expiry is enforced by the datastore and does not depend on a retention policy. Encryption is an X3DH handshake feeding a Double Ratchet (XChaCha20-Poly1305, HKDF-SHA256) from @brnr/e2ee, my own library, which the app vendors as a signed release and verifies before every install. Neither BRNR nor the library has had an independent security audit.",
       "The stack is a NestJS API with Socket.IO gateways for chat and matchmaking, a Vite/React web client, an Expo/React Native mobile client, and shared contracts in their own workspace, in a Turbo monorepo. The web client is the published surface, at brnr.ashwinsathian.com. The server never sees plaintext: once the handshake completes it handles only ciphertext, and the logger redacts message and ciphertext fields. The source is private and proprietary.",
     ],
     stack: ["NestJS 11", "Redis 7", "Socket.IO", "Vite / React", "Expo / React Native", "Turborepo"],
     facts: [
-      { label: "Persistence", value: "Redis only: every key TTL'd, zero PII" },
+      { label: "Persistence", value: "Redis only: every key TTL’d, zero PII" },
       { label: "Encryption", value: "X3DH handshake + Double Ratchet" },
       { label: "License", value: "Proprietary" },
     ],
@@ -241,9 +241,9 @@ export const PROJECTS: Project[] = [
       problem:
         "Messaging apps that promise privacy often still keep an account system or a message history somewhere on the server, and either one can be compromised or subpoenaed later.",
       decision:
-        "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet from my own signed, vendored @brnr/e2ee library, and Redis is the only datastore, with every key TTL'd so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes.",
+        "Built BRNR with no account system at all: a 12-character code starts a chat, an X3DH handshake feeds a Double Ratchet from my own signed, vendored @brnr/e2ee library, and Redis is the only datastore, with every key TTL’d so nothing outlives its 24-hour purpose. The server only ever sees ciphertext once the handshake completes.",
       outcome:
-        "Nothing durable exists to breach: there's no user table or message history, and no plaintext touches the server after the handshake completes.",
+        "Nothing durable exists to breach: there’s no user table or message history, and no plaintext touches the server after the handshake completes.",
     },
     media: {
       kind: "screenshot",
@@ -258,10 +258,10 @@ export const PROJECTS: Project[] = [
     name: "Wayfarer",
     featured: true,
     category: "Developer tool",
-    tagline: "The API client that can't rug-pull you: local-first, no account, client-side encrypted vault.",
+    tagline: "A local-first API client with no account and a client-side encrypted vault for secrets.",
     description: [
-      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key that is held in memory only, so only ciphertext ever touches storage. Pre-request and post-response scripts run in QuickJS, a JavaScript engine compiled to WebAssembly, in their own worker, so the browser never evaluates a script's text.",
-      "It was renamed from API Sandbox to Wayfarer partway through its life. The app, the local-first storage model, and the MIT license stayed the same. There's also an optional local-bridge, a small Node CLI for CORS/intranet relay when a request needs to reach somewhere the browser can't. No update, acquisition, or pricing change can gate access to data you already own.",
+      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key that is held in memory only, so only ciphertext ever touches storage. Pre-request and post-response scripts run in QuickJS, a JavaScript engine compiled to WebAssembly, in their own worker, so the browser never evaluates a script’s text.",
+      "It was renamed from API Sandbox to Wayfarer partway through its life. The app, the local-first storage model, and the MIT license stayed the same. There’s also an optional local-bridge, a small Node CLI for CORS/intranet relay when a request needs to reach somewhere the browser can’t. No update, acquisition, or pricing change can gate access to data you already own.",
     ],
     stack: ["Angular 22", "IndexedDB", "QuickJS (WebAssembly)", "Monaco Editor", "RxJS"],
     facts: [
@@ -276,9 +276,9 @@ export const PROJECTS: Project[] = [
           "PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key held only in memory. IndexedDB never sees anything but ciphertext.",
       },
       {
-        title: "Audit findings kept in the open",
+        title: "Audit findings tracked as issues",
         detail:
-          "A September 2026 audit found gaps between the docs and the code. Each became an issue labelled audit-2026-09, and 47 of the 50 are closed. Scripts came back in 2.1.0 on a QuickJS sandbox that runs under the production Content-Security-Policy.",
+          "A September 2026 audit found gaps between the docs and the code. Each became an issue labeled audit-2026-09, and 47 of the 50 are closed. Scripts came back in 2.1.0 on a QuickJS sandbox that runs under the production Content-Security-Policy.",
       },
       {
         title: "Nothing to rug-pull",
@@ -286,7 +286,7 @@ export const PROJECTS: Project[] = [
           "There is no account, hosted backend, or pricing tier that can change under you. HAR 1.2 export lets you take your data out in a standard format at any time.",
       },
       {
-        title: "A disclosed rename",
+        title: "Renamed from API Sandbox",
         detail:
           "API Sandbox became Wayfarer with the same storage model and license carried forward.",
       },
@@ -300,7 +300,7 @@ export const PROJECTS: Project[] = [
       src: "/projects/wayfarer/hero.png",
       width: 1280,
       height: 800,
-      alt: "Wayfarer's request builder: headers editor on the left, a syntax-highlighted JSON response with status and timing on the right.",
+      alt: "Wayfarer’s request builder: headers editor on the left, a syntax-highlighted JSON response with status and timing on the right.",
     },
     repo: { owner: "AshwinSathian", repo: "wayfarer" },
     decisionRecord: {
@@ -325,8 +325,8 @@ export const PROJECTS: Project[] = [
     category: "Angular library",
     tagline: "Runtime internationalization for Angular: switch languages without a rebuild, without breaking SSR.",
     description: [
-      "Angular's built-in i18n compiles a separate build per locale, so switching languages means reloading against a different bundle. ngx-runtime-i18n fixes that: language catalogs load and swap at runtime behind a signal, while SSR output stays deterministic through Angular's TransferState. There is no flash of untranslated content and no DOM mutation before the app is stable.",
-      "It's six published, versioned npm packages inside an Nx monorepo: a framework-agnostic core, an Angular wrapper with signals and an optional RxJS compat layer, PrimeNG and Angular Material adapters, schematics, and a CLI. Consumers install only what they need. Two demo apps, one CSR and one SSR with Express, exercise the whole pipeline end to end.",
+      "Angular’s built-in i18n compiles a separate build per locale, so switching languages means reloading against a different bundle. ngx-runtime-i18n fixes that: language catalogs load and swap at runtime behind a signal, while SSR output stays deterministic through Angular’s TransferState. There is no flash of untranslated content and no DOM mutation before the app is stable.",
+      "It’s six published, versioned npm packages inside an Nx monorepo: a framework-agnostic core, an Angular wrapper with signals and an optional RxJS compat layer, PrimeNG and Angular Material adapters, schematics, and a CLI. Consumers install only what they need. Two demo apps, one CSR and one SSR with Express, exercise the whole pipeline end to end.",
     ],
     stack: ["Angular (signals)", "TypeScript", "Nx monorepo", "Jest"],
     facts: [
@@ -338,7 +338,7 @@ export const PROJECTS: Project[] = [
       {
         title: "Signals-first, RxJS-optional",
         detail:
-          "provideRuntimeI18n() installs a signal-based I18nService and I18nPipe; an optional compat service bridges lang$ and ready$ for RxJS codebases that haven't migrated yet.",
+          "provideRuntimeI18n() installs a signal-based I18nService and I18nPipe; an optional compat service bridges lang$ and ready$ for RxJS codebases that haven’t migrated yet.",
       },
       {
         title: "SSR-safe hydration",
@@ -386,7 +386,7 @@ export const PROJECTS: Project[] = [
     category: "Web game",
     tagline: "A keyboard-first typing speed game: chase a streak multiplier, beat your best score.",
     description: [
-      "Typester is a ground-up rebuild of a 2018 Angular 7 app that keeps only the core idea. The original manipulated the DOM directly with getElementById and setInterval outside Angular's reactivity, gated navigation through a mutable bag of untyped booleans, and shipped a settings screen that saved nothing. Every architectural decision in the rebuild traces back to one of those defects, logged with its own before/after reasoning in the project's ARCHITECTURE.md.",
+      "Typester is a ground-up rebuild of a 2018 Angular 7 app that keeps only the core idea. The original manipulated the DOM directly with getElementById and setInterval outside Angular’s reactivity, gated navigation through a mutable bag of untyped booleans, and shipped a settings screen that saved nothing. Every architectural decision in the rebuild traces back to one of those defects, logged with its own before/after reasoning in the project’s ARCHITECTURE.md.",
       "The result is zoneless, standalone, and signals-first with no NgRx. A game session is a couple of plain injectable signal services, unit-tested without TestBed. Game configuration lives in the URL, not shared-service state, so a round is shareable, bookmarkable, and safe to refresh mid-game. It builds to a fully static, prerendered site with no Node server at runtime, deployed straight from Git through Cloudflare Workers Builds, with no CI pipeline and no server to patch.",
     ],
     stack: ["Angular 22 (zoneless, signals)", "Tailwind CSS v4", "Vitest", "Playwright"],
@@ -431,19 +431,19 @@ export const PROJECTS: Project[] = [
     repo: { owner: "AshwinSathian", repo: "typester" },
     decisionRecord: {
       date: "2026-07",
-      before: "2018 Angular 7 app: direct DOM manipulation outside Angular's reactivity, navigation gated by a mutable bag of untyped booleans, a settings screen that saved nothing",
+      before: "2018 Angular 7 app: direct DOM manipulation outside Angular’s reactivity, navigation gated by a mutable bag of untyped booleans, a settings screen that saved nothing",
       after: "Zoneless Angular 22, signals-first, no NgRx, URL-driven game state, static prerendered deploy",
-      why: "Every architectural decision in the rebuild traces back to a specific defect in the original, logged with its own before/after reasoning in the project's ARCHITECTURE.md.",
+      why: "Every architectural decision in the rebuild traces back to a specific defect in the original, logged with its own before/after reasoning in the project’s ARCHITECTURE.md.",
     },
   },
   {
     slug: "better-auth-mongoose",
     name: "better-auth-mongoose",
     category: "Open-source library",
-    tagline: "The Mongoose-native database adapter Better Auth's own GitHub issues have been asking for since February 2025.",
+    tagline: "A Mongoose-native database adapter for Better Auth, filling a gap its issue tracker has asked about since February 2025.",
     description: [
-      "Better Auth's official MongoDB adapter talks to the raw mongodb driver, not Mongoose, the usual ODM in NestJS and Express backends. For an app that already uses Mongoose, that forces an extra dependency, two parallel database connections with no shared schema or validation, and broken .populate() calls against anything Better Auth creates. Those problems have been documented on Better Auth's own GitHub since February 2025. There is no first-party fix, and the manual workaround leaves the schema and validation problems in place.",
-      "better-auth-mongoose registers Better Auth's own collections as Mongoose models, extensible the same way any other model in the app is. packages/better-auth-mongoose/test/populate.test.ts tests .populate() directly, and examples/nestjs-mongoose runs the same path end to end inside a NestJS app over HTTP, on every push via CI. It also passes Better Auth's own official adapter contract test suite. A companion tenant-scoping plugin adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin.",
+      "Better Auth’s official MongoDB adapter talks to the raw mongodb driver, not Mongoose, the usual ODM in NestJS and Express backends. For an app that already uses Mongoose, that forces an extra dependency, two parallel database connections with no shared schema or validation, and broken .populate() calls against anything Better Auth creates. Those problems have been documented on Better Auth’s own GitHub since February 2025. There is no first-party fix, and the manual workaround leaves the schema and validation problems in place.",
+      "better-auth-mongoose registers Better Auth’s own collections as Mongoose models, extensible the same way any other model in the app is. packages/better-auth-mongoose/test/populate.test.ts tests .populate() directly, and examples/nestjs-mongoose runs the same path end to end inside a NestJS app over HTTP, on every push via CI. It also passes Better Auth’s own official adapter contract test suite. A companion tenant-scoping plugin adds automatic, non-convention-based tenant isolation on top of Better Auth’s organization plugin.",
     ],
     stack: ["TypeScript", "Mongoose", "Better Auth", "Turborepo", "Changesets", "NestJS"],
     facts: [
@@ -453,7 +453,7 @@ export const PROJECTS: Project[] = [
     ],
     highlights: [
       {
-        title: "Closes a gap open on Better Auth's issue tracker since Feb 2025",
+        title: "Closes a gap open on Better Auth’s issue tracker since Feb 2025",
         detail:
           "Cites the specific upstream issues and discussions the gap comes from. The fix is registered Mongoose models in place of the manual workaround.",
       },
@@ -463,14 +463,14 @@ export const PROJECTS: Project[] = [
           "A dedicated unit test covers .populate() against a user Better Auth created, and a full NestJS example app exercises the same path over HTTP on every push.",
       },
       {
-        title: "Passes Better Auth's own adapter contract suite",
+        title: "Passes Better Auth’s own adapter contract suite",
         detail:
           "Validated against @better-auth/test-utils, the same conformance suite the official adapters run.",
       },
       {
         title: "A companion tenant-scoping plugin",
         detail:
-          "A companion package adds automatic, non-convention-based tenant isolation on top of Better Auth's organization plugin. It ships separately from the adapter.",
+          "A companion package adds automatic, non-convention-based tenant isolation on top of Better Auth’s organization plugin. It ships separately from the adapter.",
       },
     ],
     links: {
@@ -503,11 +503,11 @@ export const auth = betterAuth({
     name: "humanize-writing-skill",
     featured: true,
     category: "Claude Code skill",
-    tagline: "A Claude Code skill that guides how Claude writes prose so it doesn't read as machine-written. Its rules come from cited 2026 research and were tested blind on Haiku, Sonnet, and Opus.",
+    tagline: "A Claude Code skill that shapes how Claude writes prose, built from cited 2026 research and tested blind on Haiku, Sonnet, and Opus.",
     description: [
-      "Text reads as machine-written when every choice in it would suit any reader and any subject: the safe claim, the impressive word, the sentence shape that worked last time. This skill applies while Claude is writing, where the widely used alternatives are rewrite tools run over a finished draft. Its rules cover claims (specific, checkable, never invented), sentence shape, and endings, and a Scope section says where they give way: API docs, legal text, fiction, marketing copy, someone else's own writing. It is written for human readers and says plainly that it does not change AI-detector scores.",
-      "Version 2.0.0 (October 2026) came out of an audit of the first release. The tells had moved since 2023: a four-model study by The Economist found the signal now sits in long noun-heavy sentences and thin punctuation, and Anthropic's own prompting guide names metaphor in place of plain statement as a habit of its current model. The 1.x rewritten examples had swapped the old tells for the new ones and added facts their originals did not contain. The rules were rewritten against those sources and judged in shuffled blind pairs. Two model judges each preferred 2.0.0 to no skill in 5 of 6 pairs. An earlier draft lost to the previous version, and that round is published in the repo along with the pairs it lost.",
-      "Version 2.1.0 lets an author's own habits outrank the style rules when Claude drafts in their voice from a sample or a voice profile. A second blind round on 10 October 2026 used Claude Haiku as the writer: three judges each preferred the skill's text to no-skill text in 3 of 3 pairs, and two of them flagged one passage for stating a team's current practice as fact. A pre-registered test of a reworded rule followed on four new tasks, and the rewording was not adopted. The project has its own site at humanize.ashwinsathian.com, with the 2026 tells and their sources, the worked examples, the test results, and a comparison with four other humanizer skills.",
+      "Text reads as machine-written when every choice in it would suit any reader and any subject: the safe claim, the impressive word, the sentence shape that worked last time. This skill applies while Claude is writing, where the widely used alternatives are rewrite tools run over a finished draft. Its rules cover claims (specific, checkable, never invented), sentence shape, and endings, and a Scope section says where they give way: API docs, legal text, fiction, marketing copy, someone else’s own writing. It is written for human readers and says plainly that it does not change AI-detector scores.",
+      "Version 2.0.0 (October 2026) came out of an audit of the first release. The tells had moved since 2023: a four-model study by The Economist found the signal now sits in long noun-heavy sentences and thin punctuation, and Anthropic’s own prompting guide names metaphor in place of plain statement as a habit of its current model. The 1.x rewritten examples had swapped the old tells for the new ones and added facts their originals did not contain. The rules were rewritten against those sources and judged in shuffled blind pairs. Two model judges each preferred 2.0.0 to no skill in 5 of 6 pairs. An earlier draft lost to the previous version, and that round is published in the repo along with the pairs it lost.",
+      "Version 2.1.0 lets an author’s own habits outrank the style rules when Claude drafts in their voice from a sample or a voice profile. A second blind round on 10 October 2026 used Claude Haiku as the writer: three judges each preferred the skill’s text to no-skill text in 3 of 3 pairs, and two of them flagged one passage for stating a team’s current practice as fact. A pre-registered test of a reworded rule followed on four new tasks, and the rewording was not adopted. The project has its own site at humanize.ashwinsathian.com, with the 2026 tells and their sources, the worked examples, the test results, and a comparison with four other humanizer skills.",
     ],
     stack: ["Claude Code", "Markdown", "Python", "Research synthesis", "Next.js (site)"],
     facts: [
@@ -524,22 +524,22 @@ export const auth = betterAuth({
       {
         title: "Never invents to sound specific",
         detail:
-          "Blind testing caught the previous version making up a past incident for an internal blog post. The rule against invention now sits directly under the rule that asks for specifics, and covers anything a rewrite adds to its source. It still slips. On four tasks the rules were never tuned on, 2 of 9 passages said something about the reader's team that nobody had supplied. A reworded rule brought that to 1 of 9, short of the bar set before the test ran, so the rule was left alone and the result is published.",
+          "Blind testing caught the previous version making up a past incident for an internal blog post. The rule against invention now sits directly under the rule that asks for specifics, and covers anything a rewrite adds to its source. It still slips. On four tasks the rules were never tuned on, 2 of 9 passages said something about the reader’s team that nobody had supplied. A reworded rule brought that to 1 of 9, short of the bar set before the test ran, so the rule was left alone and the result is published.",
       },
       {
-        title: "Tested blind, with the losses on record",
+        title: "Tested blind, losses included",
         detail:
-          "Passages written with no skill, with 1.1.1, and with the current rules were shuffled and judged unlabeled, first on Sonnet and Opus (12 pairs, two judges) and then on Haiku (6 pairs, three judges). The passages, the pairs, the keys, every judge's answers, and a 20-finding adversarial review are in reference/, and reference/research/2026-update.md lists the 1.x claims that newer sources weakened.",
+          "Passages written with no skill, with 1.1.1, and with the current rules were shuffled and judged unlabeled, first on Sonnet and Opus (12 pairs, two judges) and then on Haiku (6 pairs, three judges). The passages, the pairs, the keys, every judge’s answers, and a 20-finding adversarial review are in reference/, and reference/research/2026-update.md lists the 1.x claims that newer sources weakened.",
       },
       {
         title: "Your voice outranks the rules",
         detail:
-          "Since 2.1.0, a draft in a person's own voice keeps their dashes, rhetorical questions, and \"not X but Y\" at about their rate. The repo has one worked profile, mine, built from about 55,000 words I wrote without AI assistance and described as counts with no quoted text. In its test the drafts moved toward my use of \"we\" and of questions, and still came out with shorter sentences and fewer dashes than I write.",
+          "Since 2.1.0, a draft in a person’s own voice keeps their dashes, rhetorical questions, and \"not X but Y\" at about their rate. The repo has one worked profile, mine, built from about 55,000 words I wrote without AI assistance and described as counts with no quoted text. In its test the drafts moved toward my use of \"we\" and of questions, and still came out with shorter sentences and fewer dashes than I write.",
       },
       {
         title: "It wrote its own landing page",
         detail:
-          "humanize.ashwinsathian.com was drafted with the skill and that voice profile, and prints the counts for its own copy from the repo's measuring script: 16.2 words a sentence against my 18, and 3.1 dashes per 1,000 words against my 6. The first release was in use for the writing on this redesign. This entry was written under 2.1.0.",
+          "humanize.ashwinsathian.com was drafted with the skill and that voice profile, and prints the counts for its own copy from the repo’s measuring script: 16.2 words a sentence against my 18, and 3.1 dashes per 1,000 words against my 6. The first release was in use for the writing on this redesign. This entry was written under 2.1.0.",
       },
     ],
     links: {
@@ -558,15 +558,15 @@ export const auth = betterAuth({
       date: "2026-10",
       before: "Vary sentence rhythm on purpose",
       after: "Let sentence length follow the content",
-      why: "A model told to vary its rhythm writes short sentences for effect: the one-line closer, the fragment, the colon reveal. Sources from 2026 list those among the most recognizable habits of current models, and the skill's own 1.x examples contained them.",
+      why: "A model told to vary its rhythm writes short sentences for effect: the one-line closer, the fragment, the colon reveal. Sources from 2026 list those among the most recognizable habits of current models, and the skill’s own 1.x examples contained them.",
     },
     caseStudy: {
       problem:
-        "Prose from Claude is easy to recognize, and most public humanizer skills answer that with a list of banned words run over a finished draft. The lists go stale. Wikipedia's list of AI vocabulary for mid-2025 onward is four words long, and current models have mostly dropped \"delve\" for long noun-heavy sentences, metaphor in place of plain statement, and closing lines written for effect.",
+        "Prose from Claude is easy to recognize, and most public humanizer skills answer that with a list of banned words run over a finished draft. The lists go stale. Wikipedia’s list of AI vocabulary for mid-2025 onward is four words long, and current models have mostly dropped \"delve\" for long noun-heavy sentences, metaphor in place of plain statement, and closing lines written for effect.",
       decision:
         "Wrote a skill that applies while Claude is writing, with rules on claims, sentence shape, and endings, and a Scope section for the genres where those rules give way. In October 2026 I audited my own first release against newer research, found that its rewritten examples had swapped the 2023 tells for the 2026 ones and added facts their originals did not contain, and rewrote the rules. Each blind round is published, including a draft that lost to the previous version.",
       outcome:
-        "In blind pairs, two model judges each preferred the skill's text to no-skill text in 5 of 6 pairs with Sonnet and Opus writing, and three judges each preferred it in 3 of 3 with Haiku writing. The samples are small and the judges are Claude models. A later test on new tasks found 2 of 9 passages stating something about the reader's team that nobody had supplied. A reworded rule did not clear the bar set in advance, and that is on record too. The skill does not change AI-detector scores and says so.",
+        "In blind pairs, two model judges each preferred the skill’s text to no-skill text in 5 of 6 pairs with Sonnet and Opus writing, and three judges each preferred it in 3 of 3 with Haiku writing. The samples are small and the judges are Claude models. A later test on new tasks found 2 of 9 passages stating something about the reader’s team that nobody had supplied. A reworded rule did not clear the bar set in advance. The skill does not change AI-detector scores and says so.",
     },
   },
 ];
@@ -589,7 +589,7 @@ export const ALSO_SHIPPED: AlsoShipped[] = [
   {
     name: "github-issue-analyzer",
     description:
-      "Fastify + TypeScript service that caches a repo's GitHub issues in SQLite and analyzes them with a local LLM over Ollama, so triage never leaves your machine.",
+      "Fastify + TypeScript service that caches a repo’s GitHub issues in SQLite and analyzes them with a local LLM over Ollama, so triage never leaves your machine.",
     href: "https://github.com/AshwinSathian/github-issue-analyzer",
   },
   {

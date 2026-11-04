@@ -6,7 +6,7 @@ import { SKILL_GROUPS } from "@/app/data/skills";
 import { SITE } from "@/app/data/site";
 
 const description =
-  "Eight years, seven roles, and five companies, with the dates behind each one.";
+  "Eight years across seven roles and five companies, from junior programmer to owning platform architecture at Penny Software, with dates and stack for each role.";
 
 const ogImageUrl = `/og?title=Experience&description=${encodeURIComponent(description)}&label=Experience`;
 
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Experience | Ashwin Sathian",
     description,
-    creator: "@ashwinsathian",
     images: [ogImageUrl],
   },
 };
@@ -34,8 +33,8 @@ export default function ExperiencePage() {
   return (
     <>
       <PageHeader
-        title="The record behind the résumé."
-        intro="Eight years across seven roles and five companies, from junior programmer to owning platform architecture at Penny Software. Each role below lists its dates, and most list the stack they shipped on."
+        title="Eight years, seven roles."
+        intro="Eight years across seven roles and five companies, from junior programmer to owning platform architecture at Penny Software."
       />
 
       <div className="shell pb-24 lg:pb-40">

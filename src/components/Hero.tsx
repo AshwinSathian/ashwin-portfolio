@@ -22,7 +22,7 @@ export default function Hero() {
         <KineticHeading
           id="hero-heading"
           text={HERO.title}
-          className="max-w-[15ch] text-display-xl font-bold tracking-[-0.045em]"
+          className="max-w-[15ch] text-display-xl font-bold tracking-[-0.03em]"
         />
 
         <div

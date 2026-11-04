@@ -17,6 +17,7 @@ export default function ArrowLink({ href, children, external, className = "" }: 
       <span aria-hidden className={`arrow ${external ? "arrow-out" : ""}`}>
         {external ? "↗" : "→"}
       </span>
+      {external && <span className="sr-only"> (opens in new tab)</span>}
     </>
   );
 

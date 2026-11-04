@@ -3,9 +3,18 @@ import Link from "next/link";
 import { getAllPosts, getPost, getPostSlugs } from "@/lib/writing";
 import KineticHeading from "@/components/KineticHeading";
 import PostBody from "@/components/writing/PostBody";
+import ArrowLink from "@/components/ArrowLink";
+import { PROJECTS } from "@/app/data/projects";
+import { projectForPost } from "@/app/data/related";
 import type { Metadata } from "next";
 
 const siteUrl = "https://ashwinsathian.com";
+
+function ogImageFor(meta: { title: string; description: string; coverImage?: string }) {
+  return meta.coverImage
+    ? meta.coverImage
+    : `/og?title=${encodeURIComponent(meta.title)}&description=${encodeURIComponent(meta.description)}`;
+}
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -25,23 +34,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const { meta } = post;
 
-  // Per-post OG image: pass title + description as query params to the dynamic route
-  const ogImageUrl = meta.coverImage
-    ? meta.coverImage
-    : `/og?title=${encodeURIComponent(meta.title)}&description=${encodeURIComponent(meta.description)}`;
-
-  const postUrl = `${siteUrl}/writing/${slug}`;
+  const ogImageUrl = ogImageFor(meta);
+  // Cross-posted entries point canonical (and og:url) at the original.
+  const canonicalUrl = meta.canonical ?? `${siteUrl}/writing/${slug}`;
 
   return {
     title: meta.title,
     description: meta.description,
     alternates: {
-      canonical: meta.canonical ?? postUrl,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: postUrl,
+      url: canonicalUrl,
       type: "article",
       publishedTime: meta.date,
       modifiedTime: meta.updatedAt ?? meta.date,
@@ -60,7 +66,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: meta.title,
       description: meta.description,
-      creator: "@ashwinsathian",
       images: [ogImageUrl],
     },
   };
@@ -73,26 +78,23 @@ export default async function PostPage({ params }: Props) {
 
   const { meta, content } = post;
 
-  const postUrl = `${siteUrl}/writing/${slug}`;
+  const canonicalUrl = meta.canonical ?? `${siteUrl}/writing/${slug}`;
+  const ogImage = ogImageFor(meta);
+  const project = PROJECTS.find((p) => p.slug === projectForPost(slug));
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: meta.title,
     description: meta.description,
-    url: postUrl,
+    url: canonicalUrl,
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+    ...(meta.canonical && { isBasedOn: meta.canonical }),
+    image: new URL(ogImage, siteUrl).href,
     datePublished: meta.date,
     dateModified: meta.updatedAt ?? meta.date,
-    author: {
-      "@type": "Person",
-      name: "Ashwin Sathian",
-      url: siteUrl,
-    },
-    publisher: {
-      "@type": "Person",
-      name: "Ashwin Sathian",
-      url: siteUrl,
-    },
+    author: { "@id": `${siteUrl}/#person` },
+    publisher: { "@id": `${siteUrl}/#person` },
     ...(meta.tags && { keywords: meta.tags.join(", ") }),
   };
 
@@ -118,7 +120,7 @@ export default async function PostPage({ params }: Props) {
 
         <KineticHeading
           text={meta.title}
-          className="max-w-4xl text-display-l font-semibold tracking-[-0.035em]"
+          className="max-w-4xl text-display-l font-semibold tracking-[-0.025em]"
         />
 
         <p className="load-rise mt-6 max-w-2xl text-[1.1875rem] leading-[1.5] text-fg-2" style={{ "--d": "350ms" } as React.CSSProperties}>
@@ -134,6 +136,12 @@ export default async function PostPage({ params }: Props) {
           {meta.draft && <span>· Draft</span>}
           {meta.tags && meta.tags.length > 0 && <span>· {meta.tags.join(", ")}</span>}
         </p>
+
+        {project && (
+          <div className="load-rise mt-4" style={{ "--d": "500ms" } as React.CSSProperties}>
+            <ArrowLink href={`/projects/${project.slug}`}>About the project: {project.name}</ArrowLink>
+          </div>
+        )}
       </header>
 
       <div className="shell border-t border-line py-12 lg:py-20">

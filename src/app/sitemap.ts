@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/writing` },
     { url: `${baseUrl}/projects` },
     { url: `${baseUrl}/experience` },
+    { url: `${baseUrl}/colophon` },
     ...posts,
     ...PROJECTS.map((project) => ({ url: `${baseUrl}/projects/${project.slug}` })),
     { url: `${baseUrl}${SITE.resumePath}` },

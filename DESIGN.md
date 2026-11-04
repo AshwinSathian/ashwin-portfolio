@@ -62,12 +62,18 @@ layout.tsx after changing any of them.
    and contact links. Text only. The Penny Software line covers the whole
    role (architecture, growth, the team), not one feature.
 2. Lately: dated entries, newest first, each linking to its proof.
-3. Things I've made: each featured project as a short story (what prompted
-   it, what it does) with one in-app picture or a real code sample,
-   alternating sides; the rest as one-line entries.
-4. Work: one paragraph and the role list.
-5. Writing: the latest posts.
+3. Writing: the latest posts as month, title and one-line teaser. Writing
+   sits above the projects on purpose.
+4. Things I've made: text only, grouped by kind (`GROUPS`: Products,
+   Libraries and tools). Each entry is the name, category and a two-sentence
+   story. Pictures appear on project pages only.
+5. Work: the career in two prose paragraphs with durations (`WORK`). The
+   role table lives on /experience only.
 6. Say hello: the email address, large, in italic zari.
+
+Other pages: /projects, /projects/[slug], /experience, /writing, and
+/colophon (how the site is built). There is deliberately no /now page.
+The footer carries the one signature line: "Writing software since 2018."
 
 ## Motion
 

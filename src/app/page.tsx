@@ -1,17 +1,12 @@
-import Image from "next/image";
 import Link from "next/link";
 import ArrowLink from "@/components/ArrowLink";
-import { RoleList } from "@/components/RoleRows";
-import PostList from "@/components/writing/PostList";
-import { INTRO, LATELY, STORIES } from "@/app/data/home";
-import { PROJECTS, type Project } from "@/app/data/projects";
+import { GROUPS, INTRO, LATELY, STORIES, WORK } from "@/app/data/home";
+import { PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
 import { capitalize, numberWord } from "@/lib/text";
 import { getAllPosts } from "@/lib/writing";
 
 export default function Page() {
-  const featured = PROJECTS.filter((p) => p.featured);
-  const others = PROJECTS.filter((p) => !p.featured);
   const posts = getAllPosts().slice(0, 4);
   const total = numberWord(PROJECTS.length);
 
@@ -89,61 +84,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/* Things I've made: each project as a short story with one picture. */}
-      <section aria-labelledby="made-heading" className="shell py-16 lg:py-24">
-        <div className="mb-12 grid gap-4 lg:mb-20 lg:grid-cols-12 lg:gap-16">
-          <h2 id="made-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
-            Things I’ve made
-          </h2>
-          <p className="reveal max-w-xl text-fg-2 lg:col-span-9">
-            {capitalize(total)} projects, built on my own time. These six have the most to them.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-16 lg:gap-28">
-          {featured.map((project, i) => (
-            <Story key={project.slug} project={project} flip={i % 2 === 1} />
-          ))}
-        </div>
-
-        <div className="mt-16 grid gap-4 lg:mt-28 lg:grid-cols-12 lg:gap-16">
-          <h3 className="reveal text-title font-medium text-fg lg:col-span-3">And also</h3>
-          <ul className="flex flex-col gap-3 lg:col-span-9">
-            {others.map((p) => (
-              <li key={p.slug} className="reveal">
-                <Link href={`/projects/${p.slug}`}>
-                  <span className="link text-fg">{p.name}</span>
-                  <span className="text-fg-2">: {p.tagline}</span>
-                </Link>
-              </li>
-            ))}
-            <li className="pt-3">
-              <ArrowLink href="/projects">All {total} projects</ArrowLink>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Work: the career, briefly. */}
-      <section aria-labelledby="work-heading" className="shell py-16 lg:py-24">
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
-          <h2 id="work-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
-            Work
-          </h2>
-          <div className="flex flex-col gap-8 lg:col-span-9">
-            <p className="reveal max-w-2xl text-fg">
-              Eight years and seven roles, from junior programmer to owning platform architecture at Penny
-              Software, where I mentored a 12-person team. Most recently I spent four months as Lead Engineer for
-              Funnels, Websites, and Webinars at HighLevel.
-            </p>
-            <div className="border-b border-line">
-              <RoleList />
-            </div>
-            <ArrowLink href="/experience">Full experience</ArrowLink>
-          </div>
-        </div>
-      </section>
-
       {posts.length > 0 && (
         <section aria-labelledby="writing-heading" className="shell py-16 lg:py-24">
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
@@ -151,17 +91,93 @@ export default function Page() {
               <h2 id="writing-heading" className="reveal text-display-m font-medium tracking-[-0.015em]">
                 Writing
               </h2>
-              <p className="reveal text-small text-fg-2">Notes from the things I build.</p>
+              <p className="reveal text-small text-fg-2">
+                Notes from the things I build.{" "}
+                <a href="/writing/feed.xml" className="text-fg-3 hover:text-fg-2">
+                  <span className="link">RSS</span>
+                </a>
+              </p>
             </div>
             <div className="flex flex-col gap-6 lg:col-span-9">
-              <div className="border-b border-line">
-                <PostList posts={posts} as="h3" />
-              </div>
+              <ul className="flex flex-col border-b border-line">
+                {posts.map((post) => (
+                  <li key={post.slug} className="reveal">
+                    <Link
+                      href={`/writing/${post.slug}`}
+                      className="row grid gap-x-8 gap-y-1 rounded-control border-t border-line py-5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline"
+                    >
+                      <span className="text-meta tabular-nums text-fg-3">{monthYear(post.date)}</span>
+                      <span className="flex flex-col gap-1">
+                        <h3 className="text-title font-medium leading-snug text-fg">{post.title}</h3>
+                        <span className="text-small text-fg-2">{post.description}</span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
               <ArrowLink href="/writing">All writing</ArrowLink>
             </div>
           </div>
         </section>
       )}
+
+      {/* Things I've made: text first, grouped by kind. Pictures live on the project pages. */}
+      <section aria-labelledby="made-heading" className="shell py-16 lg:py-24">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <div className="flex flex-col gap-3 lg:col-span-3">
+            <h2 id="made-heading" className="reveal text-display-m font-medium tracking-[-0.015em]">
+              Things I’ve made
+            </h2>
+            <p className="reveal text-small text-fg-2">{capitalize(total)} projects, built on my own time.</p>
+          </div>
+          <div className="flex flex-col gap-14 lg:col-span-9">
+            {GROUPS.map((group) => (
+              <div key={group.title} className="flex flex-col gap-2">
+                <h3 className="reveal text-small italic text-fg-3">{group.title}</h3>
+                <ul className="flex flex-col">
+                  {group.slugs.map((slug) => {
+                    const p = PROJECTS.find((x) => x.slug === slug);
+                    if (!p) return null;
+                    return (
+                      <li key={slug} className="reveal">
+                        <Link
+                          href={`/projects/${slug}`}
+                          className="row flex flex-col gap-1.5 rounded-control border-t border-line py-5"
+                        >
+                          <span className="flex flex-wrap items-baseline gap-x-3">
+                            <span className="text-title font-medium text-fg">{p.name}</span>
+                            <span className="text-small italic text-fg-3">{p.category}</span>
+                            {p.status && <span className="text-small text-zari">{p.status}</span>}
+                          </span>
+                          <span className="max-w-3xl text-fg-2">{STORIES[slug] ?? p.tagline}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+            <ArrowLink href="/projects">All projects, with how each was built</ArrowLink>
+          </div>
+        </div>
+      </section>
+
+      {/* Work: the career in a paragraph, with durations. */}
+      <section aria-labelledby="work-heading" className="shell py-16 lg:py-24">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <h2 id="work-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
+            Work
+          </h2>
+          <div className="flex flex-col gap-6 lg:col-span-9">
+            {WORK.map((p, i) => (
+              <p key={i} className={`reveal max-w-3xl ${i === 0 ? "text-fg" : "text-fg-2"}`}>
+                {p}
+              </p>
+            ))}
+            <ArrowLink href="/experience">Every role, in detail</ArrowLink>
+          </div>
+        </div>
+      </section>
 
       <section aria-labelledby="contact-heading" className="shell py-20 lg:py-32">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
@@ -186,45 +202,7 @@ export default function Page() {
   );
 }
 
-function Story({ project, flip }: { project: Project; flip: boolean }) {
-  const href = `/projects/${project.slug}`;
-  const media = project.media;
-  return (
-    <article className="grid items-center gap-8 lg:grid-cols-12 lg:gap-16">
-      <div className={`flex flex-col gap-4 lg:col-span-5 ${flip ? "lg:order-2" : ""}`}>
-        <h3 className="reveal flex flex-wrap items-baseline gap-x-3">
-          <Link href={href} className="text-display-m font-medium tracking-[-0.015em] text-fg">
-            <span className="link">{project.name}</span>
-          </Link>
-          <span className="text-small italic text-fg-3">{project.category}</span>
-        </h3>
-        <p className="reveal text-fg-2">{STORIES[project.slug] ?? project.tagline}</p>
-        <ArrowLink href={href} className="reveal">
-          {project.caseStudy ? "How I built it" : "More about it"}
-          <span className="sr-only">: {project.name}</span>
-        </ArrowLink>
-      </div>
-      <Link
-        href={href}
-        tabIndex={-1}
-        aria-hidden
-        className={`reveal-media block overflow-hidden rounded-panel bg-surface lg:col-span-7 ${flip ? "lg:order-1" : ""}`}
-      >
-        {media.kind === "screenshot" ? (
-          <Image
-            src={media.src.replace(/\.png$/, ".webp")}
-            alt=""
-            width={media.width}
-            height={media.height}
-            sizes="(min-width: 1200px) 640px, (min-width: 1024px) 55vw, 100vw"
-            className="aspect-[16/10] w-full object-cover object-top"
-          />
-        ) : (
-          <pre className="code aspect-[16/10] overflow-hidden p-6 text-fg-2">
-            <code>{media.snippet.split("\n").slice(0, 14).join("\n")}</code>
-          </pre>
-        )}
-      </Link>
-    </article>
-  );
+/** "2026-10-13" → "Oct 2026", matching the Lately dates. */
+function monthYear(iso: string) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" });
 }

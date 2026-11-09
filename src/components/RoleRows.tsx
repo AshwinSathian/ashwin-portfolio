@@ -50,7 +50,7 @@ export function RoleGroups() {
         >
           <header className="reveal lg:col-span-4">
             <div className="lg:sticky lg:top-24">
-              <h2 className="text-display-m font-semibold tracking-[-0.015em]">
+              <h2 className="font-display text-display-m font-bold tracking-[-0.03em]">
                 {group.company}
               </h2>
               <p className="mt-2 text-meta tabular-nums text-fg-3">{group.span}</p>
@@ -61,7 +61,7 @@ export function RoleGroups() {
             {group.roles.map((item) => (
               <article key={item.role} className="reveal flex flex-col gap-4">
                 <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-                  <h3 className="text-title font-medium text-fg">{item.role}</h3>
+                  <h3 className="font-display text-title font-semibold tracking-[-0.01em] text-fg">{item.role}</h3>
                   {group.roles.length > 1 && (
                     <p className="shrink-0 text-meta tabular-nums text-fg-3">{item.dates}</p>
                   )}

@@ -7,7 +7,10 @@ const FG = "#EFE8DA";
 const FG_2 = "#BDB2A0";
 const FG_3 = "#968B7A";
 
-const FONT_FAMILY = "Newsreader";
+// Same faces as the site: Bricolage Grotesque for the title and name,
+// Figtree for the rest.
+const DISPLAY = "Bricolage Grotesque";
+const BODY = "Figtree";
 
 function truncate(str: string, max: number) {
   return str.length > max ? str.slice(0, max - 1) + "…" : str;
@@ -17,6 +20,10 @@ function truncate(str: string, max: number) {
 // renders fonts explicitly handed to it as binary data. Without this, the
 // `fontFamily` below was a no-op and every OG image silently fell back to
 // Satori's default sans, ignoring the site's typefaces.
+// Satori can't read woff2 or pick an instance from a variable font, so this
+// asks Google Fonts for a static TTF per weight rather than reusing the
+// site's self-hosted variable files. It runs on the server only; visitors'
+// browsers never contact Google, and the CDN keeps the image for a year.
 async function loadGoogleFont(family: string, weight: number): Promise<ArrayBuffer> {
   const cssUrl = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@${weight}&text=${encodeURIComponent(
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;·–$%×↗’'?!()/+& "
@@ -40,15 +47,15 @@ export async function GET(request: NextRequest) {
   const description = searchParams.get("description");
   const label = searchParams.get("label") ?? "Writing";
 
-  const [regular, bold, heavy] = await Promise.all([
-    loadGoogleFont(FONT_FAMILY, 400),
-    loadGoogleFont(FONT_FAMILY, 700),
-    loadGoogleFont(FONT_FAMILY, 800),
+  const [body, bodyMedium, display] = await Promise.all([
+    loadGoogleFont(BODY, 400),
+    loadGoogleFont(BODY, 500),
+    loadGoogleFont(DISPLAY, 700),
   ]);
   const fonts = [
-    { name: FONT_FAMILY, data: regular, weight: 400 as const, style: "normal" as const },
-    { name: FONT_FAMILY, data: bold, weight: 700 as const, style: "normal" as const },
-    { name: FONT_FAMILY, data: heavy, weight: 800 as const, style: "normal" as const },
+    { name: BODY, data: body, weight: 400 as const, style: "normal" as const },
+    { name: BODY, data: bodyMedium, weight: 500 as const, style: "normal" as const },
+    { name: DISPLAY, data: display, weight: 700 as const, style: "normal" as const },
   ];
 
   // Post card, when a title is supplied
@@ -67,7 +74,7 @@ export async function GET(request: NextRequest) {
             justifyContent: "space-between",
             padding: "72px 80px",
             backgroundColor: NIGHT,
-            fontFamily: FONT_FAMILY,
+            fontFamily: BODY,
           }}
         >
           {/* Top: section label */}
@@ -110,9 +117,10 @@ export async function GET(request: NextRequest) {
           >
             <div
               style={{
+                fontFamily: DISPLAY,
                 fontSize: safeTitle.length > 40 ? 64 : 96,
                 fontWeight: 700,
-                lineHeight: 1.05,
+                lineHeight: 1.02,
                 letterSpacing: "-0.03em",
                 color: FG,
                 maxWidth: 1000,
@@ -145,18 +153,19 @@ export async function GET(request: NextRequest) {
           >
             <span
               style={{
+                fontFamily: DISPLAY,
                 fontSize: 26,
-                fontWeight: 800,
+                fontWeight: 700,
                 color: FG,
-                letterSpacing: "-0.015em",
+                letterSpacing: "-0.02em",
               }}
             >
               Ashwin Sathian
             </span>
             <span
               style={{
-                fontSize: 13,
-                fontWeight: 400,
+                fontSize: 18,
+                fontWeight: 500,
                 color: FG_3,
                 letterSpacing: "0.02em",
               }}
@@ -182,10 +191,10 @@ export async function GET(request: NextRequest) {
           justifyContent: "flex-end",
           padding: "80px",
           backgroundColor: NIGHT,
-          fontFamily: FONT_FAMILY,
+          fontFamily: BODY,
         }}
       >
-        <div style={{ fontSize: 132, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.015em", color: FG }}>
+        <div style={{ fontFamily: DISPLAY, fontSize: 132, fontWeight: 700, lineHeight: 0.98, letterSpacing: "-0.03em", color: FG }}>
           Ashwin Sathian
         </div>
         <div style={{ marginTop: 40, fontSize: 34, fontWeight: 400, lineHeight: 1.3, color: FG_2, letterSpacing: "-0.01em", maxWidth: 900 }}>

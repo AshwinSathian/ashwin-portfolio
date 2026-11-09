@@ -32,19 +32,38 @@ Zari is used sparingly: never on buttons, never as a background.
 
 ## Type
 
-- One typeface, Newsreader, a reading serif with an optical-size axis
-  (6 to 72), roman and italic. `font-optical-sizing: auto` gives body copy
-  the text cut and headings the display cut. Code uses the system monospace.
-- Headings at weight 500, tracking -0.015em. Italic for categories and the
-  email line. Body 19px, line-height 1.6; article prose 19px, 1.7, 66ch.
+Three faces, all variable, all SIL Open Font License, self-hosted from the
+`@fontsource-variable` npm packages through `next/font/local` (latin subset).
+Nothing loads from Google Fonts in the browser.
+
+| Token | Face | Use |
+|---|---|---|
+| `--font-display` | Bricolage Grotesque | `h1` to `h3`, the wordmark, list titles (`font-display`) |
+| `--font-sans` | Figtree, roman and italic | Body, UI, metadata |
+| `--font-mono` | JetBrains Mono, roman and italic | Code blocks, inline code, `kbd`, `samp` |
+
+- Display and body are preloaded with size-adjusted fallbacks, so the
+  greeting doesn't wait or jump. Mono loads only on pages with code.
+- Big headings (`display-xl`, `display-l`, `display-m`): 700, tracking
+  -0.03em, line-height 1.02 to 1.1. List and card titles (`title`): 600,
+  -0.01em. Prose `h2` to `h4`: 700, -0.02em.
+- Bricolage has no italic, so italic text stays in Figtree (project
+  categories, group labels). The email line is Bricolage 600, upright.
+- Body 18px, line-height 1.55; article prose 18px, 1.65, 66ch.
+- Dates, durations and counts use `tabular-nums`; prose tables do too.
+- Code has ligatures off and inline code at 0.85em, since JetBrains Mono
+  runs larger than Figtree at the same size.
 - Scale: `display-xl` (the greeting), `display-l`, `display-m` (section
   heads), `title`, `body`, `small`, `meta`.
+- OG images (`src/app/og/route.tsx`) use the same two faces. Satori needs
+  static TTFs, so that route fetches them from Google Fonts on the server.
 
 ## Wordmark and favicon
 
-The wordmark is the name, "Ashwin Sathian", in the text face at 600
+The wordmark is the name, "Ashwin Sathian", in Bricolage Grotesque at 700
 (`.wordmark`). The favicon is an italic Newsreader "a" in zari on night,
-drawn from the font's outlines. `public/favicon.svg`, `src/app/favicon.ico`
+drawn from the font's outlines. It predates the switch to Bricolage and
+Figtree and is kept as a mark, since it is outlines and loads no font. `public/favicon.svg`, `src/app/favicon.ico`
 and `public/apple-touch-icon.png` are generated from it; bump the `?v=` in
 layout.tsx after changing any of them.
 

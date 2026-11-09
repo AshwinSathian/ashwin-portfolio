@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ViewTransition } from "react";
-import { Newsreader } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,15 +8,36 @@ import { PROJECTS } from "@/app/data/projects";
 import { SITE } from "@/app/data/site";
 import { capitalize, numberWord } from "@/lib/text";
 
-// The one typeface: Newsreader, a reading serif with an optical-size axis, so
-// body copy gets the text cut and headings the display cut automatically.
-// Italic is loaded for emphasis in prose. Code uses the system monospace.
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  axes: ["opsz"],
-  style: ["normal", "italic"],
-  variable: "--font-newsreader",
+// Self-hosted from the @fontsource-variable packages (OFL), so no request
+// ever goes to Google Fonts. Latin subset only; the site is English.
+// Bricolage Grotesque sets headings, Figtree everything else.
+
+const bricolage = localFont({
+  src: "../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2",
+  weight: "200 800",
+  variable: "--font-bricolage",
   display: "swap",
+});
+
+const figtree = localFont({
+  src: [
+    { path: "../../node_modules/@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2", weight: "300 900", style: "normal" },
+    { path: "../../node_modules/@fontsource-variable/figtree/files/figtree-latin-wght-italic.woff2", weight: "300 900", style: "italic" },
+  ],
+  variable: "--font-figtree",
+  display: "swap",
+});
+
+// Code only, so it is not preloaded. Italic is for Shiki's comment style.
+const jetbrainsMono = localFont({
+  src: [
+    { path: "../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2", weight: "100 800", style: "normal" },
+    { path: "../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-italic.woff2", weight: "100 800", style: "italic" },
+  ],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+  preload: false,
+  adjustFontFallback: false,
 });
 
 const siteUrl = "https://ashwinsathian.com";
@@ -145,7 +166,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={newsreader.variable}>
+    <html lang="en" className={`${bricolage.variable} ${figtree.variable} ${jetbrainsMono.variable}`}>
       <head>
         <script
           type="application/ld+json"

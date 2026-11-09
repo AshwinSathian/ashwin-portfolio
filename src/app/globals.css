@@ -14,20 +14,24 @@
   --color-line: rgb(239 232 218 / 0.1);
   --color-line-strong: rgb(239 232 218 / 0.18);
 
-  /* One typeface, a serif, for every surface. Mono is for code only. */
-  --font-sans: var(--font-newsreader), ui-serif, Georgia, serif;
-  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  /* Bricolage Grotesque for headings, Figtree for body and UI, JetBrains
+     Mono for code. The --font-bricolage/figtree/jetbrains-mono variables are
+     set by next/font in layout.tsx and already name a size-adjusted
+     fallback; the system stacks after them cover a failed font load. */
+  --font-display: var(--font-bricolage), var(--font-figtree), system-ui, sans-serif;
+  --font-sans: var(--font-figtree), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --text-display-xl: clamp(2.75rem, 7vw, 5.5rem);
   --text-display-xl--line-height: 1.02;
   --text-display-l: clamp(2.125rem, 4.6vw, 3.75rem);
   --text-display-l--line-height: 1.06;
   --text-display-m: clamp(1.5rem, 2.8vw, 2.25rem);
-  --text-display-m--line-height: 1.15;
+  --text-display-m--line-height: 1.1;
   --text-title: 1.3125rem;
-  --text-title--line-height: 1.3;
-  --text-body: 1.1875rem;
-  --text-body--line-height: 1.6;
+  --text-title--line-height: 1.25;
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.55;
   --text-small: 1.0625rem;
   --text-small--line-height: 1.5;
   --text-meta: 0.9375rem;
@@ -54,7 +58,7 @@ body {
   color: var(--color-fg);
   font-family: var(--font-sans);
   font-size: var(--text-body);
-  line-height: 1.6;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -74,6 +78,7 @@ body::after {
 h1,
 h2,
 h3 {
+  font-family: var(--font-display);
   text-wrap: balance;
 }
 
@@ -92,10 +97,11 @@ li {
   color: var(--color-night);
 }
 
-/* The wordmark: the name, proper case, in the text face at 600. */
+/* The wordmark: the name, proper case, in the display face at 700. */
 .wordmark {
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
   line-height: 1;
 }
 
@@ -403,6 +409,7 @@ a:focus-visible .arrow-out {
 .code {
   overflow-x: auto;
   font-family: var(--font-mono);
+  font-variant-ligatures: none;
   font-size: 0.8125rem;
   line-height: 1.7;
   color: var(--shiki-foreground);
@@ -418,8 +425,8 @@ a:focus-visible .arrow-out {
 .prose {
   max-width: 66ch;
   color: var(--color-fg);
-  font-size: 1.1875rem;
-  line-height: 1.7;
+  font-size: 1.125rem;
+  line-height: 1.65;
   overflow-wrap: break-word;
 }
 .prose > * + * {
@@ -429,7 +436,8 @@ a:focus-visible .arrow-out {
 .prose h3,
 .prose h4 {
   color: var(--color-fg);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
   margin-top: 2.4em;
@@ -463,11 +471,14 @@ a:focus-visible .arrow-out {
   border-left: 2px solid var(--color-fg);
   padding-left: 1.25rem;
   color: var(--color-fg);
-  font-size: 1.1875rem;
+  font-size: 1.125rem;
 }
+/* JetBrains Mono runs wide and tall next to Figtree, so inline code is set
+   a touch smaller. Ligatures stay off: code should show what was typed. */
 .prose :not(pre) > code {
   font-family: var(--font-mono);
-  font-size: 0.875em;
+  font-variant-ligatures: none;
+  font-size: 0.85em;
   color: var(--color-fg);
   background: var(--color-surface-2);
   border: 1px solid var(--color-line);
@@ -481,6 +492,7 @@ a:focus-visible .arrow-out {
   border-radius: var(--radius-panel);
   padding: 1.25rem;
   font-family: var(--font-mono);
+  font-variant-ligatures: none;
   font-size: 0.8125rem;
   line-height: 1.7;
   color: var(--shiki-foreground);
@@ -518,6 +530,7 @@ a:focus-visible .arrow-out {
   overflow-x: auto;
   border-collapse: collapse;
   font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
 }
 .prose th {
   text-align: left;

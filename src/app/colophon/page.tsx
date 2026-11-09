@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/Section";
 import { SITE } from "@/app/data/site";
 
 const description =
-  "How ashwinsathian.com is built: Next.js 16 on Cloudflare Workers, one serif typeface, a palette from the kasavu sari, and CSS-only motion.";
+  "How ashwinsathian.com is built: Next.js 16 on Cloudflare Workers, three open-source typefaces, a palette from the kasavu sari, and CSS-only motion.";
 
 const ogImageUrl = `/og?title=Colophon&description=${encodeURIComponent(description)}&label=Colophon`;
 
@@ -37,9 +37,9 @@ const SECTIONS: { title: string; body: string[] }[] = [
   {
     title: "Type and colour",
     body: [
-      "One typeface, Newsreader, an open-source reading serif from Production Type. It has an optical-size axis, so body text gets the cut meant for reading and headings get the sharper display cut without a second font. Code uses your system’s monospace.",
+      "Headings are set in Bricolage Grotesque, body text in Figtree, and code in JetBrains Mono. All three are variable fonts under the SIL Open Font License, served from this site rather than a font CDN.",
       "The colours come from the kasavu sari of Kerala: off-white cotton with a gold border, set here on a warm dark ground. The gold is used for one thing at a time. There is no light theme.",
-      "The favicon is an italic Newsreader “a”, traced from the font’s own outlines.",
+      "The favicon is older than the type: an italic Newsreader “a”, traced from that font’s outlines and kept as a mark.",
     ],
   },
   {
@@ -58,7 +58,7 @@ export default function ColophonPage() {
       <div className="shell flex flex-col gap-14 pb-24 lg:pb-40">
         {SECTIONS.map((section) => (
           <section key={section.title} aria-labelledby={`c-${section.title}`} className="grid gap-4 lg:grid-cols-12 lg:gap-16">
-            <h2 id={`c-${section.title}`} className="reveal text-title font-medium text-fg lg:col-span-3">
+            <h2 id={`c-${section.title}`} className="reveal font-display text-title font-semibold tracking-[-0.01em] text-fg lg:col-span-3">
               {section.title}
             </h2>
             <div className="flex max-w-2xl flex-col gap-4 lg:col-span-9">

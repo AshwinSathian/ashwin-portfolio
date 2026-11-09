@@ -30,7 +30,7 @@ export default function Page() {
       <section aria-labelledby="hello-heading" className="shell pb-20 pt-28 lg:pb-32 lg:pt-40">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col gap-6 lg:col-span-8">
-            <h1 id="hello-heading" className="load-rise text-display-xl font-medium tracking-[-0.015em] text-fg">
+            <h1 id="hello-heading" className="load-rise font-display text-display-xl font-bold tracking-[-0.03em] text-fg">
               {INTRO.greeting}
             </h1>
             <div className="load-rise flex flex-col gap-5" style={{ "--d": "150ms" } as React.CSSProperties}>
@@ -64,7 +64,7 @@ export default function Page() {
       {/* Lately: a dated log. */}
       <section aria-labelledby="lately-heading" className="shell py-16 lg:py-24">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
-          <h2 id="lately-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
+          <h2 id="lately-heading" className="reveal font-display text-display-m font-bold tracking-[-0.03em] lg:col-span-3">
             Lately
           </h2>
           <ol className="flex flex-col border-b border-line lg:col-span-9">
@@ -88,7 +88,7 @@ export default function Page() {
         <section aria-labelledby="writing-heading" className="shell py-16 lg:py-24">
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
             <div className="flex flex-col gap-3 lg:col-span-3">
-              <h2 id="writing-heading" className="reveal text-display-m font-medium tracking-[-0.015em]">
+              <h2 id="writing-heading" className="reveal font-display text-display-m font-bold tracking-[-0.03em]">
                 Writing
               </h2>
               <p className="reveal text-small text-fg-2">
@@ -108,7 +108,7 @@ export default function Page() {
                     >
                       <span className="text-meta tabular-nums text-fg-3">{monthYear(post.date)}</span>
                       <span className="flex flex-col gap-1">
-                        <h3 className="text-title font-medium leading-snug text-fg">{post.title}</h3>
+                        <h3 className="font-display text-title font-semibold tracking-[-0.01em] leading-snug text-fg">{post.title}</h3>
                         <span className="text-small text-fg-2">{post.description}</span>
                       </span>
                     </Link>
@@ -125,7 +125,7 @@ export default function Page() {
       <section aria-labelledby="made-heading" className="shell py-16 lg:py-24">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col gap-3 lg:col-span-3">
-            <h2 id="made-heading" className="reveal text-display-m font-medium tracking-[-0.015em]">
+            <h2 id="made-heading" className="reveal font-display text-display-m font-bold tracking-[-0.03em]">
               Things I’ve made
             </h2>
             <p className="reveal text-small text-fg-2">{capitalize(total)} projects, built on my own time.</p>
@@ -133,7 +133,7 @@ export default function Page() {
           <div className="flex flex-col gap-14 lg:col-span-9">
             {GROUPS.map((group) => (
               <div key={group.title} className="flex flex-col gap-2">
-                <h3 className="reveal text-small italic text-fg-3">{group.title}</h3>
+                <h3 className="reveal font-sans text-small italic text-fg-3">{group.title}</h3>
                 <ul className="flex flex-col">
                   {group.slugs.map((slug) => {
                     const p = PROJECTS.find((x) => x.slug === slug);
@@ -145,7 +145,7 @@ export default function Page() {
                           className="row flex flex-col gap-1.5 rounded-control border-t border-line py-5"
                         >
                           <span className="flex flex-wrap items-baseline gap-x-3">
-                            <span className="text-title font-medium text-fg">{p.name}</span>
+                            <span className="font-display text-title font-semibold tracking-[-0.01em] text-fg">{p.name}</span>
                             <span className="text-small italic text-fg-3">{p.category}</span>
                             {p.status && <span className="text-small text-zari">{p.status}</span>}
                           </span>
@@ -165,7 +165,7 @@ export default function Page() {
       {/* Work: the career in a paragraph, with durations. */}
       <section aria-labelledby="work-heading" className="shell py-16 lg:py-24">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
-          <h2 id="work-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
+          <h2 id="work-heading" className="reveal font-display text-display-m font-bold tracking-[-0.03em] lg:col-span-3">
             Work
           </h2>
           <div className="flex flex-col gap-6 lg:col-span-9">
@@ -181,7 +181,7 @@ export default function Page() {
 
       <section aria-labelledby="contact-heading" className="shell py-20 lg:py-32">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
-          <h2 id="contact-heading" className="reveal text-display-m font-medium tracking-[-0.015em] lg:col-span-3">
+          <h2 id="contact-heading" className="reveal font-display text-display-m font-bold tracking-[-0.03em] lg:col-span-3">
             Say hello
           </h2>
           <div className="flex flex-col gap-5 lg:col-span-9">
@@ -191,7 +191,7 @@ export default function Page() {
             </p>
             <a
               href={`mailto:${SITE.email}`}
-              className="reveal self-start text-[clamp(1.75rem,5vw,3.5rem)] italic leading-tight text-zari"
+              className="reveal self-start font-display text-[clamp(1.75rem,5vw,3.5rem)] font-semibold leading-tight tracking-[-0.02em] text-zari"
             >
               <span className="link">{SITE.email}</span>
             </a>

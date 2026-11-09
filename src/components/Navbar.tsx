@@ -84,7 +84,7 @@ export default function Navbar() {
               href={href}
               onClick={close}
               aria-current={href === "/" ? (pathname === "/" ? "page" : undefined) : current(href)}
-              className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.015em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
+              className="flex min-h-14 items-center justify-between border-b border-line font-display text-[1.75rem] font-bold tracking-[-0.03em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
             >
               {label}
               <span aria-hidden className="arrow text-fg-3">→</span>
@@ -95,7 +95,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
-            className="flex min-h-14 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.015em] text-fg-2 active:text-fg"
+            className="flex min-h-14 items-center justify-between border-b border-line font-display text-[1.75rem] font-bold tracking-[-0.03em] text-fg-2 active:text-fg"
           >
             Résumé
             <span aria-hidden className="arrow arrow-out text-fg-3">↗</span>

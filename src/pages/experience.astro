@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import RoleGroups from "../components/RoleGroups.astro";
+import { EDUCATION } from "../data/education";
+import { SKILL_GROUPS } from "../data/skills";
+import { breadcrumbs } from "../lib/schema";
+
+const description = "Eight years across seven roles and five companies, from junior programmer to owning platform architecture at Penny Software, with dates and stack for each role.";
+---
+
+<Base title="Experience" description={description} path="/experience" image="/og/experience.png" schema={[breadcrumbs([["Home", ""], ["Experience", "/experience"]])]}>
+  <PageHeader title="Eight years, seven roles." tab="Experience" tone="orange">
+    Eight years across seven roles and five companies, from junior programmer to owning platform architecture at Penny Software.
+  </PageHeader>
+  <div class="shell pb-24 lg:pb-40">
+    <RoleGroups />
+    {EDUCATION.map((item) => (
+      <section aria-labelledby="education-h" class="grid gap-x-12 gap-y-6 border-t border-line py-10 lg:grid-cols-12 lg:py-14">
+        <h2 id="education-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em] lg:col-span-4">Education</h2>
+        <div class="reveal flex flex-col gap-1 lg:col-span-8">
+          <p class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{item.school}</p>
+          <p class="text-fg-2">{item.credential}</p>
+          <p class="mt-1 text-meta tabular-nums text-fg-3">{item.period}</p>
+        </div>
+      </section>
+    ))}
+    <section aria-labelledby="stack-h" class="grid gap-x-12 gap-y-6 border-y border-line py-10 lg:grid-cols-12 lg:py-14">
+      <h2 id="stack-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em] lg:col-span-4">Stack</h2>
+      <dl class="reveal flex flex-col lg:col-span-8">
+        {SKILL_GROUPS.map((g) => (
+          <div class="grid gap-x-8 gap-y-1 border-b border-line py-4 last:border-b-0 sm:grid-cols-[11rem_1fr]">
+            <dt class="text-small text-fg-3">{g.title}</dt>
+            <dd class="text-fg">{g.items.map((i) => i.name).join(", ")}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  </div>
+</Base>

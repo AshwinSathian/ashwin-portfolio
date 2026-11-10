@@ -1,37 +1,25 @@
-# Ashwin Sathian's Portfolio
+# ashwinsathian.com
 
-[![Built with Next.js](https://img.shields.io/badge/Built%20with-Next.js-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
-[![Live Site](https://img.shields.io/badge/Live-ashwinsathian.com-8B5CF6)](https://ashwinsathian.com)
-
-A near-black, monochrome personal portfolio built with Next.js and Tailwind CSS. Motion is native CSS (scroll-driven animations and view transitions). Design rules are in [DESIGN.md](DESIGN.md).
-
-**Live site:** [ashwinsathian.com](https://ashwinsathian.com)
-
-## Tech Stack
-
-- [Next.js](https://nextjs.org/): React framework (App Router)
-- [TailwindCSS](https://tailwindcss.com/): Utility-first styling
-- [Shiki](https://shiki.style/): Syntax highlighting for posts
-- Deployed on [Cloudflare Workers](https://developers.cloudflare.com/workers/) via [OpenNext](https://opennext.js.org/)
-
-## Running Locally
+Personal site: writing, projects and work. Astro 7, Tailwind CSS 4, static output served from Cloudflare's edge.
 
 ```bash
-# Install dependencies
 npm install
-
-# Start the dev server
-npm run dev
+npm run dev      # http://localhost:4321
+npm run build    # type-check, then build to dist/
+npm test         # unit tests, plus a crawler-view check of dist/ (build first)
+npm run deploy   # build, then wrangler deploy
 ```
 
-Then open [http://localhost:3000](http://localhost:3000).
+## Where things live
 
-Deploying is manual: `npm run deploy` builds with OpenNext and publishes to Cloudflare Workers.
+| Path | What |
+|---|---|
+| `src/content/posts/*.md` | Posts. The filename is the URL slug. Front matter is validated in `src/content.config.ts`. |
+| `src/data/*.ts` | Projects, experience, home copy, site constants. Check project facts against each repo before editing. |
+| `src/data/llms-base.md` | Hand-written part of `/llms.txt`. The post list is generated. |
+| `src/assets/projects/` | Screenshots. Astro resizes them to WebP at build. |
+| `src/pages/og/` | Social cards, drawn with Satori at build time. |
+| `worker/index.js` | Answers one path (Google verification). Everything else is static. |
+| `public/_headers` | Security and cache headers. The CSP forbids inline scripts: keep scripts in files. |
 
-Other scripts:
-
-```bash
-npm run build   # production build
-npm run start   # serve the production build
-npm run lint    # lint the codebase
-```
+Design notes: `DESIGN.md`. Plans and specs: `docs/superpowers/`.

@@ -1,0 +1,46 @@
+---
+import { RECENT_EXPERIENCE, type ExperienceItem } from "../data/experience";
+
+type CompanyGroup = { company: string; span: string; roles: ExperienceItem[] };
+const TONES = ["orange", "yellow", "teal", "blue"];
+
+/** Groups consecutive roles at one company; the list is newest-first. */
+const groups: CompanyGroup[] = [];
+for (const item of RECENT_EXPERIENCE) {
+  const last = groups.at(-1);
+  if (last?.company === item.company) last.roles.push(item);
+  else groups.push({ company: item.company, span: "", roles: [item] });
+}
+for (const g of groups) {
+  g.span = `${g.roles.at(-1)!.dates.split(" – ")[0]} – ${g.roles[0]!.dates.split(" – ")[1]}`;
+}
+---
+
+<div class="flex flex-col">
+  {groups.map((group, gi) => (
+    <section aria-label={group.company} class="grid gap-x-12 gap-y-6 border-t border-line py-10 lg:grid-cols-12 lg:py-14">
+      <header class="reveal lg:col-span-4">
+        <div class="lg:sticky lg:top-24">
+          <h2 class="font-display text-display-m font-bold tracking-[-0.03em]">{group.company}</h2>
+          <p class:list={["pill mt-3 text-meta tabular-nums", `tone-${TONES[gi % 4]}`]}>{group.span}</p>
+        </div>
+      </header>
+      <div class="flex flex-col gap-10 lg:col-span-8">
+        {group.roles.map((item) => (
+          <article class="reveal flex flex-col gap-4">
+            <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+              <h3 class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{item.role}</h3>
+              {group.roles.length > 1 && <p class="shrink-0 text-meta tabular-nums text-fg-3">{item.dates}</p>}
+            </div>
+            <ul class="flex flex-col gap-3 text-fg-2">
+              {item.bullets.map((b) => (
+                <li class="relative pl-6 before:absolute before:left-0 before:top-[0.8em] before:h-0.5 before:w-3 before:bg-fg-3">{b}</li>
+              ))}
+            </ul>
+            {item.tech && item.tech.length > 0 && <p class="text-meta tabular-nums text-fg-3">{item.tech.join(" · ")}</p>}
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>

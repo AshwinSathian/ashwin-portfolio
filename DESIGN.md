@@ -1,115 +1,57 @@
-# DESIGN.md: v9 "Kasavu"
+# DESIGN.md: v10 "Folders"
 
-Date: 2026-11-04. Supersedes v7 "Lumen". (A v8 "pinned poster" redesign was
-tried the same day and dropped: it read as a template, the giant pinned name
-was too much, and the page was mostly other sites' screenshots.)
-Tokens live in `src/app/globals.css`; this file explains them.
+Date: 2026-11-10. Supersedes v9 "Kasavu" in structure, motion and voice; keeps
+its warm dark ground and type. The rebuild moved the site from Next.js to Astro.
+Tokens live in `src/styles/global.css`.
 
 ## The idea
 
-A personal site, writing first. It opens with a person and a voice:
-"Hi, I'm Ashwin" and who I am in my own words, with no picture beside it. Then what I've been doing lately, then the things I've
-made told as short stories, then work, writing and a way to say hello.
-
-The palette comes from the Kerala kasavu sari, off-white cotton with a gold
-zari border, set on a warm dark ground. Dark only.
+Dark first, with a little colour. The visual language borrows its intent from
+ChatterMeter's landing page (the owner's own product): oversized display type,
+pill shapes, folder tabs and a lively, spring-like motion. It does not copy
+it. Here the colour stays small: four tones appear on tabs, dates and tiles,
+and the page ends in one full-yellow panel.
 
 ## Colour
 
 | Token | Value | Use |
 |---|---|---|
-| `night` | `#15120F` | Page background |
-| `surface` | `#1C1814` | Panels, code |
-| `surface-2` | `#24201A` | Raised or pressed surface |
-| `fg` | `#EFE8DA` | Primary text (kasavu off-white) |
-| `fg-2` | `#BDB2A0` | Secondary text |
-| `fg-3` | `#968B7A` | Metadata |
-| `zari` | `#D6AA52` | The one accent: the email address, dates in Lately |
-| `line`, `line-strong` | off-white 10% / 18% | Hairlines between list rows |
+| `night` | `#15120F` | Page ground, text on tone colours |
+| `surface`, `surface-2` | `#1C1814`, `#26211B` | Alternating folder panels |
+| `fg`, `fg-2`, `fg-3` | `#F1EADC`, `#C3B8A6`, `#9A8F7D` | Text, secondary, metadata |
+| `orange` `#F47A38`, `yellow` `#FFC849`, `teal` `#18B6AA`, `blue` `#6598F8` | | Tones. Always ink (`night`) text on top, never as body text colour, except yellow for the email link. |
 
-Contrast on `night`: `fg` 15.3:1, `fg-2` 8.9:1, `fg-3` 5.6:1, `zari` 8.7:1.
-Zari is used sparingly: never on buttons, never as a background.
+Each section has one tone: Projects teal, Writing yellow, Experience orange,
+Colophon blue. Dark only.
 
 ## Type
 
-Three faces, all variable, all SIL Open Font License, self-hosted from the
-`@fontsource-variable` npm packages through `next/font/local` (latin subset).
-Nothing loads from Google Fonts in the browser.
+Bricolage Grotesque (display, 700), Figtree (body), JetBrains Mono (code).
+Variable, OFL, self-hosted through `@fontsource-variable`. Display sizes run to
+`clamp(3.25rem, 11vw, 9.5rem)` for the home greeting.
 
-| Token | Face | Use |
-|---|---|---|
-| `--font-display` | Bricolage Grotesque | `h1` to `h3`, the wordmark, list titles (`font-display`) |
-| `--font-sans` | Figtree, roman and italic | Body, UI, metadata |
-| `--font-mono` | JetBrains Mono, roman and italic | Code blocks, inline code, `kbd`, `samp` |
+## Shapes
 
-- Display and body are preloaded with size-adjusted fallbacks, so the
-  greeting doesn't wait or jump. Mono loads only on pages with code.
-- Big headings (`display-xl`, `display-l`, `display-m`): 700, tracking
-  -0.03em, line-height 1.02 to 1.1. List and card titles (`title`): 600,
-  -0.01em. Prose `h2` to `h4`: 700, -0.02em.
-- Bricolage has no italic, so italic text stays in Figtree (project
-  categories, group labels). The email line is Bricolage 600, upright.
-- Body 18px, line-height 1.55; article prose 18px, 1.65, 66ch.
-- Dates, durations and counts use `tabular-nums`; prose tables do too.
-- Code has ligatures off and inline code at 0.85em, since JetBrains Mono
-  runs larger than Figtree at the same size.
-- Scale: `display-xl` (the greeting), `display-l`, `display-m` (section
-  heads), `title`, `body`, `small`, `meta`.
-- OG images (`src/app/og/route.tsx`) use the same two faces. Satori needs
-  static TTFs, so that route fetches them from Google Fonts on the server.
-
-## Wordmark and favicon
-
-The wordmark is the name, "Ashwin Sathian", in Bricolage Grotesque at 700
-(`.wordmark`). The favicon is an italic Newsreader "a" in zari on night,
-drawn from the font's outlines. It predates the switch to Bricolage and
-Figtree and is kept as a mark, since it is outlines and loads no font. `public/favicon.svg`, `src/app/favicon.ico`
-and `public/apple-touch-icon.png` are generated from it; bump the `?v=` in
-layout.tsx after changing any of them.
-
-## Layout
-
-- One container, `.shell`: 1200px max, gutters 20 / 32 / 48px.
-- Home sections share one grid: the heading in the first three columns, the
-  content in the other nine, so the page reads down one left edge.
-- Lists (Lately, roles, posts) are rows divided by hairlines.
-- Radius 10px controls, 16px panels and media. No drop shadows.
-
-## Home, in order
-
-1. Hello: the greeting as the `h1`, three short paragraphs (`data/home.ts`)
-   and contact links. Text only. The Penny Software line covers the whole
-   role (architecture, growth, the team), not one feature.
-2. Lately: dated entries, newest first, each linking to its proof.
-3. Writing: the latest posts as month, title and one-line teaser. Writing
-   sits above the projects on purpose.
-4. Things I've made: text only, grouped by kind (`GROUPS`: Products,
-   Libraries and tools). Each entry is the name, category and a two-sentence
-   story. Pictures appear on project pages only.
-5. Work: the career in two prose paragraphs with durations (`WORK`). The
-   role table lives on /experience only.
-6. Say hello: the email address, large, in italic zari.
-
-Other pages: /projects, /projects/[slug], /experience, /writing, and
-/colophon (how the site is built). There is deliberately no /now page.
-The footer carries the one signature line: "Writing software since 2018."
+Pills (`.pill`) for labels and dates. Folders: panels have a 28px rounded top
+and overlap the previous panel (`.sheet-panel`), each with a tab pill on its
+edge. Project tiles (`.tile`) are dark and fill with their tone on hover.
 
 ## Motion
 
-One easing, `cubic-bezier(0.16, 1, 0.3, 1)`. CSS only and quiet. Headings
-settle in as one piece (a 0.7s fade with 6px of lift); there is no per-word
-animation. Load and scroll reveals move 6 to 10px and start part-visible.
-Underline and arrow feedback on links; page transitions through React
-`<ViewTransition>`.
-Nothing is hidden in server HTML waiting for JavaScript; every `:hover`
-has an `:active` or `:focus-visible` twin; `prefers-reduced-motion` turns
-it all off.
+CSS only. A single fade-and-rise on load, spring easing (`--ease-spring`) on
+tab, tile, arrow and row hover, a scroll-linked rise (`.reveal`) and reading
+progress on posts where `animation-timeline` exists, and cross-document view
+transitions (`@view-transition`). No per-word heading animation. All of it
+stops under `prefers-reduced-motion`.
 
-## Content rules
+## Voice
 
-- Facts in `src/app/data` come from the project's GitHub repo, checked at
-  the time of writing. The repo wins over the résumé and older site copy.
-- Home copy restates facts already in the data files or the posts.
-- Only finished, released work is featured. Unreleased work carries a
-  `status` tag.
-- First person, plain and specific. No em dashes, no stock AI vocabulary.
+Plain and first-person, a little playful, never salesy. No "open to work"
+language and no current employer (the last role ended June 2026). Copy avoids
+AI tells: no em dash habit, no stock vocabulary.
+
+## Rules that carry over
+
+- Project facts come from each repo, not old copy (see `src/data/projects.ts`).
+- Every page is complete without JavaScript. The only script opens the mobile menu.
+- Posts live only on this site. No off-site canonicals.

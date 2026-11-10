@@ -175,10 +175,10 @@ li {
 .folders {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px 8px;
+  gap: 8px;
 }
 @media (min-width: 768px) {
-  .folders { grid-template-columns: repeat(4, 1fr); }
+  .folders { grid-template-columns: repeat(3, 1fr); }
 }
 .folder {
   position: relative;

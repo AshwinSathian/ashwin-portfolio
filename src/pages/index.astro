@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import ArrowLink from "../components/ArrowLink.astro";
 import StatusTag from "../components/StatusTag.astro";
-import { GROUPS, INTRO, LATELY, QUICK_ANSWERS, STORIES, WORK } from "../data/home";
+import { GROUPS, INTRO, QUICK_ANSWERS, STORIES, WORK } from "../data/home";
 import { PROJECTS } from "../data/projects";
 import { SITE } from "../data/site";
 import { siteDescription } from "../lib/schema";
@@ -14,7 +14,6 @@ const total = numberWord(PROJECTS.length);
 const TONES = ["orange", "yellow", "teal", "blue"] as const;
 
 const FOLDERS = [
-  { label: "Lately", href: "#lately", tone: "orange" },
   { label: "Writing", href: "#writing", tone: "yellow" },
   { label: "Things I’ve made", href: "#made", tone: "teal" },
   { label: "Work", href: "#work", tone: "blue" },
@@ -57,26 +56,6 @@ const profile = {
       </ul>
     </nav>
   </header>
-
-  <section id="lately" aria-labelledby="lately-h" class="sheet-panel">
-    <span class="pill sheet-tab tone-orange" aria-hidden="true">Lately</span>
-    <div class="shell">
-      <div class="grid gap-8 lg:grid-cols-12 lg:gap-16">
-        <h2 id="lately-h" class="reveal font-display text-display-l font-bold tracking-[-0.035em] lg:col-span-3">Lately</h2>
-        <ol class="flex flex-col border-b border-line lg:col-span-9">
-          {LATELY.map((item, i) => (
-            <li class="reveal">
-              <a href={item.href} class="row group grid gap-x-8 gap-y-2 rounded-control border-t border-line py-5 sm:grid-cols-[7.5rem_1fr_auto] sm:items-baseline">
-                <span class:list={["pill w-fit text-meta tabular-nums", `tone-${TONES[i % 4]}`]}>{item.when}</span>
-                <span class="text-fg">{item.text}</span>
-                <span aria-hidden="true" class="arrow hidden text-fg-3 sm:block">→</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  </section>
 
   {posts.length > 0 && (
     <section id="writing" aria-labelledby="writing-h" class="sheet-panel">

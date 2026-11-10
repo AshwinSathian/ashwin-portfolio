@@ -3,6 +3,7 @@ title: "Three gaps in a caching layer, and the Go library I built to close them"
 date: "2026-10-13"
 updatedAt: "2026-10-23"
 description: "Weir is a Go library for HTTP caching in front of an origin that has to stay up. What Varnish, nginx and Souin already solve, the three things I couldn’t find in one place, and how it got built with Claude Code."
+seoDescription: "Weir is a Go library for HTTP caching in front of an origin that has to stay up: what Varnish, nginx and Souin solve, the gaps left, and how I built it."
 tags: ["go", "caching", "http", "claude", "buildinpublic"]
 ---
 

@@ -7,7 +7,7 @@ import { getPosts } from "../../lib/posts";
 import { breadcrumbs, collectionPage } from "../../lib/schema";
 
 const posts = await getPosts();
-const description = "Technical notes on the Go, Angular and TypeScript tools I build: HTTP caching, runtime i18n, Better Auth with Mongoose, a browser API client and AI writing tells.";
+const description = "Technical notes on the Go, Angular and TypeScript tools I build: HTTP caching, runtime i18n, a browser API client and AI writing tells.";
 ---
 
 <Base title="Writing" description={description} path="/writing" image="/og/writing.png" schema={[collectionPage("/writing", "Writing", description, posts.map((p) => ({ name: p.data.title, path: `/writing/${p.id}` })), "Blog"), breadcrumbs([["Home", ""], ["Writing", "/writing"]])]}>

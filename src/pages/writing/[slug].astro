@@ -36,8 +36,8 @@ const schema = {
   author: { "@id": `${SITE.website}/#person` },
   publisher: { "@id": `${SITE.website}/#person` },
   inLanguage: "en-US",
-  isPartOf: { "@id": `${SITE.website}/writing#page` },
-  ...(project ? { about: { "@id": `${SITE.website}/projects/${project.slug}#software` } } : {}),
+  isPartOf: { "@type": "Blog", "@id": `${SITE.website}/writing#page`, name: "Writing", url: `${SITE.website}/writing` },
+  ...(project ? { about: { "@id": `${SITE.website}/projects/${project.slug}#software`, name: project.name, url: `${SITE.website}/projects/${project.slug}` } } : {}),
   wordCount: (post.body ?? "").trim().split(/\s+/).length,
   ...(data.tags.length ? { keywords: data.tags.join(", ") } : {}),
 };
@@ -45,7 +45,7 @@ const schema = {
 
 <Base
   title={data.title}
-  description={data.description}
+  description={data.seoDescription ?? data.description}
   path={`/writing/${post.id}`}
   image={`/og/writing/${post.id}.png`}
   type="article"
@@ -57,7 +57,13 @@ const schema = {
   <article>
     <div aria-hidden="true" class="progress"></div>
     <header class="shell pb-10 pt-28 lg:pb-16 lg:pt-40">
-      <a href="/writing" class="load-rise mb-6 inline-flex min-h-11 items-center gap-2 text-small text-fg-3 hover:text-fg"><span aria-hidden="true">←</span><span class="link">Writing</span></a>
+      <nav aria-label="Breadcrumb" class="load-rise mb-6 text-small text-fg-3">
+        <ol class="flex flex-wrap items-center gap-x-2">
+          <li><a href="/" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Home</span></a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/writing" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Writing</span></a></li>
+        </ol>
+      </nav>
       <h1 class="load-rise max-w-4xl font-display text-display-l font-bold tracking-[-0.035em] [--d:80ms]">{data.title}</h1>
       <p class="load-rise mt-6 max-w-2xl text-[1.1875rem] leading-[1.5] text-fg-2 [--d:200ms]">{data.description}</p>
       <p class="load-rise mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-meta tabular-nums text-fg-3 [--d:300ms]">

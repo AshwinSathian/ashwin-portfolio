@@ -2,6 +2,7 @@
 title: "Why “humanize my writing” tools don’t work"
 date: "2026-08-18"
 description: "A look at AI-writing detection research and why most ‘humanize my writing’ tools lean on brittle word lists instead of the more durable structural signal."
+seoDescription: "Why AI-writing detection research points at structure, not word lists, and why most ‘humanize my writing’ tools still rely on brittle word lists."
 tags: ["ai", "writing", "llm", "claude"]
 ---
 

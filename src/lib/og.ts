@@ -35,17 +35,17 @@ async function png(tree: Node): Promise<Buffer> {
 /** The home card: the greeting, and the four tones as a row of folder tabs. */
 export function siteCard() {
   return png(
-    h("div", { width: "100%", height: "100%", flexDirection: "column", justifyContent: "space-between", padding: "72px 80px 0", background: C.night, fontFamily: "Figtree" }, [
+    h("div", { width: 1200, height: 630, boxSizing: "border-box", flexDirection: "column", justifyContent: "space-between", padding: "56px 80px 0", background: C.night, fontFamily: "Figtree" }, [
       h("div", { flexDirection: "column" }, [
-        h("div", { fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: 150, letterSpacing: "-0.045em", lineHeight: 0.95, color: C.fg }, "Hi, I’m Ashwin."),
-        h("div", { marginTop: 36, fontSize: 36, color: C.fg2, maxWidth: 900 }, "I turn a customer’s problem into a spec, then I ship it."),
+        h("div", { fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: 132, letterSpacing: "-0.045em", lineHeight: 0.95, color: C.fg }, "Hi, I’m Ashwin."),
+        h("div", { marginTop: 28, fontSize: 34, color: C.fg2, maxWidth: 900 }, "I turn a customer’s problem into a spec, then I ship it."),
       ]),
-      h("div", { flexDirection: "column", gap: 24 }, [
+      h("div", { flexDirection: "column", gap: 18 }, [
         h("div", { justifyContent: "space-between", fontSize: 22, color: C.fg3 }, [
           h("span", {}, "Senior full-stack engineer · Kochi, India"),
           h("span", {}, "ashwinsathian.com"),
         ]),
-        h("div", { gap: 8 }, (["orange", "yellow", "teal", "blue"] as Tone[]).map((t) => h("div", { flex: 1, height: 36, background: C[t], borderRadius: "18px 18px 0 0" }))),
+        h("div", { gap: 8 }, (["orange", "yellow", "teal", "blue"] as Tone[]).map((t) => h("div", { flex: 1, height: 32, background: C[t], borderRadius: "18px 18px 0 0" }))),
       ]),
     ]),
   );
@@ -55,18 +55,18 @@ export function siteCard() {
 export function titleCard({ title, description, label, tone }: { title: string; description?: string; label: string; tone: Tone }) {
   const t = truncate(title, 72);
   return png(
-    h("div", { width: "100%", height: "100%", flexDirection: "column", justifyContent: "space-between", padding: "72px 80px 0", background: C.night, fontFamily: "Figtree" }, [
+    h("div", { width: 1200, height: 630, boxSizing: "border-box", flexDirection: "column", justifyContent: "space-between", padding: "56px 80px 0", background: C.night, fontFamily: "Figtree" }, [
       h("div", {}, [pill(label, C[tone])]),
-      h("div", { flexDirection: "column", gap: 22 }, [
-        h("div", { fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: t.length > 40 ? 68 : 100, lineHeight: 1.02, letterSpacing: "-0.035em", color: C.fg, maxWidth: 1040 }, t),
-        description ? h("div", { fontSize: 28, lineHeight: 1.4, color: C.fg2, maxWidth: 980 }, truncate(description, 130)) : h("div", {}, ""),
+      h("div", { flexDirection: "column", gap: 18 }, [
+        h("div", { fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: t.length > 40 ? 58 : 84, lineHeight: 1.02, letterSpacing: "-0.035em", color: C.fg, maxWidth: 1040 }, t),
+        description ? h("div", { fontSize: 26, lineHeight: 1.35, color: C.fg2, maxWidth: 980, lineClamp: 2 }, description) : h("div", {}, ""),
       ]),
-      h("div", { flexDirection: "column", gap: 20 }, [
+      h("div", { flexDirection: "column", gap: 14 }, [
         h("div", { justifyContent: "space-between", alignItems: "center" }, [
           h("span", { fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: 28, color: C.fg }, "Ashwin Sathian"),
           h("span", { fontWeight: 500, fontSize: 20, color: C.fg3 }, "ashwinsathian.com"),
         ]),
-        h("div", { height: 28, background: C[tone], borderRadius: "14px 14px 0 0" }, ""),
+        h("div", { height: 24, background: C[tone], borderRadius: "14px 14px 0 0" }, ""),
       ]),
     ]),
   );

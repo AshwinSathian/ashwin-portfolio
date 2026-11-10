@@ -18,11 +18,15 @@ export const personSchema = {
   url: id,
   email: `mailto:${SITE.email}`,
   description: personDescription,
-  image: `${id}/og/site.png`,
   sameAs: [SITE.linkedin, SITE.github],
   jobTitle: "Senior Full-Stack Engineer",
-  homeLocation: { "@type": "City", name: "Kochi, Kerala, India" },
-  alumniOf: { "@type": "EducationalOrganization", name: "National Institute of Technology Calicut" },
+  homeLocation: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: "Kochi", addressRegion: "Kerala", addressCountry: "IN" } },
+  // Past affiliations only: no current employer is stated.
+  alumniOf: [
+    { "@type": "EducationalOrganization", name: "National Institute of Technology Calicut" },
+    { "@type": "Organization", name: "Penny Software" },
+    { "@type": "Organization", name: "HighLevel" },
+  ],
   knowsAbout: [
     "SaaS platform architecture", "Multi-tenant platforms", "System design", "Angular", "React", "Next.js",
     "NestJS", "Node.js", "MongoDB", "TypeScript", "AWS", "GCP", "Docker", "GitHub Actions", "Go", "Astro",
@@ -36,6 +40,7 @@ export const websiteSchema = {
   name: SITE.name,
   url: id,
   author: { "@id": `${id}/#person` },
+  publisher: { "@id": `${id}/#person` },
   description: personDescription,
   inLanguage: "en-US",
 };

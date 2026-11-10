@@ -8,7 +8,6 @@
   Cross-Origin-Opener-Policy: same-origin
   Strict-Transport-Security: max-age=31536000
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
-  Cross-Origin-Resource-Policy: same-origin
 
 # Hashed build output: never changes.
 /_astro/*
@@ -24,6 +23,14 @@
 /apple-touch-icon.png
   Cache-Control: public, max-age=86400
 
-# Markdown twins of posts: for readers and agents, not for the index.
+# Files meant to be read by in-browser agents and feed readers.
+/llms.txt
+  Access-Control-Allow-Origin: *
+/llms-full.txt
+  Access-Control-Allow-Origin: *
+/writing/feed.xml
+  Access-Control-Allow-Origin: *
 /writing/*.md
-  X-Robots-Tag: noindex
+  Access-Control-Allow-Origin: *
+/projects/*.md
+  Access-Control-Allow-Origin: *

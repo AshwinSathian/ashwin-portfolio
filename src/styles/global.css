@@ -134,17 +134,14 @@ li {
   line-height: 1;
 }
 
+:root { --pad: 20px; }
+@media (min-width: 640px) { :root { --pad: 32px; } }
+@media (min-width: 1024px) { :root { --pad: 48px; } }
 .shell {
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding-inline: 20px;
-}
-@media (min-width: 640px) {
-  .shell { padding-inline: 32px; }
-}
-@media (min-width: 1024px) {
-  .shell { padding-inline: 48px; }
+  padding-inline: var(--pad);
 }
 
 /* ─── Tones ──────────────────────────────────────────────────────────────── */
@@ -154,7 +151,9 @@ li {
 .tone-teal { --tone: var(--color-teal); }
 .tone-blue { --tone: var(--color-blue); }
 
-/* A pill in a tone colour. Ink on colour, always: 6:1 or better. */
+/* A pill in a tone colour. Ink on colour, always: 6:1 or better. Layered so
+   utilities such as min-h-12 still win. */
+@layer components {
 .pill {
   display: inline-flex;
   align-items: center;
@@ -168,6 +167,7 @@ li {
   font-weight: 600;
   letter-spacing: -0.01em;
   white-space: nowrap;
+}
 }
 
 /* ─── Folders: the stack of panels on the home page ─────────────────────── */
@@ -193,14 +193,14 @@ li {
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-  transition: transform 0.45s var(--ease-spring);
+  min-height: 5rem;
+  transition: transform 0.3s var(--ease-out);
 }
-.folder:hover,
-.folder:focus-visible {
-  transform: translateY(-8px);
-}
-.folder:active {
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .folder:hover,
+  .folder:focus-visible {
+    transform: translateY(-3px);
+  }
 }
 .folder .arrow {
   margin-left: auto;
@@ -214,7 +214,7 @@ li {
   padding-top: 28px;
   border-radius: var(--radius-panel) var(--radius-panel) 0 0;
   background: var(--color-surface);
-  box-shadow: 0 -1px 0 var(--color-line-strong);
+  border-top: 4px solid var(--tone, var(--color-line-strong));
 }
 .sheet-panel:nth-of-type(even) {
   background: var(--color-surface-2);
@@ -231,22 +231,22 @@ li {
 }
 .sheet-tab {
   position: absolute;
-  top: -1.25rem;
-  left: max(20px, calc((100% - 1200px) / 2 + 48px));
+  top: -1.4rem;
+  left: max(var(--pad), calc((100% - 1200px) / 2 + var(--pad)));
   z-index: 1;
   min-height: 2.75rem;
   padding: 0 1.4rem;
   font-size: 1.125rem;
-}
-@media (max-width: 1023px) {
-  .sheet-tab { left: 20px; }
 }
 
 /* The last panel is the one full-colour moment. */
 .sheet-hello {
   background: var(--color-yellow) !important;
   color: var(--color-night);
-  box-shadow: none;
+  border-top-color: transparent;
+}
+.sheet-hello :focus-visible {
+  outline-color: var(--color-night);
 }
 .sheet-hello .text-fg-2,
 .sheet-hello .text-fg { color: var(--color-night); }
@@ -272,27 +272,29 @@ a:focus-visible > .link {
   .arrow { display: inline-block; }
 }
 .arrow {
-  transition: transform 0.4s var(--ease-spring);
+  transition: transform 0.3s var(--ease-out);
 }
 a:hover .arrow,
 a:active .arrow,
 a:focus-visible .arrow {
-  transform: translateX(6px);
+  transform: translateX(4px);
 }
 a:hover .arrow-out,
 a:active .arrow-out,
 a:focus-visible .arrow-out {
-  transform: translate(4px, -4px);
+  transform: translate(3px, -3px);
 }
 
 .row {
-  transition: background-color 0.3s var(--ease-out), padding-inline 0.45s var(--ease-spring);
+  transition: background-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
 }
-.row:hover,
-.row:active,
-.row:focus-visible {
-  background: rgb(241 234 220 / 0.05);
-  padding-inline: 16px;
+/* The tint bleeds 14px past the row on each side with a shadow, so no text moves. */
+@media (hover: hover) {
+  .row:hover,
+  .row:focus-visible {
+    background: rgb(241 234 220 / 0.05);
+    box-shadow: -14px 0 0 rgb(241 234 220 / 0.05), 14px 0 0 rgb(241 234 220 / 0.05);
+  }
 }
 
 /* A tile for one project: dark, with a tone-coloured edge that fills on hover. */
@@ -305,12 +307,12 @@ a:focus-visible .arrow-out {
   border: 1px solid var(--color-line);
   border-radius: var(--radius-panel);
   background: var(--color-night);
-  transition: transform 0.5s var(--ease-spring), background-color 0.3s var(--ease-out), border-color 0.3s;
+  overflow: hidden;
+  transition: background-color 0.25s var(--ease-out), border-color 0.25s;
 }
+@media (hover: hover) {
 .tile:hover,
-.tile:focus-visible,
-.tile:active {
-  transform: translateY(-6px);
+.tile:focus-visible {
   background: var(--tone);
   border-color: var(--tone);
   color: var(--color-night);
@@ -321,16 +323,22 @@ a:focus-visible .arrow-out {
 .tile:focus-visible .tile-body {
   color: var(--color-night);
 }
+.tile:hover .tag,
+.tile:focus-visible .tag {
+  color: var(--color-night);
+  border-color: var(--color-night);
+}
+.tile:hover .dot,
+.tile:focus-visible .dot {
+  background: var(--color-night);
+}
+}
 .tile .dot {
   width: 0.75rem;
   height: 0.75rem;
   border-radius: 999px;
   background: var(--tone);
   transition: background-color 0.3s;
-}
-.tile:hover .dot,
-.tile:focus-visible .dot {
-  background: var(--color-night);
 }
 
 /* ─── Entrance and scroll motion ─────────────────────────────────────────── */
@@ -369,7 +377,7 @@ a:focus-visible .arrow-out {
 }
 @keyframes reveal-rise {
   from {
-    opacity: 0.35;
+    opacity: 0.8;
     transform: translateY(12px);
   }
 }
@@ -417,11 +425,10 @@ a:focus-visible .arrow-out {
   padding: 12px 20px calc(20px + env(safe-area-inset-bottom));
 }
 .menu-sheet[open] {
-  animation: sheet-up 0.5s var(--ease-spring);
+  animation: sheet-up 0.4s var(--ease-out);
 }
 .menu-sheet::backdrop {
   background: rgb(0 0 0 / 0.6);
-  backdrop-filter: blur(6px);
 }
 @keyframes sheet-up {
   from { transform: translateY(100%); }

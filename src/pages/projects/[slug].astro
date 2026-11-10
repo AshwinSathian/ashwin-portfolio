@@ -13,6 +13,7 @@ import { getPosts } from "../../lib/posts";
 import { getProjectsWithStats, type ProjectWithStats } from "../../lib/projects";
 import { breadcrumbs } from "../../lib/schema";
 import { truncate } from "../../lib/text";
+import { toneForProject } from "../../data/home";
 
 export const getStaticPaths = (async () => {
   const all = await getProjectsWithStats();
@@ -31,7 +32,8 @@ const id = `${SITE.website}/projects/${project.slug}`;
 const common = { "@context": "https://schema.org", "@id": `${id}#software`, name: project.name, description: project.tagline, author: { "@id": `${SITE.website}/#person` } };
 const isCode = /library|skill/i.test(project.category);
 const languages = LANGUAGES.filter((l) => project.stack.some((s) => new RegExp(`^${l}\\b`).test(s)));
-const software = isCode
+const sameAs = Object.values(project.links);
+const software = { sameAs, ...(isCode
   ? {
       ...common, "@type": "SoftwareSourceCode", url: id,
       ...(project.links.github ? { codeRepository: project.links.github } : {}),
@@ -40,9 +42,10 @@ const software = isCode
   : {
       ...common, "@type": "WebApplication", url: project.links.live ?? id,
       applicationCategory: /game/i.test(project.category) ? "GameApplication" : /messaging/i.test(project.category) ? "CommunicationApplication" : "DeveloperApplication",
-      operatingSystem: "Any (web browser)",
-      ...(FREE_TO_USE.has(project.slug) ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}),
-    };
+      // BRNR also ships a mobile client, so "any web browser" would understate it.
+      ...(project.slug === "brnr" ? {} : { operatingSystem: "Any (web browser)" }),
+      ...(FREE_TO_USE.has(project.slug) ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, isAccessibleForFree: true } : {}),
+    }) };
 
 const LINK_LABELS = { live: "Visit live site", github: "View on GitHub", npm: "View on npm", vscode: "Install for VS Code" } as const;
 const relatedSlugs = PROJECT_POSTS[project.slug] ?? [];
@@ -52,10 +55,22 @@ const narrative: [string, string][] = project.caseStudy
   : [];
 const NTONES = ["orange", "yellow", "teal"];
 const description = truncate(project.tagline, 160);
+// Titles that carry what the project is, not just its category.
+const SEO_TITLES: Record<string, string> = {
+  wayfarer: "Wayfarer: local-first API client in a browser tab",
+  weir: "Weir: HTTP cache library for Go",
+  booklet: "Booklet: publish Markdown as web pages",
+  brnr: "BRNR: end-to-end encrypted, ephemeral chat",
+  typester: "Typester: keyboard-first typing speed game",
+  "ngx-runtime-i18n": "ngx-runtime-i18n: runtime i18n for Angular",
+  "better-auth-mongoose": "better-auth-mongoose: Mongoose adapter for Better Auth",
+  "humanize-writing-skill": "humanize-writing-skill: Claude Code skill for prose",
+};
+
 ---
 
 <Base
-  title={`${project.name}: ${project.category}`}
+  title={SEO_TITLES[project.slug] ?? `${project.name}: ${project.category}`}
   description={description}
   path={`/projects/${project.slug}`}
   image={`/og/projects/${project.slug}.png`}
@@ -73,7 +88,7 @@ const description = truncate(project.tagline, 160);
         </ol>
       </nav>
       <p class="load-rise mb-5 flex flex-wrap items-center gap-3 text-meta">
-        <span class="pill tone-teal">{project.category}</span>
+        <span class:list={["pill", `tone-${toneForProject(project.slug)}`]}>{project.category}</span>
         {project.status && <StatusTag>{project.status}</StatusTag>}
       </p>
       <h1 class="load-rise font-display text-display-2xl font-bold tracking-[-0.045em] wrap-anywhere [--d:80ms]">{project.name}</h1>

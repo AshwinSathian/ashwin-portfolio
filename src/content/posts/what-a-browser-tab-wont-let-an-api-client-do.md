@@ -2,6 +2,7 @@
 title: "What a browser tab won't let an API client do"
 date: "2026-11-10"
 description: "Wayfarer is an API client that opens in a browser tab. What the tab takes away, how the app says so before you send, and two ways its own claims and checks turned out wrong."
+seoDescription: "Wayfarer is an API client that opens in a browser tab. What the tab takes away, how the app says so before you send, and two mistakes in its own claims."
 tags: ["api", "cors", "browser", "angular", "buildinpublic"]
 ---
 

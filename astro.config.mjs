@@ -26,7 +26,8 @@ export default defineConfig({
       // lastmod only where a real date exists: posts carry one in front matter.
       serialize(item) {
         const m = item.url.match(/\/writing\/([^/]+)$/);
-        const lastmod = m && dates.get(m[1]);
+        const newest = [...dates.values()].sort().at(-1);
+        const lastmod = m ? dates.get(m[1]) : /\.com\/(writing)?$/.test(item.url) ? newest : undefined;
         return lastmod ? { ...item, lastmod: new Date(`${lastmod}T12:00:00Z`).toISOString() } : item;
       },
     }),

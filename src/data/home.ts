@@ -4,7 +4,7 @@
 export const INTRO = {
   greeting: "Hi, I’m Ashwin.",
   paragraphs: [
-    "I build software in Kochi, Kerala. I joined Penny Software as a founding engineer and stayed five years, through its growth into a procurement platform with $1B+ in GTV, owning its platform architecture and mentoring the 12-person team that built it.",
+    "I’m Ashwin Sathian, a senior full-stack engineer in Kochi, Kerala, India. I joined Penny Software as a founding engineer and stayed five years, through its growth into a procurement platform with $1B+ in GTV, owning its platform architecture and mentoring the 12-person team that built it.",
     "The part of the job I like most is the start: a customer describes a problem, nobody has written it down yet, and I get to turn it into a spec. Then I build it, schema to UI.",
     "On my own time I make tools and libraries, and I write about them, including the parts I got wrong.",
   ],
@@ -57,7 +57,7 @@ export const QUICK_ANSWERS: { q: string; a: string }[] = [
   },
   {
     q: "What has he built on his own time?",
-    a: "Eight projects: Booklet, Weir, BRNR, Wayfarer, ngx-runtime-i18n, Typester, better-auth-mongoose and humanize-writing-skill. Each has a page that says what it does and how it is built.",
+    a: "Eight projects: Booklet, Weir, BRNR, Wayfarer, ngx-runtime-i18n, Typester, better-auth-mongoose and humanize-writing-skill. Each has a page that says what it does and how it is built, and a few smaller repos are listed on the projects page.",
   },
   {
     q: "Where did he work most recently?",
@@ -68,3 +68,8 @@ export const QUICK_ANSWERS: { q: string; a: string }[] = [
     a: "By email at hello@ashwinsathian.com. He also posts code at github.com/AshwinSathian and is on LinkedIn.",
   },
 ];
+
+/** One tone per kind of project, used the same way on the home tiles and on each project page. */
+export function toneForProject(slug: string): "orange" | "teal" {
+  return GROUPS[0]!.slugs.includes(slug) ? "orange" : "teal";
+}

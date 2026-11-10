@@ -24,7 +24,8 @@ for (const file of pages) {
     const title = html.match(/<title>([^<]+)<\/title>/)?.[1] ?? "";
     const desc = html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? "";
     assert.ok(title.length > 10 && title.length <= 95, `title length ${title.length}: ${title}`);
-    assert.ok(desc.length >= 60 && desc.length <= 175, `description length ${desc.length}`);
+    assert.ok(desc.length >= 60 && desc.length <= 160, `description length ${desc.length}`);
+    assert.ok(!desc.endsWith("…"), "description was cut mid-sentence");
     assert.match(html, /<link rel="canonical" href="https:\/\/ashwinsathian\.com[^"]*"/);
     assert.equal((html.match(/<h1[\s>]/g) ?? []).length, 1, "exactly one h1");
     assert.match(html, /<html lang="en"/);

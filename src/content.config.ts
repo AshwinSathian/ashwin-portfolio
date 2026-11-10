@@ -10,6 +10,8 @@ const posts = defineCollection({
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     description: z.string(),
+    // Shown in search results when the on-page description is too long for them.
+    seoDescription: z.string().max(160).optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
   }),

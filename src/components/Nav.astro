@@ -9,7 +9,7 @@ const LINKS = [
 const current = (href: string) => (path === href || path.startsWith(`${href}/`) ? "page" : undefined);
 ---
 
-<header class="bar fixed inset-x-0 top-0 z-50 border-b border-line bg-night/80 backdrop-blur-md">
+<header class="bar fixed inset-x-0 top-0 z-50 border-b border-line bg-night">
   <div class="shell flex h-16 items-center justify-between">
     <a href="/" aria-label={`${SITE.name}, home`} class="wordmark flex min-h-11 items-center text-[1.25rem] text-fg">
       Ashwin Sathian
@@ -18,14 +18,14 @@ const current = (href: string) => (path === href || path.startsWith(`${href}/`) 
     <nav aria-label="Main" class="hidden items-center gap-8 md:flex">
       {LINKS.map(({ label, href }) => (
         <a href={href} aria-current={current(href)} class="flex min-h-11 items-center text-small text-fg-2 transition-colors duration-200 hover:text-fg aria-[current=page]:text-fg">
-          <span class="link" aria-current={current(href)}>{label}</span>
+          <span class="link">{label}</span>
         </a>
       ))}
       <a
         href={SITE.resumePath}
         target="_blank"
         rel="noopener noreferrer"
-        class="flex min-h-11 items-center rounded-full bg-yellow px-5 font-display text-small font-semibold text-night transition-transform duration-300 ease-spring hover:-translate-y-0.5 active:translate-y-0"
+        class="flex min-h-11 items-center rounded-full bg-yellow px-5 font-display text-small font-semibold text-night transition-transform duration-200 ease-out hover:-translate-y-0.5"
       >
         Résumé<span class="sr-only"> (opens in new tab)</span>
       </a>
@@ -35,6 +35,7 @@ const current = (href: string) => (path === href || path.startsWith(`${href}/`) 
       type="button"
       id="menu-open"
       aria-haspopup="dialog"
+      aria-controls="menu"
       class="-mr-3 flex h-12 items-center gap-2.5 rounded-control px-3 text-small text-fg active:bg-surface-2 md:hidden"
     >
       Menu
@@ -56,11 +57,11 @@ const current = (href: string) => (path === href || path.startsWith(`${href}/`) 
           class="flex min-h-14 items-center justify-between border-b border-line font-display text-[1.75rem] font-bold tracking-[-0.03em] text-fg-2 active:text-fg aria-[current=page]:text-fg"
         >
           {label}
-          <span aria-hidden="true" class:list={["h-3 w-3 rounded-full", ["bg-orange", "bg-yellow", "bg-teal", "bg-blue"][i]]}></span>
+          <span aria-hidden="true" class:list={["h-3 w-3 rounded-full border-2", ["border-orange", "border-yellow", "border-teal", "border-blue"][i], (href === "/" ? path === "" : current(href)) ? ["bg-orange", "bg-yellow", "bg-teal", "bg-blue"][i] : ""]}></span>
         </a>
       ))}
       <a href={SITE.resumePath} target="_blank" rel="noopener noreferrer" class="flex min-h-14 items-center justify-between border-b border-line font-display text-[1.75rem] font-bold tracking-[-0.03em] text-fg-2 active:text-fg">
-        Résumé <span aria-hidden="true" class="arrow arrow-out text-fg-3">↗</span>
+        Résumé<span class="sr-only"> (opens in new tab)</span> <span aria-hidden="true" class="arrow arrow-out text-fg-3">↗</span>
       </a>
     </nav>
     <button type="button" id="menu-close" class="mt-5 flex h-12 w-full items-center justify-center rounded-full bg-yellow font-display text-small font-semibold text-night">Close</button>

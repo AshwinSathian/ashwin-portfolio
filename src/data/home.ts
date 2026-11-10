@@ -4,7 +4,7 @@
 export const INTRO = {
   greeting: "Hi, I’m Ashwin.",
   paragraphs: [
-    "I’m Ashwin Sathian, a senior full-stack engineer in Kochi, Kerala, India. I joined Penny Software as a founding engineer and stayed five years, through its growth into a procurement platform with $1B+ in GTV, owning its platform architecture and mentoring the 12-person team that built it.",
+    "I’m Ashwin Sathian, a senior full-stack engineer with eight years of experience. I was the founding engineer on a product that grew into a platform with $1B+ in GTV, and I went on to own its architecture and mentor the 12-person team building it.",
     "The part of the job I like most is the start: a customer describes a problem, nobody has written it down yet, and I get to turn it into a spec. Then I build it, schema to UI.",
     "On my own time I make tools and libraries, and I write about them, including the parts I got wrong.",
   ],

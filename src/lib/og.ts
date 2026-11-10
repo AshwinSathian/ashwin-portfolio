@@ -38,7 +38,7 @@ export function siteCard() {
     h("div", { width: 1200, height: 630, boxSizing: "border-box", flexDirection: "column", justifyContent: "space-between", padding: "56px 80px 0", background: C.night, fontFamily: "Figtree" }, [
       h("div", { flexDirection: "column" }, [
         h("div", { fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: 132, letterSpacing: "-0.045em", lineHeight: 0.95, color: C.fg }, "Hi, I’m Ashwin."),
-        h("div", { marginTop: 28, fontSize: 34, color: C.fg2, maxWidth: 900 }, "I turn a customer’s problem into a spec, then I ship it."),
+        h("div", { marginTop: 28, fontSize: 34, color: C.fg2, maxWidth: 900 }, "I turn a problem into a spec, then I ship it."),
       ]),
       h("div", { flexDirection: "column", gap: 18 }, [
         h("div", { justifyContent: "space-between", fontSize: 22, color: C.fg3 }, [

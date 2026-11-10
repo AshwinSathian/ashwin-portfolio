@@ -48,7 +48,7 @@ export const STORIES: Record<string, string> = {
   brnr:
     "Private messengers often still keep accounts or history on a server somewhere. BRNR keeps neither: a code starts a chat between two people, messages are end-to-end encrypted, and every one expires after 24 hours.",
   wayfarer:
-    "API clients ask you to trust their accounts with the secrets you paste in. Wayfarer runs in your browser tab with no account at all, and keeps secrets in a vault encrypted on your machine.",
+    "API clients ask you to trust their accounts with the secrets you paste in. Wayfarer opens in a browser tab with no account, keeps secrets in a vault encrypted on your machine, and says what the browser will do to a request before you send it.",
   "ngx-runtime-i18n":
     "Angular’s built-in i18n needs a separate build per language. This library swaps languages at runtime behind a signal, without breaking server rendering.",
   typester:

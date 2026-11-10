@@ -45,30 +45,6 @@ export const WORK = [
   "Before that I spent a year at WeCP building SaaS platforms for technical hiring, and six months at Manaraah moving construction clients off legacy systems. My first job, in 2018, was at Reubro International. Most recently I spent four months as Lead Engineer at HighLevel, owning Funnels, Websites, and Webinars.",
 ];
 
-/** Plain questions people and assistants ask about me, answered from facts already on the site. */
-export const QUICK_ANSWERS: { q: string; a: string }[] = [
-  {
-    q: "Who is Ashwin Sathian?",
-    a: "A senior full-stack engineer in Kochi, Kerala, India, with eight years of experience. He was a founding engineer at Penny Software for five of them, as it grew into a procurement platform with $1B+ in GTV.",
-  },
-  {
-    q: "What does he build?",
-    a: "Web products and developer tools, schema to UI: Angular, React and Next.js on the front, NestJS and Node.js on the back, MongoDB for data, and Go for the Weir caching library. He writes the spec himself, then ships it.",
-  },
-  {
-    q: "What has he built on his own time?",
-    a: "Eight projects: Booklet, Weir, BRNR, Wayfarer, ngx-runtime-i18n, Typester, better-auth-mongoose and humanize-writing-skill. Each has a page that says what it does and how it is built, and a few smaller repos are listed on the projects page.",
-  },
-  {
-    q: "Where did he work most recently?",
-    a: "From March to June 2026 he was Lead Engineer at HighLevel, owning Funnels, Websites and Webinars. Before that he spent five years at Penny Software.",
-  },
-  {
-    q: "How can I reach him?",
-    a: "By email at hello@ashwinsathian.com. He also posts code at github.com/AshwinSathian and is on LinkedIn.",
-  },
-];
-
 /** One tone per kind of project, used the same way on the home tiles and on each project page. */
 export function toneForProject(slug: string): "orange" | "teal" {
   return GROUPS[0]!.slugs.includes(slug) ? "orange" : "teal";

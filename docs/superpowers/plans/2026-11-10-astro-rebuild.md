@@ -22,7 +22,7 @@ llms.txt generated from data (post list cannot drift), llms-full.txt, a `.md`
 twin of every post, Content-Signal in robots.txt, entity-linked JSON-LD
 (Person, WebSite, ProfilePage, Blog/CollectionPage with ItemList, BlogPosting
 `about` its project, SoftwareApplication/SourceCode, BreadcrumbList), visible
-Quick answers, author box on posts, sitemap lastmod from front matter.
+author box on posts, sitemap lastmod from front matter.
 
 ## Verification
 

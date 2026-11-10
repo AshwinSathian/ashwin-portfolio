@@ -3,7 +3,7 @@ import Base from "../layouts/Base.astro";
 import ArrowLink from "../components/ArrowLink.astro";
 import StatusTag from "../components/StatusTag.astro";
 import ProjectThumb from "../components/ProjectThumb.astro";
-import { GROUPS, INTRO, QUICK_ANSWERS, STORIES, WORK, toneForProject } from "../data/home";
+import { GROUPS, INTRO, STORIES, WORK, toneForProject } from "../data/home";
 import { PROJECTS } from "../data/projects";
 import { SITE } from "../data/site";
 import { siteDescription } from "../lib/schema";
@@ -135,23 +135,6 @@ const profile = {
           {WORK.map((p, i) => <p class:list={["reveal max-w-3xl", i === 0 ? "text-fg" : "text-fg-2"]}>{p}</p>)}
           <ArrowLink href="/experience">Every role, in detail</ArrowLink>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="answers" aria-labelledby="answers-h" class="sheet-panel tone-orange">
-    <span class="pill sheet-tab tone-orange" aria-hidden="true">The short version</span>
-    <div class="shell">
-      <div class="grid gap-8 lg:grid-cols-12 lg:gap-16">
-        <h2 id="answers-h" class="reveal font-display text-display-l font-bold tracking-[-0.035em] lg:col-span-3">Quick answers</h2>
-        <dl class="flex flex-col border-b border-line lg:col-span-9">
-          {QUICK_ANSWERS.map((qa) => (
-            <div class="reveal grid gap-2 border-t border-line py-6 md:grid-cols-[16rem_1fr] md:gap-8">
-              <dt class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{qa.q}</dt>
-              <dd class="text-fg-2">{qa.a}</dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </div>
   </section>

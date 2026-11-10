@@ -7,6 +7,7 @@ export const PROJECT_POSTS: Record<string, string[]> = {
     "why-ngx-runtime-i18n-treats-the-active-language-as-a-signal-not-an-observable",
   ],
   "better-auth-mongoose": ["why-better-auths-mongodb-adapter-cant-populate-a-mongoose-ref"],
+  wayfarer: ["what-a-browser-tab-wont-let-an-api-client-do"],
   "humanize-writing-skill": [
     "the-ai-tells-moved-my-tool-for-avoiding-them-hadnt",
     "why-humanize-my-writing-tools-dont-work",

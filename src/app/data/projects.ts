@@ -258,64 +258,77 @@ export const PROJECTS: Project[] = [
     name: "Wayfarer",
     featured: true,
     category: "Developer tool",
-    tagline: "A local-first API client with no account and a client-side encrypted vault for secrets.",
+    tagline: "A local-first API client that opens in a browser tab: no account, an encrypted vault for secrets, and a test behind every claim it makes.",
     description: [
-      "Wayfarer is an API testing client (collections, environments, pre/post-request scripts, a response viewer) that runs entirely in the browser with no account and no backend. Everything lives in IndexedDB on your machine. Secrets get their own encrypted vault: PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key that is held in memory only, so only ciphertext ever touches storage. Pre-request and post-response scripts run in QuickJS, a JavaScript engine compiled to WebAssembly, in their own worker, so the browser never evaluates a script’s text.",
-      "It was renamed from API Sandbox to Wayfarer partway through its life. The app, the local-first storage model, and the MIT license stayed the same. There’s also an optional local-bridge, a small Node CLI for CORS/intranet relay when a request needs to reach somewhere the browser can’t. No update, acquisition, or pricing change can gate access to data you already own.",
+      "Wayfarer is an API client that opens in a browser tab. There is no install and no account. Collections, environments and history live in IndexedDB, and a request goes from the page to the host you typed. It imports Postman, Insomnia, OpenAPI, HAR and cURL, runs Postman-style scripts in QuickJS compiled to WebAssembly, does GraphQL, WebSockets and event streams, and runs a collection from the command line with the same engine (wayfarer-cli on npm). Secrets go in a vault: PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key that is held in memory only, so only ciphertext is stored and a reload locks it.",
+      "A page can’t do everything a desktop client can. CORS, forbidden headers like Cookie and Origin, mixed content and the missing timings of cross-origin responses all apply, so before a request goes the composer says what the browser will do to it. For what a page can’t do there is an optional Local Bridge (wayfarer-bridge on npm, no dependencies, listening on 127.0.0.1 only, paired with a one-time code) that sends the request from your machine. A collection can be shared as a link that carries it encrypted after the #, which a browser never sends to a server.",
+      "Every claim the project makes is a row in a public ledger, 94 of them at version 3.4.0, and each row names the tests that prove it. The repository’s first commit is from January 2020, an Angular 8 project called api-sandbox. It was renamed Wayfarer in July 2026 with the storage model and the MIT license unchanged, and a September 2026 audit of its documentation against its code produced 75 issues, 71 of them closed.",
     ],
-    stack: ["Angular 22", "IndexedDB", "QuickJS (WebAssembly)", "Monaco Editor", "RxJS"],
+    stack: ["Angular 22", "IndexedDB", "QuickJS (WebAssembly)", "Monaco Editor", "Astro 7", "Playwright"],
     facts: [
-      { label: "Persistence", value: "100% client-side: IndexedDB, no backend" },
+      { label: "Release", value: "3.4.0, November 2026, MIT. wayfarer-cli 2.2.0 and wayfarer-bridge 3.0.2 on npm" },
+      { label: "Persistence", value: "Client-side: IndexedDB, no backend of its own" },
       { label: "Secrets vault", value: "PBKDF2 (600k) wraps an AES-GCM-256 key, held in memory only" },
-      { label: "License", value: "MIT" },
+      { label: "Checks", value: "94 public claims, each tied to tests that run in Chromium, Firefox and WebKit" },
     ],
     highlights: [
       {
         title: "Client-side encrypted secrets vault",
         detail:
-          "PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key held only in memory. IndexedDB never sees anything but ciphertext.",
+          "PBKDF2-SHA-256 at 600,000 iterations wraps a random AES-GCM-256 key held only in memory, and a reload locks the vault. IndexedDB holds ciphertext. History, exports and shared files carry a mask where a secret was, and a reference to a vault secret is refused before it can reach the network.",
       },
       {
-        title: "Audit findings tracked as issues",
+        title: "Every claim has a test",
         detail:
-          "A September 2026 audit found gaps between the docs and the code. Each became an issue labeled audit-2026-09, and 47 of the 50 are closed. Scripts came back in 2.1.0 on a QuickJS sandbox that runs under the production Content-Security-Policy.",
+          "The ledger has 94 rows. Each names the documents that say it and the tests that prove it, and a check fails if a row has no test or names one that doesn’t exist. A claim test is never retried: one that passes on the second try hasn’t shown what it claims. Since 3.4.0 a skipped test no longer counts as one.",
+      },
+      {
+        title: "Says what the browser will do, before the send",
+        detail:
+          "A page can’t send a Cookie header, can’t read most response headers across origins and gets no phase timings unless the server sends Timing-Allow-Origin. The composer says what the browser will do to a request before it goes, and a network failure shows the real error. An early version’s service worker answered with a made-up 504.",
+      },
+      {
+        title: "A bridge for what a page can’t do",
+        detail:
+          "wayfarer-bridge relays a request from your machine, where CORS doesn’t apply. It listens on 127.0.0.1 only, relays only for an allowed origin that presents its token, and issues the token against a pairing code that works once. The route Auto sends from the page and offers the bridge only after the page got no answer. A response is never sent twice.",
+      },
+      {
+        title: "Audited, then reviewed again before the announcement",
+        detail:
+          "The September 2026 audit compared the documentation with the code and left 75 issues labeled audit-2026-09, among them scripts blocked by the production CSP and an “encrypted at rest” claim that overstated. 71 are closed, and scripts came back in 2.1.0 on a sandbox that runs under that CSP. In November a walkthrough of the live app as a first-time visitor and a review of the whole codebase went into 3.2.4 to 3.4.0: a Timings phase that showed 593 seconds for a one-second request, a phone told to run a terminal command, and a bridge timeout that cut requests off at 30 seconds.",
       },
       {
         title: "Nothing to rug-pull",
         detail:
-          "There is no account, hosted backend, or pricing tier that can change under you. HAR 1.2 export lets you take your data out in a standard format at any time.",
-      },
-      {
-        title: "Renamed from API Sandbox",
-        detail:
-          "API Sandbox became Wayfarer with the same storage model and license carried forward.",
+          "There is no account, hosted backend, or pricing tier that can change under you. Collections export as Postman v2.1 or Wayfarer files, an exchange as HAR 1.2, and the whole workspace backs up to one file.",
       },
     ],
     links: {
       live: "https://wayfarer.ashwinsathian.com",
       github: "https://github.com/AshwinSathian/wayfarer",
+      npm: "https://www.npmjs.com/package/wayfarer-cli",
     },
     media: {
       kind: "screenshot",
       src: "/projects/wayfarer/hero.png",
       width: 1280,
       height: 800,
-      alt: "Wayfarer’s request builder: headers editor on the left, a syntax-highlighted JSON response with status and timing on the right.",
+      alt: "Wayfarer with a Postman collection imported: the Storefront API folders on the left, a POST request built from the collection’s variables, and the JSON answer, 201 Created, on the right, with a notice that the imported scripts have not been reviewed yet.",
     },
     repo: { owner: "AshwinSathian", repo: "wayfarer" },
     decisionRecord: {
-      date: "2026-07",
-      before: "API Sandbox",
-      after: "Wayfarer",
-      why: "The new name fit the product better. The local-first storage model and the MIT license carried over, and the rename shipped as v1.0.0 under the new name.",
+      date: "2026-11",
+      before: "The ledger said the production page “loads with no script the app didn’t ship (0 CSP violations)”",
+      after: "It says the page runs no script but the app’s, and the CSP blocks any other, also one the host adds",
+      why: "The Cloudflare zone that serves the site injects a bot-detection script. The CSP blocks it, and a block is a violation, so “0 violations” was false, and the check for it was skipped against production with a warning, so nothing was testing the claim. The new wording says what holds, with a test that fails on any script fetched from another origin and on any violation that isn’t a blocked script. The strict zero-violations test stays, skipped on production until the zone stops injecting. Reworded in 3.2.5 on 9 November 2026.",
     },
     caseStudy: {
       problem:
-        "API clients that store your secrets ask you to trust their account system and their pricing page with the credentials you paste into them.",
+        "API clients that keep your secrets ask you to trust their account system and their pricing page with the credentials you paste into them. A client that runs in a browser tab needs neither, but the tab can’t do everything a desktop client can, and a client that doesn’t say so reports wrong things.",
       decision:
-        "Built Wayfarer to run entirely client-side: collections and requests live in IndexedDB, and secrets get their own vault where PBKDF2-SHA-256 (600,000 iterations) wraps an AES-GCM-256 key held only in memory, so IndexedDB never sees anything but ciphertext. Renamed from API Sandbox to Wayfarer mid-life, with the storage model and license carried forward, and shipped as v1.0.0 under the new name.",
+        "Built Wayfarer to run in the tab: collections live in IndexedDB, secrets go in a vault whose key exists only in memory, and the composer says what the browser will do to a request before it is sent. What a page can’t do goes to an optional Local Bridge on the user’s machine, paired by a code. Made every public claim a row in a ledger with the tests that prove it, run in three browser engines, after an audit of the project’s own documentation found where it said more than the code did.",
       outcome:
-        "There is no account or backend, so nothing can gate access to your own data. Scripts, switched off after the audit, run again in every build on a QuickJS sandbox.",
+        "Version 3.4.0 is current, with wayfarer-cli 2.2.0 and wayfarer-bridge 3.0.2 on npm. The ledger has 94 claims, and one of them was false while the host injected its own script, until it was reworded on 9 November 2026. Of the audit’s 75 issues, 71 are closed. What isn’t built is written down: no gRPC, no Git-backed collections, no live shared workspace.",
     },
   },
   {

@@ -1,0 +1,12 @@
+---
+import { Image } from "astro:assets";
+import type { ProjectMedia } from "../data/projects";
+interface Props { media: ProjectMedia }
+const { media } = Astro.props;
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/projects/**/*.png", { eager: true });
+const shot = media.kind === "screenshot" ? images[`/src/assets${media.src}`]?.default : undefined;
+---
+
+{shot && (
+  <Image src={shot} alt="" widths={[480, 800]} sizes="(min-width: 768px) 560px, 100vw" format="webp" quality={78} loading="lazy" class="aspect-[16/9] w-full rounded-[18px] border border-line object-cover object-top" />
+)}

@@ -1,0 +1,34 @@
+---
+import { Image } from "astro:assets";
+import type { ProjectMedia } from "../data/projects";
+
+interface Props { media: ProjectMedia; priority?: boolean }
+const { media, priority = false } = Astro.props;
+
+// Screenshots live in src/assets/projects so Astro can resize and convert them.
+const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/projects/**/*.png", { eager: true });
+const shot = media.kind === "screenshot" ? images[`/src/assets${media.src}`]?.default : undefined;
+---
+
+{media.kind === "screenshot" && shot ? (
+  <div class="overflow-hidden rounded-panel border border-line-strong bg-surface">
+    <Image
+      src={shot}
+      alt={media.alt}
+      widths={[640, 960, 1280, 1920]}
+      sizes="(min-width: 1200px) 1104px, 100vw"
+      format="webp"
+      quality={82}
+      loading={priority ? "eager" : "lazy"}
+      fetchpriority={priority ? "high" : "auto"}
+      class="block h-auto w-full"
+    />
+  </div>
+) : media.kind === "code" ? (
+  <figure class="overflow-hidden rounded-panel border border-line-strong bg-surface">
+    <figcaption class="flex items-center justify-between border-b border-line px-5 py-3 text-meta tabular-nums text-fg-3">
+      <span>{media.caption}</span><span>{media.language}</span>
+    </figcaption>
+    <pre class="code p-5 text-fg"><code>{media.snippet}</code></pre>
+  </figure>
+) : null}

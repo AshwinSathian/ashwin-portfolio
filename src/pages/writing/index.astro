@@ -1,0 +1,18 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import PostList from "../../components/PostList.astro";
+import ArrowLink from "../../components/ArrowLink.astro";
+import { getPosts } from "../../lib/posts";
+import { breadcrumbs, collectionPage } from "../../lib/schema";
+
+const posts = await getPosts();
+const description = "Technical notes on the Go, Angular and TypeScript tools I build: HTTP caching, runtime i18n, a browser API client and AI writing tells.";
+---
+
+<Base title="Writing" description={description} path="/writing" image="/og/writing.png" schema={[collectionPage("/writing", "Writing", description, posts.map((p) => ({ name: p.data.title, path: `/writing/${p.id}` })), "Blog"), breadcrumbs([["Home", ""], ["Writing", "/writing"]])]}>
+  <PageHeader title="Writing." tab="Writing" tone="yellow">
+    Technical notes from the libraries and tools I build, including what I got wrong. <ArrowLink href="/writing/feed.xml" external>RSS</ArrowLink>
+  </PageHeader>
+  <div class="shell pb-24 lg:pb-40"><div class="border-b border-line"><PostList posts={posts} /></div></div>
+</Base>

@@ -1,0 +1,16 @@
+---
+import StatusTag from "./StatusTag.astro";
+interface Props { href: string; name: string; description: string; marker?: string; status?: string; as?: "h2" | "h3" }
+const { href, name, description, marker, status, as: Heading = "h3" } = Astro.props;
+const external = href.startsWith("http");
+---
+
+<a href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})} class="row reveal grid gap-x-8 gap-y-1.5 rounded-control border-t border-line py-6 md:grid-cols-[9rem_16rem_1fr_auto] md:items-baseline">
+  <span class="text-meta tabular-nums text-fg-3">{marker}</span>
+  <span class="flex flex-col items-start gap-2">
+    <Heading class="font-display text-title font-semibold tracking-[-0.01em] text-fg wrap-anywhere">{name}</Heading>
+    {status && <StatusTag>{status}</StatusTag>}
+  </span>
+  <span class="text-small text-fg-2">{description}{external && <span class="sr-only"> (opens in new tab)</span>}</span>
+  <span aria-hidden="true" class:list={["arrow hidden text-fg-3 md:block", external && "arrow-out"]}>{external ? "↗" : "→"}</span>
+</a>

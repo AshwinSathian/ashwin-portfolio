@@ -1,0 +1,19 @@
+---
+import type { DecisionRecord } from "../data/projects";
+interface Props { record: DecisionRecord }
+const { record } = Astro.props;
+---
+
+<div class="reveal overflow-hidden rounded-panel border border-line bg-surface">
+  <dl class="grid md:grid-cols-2">
+    <div class="flex flex-col gap-2 border-b border-line p-6 md:border-b-0 md:border-r lg:p-8">
+      <dt class="pill tone-orange self-start text-meta">Was</dt>
+      <dd class="text-fg-2 line-through decoration-fg-3/60">{record.before}</dd>
+    </div>
+    <div class="flex flex-col gap-2 p-6 lg:p-8">
+      <dt class="pill tone-teal self-start text-meta">Now, since {record.date}</dt>
+      <dd class="font-medium text-fg">{record.after}</dd>
+    </div>
+  </dl>
+  <p class="border-t border-line p-6 text-small text-fg-2 lg:p-8"><span class="font-medium text-fg">Why. </span>{record.why}</p>
+</div>

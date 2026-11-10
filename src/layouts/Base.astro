@@ -1,0 +1,88 @@
+---
+import "../styles/global.css";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import bricolageUrl from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url";
+import figtreeUrl from "@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url";
+import { SITE } from "../data/site";
+import { truncate } from "../lib/text";
+import { personSchema, websiteSchema } from "../lib/schema";
+
+interface Props {
+  title?: string;
+  description: string;
+  /** Path on this site, no trailing slash ("" for home). */
+  path?: string;
+  /** Path of the social card, e.g. "/og/projects.png". */
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+  schema?: object[];
+  published?: string;
+  modified?: string;
+  tags?: string[];
+}
+
+const { title, description: fullDescription, path = "", image = "/og/site.png", type = "website", noindex = false, schema = [], published, modified, tags = [] } = Astro.props;
+// The brand suffix is dropped when it would push the title past what search results show (~60 characters).
+const description = truncate(fullDescription, 160);
+const withBrand = title ? `${title} | ${SITE.name}` : "";
+const fullTitle = title ? (withBrand.length <= 65 ? withBrand : title) : `${SITE.name} | Senior Full-Stack Engineer`;
+const url = `${SITE.website}${path}`;
+const imageUrl = new URL(image, SITE.website).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#15120f" />
+    <meta name="author" content={SITE.name} />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />}
+    {!noindex && <link rel="canonical" href={url} />}
+    <link rel="icon" href="/favicon.svg?v=10" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=10" />
+    <link rel="alternate" type="application/rss+xml" title="Ashwin Sathian: Writing" href="/writing/feed.xml" />
+    {(path.startsWith("/writing/") || path.startsWith("/projects/")) && <link rel="alternate" type="text/markdown" href={`${path}.md`} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href={bricolageUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={figtreeUrl} as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title ? `Social card for “${title}” on ashwinsathian.com` : "Ashwin Sathian, senior full-stack engineer: “Hi, I’m Ashwin.”"} />
+    {published && <meta property="article:published_time" content={published} />}
+    {modified && <meta property="article:modified_time" content={modified} />}
+    {type === "article" && <meta property="article:author" content={SITE.name} />}
+    {tags.map((t) => <meta property="article:tag" content={t} />)}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    {!noindex && [personSchema, websiteSchema, ...schema].map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a
+      href="#main"
+      class="fixed left-4 top-4 z-100 -translate-y-24 rounded-full bg-yellow px-5 py-3 text-small font-semibold text-night transition-transform duration-200 focus-visible:translate-y-0"
+    >
+      Skip to content
+    </a>
+    <Nav path={path} />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

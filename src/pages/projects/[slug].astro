@@ -1,0 +1,185 @@
+---
+import type { GetStaticPaths } from "astro";
+import Base from "../../layouts/Base.astro";
+import ArrowLink from "../../components/ArrowLink.astro";
+import ArchitectureDiagram from "../../components/ArchitectureDiagram.astro";
+import DecisionRecord from "../../components/DecisionRecord.astro";
+import PostList from "../../components/PostList.astro";
+import ProjectMedia from "../../components/ProjectMedia.astro";
+import StatusTag from "../../components/StatusTag.astro";
+import { PROJECT_POSTS } from "../../data/related";
+import { SITE } from "../../data/site";
+import { getPosts } from "../../lib/posts";
+import { getProjectsWithStats, type ProjectWithStats } from "../../lib/projects";
+import { breadcrumbs } from "../../lib/schema";
+import { truncate } from "../../lib/text";
+import { toneForProject } from "../../data/home";
+
+export const getStaticPaths = (async () => {
+  const all = await getProjectsWithStats();
+  return all.map((project, i) => ({
+    params: { slug: project.slug },
+    props: { project, next: all[(i + 1) % all.length]! },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project, next } = Astro.props as { project: ProjectWithStats; next: ProjectWithStats };
+
+// Apps whose data says outright that they cost nothing (Wayfarer: "no account, hosted backend, or pricing tier").
+const FREE_TO_USE = new Set(["wayfarer"]);
+const LANGUAGES = ["Go", "TypeScript", "JavaScript", "Python"];
+const id = `${SITE.website}/projects/${project.slug}`;
+const common = { "@context": "https://schema.org", "@id": `${id}#software`, name: project.name, description: project.tagline, author: { "@id": `${SITE.website}/#person` } };
+const isCode = /library|skill/i.test(project.category);
+const languages = LANGUAGES.filter((l) => project.stack.some((s) => new RegExp(`^${l}\\b`).test(s)));
+const sameAs = Object.values(project.links);
+const software = { sameAs, ...(isCode
+  ? {
+      ...common, "@type": "SoftwareSourceCode", url: id,
+      ...(project.links.github ? { codeRepository: project.links.github } : {}),
+      ...(languages.length ? { programmingLanguage: languages.length === 1 ? languages[0] : languages } : {}),
+    }
+  : {
+      ...common, "@type": "WebApplication", url: project.links.live ?? id,
+      applicationCategory: /game/i.test(project.category) ? "GameApplication" : /messaging/i.test(project.category) ? "CommunicationApplication" : "DeveloperApplication",
+      // BRNR also ships a mobile client, so "any web browser" would understate it.
+      ...(project.slug === "brnr" ? {} : { operatingSystem: "Any (web browser)" }),
+      ...(FREE_TO_USE.has(project.slug) ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }, isAccessibleForFree: true } : {}),
+    }) };
+
+const LINK_LABELS = { live: "Visit live site", github: "View on GitHub", npm: "View on npm", vscode: "Install for VS Code" } as const;
+const relatedSlugs = PROJECT_POSTS[project.slug] ?? [];
+const related = (await getPosts()).filter((p) => relatedSlugs.includes(p.id));
+const narrative: [string, string][] = project.caseStudy
+  ? [["Problem", project.caseStudy.problem], ["Decision", project.caseStudy.decision], ["Outcome", project.caseStudy.outcome]]
+  : [];
+const NTONES = ["orange", "yellow", "teal"];
+const description = truncate(project.tagline, 160);
+// Titles that carry what the project is, not just its category.
+const SEO_TITLES: Record<string, string> = {
+  wayfarer: "Wayfarer: local-first API client in a browser tab",
+  weir: "Weir: HTTP cache library for Go",
+  booklet: "Booklet: publish Markdown as web pages",
+  brnr: "BRNR: end-to-end encrypted, ephemeral chat",
+  typester: "Typester: keyboard-first typing speed game",
+  "ngx-runtime-i18n": "ngx-runtime-i18n: runtime i18n for Angular",
+  "better-auth-mongoose": "better-auth-mongoose: Mongoose adapter for Better Auth",
+  "humanize-writing-skill": "humanize-writing-skill: Claude Code skill for prose",
+};
+
+---
+
+<Base
+  title={SEO_TITLES[project.slug] ?? `${project.name}: ${project.category}`}
+  description={description}
+  path={`/projects/${project.slug}`}
+  image={`/og/projects/${project.slug}.png`}
+  schema={[software, breadcrumbs([["Home", ""], ["Projects", "/projects"], [project.name, `/projects/${project.slug}`]])]}
+>
+  <article>
+    <header class="shell pb-10 pt-28 lg:pb-16 lg:pt-40">
+      <nav aria-label="Breadcrumb" class="load-rise mb-8 text-small text-fg-3 lg:mb-12">
+        <ol class="flex flex-wrap items-center gap-x-2">
+          <li><a href="/" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Home</span></a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/projects" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Projects</span></a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-fg-2">{project.name}</li>
+        </ol>
+      </nav>
+      <p class="load-rise mb-5 flex flex-wrap items-center gap-3 text-meta">
+        <span class:list={["pill", `tone-${toneForProject(project.slug)}`]}>{project.category}</span>
+        {project.status && <StatusTag>{project.status}</StatusTag>}
+      </p>
+      <h1 class="load-rise font-display text-display-2xl font-bold tracking-[-0.045em] wrap-anywhere [--d:80ms]">{project.name}</h1>
+      <p class="load-rise mt-6 max-w-3xl text-[1.1875rem] leading-[1.5] text-fg-2 lg:mt-8 lg:text-[1.375rem] [--d:200ms]">{project.tagline}</p>
+      <div class="load-rise mt-6 flex flex-wrap gap-x-8 [--d:300ms]">
+        {(Object.entries(project.links) as [keyof typeof LINK_LABELS, string][]).map(([key, href]) => (
+          <ArrowLink href={href} external>{LINK_LABELS[key]}</ArrowLink>
+        ))}
+      </div>
+    </header>
+
+    <div class="shell"><ProjectMedia media={project.media} priority /></div>
+
+    <div class="shell grid grid-cols-1 gap-x-16 gap-y-14 py-16 lg:grid-cols-12 lg:py-28">
+      <aside aria-label="Project facts" class="min-w-0 lg:order-2 lg:col-span-4">
+        <div class="flex flex-col gap-8 lg:sticky lg:top-24">
+          <dl class="flex flex-col border-t border-line">
+            {project.facts.map((f) => (
+              <div class="flex flex-col gap-1 border-b border-line py-4"><dt class="text-small text-fg-3">{f.label}</dt><dd class="text-fg">{f.value}</dd></div>
+            ))}
+            {project.language && <div class="flex flex-col gap-1 border-b border-line py-4"><dt class="text-small text-fg-3">Primary language</dt><dd class="text-fg">{project.language}</dd></div>}
+            {typeof project.stars === "number" && project.stars > 0 && <div class="flex flex-col gap-1 border-b border-line py-4"><dt class="text-small text-fg-3">GitHub stars</dt><dd class="tabular-nums text-fg">{project.stars}</dd></div>}
+          </dl>
+          <div>
+            <h2 class="mb-3 text-small text-fg-3">Stack</h2>
+            <p class="text-meta tabular-nums leading-[1.9] text-fg-2">{project.stack.join(" · ")}</p>
+          </div>
+        </div>
+      </aside>
+
+      <div class="flex min-w-0 flex-col gap-16 lg:order-1 lg:col-span-8 lg:gap-24">
+        {narrative.length > 0 ? (
+          <div class="flex flex-col gap-12">
+            {narrative.map(([label, text], i) => (
+              <section aria-labelledby={`cs-${label}`} class="reveal flex flex-col gap-3">
+                <h2 id={`cs-${label}`} class="flex items-center gap-4 font-display text-display-m font-bold tracking-[-0.03em]">
+                  <span aria-hidden="true" class:list={["h-3 w-3 rounded-full", `bg-${NTONES[i]}`]}></span>{label}
+                </h2>
+                <p class={i === 0 ? "text-[1.1875rem] leading-[1.6] text-fg" : "text-fg-2"}>{text}</p>
+              </section>
+            ))}
+          </div>
+        ) : (
+          <div class="reveal flex flex-col gap-5">
+            {project.description.map((para, i) => <p class={i === 0 ? "text-[1.1875rem] leading-[1.6] text-fg" : "text-fg-2"}>{para}</p>)}
+          </div>
+        )}
+
+        {project.slug === "booklet" && (
+          <section aria-labelledby="architecture-h" class="flex flex-col gap-6">
+            <h2 id="architecture-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em]">Architecture</h2>
+            <ArchitectureDiagram />
+          </section>
+        )}
+
+        <section aria-labelledby="highlights-h" class="flex flex-col gap-2">
+          <h2 id="highlights-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em]">Highlights</h2>
+          <ul class="flex flex-col">
+            {project.highlights.map((h) => (
+              <li class="reveal flex flex-col gap-2 border-b border-line py-7">
+                <h3 class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{h.title}</h3>
+                <p class="text-fg-2">{h.detail}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {project.decisionRecord && (
+          <section aria-labelledby="decision-h" class="flex flex-col gap-6">
+            <h2 id="decision-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em]">Revised in public</h2>
+            <DecisionRecord record={project.decisionRecord} />
+          </section>
+        )}
+
+        {related.length > 0 && (
+          <section aria-labelledby="writing-h" class="flex flex-col gap-2">
+            <h2 id="writing-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em]">Writing about this</h2>
+            <div class="border-b border-line"><PostList posts={related} as="h3" /></div>
+          </section>
+        )}
+      </div>
+    </div>
+
+    <a href={`/projects/${next.slug}`} class="group block border-t border-line transition-colors duration-300 hover:bg-surface">
+      <div class="shell flex items-end justify-between gap-6 py-14 lg:py-24">
+        <div class="flex min-w-0 flex-col gap-3">
+          <span class="pill tone-yellow w-fit text-meta">Next project</span>
+          <span class="font-display text-display-l font-bold tracking-[-0.035em] wrap-anywhere">{next.name}</span>
+        </div>
+        <span aria-hidden="true" class="arrow text-display-m text-fg-2">→</span>
+      </div>
+    </a>
+  </article>
+</Base>

@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import ProjectRow from "../../components/ProjectRow.astro";
+import { ALSO_SHIPPED, PROJECTS } from "../../data/projects";
+import { breadcrumbs, collectionPage } from "../../lib/schema";
+import { capitalize, numberWord } from "../../lib/text";
+
+const cap = capitalize(numberWord(PROJECTS.length));
+const description = `${cap} projects I built: a Markdown publisher, Go, Angular and TypeScript libraries, an encrypted messenger, an API client, a typing game and a Claude skill.`;
+---
+
+<Base title="Projects" description={description} path="/projects" image="/og/projects.png" schema={[collectionPage("/projects", "Projects", description, PROJECTS.map((p) => ({ name: p.name, path: `/projects/${p.slug}` }))), breadcrumbs([["Home", ""], ["Projects", "/projects"]])]}>
+  <PageHeader title={`${cap} projects, built and shipped end to end.`} tab="Projects" tone="teal">
+    Products and libraries I built on my own time. Each page covers what it does and how it is built.
+  </PageHeader>
+  <div class="shell pb-24 lg:pb-40">
+    <div class="flex flex-col border-b border-line">
+      {PROJECTS.map((p) => <ProjectRow href={`/projects/${p.slug}`} name={p.name} description={p.tagline} status={p.status} marker={p.category} as="h2" />)}
+      {ALSO_SHIPPED.map((a) => <ProjectRow href={a.href} name={a.name} description={a.description} status={a.status} marker="Also" as="h2" />)}
+    </div>
+  </div>
+</Base>

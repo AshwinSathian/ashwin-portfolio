@@ -1,0 +1,103 @@
+---
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import ArrowLink from "../../components/ArrowLink.astro";
+import { PROJECTS } from "../../data/projects";
+import { projectForPost } from "../../data/related";
+import { SITE } from "../../data/site";
+import { getPosts, postDate, type Post } from "../../lib/posts";
+import { breadcrumbs } from "../../lib/schema";
+import { longDate } from "../../lib/text";
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post, newer, older } = Astro.props as { post: Post; newer?: Post; older?: Post };
+const { Content } = await render(post);
+const { data } = post;
+const url = `${SITE.website}/writing/${post.id}`;
+const project = PROJECTS.find((p) => p.slug === projectForPost(post.id));
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: data.title,
+  description: data.description,
+  url,
+  mainEntityOfPage: { "@type": "WebPage", "@id": url },
+  image: `${SITE.website}/og/writing/${post.id}.png`,
+  datePublished: data.date,
+  dateModified: data.updatedAt ?? data.date,
+  author: { "@id": `${SITE.website}/#person` },
+  publisher: { "@id": `${SITE.website}/#person` },
+  inLanguage: "en-US",
+  isPartOf: { "@type": "Blog", "@id": `${SITE.website}/writing#page`, name: "Writing", url: `${SITE.website}/writing` },
+  ...(project ? { about: { "@id": `${SITE.website}/projects/${project.slug}#software`, name: project.name, url: `${SITE.website}/projects/${project.slug}` } } : {}),
+  wordCount: (post.body ?? "").trim().split(/\s+/).length,
+  ...(data.tags.length ? { keywords: data.tags.join(", ") } : {}),
+};
+---
+
+<Base
+  title={data.title}
+  description={data.seoDescription ?? data.description}
+  path={`/writing/${post.id}`}
+  image={`/og/writing/${post.id}.png`}
+  type="article"
+  published={data.date}
+  modified={data.updatedAt ?? data.date}
+  tags={data.tags}
+  schema={[schema, breadcrumbs([["Home", ""], ["Writing", "/writing"], [data.title, `/writing/${post.id}`]])]}
+>
+  <article>
+    <div aria-hidden="true" class="progress"></div>
+    <header class="shell pb-10 pt-28 lg:pb-16 lg:pt-40">
+      <nav aria-label="Breadcrumb" class="load-rise mb-6 text-small text-fg-3">
+        <ol class="flex flex-wrap items-center gap-x-2">
+          <li><a href="/" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Home</span></a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/writing" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Writing</span></a></li>
+        </ol>
+      </nav>
+      <h1 class="load-rise max-w-4xl font-display text-display-l font-bold tracking-[-0.035em] [--d:80ms]">{data.title}</h1>
+      <p class="load-rise mt-6 max-w-2xl text-[1.1875rem] leading-[1.5] text-fg-2 [--d:200ms]">{data.description}</p>
+      <p class="load-rise mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-meta tabular-nums text-fg-3 [--d:300ms]">
+        <span>By <a href="/" rel="author" class="text-fg"><span class="link">Ashwin Sathian</span></a></span>
+        <span class="pill tone-yellow text-meta"><time datetime={data.date}>{postDate(post)}</time></span>
+        {data.updatedAt && data.updatedAt !== data.date && <span>Updated <time datetime={data.updatedAt}>{longDate(data.updatedAt)}</time></span>}
+        <span>{post.readingTime} min read</span>
+        {data.draft && <span>Draft</span>}
+        {data.tags.length > 0 && <span>{data.tags.join(", ")}</span>}
+      </p>
+      {project && <div class="load-rise mt-4 [--d:360ms]"><ArrowLink href={`/projects/${project.slug}`}>About the project: {project.name}</ArrowLink></div>}
+    </header>
+
+    <div class="shell border-t border-line py-12 lg:py-20"><div class="prose"><Content /></div></div>
+
+    <aside aria-label="About the author" class="shell pb-16 lg:pb-24">
+      <div class="flex max-w-[66ch] flex-col gap-3 rounded-panel border border-line bg-surface p-6 lg:p-8">
+        <p class="font-display text-title font-semibold tracking-[-0.01em]">Written by Ashwin Sathian</p>
+        <p class="text-fg-2">Senior full-stack engineer in Kochi, India. I build the tools I write about, and I check each claim against the code before it goes in a post.</p>
+        <p class="flex flex-wrap gap-x-6"><ArrowLink href="/">About me</ArrowLink><ArrowLink href={SITE.github} external>GitHub</ArrowLink><ArrowLink href="/writing/feed.xml" external>RSS</ArrowLink></p>
+      </div>
+    </aside>
+
+    {(newer || older) && (
+      <nav aria-label="More writing" class="border-t border-line">
+        <div class="shell grid sm:grid-cols-2 sm:gap-x-12">
+          {older ? (
+            <a href={`/writing/${older.id}`} class="row flex flex-col gap-2 rounded-control border-b border-line py-8 sm:border-b-0 sm:py-12"><span class="text-small text-fg-3">Older</span><span class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{older.data.title}</span></a>
+          ) : <span class="hidden sm:block"></span>}
+          {newer ? (
+            <a href={`/writing/${newer.id}`} class="row flex flex-col gap-2 rounded-control py-8 sm:items-end sm:py-12 sm:text-right"><span class="text-small text-fg-3">Newer</span><span class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{newer.data.title}</span></a>
+          ) : <span class="hidden sm:block"></span>}
+        </div>
+      </nav>
+    )}
+  </article>
+</Base>

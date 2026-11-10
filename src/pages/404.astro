@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import ArrowLink from "../components/ArrowLink.astro";
+---
+
+<Base title="Not found" description="This page does not exist." noindex>
+  <div class="shell flex min-h-[80svh] flex-col justify-end pb-16 pt-32 lg:pb-24">
+    <p class="pill tone-orange load-rise mb-6 w-fit">404</p>
+    <h1 class="load-rise max-w-4xl font-display text-display-2xl font-bold tracking-[-0.045em] [--d:80ms]">Nothing at this address.</h1>
+    <div class="load-rise mt-10 flex flex-wrap gap-x-8 border-t border-line pt-6 [--d:300ms]">
+      <ArrowLink href="/">Home</ArrowLink>
+      <ArrowLink href="/projects">Projects</ArrowLink>
+      <ArrowLink href="/writing">Writing</ArrowLink>
+    </div>
+  </div>
+</Base>

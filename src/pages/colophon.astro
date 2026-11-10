@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { breadcrumbs } from "../lib/schema";
+
+const description = "How this site is built: Astro on Cloudflare, three open-source typefaces, a dark palette from the kasavu sari and four tone colours, and CSS-only motion.";
+const SECTIONS = [
+  { title: "Stack", body: [
+    "The site is Astro 7, styled with Tailwind CSS 4. Every page is rendered to static HTML at build time, social-card images included, and there is no server code: Cloudflare serves the files straight from its edge, and anything with a hashed filename is cached for a year.",
+    "Project screenshots are resized and converted to WebP at build time. The only script on a page is the few lines that open the mobile menu.",
+  ] },
+  { title: "Writing", body: [
+    "Posts are Markdown files in the repository, validated against a schema when the site builds. Code blocks are highlighted at build time with Shiki. Every post is published here first and only here, and there is an RSS feed.",
+  ] },
+  { title: "Type and colour", body: [
+    "Headings are set in Bricolage Grotesque, body text in Figtree, and code in JetBrains Mono. All three are variable fonts under the SIL Open Font License, served from this site rather than a font CDN.",
+    "The ground is dark and warm, after the kasavu sari of Kerala. Four tone colours (orange, yellow, teal and blue) mark tabs, dates and one closing panel, a habit borrowed from ChatterMeter, a product I am building. There is no light theme.",
+  ] },
+  { title: "Motion and the rest", body: [
+    "Motion is CSS only and stays small: headings fade in, tabs lift, and a few things rise into place as you scroll. If your system asks for reduced motion, all of it turns off. Every page is complete without JavaScript.",
+    "Project facts are checked against each project’s repository when they are written.",
+  ] },
+];
+---
+
+<Base title="Colophon" description={description} path="/colophon" image="/og/colophon.png" schema={[breadcrumbs([["Home", ""], ["Colophon", "/colophon"]])]}>
+  <PageHeader title="Colophon." tab="Colophon" tone="blue">How this site is put together, and why.</PageHeader>
+  <div class="shell flex flex-col gap-14 pb-24 lg:pb-40">
+    {SECTIONS.map((s) => (
+      <section aria-labelledby={`c-${s.title}`} class="grid gap-4 lg:grid-cols-12 lg:gap-16">
+        <h2 id={`c-${s.title}`} class="reveal font-display text-title font-semibold tracking-[-0.01em] text-fg lg:col-span-3">{s.title}</h2>
+        <div class="flex max-w-2xl flex-col gap-4 lg:col-span-9">{s.body.map((p) => <p class="reveal text-fg-2">{p}</p>)}</div>
+      </section>
+    ))}
+  </div>
+</Base>

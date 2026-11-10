@@ -1,0 +1,172 @@
+---
+import Base from "../layouts/Base.astro";
+import ArrowLink from "../components/ArrowLink.astro";
+import StatusTag from "../components/StatusTag.astro";
+import ProjectThumb from "../components/ProjectThumb.astro";
+import { GROUPS, INTRO, QUICK_ANSWERS, STORIES, WORK, toneForProject } from "../data/home";
+import { PROJECTS } from "../data/projects";
+import { SITE } from "../data/site";
+import { siteDescription } from "../lib/schema";
+import { getPosts } from "../lib/posts";
+import { capitalize, monthYear, numberWord } from "../lib/text";
+
+const posts = (await getPosts()).slice(0, 4);
+const total = numberWord(PROJECTS.length);
+
+const FOLDERS = [
+  { label: "Writing", href: "#writing", tone: "yellow" },
+  { label: "Projects", href: "#made", tone: "teal" },
+  { label: "Work", href: "#work", tone: "blue" },
+] as const;
+
+const profile = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE.website}/#profilepage`,
+  url: SITE.website,
+  name: `${SITE.name}, senior full-stack engineer`,
+  mainEntity: { "@id": `${SITE.website}/#person` },
+  inLanguage: "en-US",
+  isPartOf: { "@id": `${SITE.website}/#website` },
+  dateModified: new Date().toISOString().slice(0, 10),
+};
+---
+
+<Base description={siteDescription} schema={[profile]}>
+  <header class="shell pb-14 pt-32 lg:pb-20 lg:pt-44">
+    <h1 class="load-rise font-display text-display-2xl font-bold tracking-[-0.045em] [--d:80ms]">Hi, I’m Ashwin.</h1>
+    <p class="load-rise mt-8 max-w-3xl font-display text-display-m font-semibold tracking-[-0.025em] text-fg [--d:220ms]">
+      I turn a customer’s problem into a spec, then I ship it.
+    </p>
+    <div class="load-rise mt-8 flex max-w-2xl flex-col gap-4 text-fg-2 [--d:340ms]">
+      {INTRO.paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+    <ul class="load-rise mt-8 flex flex-wrap items-center gap-x-7 gap-y-2 [--d:460ms]">
+      <li>
+        <a href={`mailto:${SITE.email}`} class="pill min-h-12! px-6 text-body tone-yellow transition-transform duration-200 ease-out hover:-translate-y-0.5">{SITE.email}</a>
+      </li>
+      <li><ArrowLink href={SITE.github} external>GitHub</ArrowLink></li>
+      <li><ArrowLink href={SITE.linkedin} external>LinkedIn</ArrowLink></li>
+      <li><ArrowLink href={SITE.resumePath} external>Résumé</ArrowLink></li>
+    </ul>
+
+    <nav aria-label="On this page" class="mt-16 lg:mt-24">
+      <ul class="folders">
+        {FOLDERS.map((f) => (
+          <li class="contents"><a href={f.href} class:list={["folder", `tone-${f.tone}`]}>{f.label}<span aria-hidden="true" class="arrow">↓</span></a></li>
+        ))}
+      </ul>
+    </nav>
+  </header>
+
+  {posts.length > 0 && (
+    <section id="writing" aria-labelledby="writing-h" class="sheet-panel tone-yellow">
+      <span class="pill sheet-tab tone-yellow" aria-hidden="true">Latest posts</span>
+      <div class="shell">
+        <div class="grid gap-8 lg:grid-cols-12 lg:gap-16">
+          <div class="flex flex-col gap-3 lg:col-span-3">
+            <h2 id="writing-h" class="reveal font-display text-display-l font-bold tracking-[-0.035em]">Writing</h2>
+            <p class="reveal text-small text-fg-2">Notes from the things I build, including what I got wrong.</p>
+          </div>
+          <div class="flex flex-col gap-6 lg:col-span-9">
+            <ul class="flex flex-col border-b border-line">
+              {posts.map((post) => (
+                <li class="reveal">
+                  <a href={`/writing/${post.id}`} class="row grid gap-x-8 gap-y-1 rounded-control border-t border-line py-5 sm:grid-cols-[6.5rem_1fr] sm:items-baseline">
+                    <span class="text-meta tabular-nums text-fg-3">{monthYear(post.data.date)}</span>
+                    <span class="flex flex-col gap-1">
+                      <h3 class="font-display text-title font-semibold leading-snug tracking-[-0.01em] text-fg">{post.data.title}</h3>
+                      <span class="text-small text-fg-2">{post.data.description}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div class="flex flex-wrap gap-x-8"><ArrowLink href="/writing">All writing</ArrowLink><ArrowLink href="/writing/feed.xml" external>RSS</ArrowLink></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section id="made" aria-labelledby="made-h" class="sheet-panel tone-teal">
+    <span class="pill sheet-tab tone-teal" aria-hidden="true">{capitalize(total)} projects</span>
+    <div class="shell">
+      <div class="flex flex-col gap-10 lg:gap-14">
+        <div class="flex flex-col gap-3">
+          <h2 id="made-h" class="reveal font-display text-display-l font-bold tracking-[-0.035em]">Things I’ve made</h2>
+          <p class="reveal text-fg-2">{capitalize(total)} projects, built on my own time. Each one started with a specific itch.</p>
+        </div>
+        {GROUPS.map((group) => (
+          <div class="flex flex-col gap-4">
+            <h3 class="reveal font-sans text-small italic text-fg-3">{group.title}</h3>
+            <ul class="grid items-start gap-4 md:grid-cols-2">
+              {group.slugs.map((slug) => {
+                const p = PROJECTS.find((x) => x.slug === slug);
+                if (!p) return null;
+                return (
+                  <li class="reveal flex">
+                    <a href={`/projects/${slug}`} class:list={["tile w-full", `tone-${toneForProject(slug)}`]}>
+                      <ProjectThumb media={p.media} />
+                      <span class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <span aria-hidden="true" class="dot"></span>
+                        <span class="font-display text-display-m font-bold leading-none tracking-[-0.03em] wrap-anywhere">{p.name}</span>
+                      </span>
+                      <span class="tile-sub flex flex-wrap items-center gap-x-3 text-small italic text-fg-3">{p.category}{p.status && <StatusTag>{p.status}</StatusTag>}</span>
+                      <span class="tile-body text-fg-2">{STORIES[slug] ?? p.tagline}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+        <ArrowLink href="/projects">All projects, with how each was built</ArrowLink>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-h" class="sheet-panel tone-blue">
+    <span class="pill sheet-tab tone-blue" aria-hidden="true">Since 2018</span>
+    <div class="shell">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-16">
+        <h2 id="work-h" class="reveal font-display text-display-l font-bold tracking-[-0.035em] lg:col-span-3">Work</h2>
+        <div class="flex flex-col gap-6 lg:col-span-9">
+          {WORK.map((p, i) => <p class:list={["reveal max-w-3xl", i === 0 ? "text-fg" : "text-fg-2"]}>{p}</p>)}
+          <ArrowLink href="/experience">Every role, in detail</ArrowLink>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="answers" aria-labelledby="answers-h" class="sheet-panel tone-orange">
+    <span class="pill sheet-tab tone-orange" aria-hidden="true">The short version</span>
+    <div class="shell">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-16">
+        <h2 id="answers-h" class="reveal font-display text-display-l font-bold tracking-[-0.035em] lg:col-span-3">Quick answers</h2>
+        <dl class="flex flex-col border-b border-line lg:col-span-9">
+          {QUICK_ANSWERS.map((qa) => (
+            <div class="reveal grid gap-2 border-t border-line py-6 md:grid-cols-[16rem_1fr] md:gap-8">
+              <dt class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{qa.q}</dt>
+              <dd class="text-fg-2">{qa.a}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="hello" aria-labelledby="hello-h" class="sheet-panel sheet-hello">
+    <div class="shell">
+      <div class="grid items-end gap-10 lg:grid-cols-12 lg:gap-16">
+        <div class="flex flex-col gap-5 lg:col-span-5">
+          <h2 id="hello-h" class="reveal font-display text-display-xl font-bold tracking-[-0.04em]">Say hello.</h2>
+          <p class="reveal max-w-md text-body">Email is the quickest way to reach me. Write about a system you’re building or a problem you’re stuck on.</p>
+        </div>
+        <div class="lg:col-span-7 lg:text-right">
+          <a href={`mailto:${SITE.email}`} class="reveal inline-block break-all rounded-full bg-night px-7 py-4 font-display text-[clamp(1.25rem,4.2vw,2.75rem)] font-semibold leading-tight tracking-[-0.02em] text-yellow! transition-transform duration-200 ease-out hover:-translate-y-0.5">{SITE.email}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

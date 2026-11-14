@@ -91,6 +91,13 @@ html {
 @view-transition {
   navigation: auto;
 }
+/* A short crossfade: long enough to read as smooth, short enough never to feel like waiting. */
+::view-transition-group(root) {
+  animation-duration: 0.16s;
+}
+/* The bar stays put while the page under it changes. */
+.bar { view-transition-name: bar; }
+::view-transition-group(bar) { animation-duration: 0s; }
 
 body {
   background: var(--color-night);
@@ -302,9 +309,10 @@ a:focus-visible .arrow-out {
 
 /* ─── Entrance and scroll motion ─────────────────────────────────────────── */
 
+/* Quick on purpose: the stagger is a hint of order, not a wait. The longest delay is under 150 ms. */
 .load-rise {
-  animation: load-rise 0.8s var(--ease-out) both;
-  animation-delay: var(--d, 0ms);
+  animation: load-rise 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--d, 0ms) * 0.35);
 }
 @keyframes load-rise {
   from {
@@ -499,6 +507,90 @@ a:focus-visible .arrow-out {
   padding: 0.6rem 1rem 0.6rem 0;
   border-bottom: 1px solid var(--color-line);
   vertical-align: top;
+}
+
+
+/* ─── Skeletons: the page you are going to, until it lands ───────────────── */
+
+.sk {
+  display: block;
+  height: 1rem;
+  border-radius: 8px;
+  background: linear-gradient(100deg, var(--color-surface-2) 30%, rgb(241 234 220 / 0.1) 50%, var(--color-surface-2) 70%) 0 0 / 250% 100%;
+  animation: shimmer 1.3s linear infinite;
+}
+@keyframes shimmer {
+  to { background-position: -150% 0; }
+}
+
+#nav-skeleton {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  overflow: hidden;
+  background: var(--color-night);
+  pointer-events: none;
+}
+/* Fades in after a beat, so a navigation that lands within ~150 ms never shows it. */
+html[data-nav] #nav-skeleton {
+  display: block;
+  animation: sk-in 0.2s ease-out 150ms both;
+}
+@keyframes sk-in { from { opacity: 0; } }
+.sk-view { display: none; }
+html[data-nav-kind="home"] .sk-view[data-kind="home"],
+html[data-nav-kind="list"] .sk-view[data-kind="list"],
+html[data-nav-kind="article"] .sk-view[data-kind="article"] { display: block; }
+
+#nav-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  display: none;
+  height: 3px;
+  background: var(--color-yellow);
+  transform-origin: left;
+}
+/* The bar starts at once, outside the delayed fade: it is the instant acknowledgement. */
+html[data-nav] #nav-progress {
+  display: block;
+  animation: progress 8s cubic-bezier(0.1, 0.7, 0.2, 1) both;
+}
+@keyframes progress {
+  from { transform: scaleX(0.02); }
+  to { transform: scaleX(0.92); }
+}
+
+.sk-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-top: 8rem;
+}
+@media (min-width: 1024px) { .sk-hero { padding-top: 11rem; gap: 1.75rem; } }
+.sk-h1, .sk-sub, .sk-lines { width: 100%; }
+.sk-lines { display: flex; flex-direction: column; gap: 0.7rem; max-width: 40rem; }
+.sk-h1 { height: clamp(3.25rem, 11vw, 8rem); max-width: 56rem; border-radius: 14px; }
+.sk-h1-short { height: clamp(2.5rem, 7vw, 4.5rem); max-width: 40rem; }
+.sk-h1-half { max-width: 20rem; }
+.sk-sub { height: 2rem; max-width: 36rem; }
+.sk-pill { height: 2.25rem; border-radius: 999px; max-width: 100%; }
+.sk-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+.sk-rows { display: flex; flex-direction: column; gap: 0.75rem; width: 100%; margin-top: 2rem; }
+.sk-card { height: 6.5rem; border-radius: 20px; }
+
+/* Images: shimmer while loading, then the picture arrives over it. */
+main img { background-color: var(--color-surface-2); }
+main img.is-loading {
+  background-image: linear-gradient(100deg, transparent 30%, rgb(241 234 220 / 0.1) 50%, transparent 70%);
+  background-size: 250% 100%;
+  animation: shimmer 1.3s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #nav-skeleton { display: none !important; }
 }
 
 /* ─── Opt-outs ───────────────────────────────────────────────────────────── */

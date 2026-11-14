@@ -1,0 +1,20 @@
+{
+  "prefetch": [
+    {
+      "urls": ["/projects", "/experience", "/writing"],
+      "eagerness": "eager"
+    }
+  ],
+  "prerender": [
+    {
+      "where": {
+        "and": [
+          { "href_matches": "/*" },
+          { "not": { "href_matches": ["/*.pdf", "/*.md", "/*.xml", "/*.txt", "/*.png", "/*.html", "/og/*"] } },
+          { "not": { "selector_matches": "[target=_blank]" } }
+        ]
+      },
+      "eagerness": "moderate"
+    }
+  ]
+}

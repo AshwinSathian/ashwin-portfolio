@@ -20,7 +20,8 @@ export default defineConfig({
   output: "static",
   trailingSlash: "never",
   build: { format: "file", inlineStylesheets: "always" },
-  prefetch: { prefetchAll: false, defaultStrategy: "hover" },
+  // Link prefetching is src/scripts/prefetch.ts: one file with the menu and navigation feedback, not Astro's separate script.
+  prefetch: false,
   integrations: [
     sitemap({
       // lastmod only where a real date exists: posts carry one in front matter.

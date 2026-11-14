@@ -26,46 +26,40 @@ Colophon blue. Dark only.
 
 ## Type
 
-Bricolage Grotesque is the only face for headings and text, with its optical-size
-axis on (small text gets sturdier letters). JetBrains Mono is the one exception,
+Bricolage Grotesque is the only face for headings and text, with its optical size pinned at 36 (the axis alone cost 23 KB; a font under ~42 KB arrives in two TCP round trips instead of three). JetBrains Mono is the one exception,
 for code blocks, and a page without code never requests it. Nothing is italic:
 Bricolage has none. Arrows are drawn (`Arrow.astro`), since the face lacks them.
 Display sizes run to `clamp(3.25rem, 11vw, 9.5rem)` for the home greeting.
 
-Both files are cut by `tools/cut-fonts.sh` into `src/fonts` (46 KB and 8 KB, down
+Both files are cut by `tools/cut-fonts.sh` into `src/fonts` (24 KB and 8 KB, down
 from 61 KB of fonts before): weights 400 to 800, Latin only, only the glyphs the
 site shows. `tests/fonts.test.mjs` fails when a page needs a character outside the cut.
 
-## First paint
+## Load speed
 
-Measured on `/` (Lighthouse mobile, devtools throttling, median of 5): first
-contentful paint 1470 to about 670 ms, 131 to 94 KB, 10 to 7 requests. What did it:
-CSS inlined (`build.inlineStylesheets`, so the CSP allows inline styles), one cut font,
-no second text face. A font preload was tried and made first paint slower, so there is
-none. `tests/fonts.test.mjs` keeps this: no stylesheet link, no preload, byte budgets.
+Strategy: the floor is one round trip plus the bytes, so cut bytes, requests and round trips, then hide what is left.
+Measured on `/` (Lighthouse mobile, devtools throttling, median of 5; the first number is the site before this work):
 
-## Shapes
+| | Before | Now |
+|---|---|---|
+| First contentful paint | 1470 ms | 666 ms |
+| Largest contentful paint | 1581 ms | about 1530 ms |
+| Page weight | 131 KB | 67 KB |
+| Requests | 10 | 7 |
 
-Pills (`.pill`) for labels and dates. Folders: panels have a 28px rounded top
-and overlap the previous panel (`.sheet-panel`), each with a tab pill on its
-edge. Project tiles (`.tile`) are dark and fill with their tone on hover.
+- **CSS inlined** (`build.inlineStylesheets`, so the CSP allows inline styles): no stylesheet request.
+- **One text face, 24 KB** (`tools/cut-fonts.sh`): a font preload was tried and was slower to first paint, so there is none.
+- **Thumbnails are AVIF** (quality 52, 480 and 800 px): about 23% smaller than the WebP they replaced.
+- **One script file** (`src/scripts/site.ts`): menu, navigation feedback and link prefetching, about 1 KB.
+- **Browser cache for pages** (`public/_headers`): fresh for 60 s, then stale-while-revalidate for 10 min, so a back button or a second visit costs no network wait. A deploy shows within a minute for new visits and a few minutes at most for returning ones.
 
-## Motion
+## Navigation
 
-CSS only. A single fade-and-rise on load, spring easing (`--ease-spring`) on
-tab, tile, arrow and row hover, a scroll-linked rise (`.reveal`) and reading
-progress on posts where `animation-timeline` exists, and cross-document view
-transitions (`@view-transition`). No per-word heading animation. All of it
-stops under `prefers-reduced-motion`.
+Pages are static, so navigation is about not waiting:
 
-## Voice
+- **Chrome**: `public/speculation.json` (linked by a `Speculation-Rules` header, since the CSP forbids inline rules) prefetches the three bar pages at once and prerenders any page when its link is hovered or pressed.
+- **Everywhere else**: `src/scripts/prefetch.ts` prefetches a page on pointer-over, touch or focus (Safari falls back to a low-priority fetch). It stays off for Save-Data and 2G.
+- **Short transitions**: a 160 ms crossfade, the bar held still, entrance animations under 150 ms of delay.
+- **Skeletons** (`NavSkeleton.astro`, `src/scripts/navigation.ts`): a progress bar starts on click, and if the next page has not landed after 150 ms the shape of it (home, list or article) shimmers in under the bar. Prerendered or prefetched pages land before that and never show it. Images shimmer until each arrives. Reduced motion turns all of it off.
 
-Plain and first-person, a little playful, never salesy. No "open to work"
-language and no current employer (the last role ended June 2026). Copy avoids
-AI tells: no em dash habit, no stock vocabulary.
-
-## Rules that carry over
-
-- Project facts come from each repo, not old copy (see `src/data/projects.ts`).
-- Every page is complete without JavaScript. The only script opens the mobile menu.
-- Posts live only on this site. No off-site canonicals.
+`tests/fonts.test.mjs` and `tests/navigation.test.mjs` keep this: no stylesheet link, no preload, byte budgets, one script file, the cache headers and the rules.

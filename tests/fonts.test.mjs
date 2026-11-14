@@ -13,7 +13,8 @@ const walk = (d) => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e
 const pages = walk(DIST).filter((f) => f.endsWith(".html") && !f.endsWith("404.html"));
 const gz = (b) => zlib.gzipSync(b).length;
 const KB = 1024;
-const BUDGET = { homeHtmlGz: 18 * KB, bricolage: 50 * KB, mono: 12 * KB };
+// A font above ~42 KB takes a third TCP round trip to arrive, so the Bricolage ceiling sits well under it.
+const BUDGET = { homeHtmlGz: 18 * KB, bricolage: 30 * KB, mono: 12 * KB };
 
 const cut = (name) => new Set(JSON.parse(fs.readFileSync(`src/fonts/${name}.codepoints.json`, "utf8")));
 const bricolage = cut("bricolage-grotesque");

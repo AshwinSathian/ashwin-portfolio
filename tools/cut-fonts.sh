@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Builds the site's two font files from @fontsource-variable (OFL), Latin only and trimmed to what the site shows:
-#   bricolage-grotesque.woff2  the one face for headings and text: weights 400-800, optical-size axis kept (small text gets sturdier letterforms)
+#   bricolage-grotesque.woff2  the one face for headings and text: weights 400-800, optical size pinned at 36: the axis cost 23 KB, and below ~42 KB the file arrives in two TCP round trips instead of three
 #   jetbrains-mono.woff2       code blocks only: weight 400-600, Basic Latin plus the few signs code uses
 # Output is committed in src/fonts. Needs python3 and network once (a throwaway venv with fonttools and brotli).
 # Run from the repo root when the face or the character set changes, then `npm test` checks the pages still fit the set.
@@ -27,6 +27,6 @@ PY
 # Basic Latin plus the signs the site uses: © · × é ñ ü, dashes, curly quotes, bullet, ellipsis, minus. Arrows are drawn (src/components/Arrow.astro).
 # Every extra accented letter costs bytes on the first paint; tests/fonts.test.mjs fails when a page needs a character that is not here, so add it then and rerun.
 TEXT="U+0020-007E,U+00A0,U+00A9,U+00B7,U+00D7,U+00E9,U+00F1,U+00FC,U+2013,U+2014,U+2018,U+2019,U+201C,U+201D,U+2022,U+2026,U+2212"
-cut "$FONTS/bricolage-grotesque/files/bricolage-grotesque-latin-opsz-normal.woff2" "wght=400:800" "$TEXT" "kern,mark,mkmk,ccmp,locl,tnum,pnum" "$OUT/bricolage-grotesque.woff2"
+cut "$FONTS/bricolage-grotesque/files/bricolage-grotesque-latin-opsz-normal.woff2" "wght=400:800 opsz=36" "$TEXT" "kern,mark,mkmk,ccmp,locl,tnum,pnum" "$OUT/bricolage-grotesque.woff2"
 # No ligatures in code (the site sets font-variant-ligatures: none), so the liga/calt tables are dropped.
 cut "$FONTS/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2" "wght=400:600" "U+0020-007E,U+00A0,U+00B7,U+2013,U+2014,U+2018,U+2019,U+201C,U+201D,U+2026,U+2190,U+2192" "kern,mark,mkmk,ccmp" "$OUT/jetbrains-mono.woff2"

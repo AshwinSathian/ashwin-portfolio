@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import NavSkeleton from "../components/NavSkeleton.astro";
 import { SITE } from "../data/site";
 import { truncate } from "../lib/text";
 import { personSchema, websiteSchema } from "../lib/schema";
@@ -80,5 +81,10 @@ const imageUrl = new URL(image, SITE.website).href;
       <slot />
     </main>
     <Footer />
+    <NavSkeleton />
+    <script>
+      // One file for the whole site: the menu, navigation feedback and link prefetching.
+      import "../scripts/site";
+    </script>
   </body>
 </html>

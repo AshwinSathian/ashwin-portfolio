@@ -8,5 +8,5 @@ const shot = media.kind === "screenshot" ? images[`/src/assets${media.src}`]?.de
 ---
 
 {shot && (
-  <Image src={shot} alt="" widths={[480, 800]} sizes="(min-width: 768px) 560px, 100vw" format="webp" quality={78} loading="lazy" class="aspect-[16/9] w-full rounded-[18px] border border-line object-cover object-top" />
+  <Image src={shot} alt="" widths={[480, 800]} sizes="(min-width: 768px) 560px, 100vw" format="avif" quality={52} loading="lazy" class="aspect-[16/9] w-full rounded-[18px] border border-line object-cover object-top" />
 )}

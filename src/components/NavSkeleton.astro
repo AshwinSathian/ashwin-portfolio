@@ -1,0 +1,41 @@
+---
+// What the reader sees if a click takes longer than ~150 ms to land: the shape of the page they are going to, shimmering,
+// under the fixed bar. It is shown by src/scripts/navigation.ts and is gone with the old page the moment the new one arrives.
+// Fast navigations (prerendered or prefetched pages) never reach it: its fade-in is delayed.
+---
+
+<div id="nav-progress" aria-hidden="true"></div>
+<div id="nav-skeleton" aria-hidden="true">
+
+  <div class="sk-view" data-kind="home">
+    <div class="shell sk-hero">
+      <i class="sk sk-h1"></i>
+      <i class="sk sk-sub"></i>
+      <div class="sk-lines"><i class="sk"></i><i class="sk"></i><i class="sk w-4/5"></i></div>
+      <div class="sk-lines"><i class="sk"></i><i class="sk w-3/5"></i></div>
+      <div class="sk-row"><i class="sk sk-pill w-64"></i><i class="sk sk-pill w-24"></i><i class="sk sk-pill w-28"></i></div>
+    </div>
+  </div>
+
+  <div class="sk-view" data-kind="list">
+    <div class="shell sk-hero">
+      <i class="sk sk-pill w-28"></i>
+      <i class="sk sk-h1 sk-h1-short"></i>
+      <div class="sk-lines max-w-2xl"><i class="sk"></i><i class="sk w-2/3"></i></div>
+      <div class="sk-rows">
+        <i class="sk sk-card"></i><i class="sk sk-card"></i><i class="sk sk-card"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="sk-view" data-kind="article">
+    <div class="shell sk-hero">
+      <i class="sk sk-pill w-28"></i>
+      <i class="sk sk-h1 sk-h1-short"></i>
+      <i class="sk sk-h1 sk-h1-short sk-h1-half"></i>
+      <i class="sk sk-pill w-48"></i>
+      <div class="sk-lines max-w-[66ch]"><i class="sk"></i><i class="sk"></i><i class="sk"></i><i class="sk w-4/5"></i></div>
+      <div class="sk-lines max-w-[66ch]"><i class="sk"></i><i class="sk"></i><i class="sk w-2/3"></i></div>
+    </div>
+  </div>
+</div>

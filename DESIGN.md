@@ -26,9 +26,23 @@ Colophon blue. Dark only.
 
 ## Type
 
-Bricolage Grotesque (display, 700), Figtree (body), JetBrains Mono (code).
-Variable, OFL, self-hosted through `@fontsource-variable`. Display sizes run to
-`clamp(3.25rem, 11vw, 9.5rem)` for the home greeting.
+Bricolage Grotesque is the only face for headings and text, with its optical-size
+axis on (small text gets sturdier letters). JetBrains Mono is the one exception,
+for code blocks, and a page without code never requests it. Nothing is italic:
+Bricolage has none. Arrows are drawn (`Arrow.astro`), since the face lacks them.
+Display sizes run to `clamp(3.25rem, 11vw, 9.5rem)` for the home greeting.
+
+Both files are cut by `tools/cut-fonts.sh` into `src/fonts` (46 KB and 8 KB, down
+from 61 KB of fonts before): weights 400 to 800, Latin only, only the glyphs the
+site shows. `tests/fonts.test.mjs` fails when a page needs a character outside the cut.
+
+## First paint
+
+Measured on `/` (Lighthouse mobile, devtools throttling, median of 5): first
+contentful paint 1470 to about 670 ms, 131 to 94 KB, 10 to 7 requests. What did it:
+CSS inlined (`build.inlineStylesheets`, so the CSP allows inline styles), one cut font,
+no second text face. A font preload was tried and made first paint slower, so there is
+none. `tests/fonts.test.mjs` keeps this: no stylesheet link, no preload, byte budgets.
 
 ## Shapes
 

@@ -5,7 +5,7 @@ export const shikiTheme = {
   type: "dark",
   colors: { "editor.foreground": "#e6dfd0", "editor.background": "#1c1814" },
   tokenColors: [
-    { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: "#968b7a", fontStyle: "italic" } },
+    { scope: ["comment", "punctuation.definition.comment"], settings: { foreground: "#968b7a" } },
     { scope: ["string", "string.template", "constant.other.symbol"], settings: { foreground: "#4fd3c7" } },
     { scope: ["keyword", "storage", "storage.type", "storage.modifier"], settings: { foreground: "#ff9a5c" } },
     { scope: ["entity.name.function", "support.function"], settings: { foreground: "#8fb4fb" } },

@@ -19,7 +19,7 @@ export default defineConfig({
   // Fully static: every page is HTML served from Cloudflare's edge.
   output: "static",
   trailingSlash: "never",
-  build: { format: "file", inlineStylesheets: "never" },
+  build: { format: "file", inlineStylesheets: "always" },
   prefetch: { prefetchAll: false, defaultStrategy: "hover" },
   integrations: [
     sitemap({

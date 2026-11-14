@@ -2,8 +2,6 @@
 import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import bricolageUrl from "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2?url";
-import figtreeUrl from "@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url";
 import { SITE } from "../data/site";
 import { truncate } from "../lib/text";
 import { personSchema, websiteSchema } from "../lib/schema";
@@ -48,8 +46,6 @@ const imageUrl = new URL(image, SITE.website).href;
     <link rel="alternate" type="application/rss+xml" title="Ashwin Sathian: Writing" href="/writing/feed.xml" />
     {(path.startsWith("/writing/") || path.startsWith("/projects/")) && <link rel="alternate" type="text/markdown" href={`${path}.md`} />}
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="preload" href={bricolageUrl} as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href={figtreeUrl} as="font" type="font/woff2" crossorigin />
 
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:locale" content="en_US" />

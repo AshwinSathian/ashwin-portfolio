@@ -1,33 +1,30 @@
 @import "tailwindcss";
 
-/* Latin subset only; the site is English. Files come from @fontsource-variable (OFL). */
+/* Two files, both cut by tools/cut-fonts.sh from @fontsource-variable (OFL) and kept in src/fonts:
+   Bricolage Grotesque is the one face for headings and text; JetBrains Mono is for code blocks only, and a page
+   without code never requests it. Bricolage has no italic, so nothing on the site is set in italics. */
 @font-face {
   font-family: "Bricolage Grotesque Variable";
   font-style: normal;
   font-display: swap;
-  font-weight: 200 800;
-  src: url("../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2") format("woff2-variations");
-}
-@font-face {
-  font-family: "Figtree Variable";
-  font-style: normal;
-  font-display: swap;
-  font-weight: 300 900;
-  src: url("../../node_modules/@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2") format("woff2-variations");
-}
-@font-face {
-  font-family: "Figtree Variable";
-  font-style: italic;
-  font-display: swap;
-  font-weight: 300 900;
-  src: url("../../node_modules/@fontsource-variable/figtree/files/figtree-latin-wght-italic.woff2") format("woff2-variations");
+  font-weight: 400 800;
+  src: url("../fonts/bricolage-grotesque.woff2") format("woff2-variations");
 }
 @font-face {
   font-family: "JetBrains Mono Variable";
   font-style: normal;
   font-display: swap;
-  font-weight: 100 800;
-  src: url("../../node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2") format("woff2-variations");
+  font-weight: 400 600;
+  src: url("../fonts/jetbrains-mono.woff2") format("woff2-variations");
+}
+/* Fallback stretched to Bricolage's metrics, so the swap barely moves the layout. */
+@font-face {
+  font-family: "Bricolage Fallback";
+  src: local("Arial"), local("Roboto"), local("Helvetica Neue"), local("Helvetica");
+  size-adjust: 106.8%;
+  ascent-override: 87.1%;
+  descent-override: 25.3%;
+  line-gap-override: 0%;
 }
 
 /* v10. Dark first, with four tone colours borrowed in spirit from
@@ -51,8 +48,7 @@
   /* The old zari gold, now the yellow tone. Kept as a name so links read the same. */
   --color-zari: #ffc849;
 
-  --font-display: "Bricolage Grotesque Variable", "Figtree Variable", system-ui, sans-serif;
-  --font-sans: "Figtree Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Bricolage Grotesque Variable", "Bricolage Fallback", system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --text-display-2xl: clamp(3.25rem, 11vw, 9.5rem);
@@ -110,7 +106,6 @@ body {
 h1,
 h2,
 h3 {
-  font-family: var(--font-display);
   text-wrap: balance;
 }
 p,
@@ -128,7 +123,6 @@ li {
 }
 
 .wordmark {
-  font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -162,7 +156,6 @@ li {
   border-radius: 999px;
   background: var(--tone, var(--color-yellow));
   color: var(--color-night);
-  font-family: var(--font-display);
   font-size: var(--text-small);
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -171,52 +164,6 @@ li {
 }
 
 /* ─── Folders: the stack of panels on the home page ─────────────────────── */
-
-.folders {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
-@media (min-width: 640px) {
-  .folders { gap: 8px; }
-}
-.folder {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  min-height: 4rem;
-  padding: 0.75rem 0.875rem;
-  border-radius: 20px 20px 0 0;
-  background: var(--tone);
-  color: var(--color-night);
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  transition: transform 0.3s var(--ease-out);
-}
-@media (min-width: 640px) {
-  .folder {
-    min-height: 5rem;
-    padding: 0.9rem 1.25rem;
-    border-radius: var(--radius-panel) var(--radius-panel) 0 0;
-    font-size: 1.25rem;
-  }
-}
-@media (hover: hover) {
-  .folder:hover,
-  .folder:focus-visible {
-    transform: translateY(-3px);
-  }
-}
-/* The arrow only fits once the tabs are wide enough. */
-.folder .arrow {
-  display: none;
-  margin-left: auto;
-}
-@media (min-width: 640px) {
-  .folder .arrow { display: inline-block; }
-}
 
 /* A panel is one folder: rounded top, a coloured tab pill on its edge. The
    next panel overlaps the bottom, so the rounded corners show the one behind. */
@@ -477,7 +424,6 @@ a:focus-visible .arrow-out {
 .prose h2,
 .prose h3,
 .prose h4 {
-  font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;

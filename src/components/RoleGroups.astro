@@ -21,7 +21,7 @@ for (const g of groups) {
     <section aria-label={group.company} class="grid gap-x-12 gap-y-6 border-t border-line py-10 lg:grid-cols-12 lg:py-14">
       <header class="reveal lg:col-span-4">
         <div class="lg:sticky lg:top-24">
-          <h2 class="font-display text-display-m font-bold tracking-[-0.03em]">{group.company}</h2>
+          <h2 class="text-display-m font-bold tracking-[-0.03em]">{group.company}</h2>
           <p class:list={["pill mt-3 text-meta tabular-nums", `tone-${TONES[gi % 4]}`]}>{group.span}</p>
         </div>
       </header>
@@ -29,7 +29,7 @@ for (const g of groups) {
         {group.roles.map((item) => (
           <article class="reveal flex flex-col gap-4">
             <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-              <h3 class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{item.role}</h3>
+              <h3 class="text-title font-semibold tracking-[-0.01em] text-fg">{item.role}</h3>
               {group.roles.length > 1 && <p class="shrink-0 text-meta tabular-nums text-fg-3">{item.dates}</p>}
             </div>
             <ul class="flex flex-col gap-3 text-fg-2">

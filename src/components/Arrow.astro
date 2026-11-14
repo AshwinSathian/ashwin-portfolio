@@ -1,0 +1,9 @@
+---
+// Bricolage Grotesque has no → or ↗, and a system-font arrow would be the one glyph on the page in another face.
+// So arrows are drawn: they scale with the text and take its colour.
+interface Props { dir?: "right" | "up-right" | "down" }
+const { dir = "right" } = Astro.props;
+const paths = { right: "M2 8h12M9 3l5 5-5 5", "up-right": "M4 12L12 4M5.5 4H12v6.5", down: "M8 2v12M3 9l5 5 5-5" };
+---
+
+<svg viewBox="0 0 16 16" width="0.9em" height="0.9em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="inline-block align-[-0.08em]"><path d={paths[dir]} /></svg>

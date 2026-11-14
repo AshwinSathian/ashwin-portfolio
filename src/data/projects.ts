@@ -361,7 +361,7 @@ export const PROJECTS: Project[] = [
       {
         title: "Configurable fallback chains",
         detail:
-          "Lookup order is active language → each configured fallback, in order → default language, before a key is reported missing via onMissingKey.",
+          "Lookup order is the active language, then each configured fallback in order, then the default language, before a key is reported missing via onMissingKey.",
       },
       {
         title: "Three caching modes",

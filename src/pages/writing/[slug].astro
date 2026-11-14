@@ -64,7 +64,7 @@ const schema = {
           <li><a href="/writing" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Writing</span></a></li>
         </ol>
       </nav>
-      <h1 class="load-rise max-w-4xl font-display text-display-l font-bold tracking-[-0.035em] [--d:80ms]">{data.title}</h1>
+      <h1 class="load-rise max-w-4xl text-display-l font-bold tracking-[-0.035em] [--d:80ms]">{data.title}</h1>
       <p class="load-rise mt-6 max-w-2xl text-[1.1875rem] leading-[1.5] text-fg-2 [--d:200ms]">{data.description}</p>
       <p class="load-rise mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-meta tabular-nums text-fg-3 [--d:300ms]">
         <span>By <a href="/" rel="author" class="text-fg"><span class="link">Ashwin Sathian</span></a></span>
@@ -81,7 +81,7 @@ const schema = {
 
     <aside aria-label="About the author" class="shell pb-16 lg:pb-24">
       <div class="flex max-w-[66ch] flex-col gap-3 rounded-panel border border-line bg-surface p-6 lg:p-8">
-        <p class="font-display text-title font-semibold tracking-[-0.01em]">Written by Ashwin Sathian</p>
+        <p class="text-title font-semibold tracking-[-0.01em]">Written by Ashwin Sathian</p>
         <p class="text-fg-2">Senior full-stack engineer in Kochi, India. I build the tools I write about, and I check each claim against the code before it goes in a post.</p>
         <p class="flex flex-wrap gap-x-6"><ArrowLink href="/">About me</ArrowLink><ArrowLink href={SITE.github} external>GitHub</ArrowLink><ArrowLink href="/writing/feed.xml" external>RSS</ArrowLink></p>
       </div>
@@ -91,10 +91,10 @@ const schema = {
       <nav aria-label="More writing" class="border-t border-line">
         <div class="shell grid sm:grid-cols-2 sm:gap-x-12">
           {older ? (
-            <a href={`/writing/${older.id}`} class="row flex flex-col gap-2 rounded-control border-b border-line py-8 sm:border-b-0 sm:py-12"><span class="text-small text-fg-3">Older</span><span class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{older.data.title}</span></a>
+            <a href={`/writing/${older.id}`} class="row flex flex-col gap-2 rounded-control border-b border-line py-8 sm:border-b-0 sm:py-12"><span class="text-small text-fg-3">Older</span><span class="text-title font-semibold tracking-[-0.01em] text-fg">{older.data.title}</span></a>
           ) : <span class="hidden sm:block"></span>}
           {newer ? (
-            <a href={`/writing/${newer.id}`} class="row flex flex-col gap-2 rounded-control py-8 sm:items-end sm:py-12 sm:text-right"><span class="text-small text-fg-3">Newer</span><span class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{newer.data.title}</span></a>
+            <a href={`/writing/${newer.id}`} class="row flex flex-col gap-2 rounded-control py-8 sm:items-end sm:py-12 sm:text-right"><span class="text-small text-fg-3">Newer</span><span class="text-title font-semibold tracking-[-0.01em] text-fg">{newer.data.title}</span></a>
           ) : <span class="hidden sm:block"></span>}
         </div>
       </nav>

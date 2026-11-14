@@ -1,4 +1,5 @@
 ---
+import Arrow from "../../components/Arrow.astro";
 import type { GetStaticPaths } from "astro";
 import Base from "../../layouts/Base.astro";
 import ArrowLink from "../../components/ArrowLink.astro";
@@ -91,7 +92,7 @@ const SEO_TITLES: Record<string, string> = {
         <span class:list={["pill", `tone-${toneForProject(project.slug)}`]}>{project.category}</span>
         {project.status && <StatusTag>{project.status}</StatusTag>}
       </p>
-      <h1 class="load-rise font-display text-display-2xl font-bold tracking-[-0.045em] wrap-anywhere [--d:80ms]">{project.name}</h1>
+      <h1 class="load-rise text-display-2xl font-bold tracking-[-0.045em] wrap-anywhere [--d:80ms]">{project.name}</h1>
       <p class="load-rise mt-6 max-w-3xl text-[1.1875rem] leading-[1.5] text-fg-2 lg:mt-8 lg:text-[1.375rem] [--d:200ms]">{project.tagline}</p>
       <div class="load-rise mt-6 flex flex-wrap gap-x-8 [--d:300ms]">
         {(Object.entries(project.links) as [keyof typeof LINK_LABELS, string][]).map(([key, href]) => (
@@ -124,7 +125,7 @@ const SEO_TITLES: Record<string, string> = {
           <div class="flex flex-col gap-12">
             {narrative.map(([label, text], i) => (
               <section aria-labelledby={`cs-${label}`} class="reveal flex flex-col gap-3">
-                <h2 id={`cs-${label}`} class="flex items-center gap-4 font-display text-display-m font-bold tracking-[-0.03em]">
+                <h2 id={`cs-${label}`} class="flex items-center gap-4 text-display-m font-bold tracking-[-0.03em]">
                   <span aria-hidden="true" class:list={["h-3 w-3 rounded-full", `bg-${NTONES[i]}`]}></span>{label}
                 </h2>
                 <p class={i === 0 ? "text-[1.1875rem] leading-[1.6] text-fg" : "text-fg-2"}>{text}</p>
@@ -139,17 +140,17 @@ const SEO_TITLES: Record<string, string> = {
 
         {project.slug === "booklet" && (
           <section aria-labelledby="architecture-h" class="flex flex-col gap-6">
-            <h2 id="architecture-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em]">Architecture</h2>
+            <h2 id="architecture-h" class="reveal text-display-m font-bold tracking-[-0.03em]">Architecture</h2>
             <ArchitectureDiagram />
           </section>
         )}
 
         <section aria-labelledby="highlights-h" class="flex flex-col gap-2">
-          <h2 id="highlights-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em]">Highlights</h2>
+          <h2 id="highlights-h" class="reveal text-display-m font-bold tracking-[-0.03em]">Highlights</h2>
           <ul class="flex flex-col">
             {project.highlights.map((h) => (
               <li class="reveal flex flex-col gap-2 border-b border-line py-7">
-                <h3 class="font-display text-title font-semibold tracking-[-0.01em] text-fg">{h.title}</h3>
+                <h3 class="text-title font-semibold tracking-[-0.01em] text-fg">{h.title}</h3>
                 <p class="text-fg-2">{h.detail}</p>
               </li>
             ))}
@@ -158,14 +159,14 @@ const SEO_TITLES: Record<string, string> = {
 
         {project.decisionRecord && (
           <section aria-labelledby="decision-h" class="flex flex-col gap-6">
-            <h2 id="decision-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em]">Revised in public</h2>
+            <h2 id="decision-h" class="reveal text-display-m font-bold tracking-[-0.03em]">Revised in public</h2>
             <DecisionRecord record={project.decisionRecord} />
           </section>
         )}
 
         {related.length > 0 && (
           <section aria-labelledby="writing-h" class="flex flex-col gap-2">
-            <h2 id="writing-h" class="reveal font-display text-display-m font-bold tracking-[-0.03em]">Writing about this</h2>
+            <h2 id="writing-h" class="reveal text-display-m font-bold tracking-[-0.03em]">Writing about this</h2>
             <div class="border-b border-line"><PostList posts={related} as="h3" /></div>
           </section>
         )}
@@ -176,9 +177,9 @@ const SEO_TITLES: Record<string, string> = {
       <div class="shell flex items-end justify-between gap-6 py-14 lg:py-24">
         <div class="flex min-w-0 flex-col gap-3">
           <span class="pill tone-yellow w-fit text-meta">Next project</span>
-          <span class="font-display text-display-l font-bold tracking-[-0.035em] wrap-anywhere">{next.name}</span>
+          <span class="text-display-l font-bold tracking-[-0.035em] wrap-anywhere">{next.name}</span>
         </div>
-        <span aria-hidden="true" class="arrow text-display-m text-fg-2">→</span>
+        <span aria-hidden="true" class="arrow text-display-m text-fg-2"><Arrow /></span>
       </div>
     </a>
   </article>

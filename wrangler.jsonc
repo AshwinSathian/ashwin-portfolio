@@ -1,6 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "ashwin-portfolio",
+  // Personal account. The login also has the chattermeter account, so wrangler needs this to pick one.
+  "account_id": "5e8cabf1f94e15e681dfe58d4164a8ed",
   "compatibility_date": "2026-11-01",
   // Cloudflare serves ./dist straight from its edge. The Worker below answers
   // one path only, for Google Search Console ownership.

@@ -8,6 +8,7 @@ export const PROJECT_POSTS: Record<string, string[]> = {
   ],
   "better-auth-mongoose": ["why-better-auths-mongodb-adapter-cant-populate-a-mongoose-ref"],
   wayfarer: ["what-a-browser-tab-wont-let-an-api-client-do"],
+  coil: ["coils-leaderboard-never-asks-the-browser-for-a-score"],
   "humanize-writing-skill": [
     "the-ai-tells-moved-my-tool-for-avoiding-them-hadnt",
     "why-humanize-my-writing-tools-dont-work",

@@ -332,6 +332,63 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    slug: "coil",
+    name: "Coil",
+    category: "Browser game",
+    tagline: "Snake for phone, tablet and desktop in a 25 KB page, with replays you can share as links and a leaderboard that scores every run on the server.",
+    description: [
+      "Coil is a snake game with five modes: Classic, Gates, Daily, Blitz and Zen. The whole app is one HTML file of about 25 KB gzipped, plus a 28 KB cut of the Anybody font. Every sound is synthesised with Web Audio, it installs as an app and it plays offline after the first visit. Swipe, the arrow keys or a gamepad all steer it, and it has two looks, Retro and Modern, each in a light and a dark theme.",
+      "The game is one integer-only simulation with a seeded random generator and no clock, and the same seed and turns always replay to the same game. A run is stored as its seed and the ticks where it turned, so a 55-segment Classic game fits in 192 characters of a link. The Daily leaderboard is a Cloudflare Worker that imports the same simulation, replays each submitted run and stores the score it computes. The browser never sends one.",
+      "Edges are decided cell by cell: a stretch is a wall or a gate that brings the snake in on the opposite edge, in the same row or column. Gates mode is a run of generated rooms, each with fewer gates and more inner walls than the last, and Daily is one generated room a day. Claude Code built it in one session on 20 November 2026 from a prompt that asked for no intervention.",
+    ],
+    stack: ["TypeScript", "Canvas 2D", "Web Audio", "Vite", "Cloudflare Workers", "D1"],
+    facts: [
+      { label: "Page", value: "One HTML file, about 25 KB gzipped, plus a 28 KB font" },
+      { label: "Replays", value: "Seed plus turns, varint and base64url, in the link fragment" },
+      { label: "License", value: "MIT" },
+    ],
+    highlights: [
+      {
+        title: "The server scores the run itself",
+        detail:
+          "A Daily submission carries a name, a device id and a replay, never a score. The Worker checks the board is today's (or yesterday's, for a run that ended after midnight UTC), plays the run to its end and stores what it scored. That stops a forged score. It can't stop a run searched for offline, because a replay proves the moves are legal and not that a person made them live.",
+      },
+      {
+        title: "Old links replay under old rules",
+        detail:
+          "When Daily changed from rocks on a walled board to generated rooms, every earlier Daily replay would have played on the wrong board. The first byte of a replay now records the rules revision. Before the change, one autopilot game per mode was saved with its score and final tick, and a test checks that each still replays to both.",
+      },
+      {
+        title: "Walls and gates, cell by cell",
+        detail:
+          "Each row and column has a gate flag, so an edge can be wall in one stretch and gate in the next. A generator mirrors the runs and the inner walls, and keeps a wall only if a flood fill that follows the gates still reaches every open cell.",
+      },
+      {
+        title: "Frames between ticks",
+        detail:
+          "The simulation moves whole cells, about 7 to 17 times a second. The renderer slides the head and tail between cells at the display's rate, and draws a snake that is partway through a gate twice, once on each side of the board.",
+      },
+    ],
+    links: {
+      live: "https://coil.ashwinsathian.com",
+      github: "https://github.com/AshwinSathian/coil",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/coil/hero.png",
+      width: 1280,
+      height: 800,
+      alt: "Coil in its Retro look, replaying a Gates run in room 3: a block snake crossing a charcoal board between mirrored grey walls, with dashed green gates along parts of every edge, and the score 1250 at ×4 beside it.",
+    },
+    repo: { owner: "AshwinSathian", repo: "coil" },
+    decisionRecord: {
+      date: "2026-11",
+      before: "A replay's first byte was a format version, and Daily was rocks on a board with solid edges",
+      after: "The first byte is the rules revision; revision 2 Daily is a generated room of walls and gates",
+      why: "The simulation promises that a replay plays back to the same game, and changing the Daily board would have broken that for every link already shared. Recording the revision lets an old link rebuild the old board, and the leaderboard accepts only the current revision, since today's board is the one it scores against.",
+    },
+  },
+  {
     slug: "ngx-runtime-i18n",
     name: "ngx-runtime-i18n",
     featured: true,

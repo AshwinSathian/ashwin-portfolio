@@ -12,7 +12,7 @@ The cost is a promise. Whoever opens that link runs the physics from the start, 
 
 ## How little it takes to split a game
 
-I wanted a number for "chaotic" before trusting the design, so for this post I ran a test against the sim. Ten games were played by the crude bot from the test suite (it flips at random when a ball is near a flipper). Each was played twice, and the second time the ball's `x` was nudged by one unit in the last place, a relative change of 2⁻⁵², five seconds in.
+I wanted a number for "chaotic" before trusting the design, so for this post I ran a test against the sim. Ten games were played by the crude bot from the test suite (it flips at random when a ball is near a flipper). Each was played twice, and the second time the ball's `x` was nudged by one unit in the last place, a relative change of 2<sup>−52</sup>, five seconds in.
 
 Four of the ten ended with a different score. Seed 6 finished on 1,116,600 untouched and 438,750 nudged, and seed 7 went the other way, 225,830 to 624,990. In those four, the nudged ball was a full ball radius (15 units) from where it should have been between 7.4 and 11.5 seconds after the nudge. In three others the positions differed in the third decimal for a while and then the games came back together. The last three showed nothing at that precision.
 
@@ -20,9 +20,9 @@ The bot reacts to where the ball is, the way a person would, so a ball a hair to
 
 ## What ECMAScript pins down, and what it doesn't
 
-Arithmetic is safe. The spec defines `Number::add` and `Number::multiply` as IEEE 754-2019 double arithmetic and returns 𝔽 of the exact real result, the nearest double. Division is the same, and `%` computes its remainder exactly and then rounds. `Math.sqrt` is pinned too: its last step is "Return 𝔽(the square root of ℝ(n))".
+Arithmetic is safe. The spec defines `Number::add` and `Number::multiply` as IEEE 754-2019 double arithmetic and returns the double nearest the exact real result. Division is the same, and `%` computes its remainder exactly and then rounds. `Math.sqrt` is pinned too: its last step returns the double nearest the exact square root.
 
-`Math.sin` ends differently: "Return an implementation-approximated Number value representing the sine of ℝ(n)." `Math.cos` and `Math.hypot` end the same way. Each engine picks its own algorithm, and the last bit belongs to it.
+`Math.sin` ends differently: it returns "an implementation-approximated Number value" for the sine. `Math.cos` and `Math.hypot` end the same way. Each engine picks its own algorithm, and the last bit belongs to it.
 
 So `src/physics.ts` opens with "Deterministic: no clock, no Math.random, no Math.sin", and `src/math.ts` has its own:
 
@@ -41,7 +41,7 @@ export function sin(x: number): number {
 export const cos = (x: number) => sin(x + PI / 2);
 ```
 
-It folds the angle into a quarter turn either side of zero and runs a Taylor series out to x¹⁵, using nothing but the operations the spec pins. It's less accurate than `Math.sin` - the error reaches about 6 × 10⁻¹² at the ends of the range - and that doesn't matter. Accuracy wasn't what it was for. Every engine evaluates the same polynomial with the same rounded operations and gets the same answer, wrong in the same place. A test keeps it within 10⁻⁹ of `Math.sin` across −20 to 20 radians, which keeps it close but proves nothing about sameness.
+It folds the angle into a quarter turn either side of zero and runs a Taylor series out to x<sup>15</sup>, using nothing but the operations the spec pins. It's less accurate than `Math.sin` - the error reaches about 6 × 10<sup>−12</sup> at the ends of the range - and that doesn't matter. Accuracy wasn't what it was for. Every engine evaluates the same polynomial with the same rounded operations and gets the same answer, wrong in the same place. A test keeps it within 10<sup>−9</sup> of `Math.sin` across −20 to 20 radians, which keeps it close but proves nothing about sameness.
 
 The sim has only two callers. `World` turns each flipper's angle into a direction every tick, `f.dx = f.side * cos(f.a)` and `f.dy = sin(f.a)`, and `table.ts` uses `arc()` to lay out the curved walls once at load. `Math.sqrt` shows up ten times in the collision code, and that's fine. Randomness is a seeded mulberry32, and the step is a fixed 1/480 of a second.
 
@@ -49,7 +49,7 @@ The sim has only two callers. `World` turns each flipper's angle into a directio
 
 The spec allows a difference. That's a long way from showing one. So I logged every angle the sim handed its sine during 20 bot games of up to ten minutes each, which came to 708 distinct values: 141 from laying out the arcs at load, the rest flipper angles from play. Then I ran `Math.sin` and `Math.cos` on each of them in Node 24.19 (V8, Chrome's engine) and in the JavaScriptCore build that ships with macOS (Safari's engine).
 
-17 of the sines and 11 of the cosines came out different, each by 1.1 × 10⁻¹⁶, one bit in the last place. That's 28 of 1,416 values, about one in fifty. Given what one bit did to the ball above, I'd expect a Chrome replay opened in Safari through `Math.sin` to split from its recording the first time a flipper passed through one of those angles.
+17 of the sines and 11 of the cosines came out different, each by 1.1 × 10<sup>−16</sup>, one bit in the last place. That's 28 of 1,416 values, about one in fifty. Given what one bit did to the ball above, I'd expect a Chrome replay opened in Safari through `Math.sin` to split from its recording the first time a flipper passed through one of those angles.
 
 With the sim's own sine, the same 20 games finished on identical scores, ticks and ball positions in both engines.
 
@@ -63,7 +63,7 @@ The cause was in the table, not the trig. `table.ts` builds walls by joining poi
 export const ORBIT_WALL: P[] = [[82, 652], [82, 300], ...arc(300, 300, 218, 180, 222, 10)];
 ```
 
-The arc's first point is (300 + 218·cos 180°, 300 + 218·sin 180°). With `Math.cos(π)` that's exactly −1, the point is exactly (82, 300), and the wall gets a segment of length zero. The collision code divides by its squared length:
+The arc's first point is (300 + 218·cos 180 degrees, 300 + 218·sin 180 degrees). With `Math.cos(Math.PI)` that's exactly −1, the point is exactly (82, 300), and the wall gets a segment of length zero. The collision code divides by its squared length:
 
 ```ts
 let t = ((b.x - s.ax) * s.dx + (b.y - s.ay) * s.dy) / s.len2;
@@ -74,7 +74,7 @@ if (d2 >= reach * reach || d2 < 1e-12) return;
 
 `0 / 0` is `NaN`. The clamp passes `NaN` through, because both comparisons are false. The distance comes out `NaN`, and the early return is skipped for the same reason, since `NaN >= x` and `NaN < x` are both false. So the `NaN` goes into `resolve()` and from there into the ball. And it doesn't need the ball to be near the wall. The segment is listed in every grid cell that overlaps a box 69 units out from it, so any ball in those cells is poisoned.
 
-Under the sim's own cosine, cos(π) comes out as −0.999999999994. The arc starts 1.7 × 10⁻⁹ units from (82, 300), the segment has a length, and it behaves like a tiny post. The table has three of these stubs, at the top of the left orbit's inner wall (82, 300) and at both ends of the ramp's hairpin, (440, 400) and (538, 400). So the shipped game works because its sine is slightly wrong. A more accurate sine, which is what anyone tidying up `math.ts` would be aiming for, would crash every game on its first plunge. `npm test` would catch that, since the fuzz test would throw, but it would throw from deep in the ball physics, a long way from the cause.
+Under the sim's own cosine, the cosine of pi comes out as −0.999999999994. The arc starts 1.7 × 10<sup>−9</sup> units from (82, 300), the segment has a length, and it behaves like a tiny post. The table has three of these stubs, at the top of the left orbit's inner wall (82, 300) and at both ends of the ramp's hairpin, (440, 400) and (538, 400). So the shipped game works because its sine is slightly wrong. A more accurate sine, which is what anyone tidying up `math.ts` would be aiming for, would crash every game on its first plunge. `npm test` would catch that, since the fuzz test would throw, but it would throw from deep in the ball physics, a long way from the cause.
 
 There are two lessons in that, one specific and one general. The specific fix is to drop zero-length segments when `World` builds its colliders, or not emit duplicate points in `poly()`. The general one is about guards: one written as `if (d2 >= limit) return` lets `NaN` through, and `if (!(d2 < limit)) return` doesn't. A guard should send `NaN` down the safe branch.
 

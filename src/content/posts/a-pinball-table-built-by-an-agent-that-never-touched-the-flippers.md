@@ -1,63 +1,102 @@
 ---
-title: "A pinball table built by an agent that never touched the flippers"
+title: "A pinball replay is a promise about the last bit of every float"
 date: "2026-11-20"
-description: "Lightkeeper is a browser pinball table that Claude Code built from one prompt. Why its physics carries its own sine function, how a table gets tuned by scripts nobody plays, and what the checks caught."
-seoDescription: "Lightkeeper is a browser pinball table Claude Code built from one prompt: deterministic physics, a table tuned by scripts, and what the checks caught."
-tags: ["typescript", "webgl", "gamedev", "claude", "buildinpublic"]
+description: "A replay that stores only inputs has to produce the same doubles in every browser. Why Lightkeeper's physics carries its own sine, how often V8 and JavaScriptCore actually disagree on Math.sin, and the divide-by-zero that putting Math.sin back exposed."
+seoDescription: "Deterministic JavaScript physics for pinball replays: what ECMAScript pins down, where V8 and JavaScriptCore disagree on Math.sin, and a NaN it hid."
+tags: ["typescript", "gamedev", "javascript", "floating-point"]
 ---
 
-Lightkeeper is a pinball table for the browser: a lighthouse on a night sea, with a ramp, an orbit, three pop bumpers, a bank of drop targets and three-ball multiball. It came out of one prompt to Claude Code. The prompt asked for the research, the plan, the design, the build, the checks and the deploy, and it asked not to be consulted along the way. The folder was created at 01:33 and the first deploy went out about forty minutes later.
+A replay that stores only inputs is a small thing to send. [Lightkeeper](https://lightkeeper.ashwinsathian.com), a pinball table for the browser that Claude Code built for me, packs a game as its seed, its mode and every button press with the tick it landed on, base64url'd into the fragment of a link. Two bot games of 101 and 135 seconds come to 494 and 488 characters.
 
-What makes it worth writing about is that nothing in that loop could hold a flipper button. A pinball table is mostly feel - how a ball comes off the rubber, how wide a ramp is when you're aiming at it - and the thing building this one had no hands. So it had to find other ways to know whether the table worked, and those are what this post is about.
+The cost is a promise. Whoever opens that link runs the physics from the start, in their own browser, on their own JavaScript engine, and has to get the same game. Same game means the same doubles, down to the last bit, for every step of the ball. Pinball is about the worst place to make that promise, and JavaScript keeps most of it for you. The part it doesn't keep is `Math.sin`.
 
-It's live at [lightkeeper.ashwinsathian.com](https://lightkeeper.ashwinsathian.com), and the code is at [github.com/AshwinSathian/lightkeeper](https://github.com/AshwinSathian/lightkeeper).
+## How little it takes to split a game
 
-## Why the physics brings its own sine
+I wanted a number for "chaotic" before trusting the design, so for this post I ran a test against the sim. Ten games were played by the crude bot from the test suite (it flips at random when a ball is near a flipper). Each was played twice, and the second time the ball's `x` was nudged by one unit in the last place, a relative change of 2⁻⁵², five seconds in.
 
-The plan settled one thing before any code: the simulation would be deterministic. Same seed, same inputs, same game, on any device. That buys three features at once. A replay is just the seed and the list of inputs. A replay can be a link. And every test can rerun a game and expect the identical score.
+Four of the ten ended with a different score. Seed 6 finished on 1,116,600 untouched and 438,750 nudged, and seed 7 went the other way, 225,830 to 624,990. In those four, the nudged ball was a full ball radius (15 units) from where it should have been between 7.4 and 11.5 seconds after the nudge. In three others the positions differed in the third decimal for a while and then the games came back together. The last three showed nothing at that precision.
 
-JavaScript gets you most of the way there. Addition, subtraction, multiplication and division are IEEE 754 operations, so they round the same way everywhere. `Math.sqrt` is pinned too: the ECMAScript spec says it returns the Number closest to the true square root. `Math.sin` isn't. The spec's whole instruction for it is to "return an implementation-approximated Number value representing the sine", which leaves the last bits to each engine. A flipper that rotates through `Math.sin` on a phone and through a different `Math.sin` in a desktop browser will, sooner or later, put a ball a hair to the left, and from there the two games split.
+The bot reacts to where the ball is, the way a person would, so a ball a hair to the left gets a different flip and the difference compounds. One bit is enough. So the question is which operations are allowed to change a bit from one engine to the next.
 
-So `src/math.ts` has its own sine, a Taylor series run out to the fifteenth power, after folding the angle into the half turn around zero where the series behaves. It stays within a billionth of `Math.sin`, and a test holds it there. Randomness is a seeded 32-bit generator. The physics steps a fixed 1/480 of a second, with no clock anywhere in it.
+## What ECMAScript pins down, and what it doesn't
 
-The replays are small. A replay is varint-packed input ticks in a URL fragment, and three test games of one to two minutes came out at 190, 376 and 464 characters. You can paste a whole game into a chat message.
+Arithmetic is safe. The spec defines `Number::add` and `Number::multiply` as IEEE 754-2019 double arithmetic and returns 𝔽 of the exact real result, the nearest double. Division is the same, and `%` computes its remainder exactly and then rounds. `Math.sqrt` is pinned too: its last step is "Return 𝔽(the square root of ℝ(n))".
 
-Input timing gets the same care. Input events arrive with a timestamp, and each frame applies them at the tick they actually happened on, not at the start of the next frame. At 480 ticks a second that puts a flip within about 2 milliseconds of the press, where a frame-rounded input could be 16 off - and on a table where the ramp shot is a window of a few milliseconds, that's the difference between the ramp and the post beside it.
+`Math.sin` ends differently: "Return an implementation-approximated Number value representing the sine of ℝ(n)." `Math.cos` and `Math.hypot` end the same way. Each engine picks its own algorithm, and the last bit belongs to it.
 
-## Tuning a table nobody could play
+So `src/physics.ts` opens with "Deterministic: no clock, no Math.random, no Math.sin", and `src/math.ts` has its own:
 
-With no hands, the agent wrote scripts that played the table instead, and kept rewriting the table when the scripts said something was off.
+```ts
+export function sin(x: number): number {
+  x = x % TAU;
+  if (x > PI) x -= TAU;
+  else if (x < -PI) x += TAU;
+  if (x > PI / 2) x = PI - x;
+  else if (x < -PI / 2) x = -PI - x;
+  const x2 = x * x;
+  // Taylor series to x^15; error below 1e-9 on [-pi/2, pi/2].
+  return x * (1 + x2 * (-1 / 6 + x2 * (1 / 120 + /* ... */)));
+}
 
-The first script plunged at strengths from 20% to 100% and logged every switch the ball touched. Every strong plunge went the same way: up the shooter lane, round the top arch, down the left orbit and straight into the left outlane. The kickback saved it each time, but without the kickback a full plunge would have been a drain. Real tables send that ball to an inlane, so a small slanted rubber went in under the orbit to turn it. The same run showed the skill shot - plunge so the ball drops through the lit top lane - only happened between 66% and 68% power. With the plunger reaching full pull in 0.85 seconds, that's a hold window of about 17 milliseconds. The plunger's range got narrowed so the lanes take up more of it.
+export const cos = (x: number) => sin(x + PI / 2);
+```
 
-The same sweep turned up a plain bug. Its log counted an orbit shot whenever the ball came down the orbit as well as up it. One sign in the sensor code was backwards.
+It folds the angle into a quarter turn either side of zero and runs a Taylor series out to x¹⁵, using nothing but the operations the spec pins. It's less accurate than `Math.sin` - the error reaches about 6 × 10⁻¹² at the ends of the range - and that doesn't matter. Accuracy wasn't what it was for. Every engine evaluates the same polynomial with the same rounded operations and gets the same answer, wrong in the same place. A test keeps it within 10⁻⁹ of `Math.sin` across −20 to 20 radians, which keeps it close but proves nothing about sameness.
 
-The second script cradled a ball on a flipper, let it roll off and flipped after each of 44 delays. Nearly every early flip sent the ball into a slingshot. The friction model was the cause. It treated the ball as a block sliding on the rubber, so friction held it to the flipper and the flipper carried it to the end of its stroke before letting go. A real ball rolls along the flipper as it swings. Dropping the flipper's friction from 0.18 to 0.02 let it do that. After the change a third script measured launch angles: a ball hit mid-flipper goes almost straight up, 4 to 5 degrees off vertical, and one near the tip crosses the table at 15 to 39 degrees. That matches how real flippers behave, where a later flip sends the ball cross-court.
+The sim has only two callers. `World` turns each flipper's angle into a direction every tick, `f.dx = f.side * cos(f.a)` and `f.dy = sin(f.a)`, and `table.ts` uses `arc()` to lay out the curved walls once at load. `Math.sqrt` shows up ten times in the collision code, and that's fine. Randomness is a seeded mulberry32, and the step is a fixed 1/480 of a second.
 
-Those angles also showed how hard the ramp was. To enter the ramp, the ball's centre had to cross its mouth inside an 18-unit gap, which worked out to launch angles between 27 and 29 degrees and a timing window of about six milliseconds. A fourth script dropped balls from a grid of positions and speeds and tallied the first thing each one hit after a flip. The right flipper made the ramp 42 times and the left made it 10, against almost a thousand hits on the drop targets in the middle. So the mouth became a funnel, 64 units wide at the bottom. It's still a hard shot, closer to a real table than to a toy - but that's a judgement from a script and not from anyone's thumb.
+## Do the engines actually disagree?
 
-## The ball reflects the table
+The spec allows a difference. That's a long way from showing one. So I logged every angle the sim handed its sine during 20 bot games of up to ten minutes each, which came to 708 distinct values: 141 from laying out the arcs at load, the rest flipper angles from play. Then I ran `Math.sin` and `Math.cos` on each of them in Node 24.19 (V8, Chrome's engine) and in the JavaScriptCore build that ships with macOS (Safari's engine).
 
-There are no image files. The playfield, the plastics above the ball and a sheet of sprites are painted with Canvas 2D when the page loads, at the screen's own resolution, and WebGL 2 puts them together each frame.
+17 of the sines and 11 of the cosines came out different, each by 1.1 × 10⁻¹⁶, one bit in the last place. That's 28 of 1,416 values, about one in fifty. Given what one bit did to the ball above, I'd expect a Chrome replay opened in Safari through `Math.sin` to split from its recording the first time a flipper passed through one of those angles.
 
-The pass I'd point at is the ball. It's drawn as a chrome sphere whose edge samples the lit playfield around it, taken from the frame being drawn, so when a lamp next to the ball comes on, its reflection comes on too. The lamps themselves fade like incandescent bulbs, quicker to light than to die out. The ramp is a second collision layer. Crossing its mouth going up moves the ball to a layer where only the ramp's walls exist, and it drops back at the exit or if it rolls back down. The score sits on a 128 by 32 amber dot-matrix display drawn by a fragment shader, with a hand-set 5 by 7 pixel font for the small text.
+With the sim's own sine, the same 20 games finished on identical scores, ticks and ball positions in both engines.
 
-The build inlines all of it, scripts, styles and markup, into one HTML file of 35 KB gzipped. The only other request is a 20 KB cut of the Big Shoulders Display font. Every sound is made with Web Audio, down to three bells for the score chimes.
+## The guard a NaN walks past
 
-## What the checks caught
+To run the `Math.sin` side of that comparison I swapped `Math.sin` and `Math.cos` back into a copy of `math.ts`. The copy crashed before it got to compare anything. In seed 1, on the first plunge, the ball's position became `NaN` at tick 805, and the next collision lookup threw from `moveBall`.
 
-The fuzz test ran 12 games of 90 seconds with random flips and checked that no ball left the table and none went over the speed limit. It failed on the first run: the speed cap was applied before collisions, and a pop bumper's kick could push a ball past it afterwards. The cap now runs after them too.
+The cause was in the table, not the trig. `table.ts` builds walls by joining points into segments, and some point lists splice an arc in after a point that's equal to the arc's start:
 
-The first screenshot run threw `RangeError: offset is out of bounds` on every frame. A full-screen quad was being packed into a buffer sized for four vertices, when its two triangles needed six. The same run caught a texture uniform being set while a different shader program was bound.
+```ts
+export const ORBIT_WALL: P[] = [[82, 652], [82, 300], ...arc(300, 300, 218, 180, 222, 10)];
+```
 
-The screenshots couldn't come from the usual browser tool, because another session had it locked, so the agent wrote its own Playwright scripts. The software renderer timed out at phone resolution, and they ended up running on the Mac's GPU. Those scripts now take screenshots at five screen sizes and play a whole game - three balls, game over, initials, replay - in a real browser. A last one measures frames at phone size with the CPU slowed four times. The 95th-percentile frame was 16.7 ms, which is 60 frames a second, but on a Mac's graphics chip and not a phone's.
+The arc's first point is (300 + 218·cos 180°, 300 + 218·sin 180°). With `Math.cos(π)` that's exactly −1, the point is exactly (82, 300), and the wall gets a segment of length zero. The collision code divides by its squared length:
 
-A separate agent then reviewed the screenshots against Apple's interface guidelines with the [loupe skill](https://loupe.ashwinsathian.com). It found eleven problems. On a phone held sideways the Play button was cut off below the fold, the menu text was hard to read over the table art, and the pause button overlapped the score display. Ten were fixed. The eleventh, the score display showing behind the game-over sheet, was left as it is.
+```ts
+let t = ((b.x - s.ax) * s.dx + (b.y - s.ay) * s.dy) / s.len2;
+t = t < 0 ? 0 : t > 1 ? 1 : t;
+// ...
+if (d2 >= reach * reach || d2 < 1e-12) return;
+```
 
-## Where it stands
+`0 / 0` is `NaN`. The clamp passes `NaN` through, because both comparisons are false. The distance comes out `NaN`, and the early return is skipped for the same reason, since `NaN >= x` and `NaN < x` are both false. So the `NaN` goes into `resolve()` and from there into the ball. And it doesn't need the ball to be near the wall. The segment is listed in every grid cell that overlaps a box 69 units out from it, so any ball in those cells is poisoned.
 
-There was one interruption, and it was mine. Halfway through I told it not to copy anything from [Coil](https://coil.ashwinsathian.com), the snake game built the same way a few hours earlier, unless it had to. So Lightkeeper has no server at all. High scores stay on the device with three-letter initials, the way a real machine keeps them.
+Under the sim's own cosine, cos(π) comes out as −0.999999999994. The arc starts 1.7 × 10⁻⁹ units from (82, 300), the segment has a length, and it behaves like a tiny post. The table has three of these stubs, at the top of the left orbit's inner wall (82, 300) and at both ends of the ramp's hairpin, (440, 400) and (538, 400). So the shipped game works because its sine is slightly wrong. A more accurate sine, which is what anyone tidying up `math.ts` would be aiming for, would crash every game on its first plunge. `npm test` would catch that, since the fuzz test would throw, but it would throw from deep in the ball physics, a long way from the cause.
 
-What none of this settles is how the table feels. The flipper strength, the slope, how forgiving the ramp is: every one of them was tuned against numbers from scripts. It hasn't been played on a real phone either, so the touch flippers, the vibration on Android and the prompt to turn a phone upright have only run in a desktop browser pretending to be a phone. Haptics on iPhones were left out, since the one web workaround is reported closed in iOS 26.5.
+There are two lessons in that, one specific and one general. The specific fix is to drop zero-length segments when `World` builds its colliders, or not emit duplicate points in `poly()`. The general one is about guards: one written as `if (d2 >= limit) return` lets `NaN` through, and `if (!(d2 < limit)) return` doesn't. A guard should send `NaN` down the safe branch.
 
-All of the physics constants sit in one block at the top of `src/physics.ts`. Whether they're right is for someone with thumbs to say.
+The fix isn't in yet, and there's a reason to be careful with it.
+
+## The replay doesn't know which physics it was played on
+
+I tried the fix on a copy, filtering out every segment shorter than 0.001 units, and ran the 20 bot games again. Three of them ended differently: seed 4 went from 556,900 to 453,670. A stub at a joint is a real collider, and a ball touching that joint comes off it differently once the stub is gone.
+
+That's a problem because Lightkeeper's replay format has nothing to say about physics. The `v: 1` at the front of a replay is the version of the codec. The tuning block at the top of `physics.ts`, the material table and the geometry in `table.ts` aren't in it anywhere. Any change to those (this fix, a flipper friction tweak, a post moved by a few units) and every shared link plays a different game. Every replay kept with a high score in `localStorage` does too, and nothing reports an error, because the bytes still decode fine.
+
+[Coil](/writing/coils-leaderboard-never-asks-the-browser-for-a-score) ran into the same thing on its first day and made the first byte of its replays the revision of the rules, with saved replays from the old rules pinned in a test. Lightkeeper needs that before its physics changes again, and the zero-length fix is the change that will need it first.
+
+## Inputs land on ticks, not frames
+
+Determinism covers what the sim computes. The input side decides what it's given. Pointer and key events keep their `event.timeStamp`, and each frame the loop works out where each one falls between the last frame and this one, and applies it on that tick:
+
+```ts
+// Apply each input at the tick it happened on, inside this frame's span.
+const at = q ? t0 + Math.max(0, Math.min(n, Math.floor(((q.t - prev) / span) * n))) : Infinity;
+```
+
+The log records the tick each input was applied on, so a replay feeds it back on exactly that tick. At 60 frames a second that's 8 ticks a frame, so a flip lands within about 2 ms of the press, where rounding to the frame could put it 16 ms off. The 480 Hz step also handles tunnelling without extra code. The ball's speed is capped at 4,200 units a second, which is 8.75 units a step, and a ball 15 units in radius can't skip through a wall in that.
+
+The game is at [lightkeeper.ashwinsathian.com](https://lightkeeper.ashwinsathian.com) and the code at [github.com/AshwinSathian/lightkeeper](https://github.com/AshwinSathian/lightkeeper). The three stubs are segments 68, 99 and 116 of `SEGS`, if you want to watch one take down a ball.

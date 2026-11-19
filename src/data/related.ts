@@ -10,6 +10,7 @@ export const PROJECT_POSTS: Record<string, string[]> = {
   wayfarer: ["what-a-browser-tab-wont-let-an-api-client-do"],
   coil: ["coils-leaderboard-never-asks-the-browser-for-a-score"],
   minefield: ["a-no-guess-minesweeper-board-is-only-as-honest-as-its-solver"],
+  nonet: ["a-computer-cant-tell-you-how-hard-a-sudoku-is"],
   "humanize-writing-skill": [
     "the-ai-tells-moved-my-tool-for-avoiding-them-hadnt",
     "why-humanize-my-writing-tools-dont-work",

@@ -440,6 +440,57 @@ export const PROJECTS: Project[] = [
     repo: { owner: "AshwinSathian", repo: "minefield" },
   },
   {
+    slug: "nonet",
+    name: "Nonet",
+    category: "Browser game",
+    tagline: "Sudoku graded by the techniques a person needs, with hints that explain each step and an adaptive mode that sets the next puzzle from how you played the last.",
+    description: [
+      "Nonet is a sudoku for phone, tablet and desktop with five levels, a Daily puzzle and an adaptive mode. The app is one HTML file of about 24 KB gzipped, generator included, plus a 23 KB cut of Atkinson Hyperlegible Next. It installs as an app, plays offline and saves after every move.",
+      "Every puzzle is graded by a solver that only uses human techniques, 24 of them from hidden singles to alternating chains, cheapest first. The hardest step sets the rating and the level, the sum of every step's time sets the par, and the next step from the player's own notes is the hint. A puzzle the solver can't finish is never dealt.",
+      "In the adaptive mode the player has a rating on the puzzles' scale, moved after each game by an Elo update that scores time against par, mistakes and hints. Claude Code built it in one session on 20 November 2026 from a prompt that asked for no intervention.",
+    ],
+    stack: ["TypeScript", "Web Workers", "CSS Grid", "Vite", "Cloudflare Workers"],
+    facts: [
+      { label: "Page", value: "One HTML file, about 24 KB gzipped, plus a 23 KB font" },
+      { label: "Techniques", value: "24, from full house to alternating inference chains" },
+      { label: "License", value: "MIT" },
+    ],
+    highlights: [
+      {
+        title: "Graded like a person solves",
+        detail:
+          "Across 2,000 random minimal puzzles, a backtracking search's effort has a rank correlation of 0.39 with the technique grade, and its median effort is the same for Hard, Expert and Master. So levels come from the hardest technique each puzzle needs.",
+      },
+      {
+        title: "Generated to a level",
+        detail:
+          "Clues come out in symmetric pairs while the puzzle keeps one solution and, below Master, while the solver capped at the level's hardest technique can still finish it. Puzzles take 1 to 8 ms each in a Web Worker, and the Daily is the same seeded puzzle on every device with no server.",
+      },
+      {
+        title: "Elo with a continuous score",
+        detail:
+          "Finishing at par with no mistakes or hints scores 0.5, half of par 0.74, and each hint costs a quarter of what's left. K starts at 1.6 and settles at 0.4, so the first games find your level and later ones nudge it.",
+      },
+      {
+        title: "Hints from your own notes",
+        detail:
+          "When your notes are complete and haven't crossed out an answer, the hint works from them and finds the step you're stuck on. It names the technique first, then shows the cells and the digits it removes, then applies it as one undoable move.",
+      },
+    ],
+    links: {
+      live: "https://nonet.ashwinsathian.com",
+      github: "https://github.com/AshwinSathian/nonet",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/nonet/hero.png",
+      width: 1280,
+      height: 800,
+      alt: "Nonet on a desktop: an Expert puzzle drawn as nine separate tiles with pencil notes, three cells in box 9 shaded amber, and a hint card explaining a pointing pair beside a 3 by 3 keypad.",
+    },
+    repo: { owner: "AshwinSathian", repo: "nonet" },
+  },
+  {
     slug: "ngx-runtime-i18n",
     name: "ngx-runtime-i18n",
     featured: true,

@@ -1,10 +1,10 @@
 # Ashwin Sathian
 
-> Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Nine independent products shipped on his own time.
+> Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Eleven independent products shipped on his own time.
 
 ## Site
 
-ashwinsathian.com is a static site built with Astro and served from Cloudflare's edge. Pages: / (home: about, writing, projects, work, contact), /projects (index plus nine project pages, five of them full case studies in Problem, Decision and Outcome form), /experience (the full seven-role record), /writing (technical notes, RSS at /writing/feed.xml) and /colophon. Every post and project page is also available as plain Markdown by adding .md to its URL. /llms-full.txt carries this file plus every project page and the full text of every post.
+ashwinsathian.com is a static site built with Astro and served from Cloudflare's edge. Pages: / (home: about, writing, projects, work, contact), /projects (index plus eleven project pages, five of them full case studies in Problem, Decision and Outcome form), /experience (the full seven-role record), /writing (technical notes, RSS at /writing/feed.xml) and /colophon. Every post and project page is also available as plain Markdown by adding .md to its URL. /llms-full.txt carries this file plus every project page and the full text of every post.
 
 Four of the five case studies (Booklet, Weir, Wayfarer, humanize-writing-skill) carry a dated Decision Record documenting a disclosed reversal (a rollback, a claim that was reworded, a rule that was replaced) with before/after reasoning, and Typester carries one for its rebuild. Booklet's case study includes a system architecture diagram.
 

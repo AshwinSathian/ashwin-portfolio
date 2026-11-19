@@ -389,6 +389,57 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    slug: "minefield",
+    name: "Minefield",
+    category: "Browser game",
+    tagline: "Minesweeper where every board can be cleared by logic, checked before you see it by an exact solver that also gives the hints.",
+    description: [
+      "Minefield is Minesweeper for phone, tablet and desktop: Beginner, Intermediate, Expert, custom sizes up to 60 by 40, and a Daily board that is the same for everyone. The app is one HTML file of about 21 KB gzipped with no fonts or images to fetch, and it installs as an app and plays offline.",
+      "With No guessing on, a board is dealt only after a solver has cleared it from the first click without a guess. The solver works in layers: single numbers, overlapping pairs, then a count of every mine arrangement on each frontier component, weighted by how the leftover mines fit the unexplored interior. Certainty is decided from which mine totals are feasible, never from floating-point probabilities.",
+      "The same solver gives hints that ring the numbers behind a move, shades every hidden cell by its exact chance of being a mine, and tells you after a loss whether a safe move was open. Claude Code built it in one session on 20 November 2026 from a prompt that asked for no intervention.",
+    ],
+    stack: ["TypeScript", "Web Workers", "CSS Grid", "Web Audio", "Vite", "Cloudflare Workers"],
+    facts: [
+      { label: "Page", value: "One HTML file, about 21 KB gzipped" },
+      { label: "No-guess Expert boards", value: "15.8% of random deals; 2.5 ms median to find one" },
+      { label: "License", value: "MIT" },
+    ],
+    highlights: [
+      {
+        title: "A solver that is sound and complete",
+        detail:
+          "Single and pair rules alone would accept 17 random Expert boards in 1,000. Counting every arrangement on the frontier, combined with the global mine count, accepts 158. Tests compare its probabilities and certainties with brute-force enumeration on 400 random positions.",
+      },
+      {
+        title: "Certainty without floats",
+        detail:
+          "Binomial weights reach 10^513 on large boards, so probabilities are computed in log space and rescaled. A rescaled weight can underflow to zero while its arrangement is still possible, so safe and mine are decided from integer counts and feasible totals instead.",
+      },
+      {
+        title: "Loss review",
+        detail:
+          "After a mine, the solver replays the position before the click. It either outlines the safe move that was open or says the guess was forced and gives the odds the chosen cell had.",
+      },
+      {
+        title: "Boards that turn",
+        detail:
+          "A 30 by 16 board turns upright on a portrait phone. Logic stays in board coordinates; only the view and the arrow keys swap axes.",
+      },
+    ],
+    links: {
+      live: "https://minefield.ashwinsathian.com",
+      github: "https://github.com/AshwinSathian/minefield",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/minefield/hero.png",
+      width: 1280,
+      height: 800,
+      alt: "Minefield on a desktop: an Expert board on warm paper-coloured tiles, with a hint outlining a safe cell in green and ringing the number that proves it.",
+    },
+    repo: { owner: "AshwinSathian", repo: "minefield" },
+  },
+  {
     slug: "ngx-runtime-i18n",
     name: "ngx-runtime-i18n",
     featured: true,

@@ -1,55 +1,98 @@
 ---
-title: "Coil's leaderboard never asks the browser for a score"
+title: "A leaderboard that never asks the browser for a score"
 date: "2026-11-20"
-description: "Coil is a snake game in a 25 KB page. The browser and the server run the same simulation, so the server scores each Daily run from its moves. What that gets right, what it can't prove, and three places it broke."
-seoDescription: "Coil is a snake game whose server replays every leaderboard run from its moves. What a shared deterministic simulation buys, and what it can't prove."
-tags: ["gamedev", "javascript", "cloudflare", "claude", "buildinpublic"]
+description: "Any score a browser sends could have been typed by hand. Coil's Daily board takes the moves instead and plays them again on a Cloudflare Worker. What a simulation gives up to run on both sides, how the server parses a replay it can't trust, and what changing the rules does to every link already shared."
+seoDescription: "Server-side replay scoring for a browser game: one deterministic simulation in client and Worker, hostile-input replay parsing, and versioned rules."
+tags: ["typescript", "gamedev", "cloudflare", "security"]
 ---
 
-[Coil](https://coil.ashwinsathian.com) is a snake game for phone, tablet and desktop browsers, with five modes and a Daily board that's the same for everyone. The page is one HTML file of about 25 KB gzipped, with its CSS and JavaScript inlined, plus a 28 KB cut of the Anybody font. The sounds are synthesised in the browser, so there are no image or audio files to fetch, and after the first visit it plays offline.
+A score that arrives over HTTP is a number somebody typed, whether the typing was done by your game or by `curl`. You can sign it, obfuscate the code that sends it, rate-limit it - the client still holds every key you give it. The only score worth storing is one the server worked out for itself.
 
-Claude Code built it in one session, from a prompt that asked for the whole job (research, design, code, tests, deploy) with no intervention from me. I sent a few notes while it worked: push harder on taste, which review skills to use, and that the default look was too retro for my liking, so a modern one is now a tap away. A later prompt asked about the walls, and that's further down. The first version was committed at 00:57 IST on 20 November, and the walls change at 01:44.
+That's how the Daily leaderboard works in [Coil](https://coil.ashwinsathian.com), a snake game Claude Code built for me in one session. A submission is a name, a random id for the device and a replay: the seed, and the ticks where the snake turned. The Worker behind `/api/daily` plays that replay through the same `src/sim.ts` the browser runs and stores the score it gets. The request has no field for a score at all.
 
-Most of what's interesting about it follows from one decision.
+Running one simulation in two places sounds like importing a file twice. Mostly it's about what the simulation isn't allowed to touch, and what the server has to assume about the bytes it's given.
 
-## The game is a function from moves to a score
+## What the simulation gives up
 
-`src/sim.ts` is the whole game, and it has no clock. The board is 21 by 21 cells, the random numbers come from a 32-bit generator seeded once, and every value in the state is an integer. Time is counted in ticks. Each tick the snake moves one cell, and the number of milliseconds a tick stands for is worked out from the state: in Classic, 150 ms for a new snake, falling to 68 ms as it grows. The same seed and the same turns always give the same game, down to the tick it ends on.
+The first line of `sim.ts` is the contract: integer-only, seeded, no clock, no DOM. Each of those closes off one way for the browser's game and the server's game to drift apart.
 
-That makes a game cheap to keep. A replay is the seed plus the ticks where the direction changed, packed as variable-length integers and base64url-encoded. A Classic run that ended 55 segments long comes to 192 characters, which fits in the fragment of a link. A run can be shared and watched move for move, and nothing about it is stored anywhere.
+No clock is the one that takes discipline. Anything in the game that feels like time has to be counted in ticks, or in milliseconds the simulation adds up itself. The snake speeds up as it grows (in Classic a tick lasts `Math.max(68, 150 - (len - 3) * 2)` ms), and the sim keeps `elapsed` as the sum of those intervals without ever reading `performance.now()`. So the combo window, 3,500 ms between fruit, and Blitz's 60-second limit are both measured in simulated time. A phone that drops frames gets the same combo as a desktop, and so does the Worker, which has no frames at all.
 
-Three more features come from the same property. In Daily, your best run of the day plays beside you as a faint second snake. The title screen runs the sim with an autopilot, which takes the shortest path to the fruit only if the snake can still reach its own tail afterwards. And the tests use that autopilot to play about a hundred games, checking on every tick that the board and the snake still agree.
+Real time exists in exactly one place, the frame loop in `main.ts`. It adds each frame's delta to an accumulator, runs a tick whenever the accumulator passes the current interval (at most four a frame) and gives the renderer what's left over as a fraction to draw between cells. Nothing the renderer does can reach back into the game.
 
-## The server plays every run again
+Seeded randomness has a quieter cost. The generator is a 32-bit one, seeded once per game, and the game draws from it to place fruit, roll for golden fruit and lay out rooms. The quality of the numbers hardly matters - the order of the calls does. Every `this.rand()` before the first fruit shifts every number after it, so one extra draw anywhere (one more wall, a loop reordered) gives every old seed a different game. In a seeded simulation the sequence of random draws is part of the file format, whether or not anybody wrote that down.
 
-The Daily leaderboard is a Cloudflare Worker with D1 behind it, and the Worker imports the same `sim.ts` as the page. A submission carries a name, a random id for the device and a replay. It doesn't carry a score. The Worker decodes the replay and checks that it's a Daily run on today's board (or yesterday's, for a run that ended just after midnight UTC). Then it plays the run to the end and stores the score it got. A replay that doesn't end in a finished game is refused, and so is one that scored nothing.
+Integer-only is easy for snake, where every position is an index into a 21 by 21 board held in a `Uint8Array`. A game with real physics can't do that, and [the pinball table](/writing/a-pinball-table-built-by-an-agent-that-never-touched-the-flippers) carries its own sine function instead.
 
-That rules out a forged score. No request can claim 9,000 points, because the points come from the server's own playthrough. It doesn't rule out a run nobody played. A replay proves the moves are legal, and says nothing about whether a person made them at the speed the game ran - someone with time could search for a long run offline and submit it. An automated security review of the Worker suggested handing out a nonce when a game starts and checking, on submit, that the wall-clock time since then is at least as long as the game. Coil doesn't do that. A program can wait in real time too, so the check would make cheating slower without stopping it, and it would refuse a run played offline and sent later. For a personal leaderboard, legal and scored by the server is the line.
+## Record what the simulation did, not what was pressed
 
-The rest is ordinary. Names are 1 to 16 letters, numbers, spaces, dots or dashes. Each device keeps its best run of the day, and the Worker allows 20 submissions a minute from one IP address.
+The input side has a trap in it. On a phone, three swipes can land inside one tick. `main.ts` queues up to three turns, drops one that repeats or reverses the last turn in the queue, and feeds the sim one per tick. The sim checks again, because a turn can be legal when it's queued and illegal by the time it's applied:
 
-## Changing the rules without breaking old links
+```ts
+if (input >= 0 && input !== this.dir && input !== (this.dir ^ 2)) {
+  this.dir = input;
+  this.log.push(this.tick, input);
+}
+```
 
-The later prompt was a question: shouldn't the walls wrap, so that leaving at the bottom brings you in at the top of the same column? Both rules are common in snake games, and Coil already had both. Classic has solid walls, and Blitz and Zen wrap on every edge. What I suggested was a mix, hard walls along some stretches and porous ones along others, with walls inside the field as well.
+The log is written inside `step()`, after that check. So a replay holds the turns the simulation accepted, at the tick it accepted them, and never a key the player pressed. A rejected reversal or a swipe that arrived late was never recorded, so a replay can't trip over one. The replay player in `src/replay.ts` adds one more rule. If a log has two events on the same tick, which an honest client never writes and a forged one might, the second is skipped (the comment says "stale events are ignored, not replayed late").
 
-That became the edge model. Every row and every column has a flag that says whether its ends are a gate, so the rim is decided cell by cell. A solid line is a wall; a dashed line in the fruit's colour is a gate, and you come back in on the opposite edge, in the same row or column. A generator cuts each edge into mirrored runs of wall or gate and places mirrored walls inside. It keeps a wall only if a flood fill, one that follows the gates, still reaches every open cell. A new mode, Gates, is a run of these rooms. Eat the room's quota and you bank 100 times the room number, and the next room has fewer gates and more walls. Daily is now one generated room a day.
+The codec writes a header of rules revision, mode, seed, end tick and event count, then each event as a varint of `tickDelta * 4 + direction`, and base64url-encodes the lot. An autopilot run on the 20 November Daily board, 2,967 ticks and 694 turns long, comes to 940 characters. That fits in the fragment of a link, and it's small enough to keep whole in D1 next to the score, so every row on the board can be watched.
 
-Changing the Daily board broke a promise the sim had made. A replay recorded before the change would play on a different board and come out with a different score, or end early. So the first byte of a replay, which had been a format version, is now the revision of the rules the game was played under. A Daily replay from revision 1 still gets the old board, with its rocks and solid edges. One from revision 2 gets a room. Before any of the new code went in, the session played one autopilot game in each of the four modes there were and saved each replay with its score and the tick it ended on. A test now plays those back under the new code and checks both numbers. The leaderboard accepts only the current revision, since today's board is the one it checks a run against.
+## The replay is hostile input
 
-## Three places it broke
+On the server the replay is the one field that matters, and an attacker controls every byte of it. `decode()` treats it that way before the simulation sees anything:
 
-**The service worker kept an old copy of the app.** Coil serves its cached page at once and refreshes the cache in the background. A repeat visit is instant, and a returning visitor runs the previous version until the next load. While the Gates change was being tested, a replay link from the new version opened in a browser that still had the old app cached. The old app didn't know revision 2, called the link damaged and threw it away. Now the service worker tells open tabs when the page it fetched differs from the one it had, and the app reloads onto the new one when that interrupts nothing: on the menu, or when a link is waiting for a version that can read it. A browser that has only the very first service worker still gets one load of the old app, because that code has nothing listening.
+- the string has to match `^[A-Za-z0-9_-]{4,20000}$`, inside a request body of at most 24,000 characters;
+- the revision byte has to be one this code knows, and the mode index has to exist;
+- the end tick can be at most `MAX_TICKS`, 200,000, and the event count at most one more than the end tick;
+- a varint longer than five bytes, an event after the end tick or a single trailing byte is an error.
 
-**The first retro look was too close to someone else's.** The default look started as a snake with round eyes on a two-tone checkerboard. Three design reviews ran on the screenshots, one of them with my own [loupe](https://loupe.ashwinsathian.com), and one pointed out that a checkerboard under a snake with eyes is the look of Google's snake game. Retro is now a snake of square blocks, with a madder block every third segment, on a flat charcoal board with a dot at each grid point. The fruit is a cut gem.
+The tick cap is what bounds the server's work. I measured it for this post. In Node 24 on my machine, a 200,000-tick Zen game replays in 4 to 14 ms, and a Classic game of 2,452 ticks in a quarter of a millisecond. So the worst replay the decoder lets through costs a few milliseconds of CPU, and a Workers rate-limit binding (20 submissions a minute per IP address) stops anyone sending many of them.
 
-**Runs worth nothing made the board.** A check against the live site submitted a Daily run that died on its first move, and it was ranked first of one. The Worker now refuses a run that scored nothing, and the game doesn't offer the name form for one.
+After decoding, the Worker checks that the run is a Daily under the current revision and that its seed is today's board or yesterday's, for a run that ended just after midnight UTC. `dailySeed()` is an FNV-1a hash of `coil:` and the date, so the Worker recomputes the seed instead of looking it up. Then it plays the run to the end:
 
-## Drawing between ticks
+```ts
+const game = simulate(replay);
+if (game.alive || game.tick !== replay.endTick) return fail('Replay does not end in a finished game');
+if (game.score <= 0) return fail('Score at least one fruit to join the leaderboard');
+```
 
-The sim moves in whole cells, between about 7 and 17 times a second depending on the mode and the snake's length. The renderer draws at the display's rate and fills in the frames between. The head slides from the last cell into the new one, the tail slides out of the cell it's leaving, and the body between them is cell centres joined into one path, so it never drifts sideways. A snake halfway through a gate hangs off one edge, so it's drawn a second time, shifted by the width or height of the board. In the Modern look each piece of the body has its own colour gradient. Most pieces move only when the sim ticks, so their gradients are built once a tick and reused for every frame until the next one.
+A run has to die exactly on the tick its replay says it ended. That's why `die()` counts the fatal move as a tick - without it, a replay would stop one tick short of the death it records. The zero-score rule came out of launch day, when a check against the live site sent a run that died on its first move, and it was ranked first of one.
 
-## Where it stands
+The insert is an upsert on `(day, player)` that keeps the higher score along with that run's replay, so a worse run later in the day can't replace a better one.
 
-Before launch it was checked in Chromium at phone, tablet, landscape-phone and desktop sizes, in both looks and both themes, and the leaderboard and the offline load were tested against the live site. Touch, vibration and sound weren't checked on a real device. And the leaderboard can't tell a patient player from a patient program.
+The 20,000-character cap is a real ceiling, and measuring for this post showed where it bites. Zen has no death, and three autopilot Zen runs crossed 20,000 characters at about 15,000 turns, which is roughly 2 hours 40 minutes of play. The client reads share links with the same `decode()`, so a Zen run longer than that makes a link Coil refuses to open. Zen isn't on the leaderboard and the server never sees one. The link is still broken.
 
-The game is at [coil.ashwinsathian.com](https://coil.ashwinsathian.com), and the code is at [github.com/AshwinSathian/coil](https://github.com/AshwinSathian/coil), under the MIT licence. If a replay link doesn't open for you, I'd like to see it.
+## What the server can't prove
+
+A replay proves the moves are legal. It says nothing about who made them, or how fast. The sim runs headless in Node, the code is MIT-licensed and the seed is a hash of the date, so someone patient could search for a long Daily run offline and submit it.
+
+An automated security review of the Worker suggested a fix: hand out a nonce when a game starts, and on submit check that the wall-clock time since then is at least as long as the game. Coil doesn't do it. A program can wait in real time too, so the check would make cheating slower without stopping it. For a personal leaderboard, legal and scored by the server is where the line sits.
+
+## Changing the rules under links already shared
+
+"Same seed, same moves, same game" holds only while the rules hold still, and Coil's changed on its first day. The Gates commit rebuilt the board model. Revision 1 had a `wrap` flag per mode, and Daily was rocks on a board with solid edges. Revision 2 has a gate flag for every row and column and generated rooms, and Daily became one generated room a day. A Daily replay recorded under revision 1 and played under revision 2 would be a different board, ending at a different score or dying early.
+
+The first byte of a replay used to be a format version. It became the revision of the rules the game was played under, and the constructor branches on it where the rules differ:
+
+```ts
+if (layout === 'daily') {
+  if (rev === 1) this.placeRocks();
+  else this.buildRoom(DAILY_LEVEL);
+}
+```
+
+`placeRocks()` now carries a comment, "Kept exactly as shipped so old Daily replays still play back", and that includes the number and order of its random draws. `MODES` became append-only, because a mode is stored as its index.
+
+That branch only covers Daily, though. Classic, Blitz and Zen take no branch at all, and their old replays still play back only because swapping `wrap: true` for gate arrays filled with ones changed no outcome. Nothing in the `rev` check proves that. A test does. Before the refactor went in, the session played one autopilot game in each of the four modes there were, and `src/fixtures-v1.json` keeps each replay with its score and end tick. The test plays them under the current code and checks both numbers. If a later change moves any of them, the test fails instead of a link somebody shared.
+
+The leaderboard accepts only the current revision, because today's board is the one it scores against. The Daily ghost (your best run of the day, drawn as a faint second snake) drops a saved run from older rules for the same reason.
+
+## The other copy of the code
+
+Versioned replays turned up one more place where two copies of the code can disagree, and that's the browser's cache. Coil's service worker serves the cached page at once and refreshes it in the background. While Gates was being tested, a revision 2 link opened in a browser that still had the revision 1 app. The old decoder knew only version 1, so it threw, and the old app showed "This replay link is damaged or incomplete" and cleared the link.
+
+Now the service worker compares the fresh page's ETag (or Last-Modified, or length) with the cached one and tells open tabs when they differ. The app reloads onto the new version only when that interrupts nothing: on the menu, or when a link is waiting for a version that can read it. The new decoder also says why it refused, "replay is from a newer version of Coil", so the app keeps the link and asks the service worker for an update instead of throwing it away. A browser holding the very first service worker still gets one load of the old app, because that code has nothing listening.
+
+Coil is at [coil.ashwinsathian.com](https://coil.ashwinsathian.com) and the code is at [github.com/AshwinSathian/coil](https://github.com/AshwinSathian/coil). Everything above lives in `src/sim.ts`, `src/replay.ts` and `worker/index.ts`, 587 lines between the three.

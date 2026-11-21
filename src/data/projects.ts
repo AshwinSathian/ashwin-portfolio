@@ -133,9 +133,9 @@ export const PROJECTS: Project[] = [
     description: [
       "Weir sits between an HTTP server and an origin and decides, for each request, whether the cache can answer. It implements RFC 9111 caching and adds defenses I could not find together in one Go library. Each lifetime is shortened by up to 10%, so entries stored together do not expire together. Concurrent requests for one key share one origin fetch. Every origin fetch, whatever its key, holds a slot from a limiter of 64. Stale-while-revalidate, stale-if-error and a circuit breaker cover an origin outage, and a soft purge revalidates through the same limiter. The core module imports only the Go standard library. Three more modules add a Caddy handler, a Valkey store for several nodes, and Prometheus metrics.",
       "The cache key is treated as a security boundary. On a cacheable request the origin receives only the headers that are in the key, the ones the operator allowed, and a short fixed list, so the forwarded request is the keyed request. That has a cost: an origin that reads Accept-Language or a cookie does not see it until the operator keys or allows it. The threat model lists 51 threats with the answer and the test for each, and 15 risks the defaults do not remove.",
-      "It was built in fifteen days through Claude Code sessions: a seed design document, ten numbered design documents with requirement IDs, and 103 task cards, one session per card, each ending in a pull request that I reviewed and merged. Version 1.0.0 was tagged on 12 October 2026 after two release-candidate rehearsals. It is a new library with no production history yet.",
+      "It was built in fifteen days from a seed design document, ten numbered design documents with requirement IDs, and 103 task cards, one session per card, each ending in a pull request that I reviewed and merged. Version 1.0.0 was tagged on 12 October 2026 after two release-candidate rehearsals. It is a new library with no production history yet.",
     ],
-    stack: ["Go 1.26", "net/http", "Caddy", "Valkey", "Prometheus", "Claude Code"],
+    stack: ["Go 1.26", "net/http", "Caddy", "Valkey", "Prometheus"],
     facts: [
       { label: "Release", value: "1.2.0, October 2026, Apache-2.0" },
       { label: "Install", value: "go get github.com/AshwinSathian/weir@v1.2.0" },

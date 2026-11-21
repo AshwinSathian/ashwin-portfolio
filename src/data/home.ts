@@ -1,3 +1,5 @@
+import { GAME_PROJECT_SLUGS } from "./games";
+
 // Home page copy. Every fact here already appears in projects.ts,
 // experience.ts or a post in src/content/writing; nothing new is asserted.
 
@@ -32,12 +34,55 @@ export const STORIES: Record<string, string> = {
     "Claude’s prose is easy to spot, and banned-word lists go stale. This Claude Code skill shapes the writing while it happens, and every blind test round is published, including one it lost.",
 };
 
-/** Home groups the projects by kind; every slug must exist in PROJECTS. */
-export const GROUPS: { title: string; slugs: string[] }[] = [
-  { title: "Products", slugs: ["booklet", "brnr", "wayfarer", "typester", "coil"] },
+export type Tone = "orange" | "yellow" | "teal" | "blue";
+
+export type Section = {
+  id: string;
+  title: string;
+  blurb: string;
+  tone: Tone;
+  /** Full project pages in this section, in display order. Every slug must exist in PROJECTS. */
+  slugs: string[];
+  /** Smaller repositories (ALSO_SHIPPED names) that belong here. */
+  also?: string[];
+  /** Tiles with a screenshot for the headline products, a single hub tile for the games, compact rows for the rest. */
+  view: "tiles" | "games" | "rows";
+};
+
+/** How the work is grouped, on the home page and on /projects. One tone per group. */
+export const SECTIONS: Section[] = [
   {
-    title: "Libraries and tools",
-    slugs: ["weir", "ngx-runtime-i18n", "better-auth-mongoose", "humanize-writing-skill"],
+    id: "products",
+    title: "Products",
+    blurb: "Apps you open and use: a Markdown publisher, an encrypted messenger and an API client.",
+    tone: "orange",
+    slugs: ["booklet", "brnr", "wayfarer"],
+    view: "tiles",
+  },
+  {
+    id: "games",
+    title: "Games",
+    blurb: "Snake, pinball, Minesweeper, sudoku, noughts and crosses, table tennis and a typing race.",
+    tone: "yellow",
+    slugs: GAME_PROJECT_SLUGS,
+    view: "games",
+  },
+  {
+    id: "libraries",
+    title: "Libraries",
+    blurb: "Code you install: a Go HTTP cache, an Angular i18n library and a Better Auth adapter.",
+    tone: "teal",
+    slugs: ["weir", "ngx-runtime-i18n", "better-auth-mongoose"],
+    view: "rows",
+  },
+  {
+    id: "ai",
+    title: "AI tooling",
+    blurb: "Tools built around language models.",
+    tone: "blue",
+    slugs: ["humanize-writing-skill"],
+    view: "rows",
+    also: ["WorkDeck", "github-issue-analyzer", "angularjs-migration-copilot"],
   },
 ];
 
@@ -47,7 +92,10 @@ export const WORK = [
   "Before that I spent a year at WeCP building SaaS platforms for technical hiring, and six months at Manaraah moving construction clients off legacy systems. My first job, in 2018, was at Reubro International. Most recently I spent four months as Lead Engineer at HighLevel, owning Funnels, Websites, and Webinars.",
 ];
 
-/** One tone per kind of project, used the same way on the home tiles and on each project page. */
-export function toneForProject(slug: string): "orange" | "teal" {
-  return GROUPS[0]!.slugs.includes(slug) ? "orange" : "teal";
+/** The tone of the group a project belongs to, used on its tile, its page and its social card. */
+export function toneForProject(slug: string): Tone {
+  return SECTIONS.find((sec) => sec.slugs.includes(slug))?.tone ?? "teal";
 }
+
+/** Every project page in the order the groups show them, so "next project" follows the page. */
+export const PROJECT_ORDER: string[] = SECTIONS.flatMap((sec) => sec.slugs);

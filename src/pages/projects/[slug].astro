@@ -15,6 +15,7 @@ import { getProjectsWithStats, type ProjectWithStats } from "../../lib/projects"
 import { breadcrumbs } from "../../lib/schema";
 import { truncate } from "../../lib/text";
 import { toneForProject } from "../../data/home";
+import { GAME_PROJECT_SLUGS } from "../../data/games";
 
 export const getStaticPaths = (async () => {
   const all = await getProjectsWithStats();
@@ -56,6 +57,8 @@ const narrative: [string, string][] = project.caseStudy
   : [];
 const NTONES = ["orange", "yellow", "teal"];
 const description = truncate(project.tagline, 160);
+// The games are reached through one item, so their pages sit under it in the trail.
+const crumbs: [string, string][] = GAME_PROJECT_SLUGS.includes(project.slug) ? [["Projects", "/projects"], ["Games", "/projects/games"]] : [["Projects", "/projects"]];
 // Titles that carry what the project is, not just its category.
 const SEO_TITLES: Record<string, string> = {
   wayfarer: "Wayfarer: local-first API client in a browser tab",
@@ -75,7 +78,7 @@ const SEO_TITLES: Record<string, string> = {
   description={description}
   path={`/projects/${project.slug}`}
   image={`/og/projects/${project.slug}.png`}
-  schema={[software, breadcrumbs([["Home", ""], ["Projects", "/projects"], [project.name, `/projects/${project.slug}`]])]}
+  schema={[software, breadcrumbs([["Home", ""], ...crumbs, [project.name, `/projects/${project.slug}`]])]}
 >
   <article>
     <header class="shell pb-10 pt-28 lg:pb-16 lg:pt-40">
@@ -83,8 +86,12 @@ const SEO_TITLES: Record<string, string> = {
         <ol class="flex flex-wrap items-center gap-x-2">
           <li><a href="/" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Home</span></a></li>
           <li aria-hidden="true">/</li>
-          <li><a href="/projects" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Projects</span></a></li>
-          <li aria-hidden="true">/</li>
+          {crumbs.map(([label, href]) => (
+            <>
+              <li><a href={href} class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">{label}</span></a></li>
+              <li aria-hidden="true">/</li>
+            </>
+          ))}
           <li aria-current="page" class="text-fg-2">{project.name}</li>
         </ol>
       </nav>

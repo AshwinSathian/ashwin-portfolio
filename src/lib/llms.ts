@@ -1,5 +1,9 @@
 import fs from "node:fs";
+import { GAMES, GAMES_CATALOGUE } from "../data/games";
+import { SECTIONS } from "../data/home";
 import { ALSO_SHIPPED, PROJECTS, type Project } from "../data/projects";
+import { ORDERED_PROJECTS } from "./projects";
+import { numberWord } from "./text";
 import { SITE } from "../data/site";
 import { getPosts } from "./posts";
 
@@ -41,20 +45,31 @@ ${p.highlights.map((h) => `- **${h.title}.** ${h.detail}`).join("\n")}${dr}
 /** The index: hand-written facts, plus project and post lists built from the data so they cannot drift. */
 export async function llmsTxt() {
   const posts = await getPosts();
-  const projects = PROJECTS.map((p) => `- [${p.name}](${SITE.website}/projects/${p.slug}.md) (${p.category}${p.status ? `, ${p.status}` : ""}): ${p.tagline}`).join("\n");
-  const also = ALSO_SHIPPED.map((a) => `- [${a.name}](${a.href})${a.status ? ` (${a.status})` : ""}: ${a.description}`).join("\n");
+  const line = (slug: string) => {
+    const p = PROJECTS.find((x) => x.slug === slug)!;
+    return `- [${p.name}](${SITE.website}/projects/${p.slug}.md) (${p.category}${p.status ? `, ${p.status}` : ""}): ${p.tagline}`;
+  };
+  const also = (name: string) => {
+    const a = ALSO_SHIPPED.find((x) => x.name === name)!;
+    return `- [${a.name}](${a.href})${a.status ? ` (${a.status})` : ""}: ${a.description}`;
+  };
+  const gamesLine = `- [Games](${SITE.website}/projects/games): ${numberWord(GAMES.length)} small browser games (${GAMES.map((g) => g.name).join(", ")}). Catalogue: ${GAMES_CATALOGUE}. The ones with a full page are listed below.`;
+  const projects = SECTIONS.map((s) => {
+    const body = s.view === "games" ? [gamesLine, ...s.slugs.map(line)] : [...s.slugs.map(line), ...(s.also ?? []).map(also)];
+    return `### ${s.title}\n\n${s.blurb}\n\n${body.join("\n")}`;
+  }).join("\n\n");
   const list = posts
     .map((p) => `- [${p.data.title}](${SITE.website}/writing/${p.id}.md) (${p.data.date}): ${p.data.description}`)
     .join("\n");
   const [head, tail] = base().split("## Contact");
   const [h1, ...rest] = (head ?? "").split("\n\n");
-  return `${h1}\n\nLast updated: ${today()}\n\n${rest.join("\n\n")}## Projects\n\nEight projects built on his own time. Each link is the Markdown version of the project page, with its facts, case study and highlights.\n\n${projects}\n\n## Also shipped\n\nSmaller repositories, listed on /projects without a case study.\n\n${also}\n\n## Writing\n\nTechnical notes at ${SITE.website}/writing (RSS: ${SITE.website}/writing/feed.xml), newest first. Each link is the Markdown version of the post.\n\n${list}\n\n## Optional\n\n- [Experience](${SITE.website}/experience): every role, with dates and stack\n- [Colophon](${SITE.website}/colophon): how this site is built\n- [Résumé](${SITE.website}${SITE.resumePath}): PDF\n\n## Contact${tail}\n`;
+  return `${h1}\n\nLast updated: ${today()}\n\n${rest.join("\n\n")}## Projects\n\nBuilt on his own time and grouped by kind. Each project link is the Markdown version of its page, with its facts, case study and highlights. Entries that link to GitHub are smaller repositories without a page of their own.\n\n${projects}\n\n## Writing\n\nTechnical notes at ${SITE.website}/writing (RSS: ${SITE.website}/writing/feed.xml), newest first. Each link is the Markdown version of the post.\n\n${list}\n\n## Optional\n\n- [Experience](${SITE.website}/experience): every role, with dates and stack\n- [Colophon](${SITE.website}/colophon): how this site is built\n- [Résumé](${SITE.website}${SITE.resumePath}): PDF\n\n## Contact${tail}\n`;
 }
 
 /** Everything in one file, for agents that want a single fetch. */
 export async function llmsFullTxt() {
   const posts = await getPosts();
-  const projects = PROJECTS.map(projectMarkdown).join("\n\n---\n\n");
+  const projects = ORDERED_PROJECTS.map(projectMarkdown).join("\n\n---\n\n");
   const full = posts
     .map((p) => `# ${p.data.title}\n\nPublished ${p.data.date}${p.data.updatedAt ? `, updated ${p.data.updatedAt}` : ""} by Ashwin Sathian. ${SITE.website}/writing/${p.id}\n\n${p.body ?? ""}`)
     .join("\n\n---\n\n");

@@ -2,22 +2,52 @@
 import Base from "../../layouts/Base.astro";
 import PageHeader from "../../components/PageHeader.astro";
 import ProjectRow from "../../components/ProjectRow.astro";
+import { GAMES } from "../../data/games";
+import { SECTIONS } from "../../data/home";
 import { ALSO_SHIPPED, PROJECTS } from "../../data/projects";
 import { breadcrumbs, collectionPage } from "../../lib/schema";
 import { capitalize, numberWord } from "../../lib/text";
 
-const cap = capitalize(numberWord(PROJECTS.length));
-const description = `${cap} projects I built: a Markdown publisher, Go, Angular and TypeScript libraries, an encrypted messenger, an API client, a typing game and a Claude skill.`;
+const games = capitalize(numberWord(GAMES.length));
+const description = `Products, ${numberWord(GAMES.length)} browser games, libraries and AI tooling I built: a Markdown publisher, an encrypted messenger, an API client and a Claude skill.`;
+const items = [
+  ...SECTIONS.flatMap((s) => s.view === "games" ? [{ name: "Games", path: "/projects/games" }] : s.slugs.map((slug) => ({ name: PROJECTS.find((p) => p.slug === slug)!.name, path: `/projects/${slug}` }))),
+];
 ---
 
-<Base title="Projects" description={description} path="/projects" image="/og/projects.png" schema={[collectionPage("/projects", "Projects", description, PROJECTS.map((p) => ({ name: p.name, path: `/projects/${p.slug}` }))), breadcrumbs([["Home", ""], ["Projects", "/projects"]])]}>
-  <PageHeader title={`${cap} projects, built and shipped end to end.`} tab="Projects" tone="teal">
-    Products and libraries I built on my own time. Each page covers what it does and how it is built.
+<Base title="Projects" description={description} path="/projects" image="/og/projects.png" schema={[collectionPage("/projects", "Projects", description, items), breadcrumbs([["Home", ""], ["Projects", "/projects"]])]}>
+  <PageHeader title="Built and shipped end to end." tab="Projects" tone="teal">
+    Products, games, libraries and tools I built on my own time. Each page covers what it does and how it is built.
   </PageHeader>
   <div class="shell pb-24 lg:pb-40">
-    <div class="flex flex-col border-b border-line">
-      {PROJECTS.map((p) => <ProjectRow href={`/projects/${p.slug}`} name={p.name} description={p.tagline} status={p.status} marker={p.category} as="h2" />)}
-      {ALSO_SHIPPED.map((a) => <ProjectRow href={a.href} name={a.name} description={a.description} status={a.status} marker="Also" as="h2" />)}
+    <nav aria-label="Project groups" class="mb-12 flex flex-wrap gap-3 lg:mb-16">
+      {SECTIONS.map((s) => <a href={`#${s.id}`} class:list={["pill min-h-11 transition-transform duration-200 ease-out hover:-translate-y-0.5", `tone-${s.tone}`]}>{s.title}</a>)}
+    </nav>
+    <div class="flex flex-col gap-14 lg:gap-20">
+      {SECTIONS.map((section) => (
+        <section id={section.id} aria-labelledby={`${section.id}-h`} class="flex scroll-mt-24 flex-col gap-4">
+          <div class="flex flex-col gap-1">
+            <h2 id={`${section.id}-h`} class:list={["flex items-center gap-3 text-display-m font-bold tracking-[-0.03em]", `tone-${section.tone}`]}>
+              <span aria-hidden="true" class="h-3 w-3 shrink-0 rounded-full bg-[var(--tone)]"></span>{section.title}
+            </h2>
+            <p class="max-w-2xl text-small text-fg-3">{section.blurb}</p>
+          </div>
+          <div class="flex flex-col border-b border-line">
+            {section.view === "games" ? (
+              <ProjectRow href="/projects/games" name={`${games} small games`} description="Each has a live version and its code, and four have a write-up on the engineering underneath." marker="Browser games" />
+            ) : (
+              section.slugs.map((slug) => {
+                const p = PROJECTS.find((x) => x.slug === slug)!;
+                return <ProjectRow href={`/projects/${p.slug}`} name={p.name} description={p.tagline} status={p.status} marker={p.category} />;
+              })
+            )}
+            {(section.also ?? []).map((name) => {
+              const a = ALSO_SHIPPED.find((x) => x.name === name)!;
+              return <ProjectRow href={a.href} name={a.name} description={a.description} status={a.status} marker="On GitHub" />;
+            })}
+          </div>
+        </section>
+      ))}
     </div>
   </div>
 </Base>

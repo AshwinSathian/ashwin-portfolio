@@ -2,9 +2,9 @@
 title: "Three gaps in a caching layer, and the Go library I built to close them"
 date: "2026-10-13"
 updatedAt: "2026-10-23"
-description: "Weir is a Go library for HTTP caching in front of an origin that has to stay up. What Varnish, nginx and Souin already solve, the three things I couldn’t find in one place, and how it got built with Claude Code."
+description: "Weir is a Go library for HTTP caching in front of an origin that has to stay up. What Varnish, nginx and Souin already solve, the three things I couldn’t find in one place, and how it got built."
 seoDescription: "Weir is a Go library for HTTP caching in front of an origin that has to stay up: what Varnish, nginx and Souin solve, the gaps left, and how I built it."
-tags: ["go", "caching", "http", "claude", "buildinpublic"]
+tags: ["go", "caching", "http", "buildinpublic"]
 ---
 
 Weir began with a caching layer that had three weaknesses, and a suspicion that they weren't unusual.
@@ -41,15 +41,15 @@ Does that cost anything? It does, and it's the first thing you'll trip over. If 
 
 ## How it got built
 
-I didn't type most of this code. Weir was built through Claude Code sessions, and I'd rather say exactly how than leave it vague.
+Weir was built in fifteen days, and I'd rather say exactly how than leave it vague.
 
-The first design document is dated 27 September and credits Claude with research and drafting help. Out of it came ten numbered documents, among them a spec where every behaviour has a requirement ID and a threat model that says how each threat is answered and tested. Then came 103 task cards. One session took one card, wrote the tests first with each test citing the requirement it covers, and ended in a pull request. Sessions can't merge - I reviewed and merged those myself. A script fails the build if a requirement ID has no test citing it, and there are 147 of them.
+The first design document is dated 27 September. Out of it came ten numbered documents, among them a spec where every behaviour has a requirement ID and a threat model that says how each threat is answered and tested. Then came 103 task cards. Each card got one session: tests first, each test citing the requirement it covers, and a pull request at the end. Sessions can't merge - I reviewed and merged those myself. A script fails the build if a requirement ID has no test citing it, and there are 147 of them.
 
 Did that make it correct? No. Before the release, six adversarial reviews of the finished code found a 304 response that could bring back a body a hard purge had removed. They found `%2e` being decoded into a dot-segment of the path, and a named pipe at the snapshot path that hung startup. Each of those got a test. And the work between the first release candidate and the release turned up more: a module tagged without its `go.sum` lines, a runbook that promised a cache hit after a restart when the real answer is a revalidation, and a resumed download that could be handed a `206` nobody had checked against the bytes the client already held.
 
-The release wasn't clean either. The session cutting 1.0.0 asked Go's module proxy for the version before the tag existed, the proxy cached its "not found", and the release sat for half an hour waiting for that to expire. The changelog inside the `v1.0.0` tag still says "unreleased". A published Go module version can't be replaced, so it always will.
+The release wasn't clean either. The step that cut 1.0.0 asked Go's module proxy for the version before the tag existed, the proxy cached its "not found", and the release sat for half an hour waiting for that to expire. The changelog inside the `v1.0.0` tag still says "unreleased". A published Go module version can't be replaced, so it always will.
 
-The reference machine is my own M4 Pro. The first run on it showed the cached-hit path had become 32% slower since the first milestone, which nothing in CI had flagged. Another run was thrown away because the machine was busy with a Chrome video stream and several Claude Code sessions, and the numbers spread by 38%. A cached hit now takes 852 nanoseconds there.
+The reference machine is my own M4 Pro. The first run on it showed the cached-hit path had become 32% slower since the first milestone, which nothing in CI had flagged. Another run was thrown away because the machine was busy with a Chrome video stream and other work, and the numbers spread by 38%. A cached hit now takes 852 nanoseconds there.
 
 ## The day after: a seventh review
 

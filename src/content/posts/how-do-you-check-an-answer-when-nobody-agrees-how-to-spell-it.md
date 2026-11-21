@@ -2,7 +2,7 @@
 title: "How do you check an answer when nobody agrees how to spell it?"
 date: "2026-08-28"
 description: "Building a fuzzy answer-checker for a Malayalam movie quiz, and finding a real bug in my own work three rounds in a row."
-tags: ["typescript", "nlp", "claude", "buildinpublic"]
+tags: ["typescript", "nlp", "buildinpublic"]
 ---
 
 I'm building a daily game called Etha Padam. You get five clues about a Malayalam movie, hardest first, and you can answer as soon as you're confident. The earlier you get it, the higher your score. The hard part turned out to be the text box where someone types the answer.
@@ -35,9 +35,9 @@ None of this needs a dictionary, the internet, or a model. It's regex and dynami
 
 ## This is the part where I got humbled, more than once
 
-I wrote the rules, traced a few words through them by hand, felt good about it, and handed the spec to Claude Code to build.
+I wrote the rules, traced a few words through them by hand, felt good about it, and handed the spec over to be built.
 
-The first thing it came back with was "your spec doesn't do what you think it does." Three of my own required test cases couldn't pass with the rules as I'd written them. "Pottey" and "Pottu" don't converge. "Muvi" and "Movie" don't converge. I had described a rule that was supposed to handle these and then never written it. It was easy to fix once it was pointed out, and I'd much rather have my homework checked while the bug is still in a design doc than find it in production.
+The first thing that came back was "your spec doesn't do what you think it does." Three of my own required test cases couldn't pass with the rules as I'd written them. "Pottey" and "Pottu" don't converge. "Muvi" and "Movie" don't converge. I had described a rule that was supposed to handle these and then never written it. It was easy to fix once it was pointed out, and I'd much rather have my homework checked while the bug is still in a design doc than find it in production.
 
 We fixed it, and the tests passed.
 
@@ -45,7 +45,7 @@ Then I went looking for edge cases myself, because by this point I didn't trust 
 
 The guard had its own gap. Some correct answers, once they go through a rule that strips trailing vowels, strip down to nothing at all. So an empty guess and a correctly typed guess for that answer could both end up as the empty string, hit my new guard, and get rejected. My fix for one bug had made room for a worse one, where a completely correct answer is marked wrong. I only found it because I deliberately tried to break my own fix.
 
-That's three rounds with a real bug in each. The first surfaced when Claude Code tried to make my own test cases pass, and the other two when I went looking for edge cases myself. None of them would have shown up in a demo. They're the kind of bug that turns up much later as a support ticket nobody can reproduce.
+That's three rounds with a real bug in each. The first surfaced when the build tried to make my own test cases pass, and the other two when I went looking for edge cases myself. None of them would have shown up in a demo. They're the kind of bug that turns up much later as a support ticket nobody can reproduce.
 
 ## What I'm taking from this
 

@@ -3,7 +3,9 @@ import Base from "../layouts/Base.astro";
 import ArrowLink from "../components/ArrowLink.astro";
 import StatusTag from "../components/StatusTag.astro";
 import ProjectThumb from "../components/ProjectThumb.astro";
-import { GROUPS, INTRO, STORIES, WORK, toneForProject } from "../data/home";
+import ProjectRow from "../components/ProjectRow.astro";
+import { INTRO, SECTIONS, STORIES, WORK } from "../data/home";
+import { GAMES } from "../data/games";
 import { PROJECTS } from "../data/projects";
 import { SITE } from "../data/site";
 import { siteDescription } from "../lib/schema";
@@ -11,7 +13,6 @@ import { getPosts } from "../lib/posts";
 import { capitalize, monthYear, numberWord } from "../lib/text";
 
 const posts = (await getPosts()).slice(0, 4);
-const total = numberWord(PROJECTS.length);
 
 const profile = {
   "@context": "https://schema.org",
@@ -77,35 +78,61 @@ const profile = {
   )}
 
   <section id="made" aria-labelledby="made-h" class="sheet-panel tone-teal">
-    <span class="pill sheet-tab tone-teal" aria-hidden="true">{capitalize(total)} projects</span>
+    <span class="pill sheet-tab tone-teal" aria-hidden="true">Projects</span>
     <div class="shell">
       <div class="flex flex-col gap-10 lg:gap-14">
         <div class="flex flex-col gap-3">
           <h2 id="made-h" class="reveal text-display-l font-bold tracking-[-0.035em]">Things I’ve made</h2>
-          <p class="reveal text-fg-2">{capitalize(total)} projects, built on my own time. Each one started with a specific itch.</p>
+          <p class="reveal text-fg-2">Products, games, libraries and tools, built on my own time. Each one started with a specific itch.</p>
         </div>
-        {GROUPS.map((group) => (
+        {SECTIONS.map((section) => (
           <div class="flex flex-col gap-4">
-            <h3 class="reveal text-small text-fg-3">{group.title}</h3>
-            <ul class="grid items-start gap-4 md:grid-cols-2">
-              {group.slugs.map((slug) => {
-                const p = PROJECTS.find((x) => x.slug === slug);
-                if (!p) return null;
-                return (
-                  <li class="reveal flex">
-                    <a href={`/projects/${slug}`} class:list={["tile w-full", `tone-${toneForProject(slug)}`]}>
-                      <ProjectThumb media={p.media} />
-                      <span class="flex flex-wrap items-center gap-x-3 gap-y-1">
-                        <span aria-hidden="true" class="dot"></span>
-                        <span class="text-display-m font-bold leading-none tracking-[-0.03em] wrap-anywhere">{p.name}</span>
-                      </span>
-                      <span class="tile-sub flex flex-wrap items-center gap-x-3 text-small text-fg-3">{p.category}{p.status && <StatusTag>{p.status}</StatusTag>}</span>
-                      <span class="tile-body text-fg-2">{STORIES[slug] ?? p.tagline}</span>
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
+            <div class="reveal flex flex-col gap-1">
+              <h3 class:list={["flex items-center gap-3 text-title font-semibold tracking-[-0.01em]", `tone-${section.tone}`]}>
+                <span aria-hidden="true" class="h-3 w-3 shrink-0 rounded-full bg-[var(--tone)]"></span>{section.title}
+              </h3>
+              <p class="max-w-2xl text-small text-fg-3">{section.blurb}</p>
+            </div>
+            {section.view === "tiles" && (
+              <ul class="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {section.slugs.map((slug) => {
+                  const p = PROJECTS.find((x) => x.slug === slug);
+                  if (!p) return null;
+                  return (
+                    <li class="reveal flex">
+                      <a href={`/projects/${slug}`} class:list={["tile w-full", `tone-${section.tone}`]}>
+                        <ProjectThumb media={p.media} />
+                        <span class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                          <span aria-hidden="true" class="dot"></span>
+                          <span class="text-display-m font-bold leading-none tracking-[-0.03em] wrap-anywhere">{p.name}</span>
+                        </span>
+                        <span class="tile-sub flex flex-wrap items-center gap-x-3 text-small text-fg-3">{p.category}{p.status && <StatusTag>{p.status}</StatusTag>}</span>
+                        <span class="tile-body text-fg-2">{STORIES[slug] ?? p.tagline}</span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+            {section.view === "games" && (
+              <a href="/projects/games" class:list={["tile reveal", `tone-${section.tone}`]}>
+                <span class="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span aria-hidden="true" class="dot"></span>
+                  <span class="text-display-m font-bold leading-none tracking-[-0.03em]">{capitalize(numberWord(GAMES.length))} small games</span>
+                </span>
+                <span class="tile-sub text-small text-fg-3">Run in a browser tab, nothing to install</span>
+                <span class="tile-body max-w-3xl text-fg-2">Claude Code built them a session apiece, and four have a write-up on the engineering underneath.</span>
+              </a>
+            )}
+            {section.view === "rows" && (
+              <div class="flex flex-col border-b border-line">
+                {section.slugs.map((slug) => {
+                  const p = PROJECTS.find((x) => x.slug === slug);
+                  if (!p) return null;
+                  return <ProjectRow href={`/projects/${slug}`} name={p.name} description={p.tagline} status={p.status} marker={p.category} />;
+                })}
+              </div>
+            )}
           </div>
         ))}
         <ArrowLink href="/projects">All projects, with how each was built</ArrowLink>

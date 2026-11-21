@@ -1,0 +1,61 @@
+---
+import Base from "../../layouts/Base.astro";
+import ArrowLink from "../../components/ArrowLink.astro";
+import { GAMES, GAMES_CATALOGUE } from "../../data/games";
+import { getPosts } from "../../lib/posts";
+import { breadcrumbs, collectionPage } from "../../lib/schema";
+import { capitalize, numberWord } from "../../lib/text";
+
+const posts = new Map((await getPosts()).map((p) => [p.id, p]));
+const count = capitalize(numberWord(GAMES.length));
+const description = `${count} small browser games I built: Snake, pinball, Minesweeper, sudoku, noughts and crosses, table tennis and a typing race. Nothing to install.`;
+---
+
+<Base title="Games" description={description} path="/projects/games" image="/og/projects/games.png" schema={[collectionPage("/projects/games", "Games", description, GAMES.map((g) => ({ name: g.name, path: g.project ? `/projects/${g.project}` : "/projects/games" }))), breadcrumbs([["Home", ""], ["Projects", "/projects"], ["Games", "/projects/games"]])]}>
+  <header class="shell pb-12 pt-28 lg:pb-20 lg:pt-40">
+    <nav aria-label="Breadcrumb" class="load-rise mb-8 text-small text-fg-3 lg:mb-12">
+      <ol class="flex flex-wrap items-center gap-x-2">
+        <li><a href="/" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Home</span></a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/projects" class="inline-flex min-h-11 items-center hover:text-fg"><span class="link">Projects</span></a></li>
+        <li aria-hidden="true">/</li>
+        <li aria-current="page" class="text-fg-2">Games</li>
+      </ol>
+    </nav>
+    <p class="pill tone-yellow load-rise mb-6">Browser games</p>
+    <h1 class="load-rise max-w-5xl text-display-xl font-bold tracking-[-0.035em] [--d:80ms]">{count} small games for your browser.</h1>
+    <div class="load-rise mt-6 flex max-w-2xl flex-col gap-4 text-fg-2 lg:mt-8 lg:text-[1.1875rem] [--d:200ms]">
+      <p>Each one opens in a tab on a phone or a laptop. Nothing to install, no account to make. Claude Code built every one of them, a game to a session, and four have a write-up on the engineering underneath.</p>
+    </div>
+    <div class="load-rise mt-6 flex flex-wrap gap-x-8 [--d:300ms]">
+      <ArrowLink href={GAMES_CATALOGUE} external>Open the catalogue</ArrowLink>
+    </div>
+  </header>
+
+  <div class="shell pb-24 lg:pb-40">
+    <ul class="flex flex-col border-b border-line">
+      {GAMES.map((g) => {
+        const post = g.post ? posts.get(g.post) : undefined;
+        return (
+          <li class="reveal grid gap-x-8 gap-y-3 border-t border-line py-8 md:grid-cols-[15rem_minmax(0,1fr)_9.5rem] md:items-baseline">
+            <h2 class="flex items-center gap-3 text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-none tracking-[-0.03em] wrap-anywhere">
+              <span aria-hidden="true" class="h-3 w-3 shrink-0 rounded-full bg-yellow"></span>{g.name}
+            </h2>
+            <div class="flex flex-col gap-2">
+              <p class="text-fg">{g.line}</p>
+              <p class="text-meta tabular-nums text-fg-3">{g.modes}</p>
+              {post && (
+                <p class="text-small text-fg-2">Written up: <a href={`/writing/${post.id}`} class="link">{post.data.title}</a></p>
+              )}
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 md:flex-col md:items-start md:gap-x-0">
+              <ArrowLink href={g.live} external>Play</ArrowLink>
+              {g.project && <ArrowLink href={`/projects/${g.project}`}>How it’s built</ArrowLink>}
+              <ArrowLink href={g.github} external>GitHub</ArrowLink>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</Base>

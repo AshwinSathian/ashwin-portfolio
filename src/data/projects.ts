@@ -555,7 +555,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "typester",
     name: "Typester",
-    category: "Web game",
+    category: "Browser game",
     tagline: "A keyboard-first typing speed game: chase a streak multiplier, beat your best score.",
     description: [
       "Typester is a ground-up rebuild of a 2018 Angular 7 app that keeps only the core idea. The original manipulated the DOM directly with getElementById and setInterval outside Angular’s reactivity, gated navigation through a mutable bag of untyped booleans, and shipped a settings screen that saved nothing. Every architectural decision in the rebuild traces back to one of those defects, logged with its own before/after reasoning in the project’s ARCHITECTURE.md.",

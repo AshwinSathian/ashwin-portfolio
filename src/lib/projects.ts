@@ -1,3 +1,4 @@
+import { PROJECT_ORDER } from "../data/home";
 import { PROJECTS, type Project } from "../data/projects";
 
 export type ProjectWithStats = Project & { stars?: number; language?: string | null };
@@ -21,4 +22,15 @@ async function withLiveStats(project: Project): Promise<ProjectWithStats> {
   }
 }
 
-export const getProjectsWithStats = () => Promise.all(PROJECTS.map(withLiveStats));
+/** Projects in the order the groups show them. A project missing from PROJECT_ORDER would silently vanish from "next", so the build fails instead. */
+export const ORDERED_PROJECTS: Project[] = PROJECT_ORDER.map((slug) => {
+  const project = PROJECTS.find((p) => p.slug === slug);
+  if (!project) throw new Error(`SECTIONS names a project that does not exist: ${slug}`);
+  return project;
+});
+if (ORDERED_PROJECTS.length !== PROJECTS.length) {
+  const missing = PROJECTS.filter((p) => !PROJECT_ORDER.includes(p.slug)).map((p) => p.slug);
+  throw new Error(`Projects not placed in any SECTIONS group: ${missing.join(", ")}`);
+}
+
+export const getProjectsWithStats = () => Promise.all(ORDERED_PROJECTS.map(withLiveStats));

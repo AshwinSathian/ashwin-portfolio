@@ -1,11 +1,9 @@
-import { PROJECTS } from "../data/projects";
 import { SITE } from "../data/site";
-import { capitalize, numberWord } from "./text";
 
 const id = SITE.website;
 
 // Longer form for the Person and WebSite schema. Facts match the visible pages.
-export const personDescription = `Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. ${capitalize(numberWord(PROJECTS.length))} independent products shipped on his own time.`;
+export const personDescription = `Senior full-stack engineer with eight years of experience. Founding engineer at Penny Software for five of them, taking it from zero to a procurement platform that grew to $1B+ in GTV. Products, libraries and browser games shipped on his own time.`;
 
 export const siteDescription =
   "Ashwin Sathian, senior full-stack engineer in Kochi. Five years as founding engineer at Penny Software, a procurement platform that grew to $1B+ GTV.";

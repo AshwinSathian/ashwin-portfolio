@@ -3,6 +3,7 @@ import { PROJECTS } from "../../data/projects";
 import { getPosts } from "../../lib/posts";
 import { siteCard, titleCard, type Tone } from "../../lib/og";
 import { toneForProject } from "../../data/home";
+import { GAMES } from "../../data/games";
 import { capitalize, numberWord } from "../../lib/text";
 
 type Card = { kind: "site" } | { kind: "title"; title: string; description?: string; label: string; tone: Tone };
@@ -11,10 +12,11 @@ export const getStaticPaths = (async () => {
   const posts = await getPosts();
   const pages: [string, Card][] = [
     ["site", { kind: "site" }],
-    ["projects", { kind: "title", title: `${capitalize(numberWord(PROJECTS.length))} projects`, description: "Products and libraries I built on my own time.", label: "Projects", tone: "teal" }],
+    ["projects", { kind: "title", title: "Built and shipped end to end", description: "Products, games, libraries and AI tooling I built on my own time.", label: "Projects", tone: "teal" }],
     ["writing", { kind: "title", title: "Writing", description: "Technical notes from the libraries and tools I build, including what I got wrong.", label: "Writing", tone: "yellow" }],
     ["experience", { kind: "title", title: "Eight years, seven roles", description: "From junior programmer to owning platform architecture at Penny Software.", label: "Experience", tone: "orange" }],
     ["colophon", { kind: "title", title: "Colophon", description: "How this site is put together, and why.", label: "Colophon", tone: "blue" }],
+    ["projects/games", { kind: "title", title: `${capitalize(numberWord(GAMES.length))} small games`, description: "Snake, pinball, Minesweeper, sudoku, noughts and crosses, table tennis and a typing race.", label: "Games", tone: "yellow" }],
     ...PROJECTS.map((p): [string, Card] => [`projects/${p.slug}`, { kind: "title", title: p.name, description: p.tagline, label: p.category, tone: toneForProject(p.slug) }]),
     ...posts.map((p): [string, Card] => [`writing/${p.id}`, { kind: "title", title: p.data.title, description: p.data.description, label: "Writing", tone: "yellow" }]),
   ];

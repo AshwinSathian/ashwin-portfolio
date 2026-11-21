@@ -24,6 +24,19 @@ and the page ends in one full-yellow panel.
 Each section has one tone: Projects teal, Writing yellow, Experience orange,
 Colophon blue. Dark only.
 
+## Projects: groups, and the games as one item
+
+Projects are grouped by kind in `SECTIONS` (`src/data/home.ts`), the single source for the home page, `/projects`, tile tones, "next project" order, social cards and `llms.txt`. A project not placed in a group fails the build.
+
+| Group | Tone | Home | /projects |
+|---|---|---|---|
+| Products | orange | tiles with a screenshot | rows |
+| Games | yellow | one tile, opens `/projects/games` | one row |
+| Libraries | teal | rows | rows |
+| AI tooling | blue | rows | rows, plus the smaller GitHub repos |
+
+The games are one item. `/projects/games` lists all of them (`src/data/games.ts`, matching the catalogue at games.ashwinsathian.com); the four with a full page keep it, under `Projects / Games / name`. The count is never written as a number in copy: it comes from the data.
+
 ## Type
 
 Bricolage Grotesque is the only face for headings and text, with its optical size pinned at 36 (the axis alone cost 23 KB; a font under ~42 KB arrives in two TCP round trips instead of three). JetBrains Mono is the one exception,

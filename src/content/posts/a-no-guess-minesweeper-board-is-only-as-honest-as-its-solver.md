@@ -3,14 +3,14 @@ title: "A no-guess Minesweeper board is only as honest as its solver"
 date: "2026-11-20"
 description: "To promise a Minesweeper board never needs a guess, a program has to play it first. Why simple rules accept fewer than 2% of Expert boards, how exact counting gets that to 16%, and why certainty has to be decided without floating point."
 seoDescription: "How Minefield proves a Minesweeper board needs no guessing: local rules, exact enumeration with log-binomial weights, and certainty decided without floats."
-tags: ["algorithms", "gamedev", "typescript", "javascript", "claude"]
+tags: ["algorithms", "gamedev", "typescript", "javascript"]
 ---
 
 Most games of Minesweeper that are lost on Expert aren't lost to a mistake. They end on a pair of cells where the numbers fit a mine in either one, and the player has to pick. Plenty of players like that. Plenty don't, and for them there's a variant called no-guess: the game only deals boards that can be cleared by logic from the first click.
 
 The catch is in the word "can". Something has to decide that, before the player sees the board, and that something is a solver playing the board on its own. So the promise a no-guess game makes is exactly as strong as its solver. If the solver ever calls a cell safe when it isn't, the game ships a board that needs a guess and tells the player it doesn't. If the solver misses a deduction a person could make, nothing breaks, but the game throws away boards that were fine.
 
-[Minefield](https://minefield.ashwinsathian.com) is a Minesweeper game I had Claude Code build end to end, and the solver is the part worth writing about. The same code deals the boards, gives hints, shades every hidden cell by its chance of being a mine, and tells you after a loss whether you had a safe move. All of that only works if the solver is both sound (it never claims a certainty it doesn't have) and complete (it finds every certainty the numbers allow).
+[Minefield](https://minefield.ashwinsathian.com) is a Minesweeper game, and the solver is the part worth writing about. The same code deals the boards, gives hints, shades every hidden cell by its chance of being a mine, and tells you after a loss whether you had a safe move. All of that only works if the solver is both sound (it never claims a certainty it doesn't have) and complete (it finds every certainty the numbers allow).
 
 ## Two cheap rules
 

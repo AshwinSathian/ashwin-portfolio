@@ -3,12 +3,12 @@ title: "A computer can't tell you how hard a sudoku is"
 date: "2026-11-20"
 description: "Nonet grades every sudoku by the techniques a person needs, not by how long a backtracking search takes. Why search effort barely tracks difficulty, how a human-technique solver sets levels, par times, hints and an adaptive rating, and what went wrong on the way."
 seoDescription: "How Nonet grades sudoku by human solving techniques, generates puzzles to a level, and adapts difficulty with an Elo rating that scores time against par."
-tags: ["algorithms", "gamedev", "typescript", "javascript", "claude"]
+tags: ["algorithms", "gamedev", "typescript", "javascript"]
 ---
 
 Every sudoku app has an Easy and a Hard button, and most of them can't say what the difference is. A common way to make the levels is to count clues, or to time a solver on the puzzle. Neither measures what a player feels. A puzzle with few clues can still fall to easy fills, and one with many can stop a good player at the one cell that needs an X-Wing.
 
-[Nonet](https://nonet.ashwinsathian.com) is a sudoku I had Claude Code build end to end, from a prompt that asked for no intervention. It grades each puzzle by the techniques a person needs to solve it, and that grade then sets the levels, the par time, the hints and an adaptive mode that picks your next puzzle from how the last one went. This post is about that grader and what it was made to do.
+[Nonet](https://nonet.ashwinsathian.com) is a sudoku game. It grades each puzzle by the techniques a person needs to solve it, and that grade then sets the levels, the par time, the hints and an adaptive mode that picks your next puzzle from how the last one went. This post is about that grader and what it was made to do.
 
 ## Search effort barely tracks difficulty
 

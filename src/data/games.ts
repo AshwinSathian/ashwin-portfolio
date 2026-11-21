@@ -34,7 +34,7 @@ export const GAMES: Game[] = [
     modes: "3 balls, 3 minutes, Practice",
     live: "https://lightkeeper.ashwinsathian.com",
     github: "https://github.com/AshwinSathian/lightkeeper",
-    post: "a-pinball-table-built-by-an-agent-that-never-touched-the-flippers",
+    post: "a-pinball-replay-is-a-promise-about-the-last-bit-of-every-float",
   },
   {
     slug: "minefield",

@@ -6,7 +6,7 @@ seoDescription: "Deterministic JavaScript physics for pinball replays: what ECMA
 tags: ["typescript", "gamedev", "javascript", "floating-point"]
 ---
 
-A replay that stores only inputs is a small thing to send. [Lightkeeper](https://lightkeeper.ashwinsathian.com), a pinball table for the browser that Claude Code built for me, packs a game as its seed, its mode and every button press with the tick it landed on, base64url'd into the fragment of a link. Two bot games of 101 and 135 seconds come to 494 and 488 characters.
+A replay that stores only inputs is a small thing to send. [Lightkeeper](https://lightkeeper.ashwinsathian.com), my pinball table for the browser, packs a game as its seed, its mode and every button press with the tick it landed on, base64url'd into the fragment of a link. Two bot games of 101 and 135 seconds come to 494 and 488 characters.
 
 The cost is a promise. Whoever opens that link runs the physics from the start, in their own browser, on their own JavaScript engine, and has to get the same game. Same game means the same doubles, down to the last bit, for every step of the ball. Pinball is about the worst place to make that promise, and JavaScript keeps most of it for you. The part it doesn't keep is `Math.sin`.
 

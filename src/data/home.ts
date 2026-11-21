@@ -78,9 +78,9 @@ export const SECTIONS: Section[] = [
   {
     id: "ai",
     title: "AI tooling",
-    blurb: "Tools built around language models.",
+    blurb: "Tools for working with language models.",
     tone: "blue",
-    slugs: ["humanize-writing-skill"],
+    slugs: ["loupe", "humanize-writing-skill"],
     view: "rows",
     also: ["WorkDeck", "github-issue-analyzer", "angularjs-migration-copilot"],
   },

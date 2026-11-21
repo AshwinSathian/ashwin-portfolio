@@ -339,7 +339,7 @@ export const PROJECTS: Project[] = [
     description: [
       "Coil is a snake game with five modes: Classic, Gates, Daily, Blitz and Zen. The whole app is one HTML file of about 25 KB gzipped, plus a 28 KB cut of the Anybody font. Every sound is synthesised with Web Audio, it installs as an app and it plays offline after the first visit. Swipe, the arrow keys or a gamepad all steer it, and it has two looks, Retro and Modern, each in a light and a dark theme.",
       "The game is one integer-only simulation with a seeded random generator and no clock, and the same seed and turns always replay to the same game. A run is stored as its seed and the ticks where it turned, so a 55-segment Classic game fits in 192 characters of a link. The Daily leaderboard is a Cloudflare Worker that imports the same simulation, replays each submitted run and stores the score it computes. The browser never sends one.",
-      "Edges are decided cell by cell: a stretch is a wall or a gate that brings the snake in on the opposite edge, in the same row or column. Gates mode is a run of generated rooms, each with fewer gates and more inner walls than the last, and Daily is one generated room a day. Claude Code built it in one session on 20 November 2026 from a prompt that asked for no intervention.",
+      "Edges are decided cell by cell: a stretch is a wall or a gate that brings the snake in on the opposite edge, in the same row or column. Gates mode is a run of generated rooms, each with fewer gates and more inner walls than the last, and Daily is one generated room a day.",
     ],
     stack: ["TypeScript", "Canvas 2D", "Web Audio", "Vite", "Cloudflare Workers", "D1"],
     facts: [
@@ -396,7 +396,7 @@ export const PROJECTS: Project[] = [
     description: [
       "Minefield is Minesweeper for phone, tablet and desktop: Beginner, Intermediate, Expert, custom sizes up to 60 by 40, and a Daily board that is the same for everyone. The app is one HTML file of about 21 KB gzipped with no fonts or images to fetch, and it installs as an app and plays offline.",
       "With No guessing on, a board is dealt only after a solver has cleared it from the first click without a guess. The solver works in layers: single numbers, overlapping pairs, then a count of every mine arrangement on each frontier component, weighted by how the leftover mines fit the unexplored interior. Certainty is decided from which mine totals are feasible, never from floating-point probabilities.",
-      "The same solver gives hints that ring the numbers behind a move, shades every hidden cell by its exact chance of being a mine, and tells you after a loss whether a safe move was open. Claude Code built it in one session on 20 November 2026 from a prompt that asked for no intervention.",
+      "The same solver gives hints that ring the numbers behind a move, shades every hidden cell by its exact chance of being a mine, and tells you after a loss whether a safe move was open.",
     ],
     stack: ["TypeScript", "Web Workers", "CSS Grid", "Web Audio", "Vite", "Cloudflare Workers"],
     facts: [
@@ -447,7 +447,7 @@ export const PROJECTS: Project[] = [
     description: [
       "Nonet is a sudoku for phone, tablet and desktop with five levels, a Daily puzzle and an adaptive mode. The app is one HTML file of about 24 KB gzipped, generator included, plus a 23 KB cut of Atkinson Hyperlegible Next. It installs as an app, plays offline and saves after every move.",
       "Every puzzle is graded by a solver that only uses human techniques, 24 of them from hidden singles to alternating chains, cheapest first. The hardest step sets the rating and the level, the sum of every step's time sets the par, and the next step from the player's own notes is the hint. A puzzle the solver can't finish is never dealt.",
-      "In the adaptive mode the player has a rating on the puzzles' scale, moved after each game by an Elo update that scores time against par, mistakes and hints. Claude Code built it in one session on 20 November 2026 from a prompt that asked for no intervention.",
+      "In the adaptive mode the player has a rating on the puzzles' scale, moved after each game by an Elo update that scores time against par, mistakes and hints.",
     ],
     stack: ["TypeScript", "Web Workers", "CSS Grid", "Vite", "Cloudflare Workers"],
     facts: [
@@ -669,6 +669,64 @@ export const auth = betterAuth({
 });`,
     },
     repo: { owner: "AshwinSathian", repo: "better-auth-mongoose" },
+  },
+  {
+    slug: "loupe",
+    name: "loupe",
+    category: "Design review skill",
+    tagline: "Design review for coding agents. It measures contrast, keyboard focus and reflow in a running app before it judges, and tags every rule with Apple’s strength.",
+    description: [
+      "Ask a coding agent for a design review and it finds most of what is wrong. What goes wrong is the rest of the review: contrast is estimated from hex values, severities inflate, and a well-built app gets a list of critical problems. loupe measures first. It composites every translucent layer before it computes text contrast, walks the page with real Tab presses, and stresses it at 320 px, with WCAG text spacing, at 200% text, with longer translated text and in right-to-left. A Blocker needs a measurement, a source line or a confirmed failure, and what could not be measured is listed with what would verify it.",
+      "It checks an interface against Apple’s Human Interface Guidelines and the research around them, for iOS, iPadOS, macOS and the web, in SwiftUI, UIKit, React, Next.js, React Native, Expo, Angular, Vue or plain HTML. Each rule it cites carries Apple’s own wording (MUST, SHOULD, CONSIDER), or is marked as Web, Research or Taste, and it says when a screen looks like every other template. It edits nothing until you pick findings by number. It installs in Claude Code, Codex, Cursor and Gemini CLI, though a full review has only been run in Claude Code.",
+      "The measuring half runs without a model as the loupe-review CLI on npm, and as the loupe-action GitHub Action. Only measured problems that no WCAG exception covers fail a run, and a committed baseline lets a pull request fail on new findings only.",
+    ],
+    stack: ["JavaScript", "Playwright", "Python", "SKILL.md", "GitHub Actions"],
+    facts: [
+      { label: "Release", value: "2.1.1, November 2026, MIT" },
+      { label: "Install", value: "npx skills add AshwinSathian/loupe" },
+      { label: "CLI", value: "npx -y loupe-review@2 <url>" },
+      { label: "Blind round", value: "Judges preferred its review in 6 of 9 pairs; it did not find more defects than the same models without it" },
+    ],
+    highlights: [
+      {
+        title: "Measures before it judges",
+        detail:
+          "Contrast is computed after compositing every translucent layer. The keyboard walk uses real Tab presses and reports missing accessible names, hidden focus, focus hidden under fixed bars and keyboard traps. Stress modes are applied to the page and undone afterwards.",
+      },
+      {
+        title: "Every rule says how strongly Apple states it",
+        detail:
+          "A finding carries an Impact (Blocker, Major, Minor or Polish) and a tag for the rule’s source. Outside research adds to Apple’s guidance and never replaces it, and a conflict is shown in the finding rather than settled quietly.",
+      },
+      {
+        title: "“No rework warranted” is the usual answer",
+        detail:
+          "A rework is proposed only when the evidence clears a stated bar. On the well-built app in the blind round, reviews with loupe reported no Blockers, while the same models without it put 10 findings in their top tier.",
+      },
+      {
+        title: "Tested blind, with the miss published",
+        detail:
+          "The held-out round failed one of its four pre-registered rules: both conditions found nearly every planted defect, and recall missed by half a defect with Haiku. loupe’s reviews had fewer findings judged wrong or inflated. The fixtures, all 18 reports and the judges’ answers are in the repository.",
+      },
+      {
+        title: "A CI gate that fails only on new findings",
+        detail:
+          "Finding ids come from the rule, the role, the text and the colours, not the element’s position, so adding a list item doesn’t turn one finding into a new one. The npm package is published from GitHub Actions with signed provenance, and the repository holds no npm token.",
+      },
+    ],
+    links: {
+      live: "https://loupe.ashwinsathian.com",
+      github: "https://github.com/AshwinSathian/loupe",
+      npm: "https://www.npmjs.com/package/loupe-review",
+    },
+    media: {
+      kind: "screenshot",
+      src: "/projects/loupe/hero.png",
+      width: 1280,
+      height: 800,
+      alt: "The loupe site: the headline “A design review that shows its measurements”, with the headline’s own size and contrast measured beside it, and an install command below.",
+    },
+    repo: { owner: "AshwinSathian", repo: "loupe" },
   },
   {
     slug: "humanize-writing-skill",

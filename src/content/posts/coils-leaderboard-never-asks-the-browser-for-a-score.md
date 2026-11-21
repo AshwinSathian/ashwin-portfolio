@@ -8,7 +8,7 @@ tags: ["typescript", "gamedev", "cloudflare", "security"]
 
 A score that arrives over HTTP is a number somebody typed, whether the typing was done by your game or by `curl`. You can sign it, obfuscate the code that sends it, rate-limit it - the client still holds every key you give it. The only score worth storing is one the server worked out for itself.
 
-That's how the Daily leaderboard works in [Coil](https://coil.ashwinsathian.com), a snake game Claude Code built for me in one session. A submission is a name, a random id for the device and a replay: the seed, and the ticks where the snake turned. The Worker behind `/api/daily` plays that replay through the same `src/sim.ts` the browser runs and stores the score it gets. The request has no field for a score at all.
+That's how the Daily leaderboard works in [Coil](https://coil.ashwinsathian.com), my snake game. A submission is a name, a random id for the device and a replay: the seed, and the ticks where the snake turned. The Worker behind `/api/daily` plays that replay through the same `src/sim.ts` the browser runs and stores the score it gets. The request has no field for a score at all.
 
 Running one simulation in two places sounds like importing a file twice. Mostly it's about what the simulation isn't allowed to touch, and what the server has to assume about the bytes it's given.
 
@@ -22,7 +22,7 @@ Real time exists in exactly one place, the frame loop in `main.ts`. It adds each
 
 Seeded randomness has a quieter cost. The generator is a 32-bit one, seeded once per game, and the game draws from it to place fruit, roll for golden fruit and lay out rooms. The quality of the numbers hardly matters - the order of the calls does. Every `this.rand()` before the first fruit shifts every number after it, so one extra draw anywhere (one more wall, a loop reordered) gives every old seed a different game. In a seeded simulation the sequence of random draws is part of the file format, whether or not anybody wrote that down.
 
-Integer-only is easy for snake, where every position is an index into a 21 by 21 board held in a `Uint8Array`. A game with real physics can't do that, and [the pinball table](/writing/a-pinball-table-built-by-an-agent-that-never-touched-the-flippers) carries its own sine function instead.
+Integer-only is easy for snake, where every position is an index into a 21 by 21 board held in a `Uint8Array`. A game with real physics can't do that, and [the pinball table](/writing/a-pinball-replay-is-a-promise-about-the-last-bit-of-every-float) carries its own sine function instead.
 
 ## Record what the simulation did, not what was pressed
 
@@ -85,7 +85,7 @@ if (layout === 'daily') {
 
 `placeRocks()` now carries a comment, "Kept exactly as shipped so old Daily replays still play back", and that includes the number and order of its random draws. `MODES` became append-only, because a mode is stored as its index.
 
-That branch only covers Daily, though. Classic, Blitz and Zen take no branch at all, and their old replays still play back only because swapping `wrap: true` for gate arrays filled with ones changed no outcome. Nothing in the `rev` check proves that. A test does. Before the refactor went in, the session played one autopilot game in each of the four modes there were, and `src/fixtures-v1.json` keeps each replay with its score and end tick. The test plays them under the current code and checks both numbers. If a later change moves any of them, the test fails instead of a link somebody shared.
+That branch only covers Daily, though. Classic, Blitz and Zen take no branch at all, and their old replays still play back only because swapping `wrap: true` for gate arrays filled with ones changed no outcome. Nothing in the `rev` check proves that. A test does. Before the refactor went in, one autopilot game was played in each of the four modes there were, and `src/fixtures-v1.json` keeps each replay with its score and end tick. The test plays them under the current code and checks both numbers. If a later change moves any of them, the test fails instead of a link somebody shared.
 
 The leaderboard accepts only the current revision, because today's board is the one it scores against. The Daily ghost (your best run of the day, drawn as a faint second snake) drops a saved run from older rules for the same reason.
 

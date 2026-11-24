@@ -1,6 +1,6 @@
 // The browser games, shown on the site as one item: /projects/games.
-// Names, one-liners and modes match the catalogue at games.ashwinsathian.com
-// (read on 21 November 2026). `project` is the slug of a full page under
+// Names, one-liners and modes match the arcade at games.ashwinsathian.com
+// (read on 24 November 2026). `project` is the slug of a full page under
 // /projects, for the games that have one; `post` is a post written about the game.
 
 export type Game = {
@@ -14,9 +14,17 @@ export type Game = {
   post?: string;
 };
 
-export const GAMES_CATALOGUE = "https://games.ashwinsathian.com";
+export const GAMES_ARCADE = "https://games.ashwinsathian.com";
 
 export const GAMES: Game[] = [
+  {
+    slug: "clover",
+    name: "Clover",
+    line: "A top-down 3D maze game: cut the long grass in a hedge maze with a robot mower while four geese try to catch it.",
+    modes: "Garden, Daily, Calm, Ghost race",
+    live: "https://clover.ashwinsathian.com",
+    github: "https://github.com/AshwinSathian/clover",
+  },
   {
     slug: "coil",
     name: "Coil",
@@ -71,6 +79,22 @@ export const GAMES: Game[] = [
     modes: "Match: Casual, Match: Club, Match: Pro, Solo keep-ups",
     live: "https://rally.ashwinsathian.com",
     github: "https://github.com/AshwinSathian/rally",
+  },
+  {
+    slug: "spillway",
+    name: "Spillway",
+    line: "A 3D endless runner: ride a front door on a hydrofoil through a flooded town and deliver the post.",
+    modes: "Open Water, Daily Route, Slack Water, Ghost",
+    live: "https://spillway.ashwinsathian.com",
+    github: "https://github.com/AshwinSathian/spillway",
+  },
+  {
+    slug: "swish",
+    name: "Swish",
+    line: "A 3D free throw game: pull the ball back on a slingshot rig, read the dotted arc and shoot on a rooftop court.",
+    modes: "Free Throws, Step Back, Shot Clock, Daily, Challenge",
+    live: "https://swish.ashwinsathian.com",
+    github: "https://github.com/AshwinSathian/swish",
   },
   {
     slug: "typester",

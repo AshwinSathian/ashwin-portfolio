@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ArrowLink from "../../components/ArrowLink.astro";
-import { GAMES, GAMES_ARCADE } from "../../data/games";
+import { GAMES, GAMES_ARCADE, GAMES_REPO } from "../../data/games";
 import { getPosts } from "../../lib/posts";
 import { breadcrumbs, collectionPage } from "../../lib/schema";
 import { capitalize, numberWord } from "../../lib/text";
@@ -29,6 +29,7 @@ const description = `${count} small browser games I built, from snake and pinbal
     </div>
     <div class="load-rise mt-6 flex flex-wrap gap-x-8 [--d:300ms]">
       <ArrowLink href={GAMES_ARCADE} external>Enter the arcade</ArrowLink>
+      <ArrowLink href={GAMES_REPO} external>The arcade’s source</ArrowLink>
     </div>
   </header>
 
@@ -51,7 +52,6 @@ const description = `${count} small browser games I built, from snake and pinbal
             <div class="flex flex-wrap items-center gap-x-6 md:flex-col md:items-start md:gap-x-0">
               <ArrowLink href={g.live} external>Play</ArrowLink>
               {g.project && <ArrowLink href={`/projects/${g.project}`}>How it’s built</ArrowLink>}
-              <ArrowLink href={g.github} external>GitHub</ArrowLink>
             </div>
           </li>
         );

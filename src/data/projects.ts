@@ -345,7 +345,6 @@ export const PROJECTS: Project[] = [
     facts: [
       { label: "Page", value: "One HTML file, about 25 KB gzipped, plus a 28 KB font" },
       { label: "Replays", value: "Seed plus turns, varint and base64url, in the link fragment" },
-      { label: "License", value: "MIT" },
     ],
     highlights: [
       {
@@ -371,7 +370,6 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       live: "https://coil.ashwinsathian.com",
-      github: "https://github.com/AshwinSathian/coil",
     },
     media: {
       kind: "screenshot",
@@ -380,7 +378,6 @@ export const PROJECTS: Project[] = [
       height: 800,
       alt: "Coil in its Retro look, replaying a Gates run in room 3: a block snake crossing a charcoal board between mirrored grey walls, with dashed green gates along parts of every edge, and the score 1250 at ×4 beside it.",
     },
-    repo: { owner: "AshwinSathian", repo: "coil" },
     decisionRecord: {
       date: "2026-11",
       before: "A replay's first byte was a format version, and Daily was rocks on a board with solid edges",
@@ -402,7 +399,6 @@ export const PROJECTS: Project[] = [
     facts: [
       { label: "Page", value: "One HTML file, about 21 KB gzipped" },
       { label: "No-guess Expert boards", value: "15.8% of random deals; 2.5 ms median to find one" },
-      { label: "License", value: "MIT" },
     ],
     highlights: [
       {
@@ -428,7 +424,6 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       live: "https://minefield.ashwinsathian.com",
-      github: "https://github.com/AshwinSathian/minefield",
     },
     media: {
       kind: "screenshot",
@@ -437,7 +432,6 @@ export const PROJECTS: Project[] = [
       height: 800,
       alt: "Minefield on a desktop: an Expert board on warm paper-coloured tiles, with a hint outlining a safe cell in green and ringing the number that proves it.",
     },
-    repo: { owner: "AshwinSathian", repo: "minefield" },
   },
   {
     slug: "nonet",
@@ -453,7 +447,6 @@ export const PROJECTS: Project[] = [
     facts: [
       { label: "Page", value: "One HTML file, about 24 KB gzipped, plus a 23 KB font" },
       { label: "Techniques", value: "24, from full house to alternating inference chains" },
-      { label: "License", value: "MIT" },
     ],
     highlights: [
       {
@@ -479,7 +472,6 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       live: "https://nonet.ashwinsathian.com",
-      github: "https://github.com/AshwinSathian/nonet",
     },
     media: {
       kind: "screenshot",
@@ -488,7 +480,6 @@ export const PROJECTS: Project[] = [
       height: 800,
       alt: "Nonet on a desktop: an Expert puzzle drawn as nine separate tiles with pencil notes, three cells in box 9 shaded amber, and a hint card explaining a pointing pair beside a 3 by 3 keypad.",
     },
-    repo: { owner: "AshwinSathian", repo: "nonet" },
   },
   {
     slug: "ngx-runtime-i18n",
@@ -591,7 +582,6 @@ export const PROJECTS: Project[] = [
     ],
     links: {
       live: "https://typester.ashwinsathian.com",
-      github: "https://github.com/AshwinSathian/typester",
     },
     media: {
       kind: "screenshot",
@@ -600,7 +590,6 @@ export const PROJECTS: Project[] = [
       height: 800,
       alt: "Typester mid-round: the current word large on screen, upcoming words queued behind it, timer counting down.",
     },
-    repo: { owner: "AshwinSathian", repo: "typester" },
     decisionRecord: {
       date: "2026-07",
       before: "2018 Angular 7 app: direct DOM manipulation outside Angular’s reactivity, navigation gated by a mutable bag of untyped booleans, a settings screen that saved nothing",

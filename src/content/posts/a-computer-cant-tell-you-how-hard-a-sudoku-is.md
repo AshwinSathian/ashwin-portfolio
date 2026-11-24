@@ -89,4 +89,4 @@ It can't solve every valid sudoku by logic. Puzzles that need forcing nets or ot
 
 Par isn't calibrated against people, and the adaptive rating is per device, with nothing stored on a server. The rating is also only as good as the order of the technique costs: if a player finds W-Wings easier than XY-Wings, the grader won't know.
 
-The game is at [nonet.ashwinsathian.com](https://nonet.ashwinsathian.com), and the code is at [github.com/AshwinSathian/nonet](https://github.com/AshwinSathian/nonet), under the MIT licence. If a hint ever tells you something that isn't true, I'd like to see the puzzle.
+The game is at [nonet.ashwinsathian.com](https://nonet.ashwinsathian.com). If a hint ever tells you something that isn't true, I'd like to see the puzzle.

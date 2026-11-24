@@ -8,9 +8,10 @@ export const PROJECT_POSTS: Record<string, string[]> = {
   ],
   "better-auth-mongoose": ["why-better-auths-mongodb-adapter-cant-populate-a-mongoose-ref"],
   wayfarer: ["what-a-browser-tab-wont-let-an-api-client-do"],
-  coil: ["coils-leaderboard-never-asks-the-browser-for-a-score"],
-  minefield: ["a-no-guess-minesweeper-board-is-only-as-honest-as-its-solver"],
-  nonet: ["a-computer-cant-tell-you-how-hard-a-sudoku-is"],
+  coil: ["coils-3d-board-is-pinned-to-the-page-by-its-projection-matrix"],
+  minefield: ["a-minesweeper-hint-can-be-true-and-still-not-show-you-why"],
+  nonet: ["every-move-in-nonet-is-a-list-of-cells-before-and-after"],
+  typester: ["past-60-wpm-faster-typists-get-shorter-runs-in-typesters-rush"],
   "humanize-writing-skill": [
     "the-ai-tells-moved-my-tool-for-avoiding-them-hadnt",
     "why-humanize-my-writing-tools-dont-work",

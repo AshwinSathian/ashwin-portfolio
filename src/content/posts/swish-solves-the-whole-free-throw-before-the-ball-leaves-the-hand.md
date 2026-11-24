@@ -1,6 +1,7 @@
 ---
 title: "Swish solves the whole free throw before the ball leaves the hand"
 date: "2026-11-24"
+updatedAt: "2026-11-24"
 description: "A ball under gravity follows a curve you can write down, so a basketball game doesn't have to step it frame by frame. Swish finds each contact as the first root of a small polynomial and solves the whole shot at release. This post covers the root finder, the rules that keep a ball from sinking into the rim, the shot that would never end, and what a game can do once it knows the result early."
 seoDescription: "An event-driven ball solver in TypeScript: contact times as polynomial roots, rules against sinking and wedging, and a camera that knows the result."
 tags: ["typescript", "gamedev", "physics", "algorithms"]
@@ -83,11 +84,11 @@ if (contacts >= 24) {
 }
 ```
 
-Less than 3 cm in 24 contacts means stuck. There's a wrinkle in the first window, though - `settleX` and `settleY` start at the release point, so the first check always sees a ball that's travelled four metres and lets it go. In practice the earliest kick comes after 48 rim and board contacts.
+Less than 3 cm in 24 contacts means stuck. There was a wrinkle in the first window, though - `settleX` and `settleY` started at the release point, so the first check always saw a ball that had travelled four metres and let it go. In practice the earliest kick came after 48 rim and board contacts.
 
 Then the ball is kicked loose, the outcome becomes `'stuck'`, and the rules give the shot back. `score()` returns without using up an attempt, and the game calls "Stuck on the rim" with "Have that one back" under it. Behind all that sit two stop checks after each event, at 220 events or once the flight passes 11 seconds, so a solve has an upper bound whatever the inputs.
 
-It's rare. On the record screen's grid, 17 of 24,000 shots get stuck, and every one is kicked after exactly 48 rim and board contacts. What the player sees is a rattle: the kick comes roughly one to two seconds of game time after the ball's first contact. None of the 24,000 reaches the 220-event cap.
+It was rare. On the record screen's grid, 17 of 24,000 shots got stuck, and every one was kicked after exactly 48 rim and board contacts. What the player saw was a rattle: the kick came roughly one to two seconds of game time after the ball's first contact. None of the 24,000 reached the 220-event cap.
 
 ## Checking it against brute force
 
@@ -132,3 +133,7 @@ There's no air drag and no Magnus lift - the design notes list both as non-goals
 The net's scripted. When a ball goes through, the solver multiplies its velocity by fixed factors (`s.vx *= 0.22; s.vy *= 0.62`) and that's all the net does to it. The net you see is a Verlet mesh of 72 nodes in `src/net.ts`, stepped at 120 Hz and pushed by the ball's solved position. And nothing flows back from it. It's the one part of the game with a fixed timestep, and it can't change a result.
 
 The tolerances are judgement calls: `1e-6` for touching, `1e-9` past the ring plane, 3 cm/s of separation, 3 cm over 24 contacts for stuck. Only the sweeps test them. Nothing yet measures how close any of them sits to the point where a ball sinks in, or gets kicked when it shouldn't.
+
+## Since this was published
+
+A fix on 24 November measures the first window from the ball's first rim or board contact, so a wedged ball is now kicked at the 24th contact after it first touches, where before it was the 48th at the earliest. That changes a few rare rattles, so challenge links moved to version 2, and a version 1 link replays with the old rule. Replay tests now pin the outcomes of links recorded for each version, so a physics change that alters an old link fails until the version moves. The frame governor, which only ever stepped down, now steps quality back up after about ten calm seconds.

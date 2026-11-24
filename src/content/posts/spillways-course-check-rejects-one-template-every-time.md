@@ -1,7 +1,8 @@
 ---
-title: "Spillway's course check rejects one template, every time"
+title: "Spillway's course check rejected one template, every time"
 date: "2026-11-24"
-description: "Spillway won't put a stretch of course in front of you until a small search has found a way through it from every channel. How that search models the rider, why it's more pessimistic than the game, and what 19,734 checks show it actually catches."
+updatedAt: "2026-11-24"
+description: "Spillway won't put a stretch of course in front of you until a small search has found a way through it from every channel. How that search models the rider, why it's more pessimistic than the game, and what 19,734 checks showed it actually caught."
 seoDescription: "How Spillway checks generated endless-runner sections with a 63-state reachability search, and what measuring 19,734 checks showed it rejects."
 tags: ["typescript", "gamedev", "algorithms", "testing"]
 ---
@@ -74,23 +75,23 @@ To see what the gate does in practice, we can copy `course.ts` into a scratch fo
 | 4 | 5 |
 | 10, so the empty fallback | 0 |
 
-So 96.3% of sections pass first time, and the fallback never fired. The rejections are the odd part. All 766 of them were the same template, and it failed every one of the 766 times it was drawn, from all three lanes:
+So 96.3% of sections passed first time, and the fallback never fired. The rejections are the odd part. All 766 of them were the same template, and it failed every one of the 766 times it was drawn, from all three lanes:
 
 ```ts
   [3, ['F.F', '...', 'PFP']], [3, ['PPJ', 'TPP', 'PJP']], [3, ['HHB', 'HHB', 'HHB', '...']], [3, ['FF.', '..F', 'FF.']],
 ```
 
-It's the first entry on that line. Read it top to bottom as three rows: ferries in the two outer channels, a row of open water, then piling, ferry, piling. That last row is `C_WALL` in every lane. You can't jump a piling or tuck under a ferry, so without a pickup there's no way past. The search was right all 766 times.
+It's the first entry on that line. Read it top to bottom as three rows: ferries in the two outer channels, a row of open water, then piling, ferry, piling. That last row was `C_WALL` in every lane. You can't jump a piling or tuck under a ferry, so without a pickup there was no way past. The search was right all 766 times.
 
 It's a tier-3 template, so it appears only after 2,000 m, where the pool holds 14 templates (tiers 2 and 3). It made up 766 of the 10,617 tier-3 candidates, 7.2%, which is about its one-in-fourteen share. Slack Water, the same game at 80% speed, tells the same story: 23,326 sections over the same seeds, 958 rejections, every one of them this template.
 
-Seeds only sample the table, though, so the stronger check is to take seeds out of it. Solve every template on its own, at every distance from the start of its tier out to 60 km, flipped both ways, at both speeds, from all three lanes. Only this one ever fails. It fails at every distance tried.
+Seeds only sample the table, though, so the stronger check is to take seeds out of it. Solve every template on its own, at every distance from the start of its tier out to 60 km, flipped both ways, at both speeds, from all three lanes. Only this one ever failed. It failed at every distance tried.
 
-The history of that line is short - two versions. The first had it as `'FPF', '...', 'PFP'`, a full wall in the first row as well as the last. A later fix opened up the first row to `'F.F'` and left the last one alone. Neither version's ever been playable, and no player has seen either, because the gate rejects it every time it comes up.
+The history of that line was short - two versions, at the time. The first had it as `'FPF', '...', 'PFP'`, a full wall in the first row as well as the last. A later fix opened up the first row to `'F.F'` and left the last one alone. Neither version was ever playable, and no player saw either, because the gate rejected it every time it came up.
 
-So the gate's measurable work has been to hide one authoring mistake. That doesn't make it useless. A mistake like that - a whole row of walls, typed into a table of strings - is exactly what hand-tuning misses, and without the gate it'd be an unwinnable row about once in every fourteen sections past the 2 km mark. It does mean that "every section is checked" and "the check is catching unfair combinations" aren't the same claim. Only the first is true here.
+So the gate's measurable work had been to hide one authoring mistake. That doesn't make it useless. A mistake like that - a whole row of walls, typed into a table of strings - is exactly what hand-tuning misses, and without the gate it'd have been an unwinnable row about once in every fourteen sections past the 2 km mark. It does mean that "every section is checked" and "the check is catching unfair combinations" aren't the same claim. Only the first was true here.
 
-The obvious fix is to delete the template or open a gap in its last row. The other approach, which Spillway doesn't take, is a test that solves every template on its own, like the sweep above, so a dead one fails the build instead of quietly costing a retry.
+The obvious fix was to delete the template or open a gap in its last row. The other approach, which Spillway didn't take at the time, was a test that solves every template on its own, like the sweep above, so a dead one fails the build instead of quietly costing a retry.
 
 ## What one section at a time leaves out
 
@@ -118,4 +119,8 @@ That number cuts both ways. It shows the solver's routes hold up in the real sim
 
 And none of this says anything about people. The check proves a route exists, and the bot proves a frame-perfect rider can follow it. Whether a person can read a ferry and two pilings at nearly 30 m/s in time to pick the open channel is a separate question. The game's own planning notes list "Difficulty untested on people" as an accepted risk, say difficulty tuning needs real playtests, and offer Slack Water at 80% speed as the gentler option in the meantime.
 
-The same seed builds the same course in every browser, because the generator uses only + - * /, which IEEE 754 rounds the same way everywhere. A search that's rejected one template 766 times out of 766 says the template table needs a test of its own. The gate hasn't yet met a table varied enough that some of its rejections would be combinations nobody wrote down on purpose.
+The same seed builds the same course in every browser, because the generator uses only + - * /, which IEEE 754 rounds the same way everywhere. A search that had rejected one template 766 times out of 766 said the template table needed a test of its own. The gate hadn't yet met a table varied enough that some of its rejections would be combinations nobody wrote down on purpose.
+
+## Since this was published
+
+A fix on 24 November made the template rideable. Its last row is now `PF.` - piling, ferry, open water - so the line is to ride the middle channel past the two ferries and then move to the open side. A new test solves every template on its own at each distance its tier is dealt, both flips, both speeds and all three lanes, and on the old template it fails from 2,002 m. That changes courses past 2,000 m, so the replay version went from 1 to 2, and a version 1 link still rebuilds the old course exactly. Ghosts are now simulated in 4 ms slices from the frame loop, which took the longest task at 4x CPU throttling from 706 to 243 ms. The pass rates above describe the old pool.

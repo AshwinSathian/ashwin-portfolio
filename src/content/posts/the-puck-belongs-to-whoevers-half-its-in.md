@@ -1,6 +1,7 @@
 ---
 title: "The puck belongs to whoever's half it's in"
 date: "2026-11-24"
+updatedAt: "2026-11-24"
 description: "Glide's online air hockey has no server simulation and no rollback: whoever's half the puck is in runs it, and a Durable Object only relays. What that rule buys, where it stops being true, and what a handover costs once the latency climbs."
 seoDescription: "Puck-ownership netcode for browser air hockey: a relay-only Durable Object, handover at the centre line, and what latency does to it."
 tags: ["typescript", "gamedev", "cloudflare", "networking"]
@@ -8,7 +9,7 @@ tags: ["typescript", "gamedev", "cloudflare", "networking"]
 
 Every online game has to settle one question early: when two machines disagree about what happened, whose version wins? There are well-worn answers. A server can run the game and the clients defer to it. The clients can run in lockstep, waiting on each other's inputs, or run ahead and roll back when late inputs arrive. Or authority can move between the players, so each object belongs to whoever is closest to it, and that machine's word is final.
 
-[Glide](https://glide.ashwinsathian.com) is air hockey in the browser, and it takes the last route, with the table itself deciding who has authority. Each player's mallet stays in their own half. So if the puck's in my half, only my mallet can hit it, and my browser can run the puck and be right by definition. The other screen watches. When the puck crosses the centre line, it changes hands and the authority goes with it. The code's on [GitHub](https://github.com/AshwinSathian/glide). The rule turns out to be only nearly true, and the places where it isn't are where latency and reconnects start to bite.
+[Glide](https://glide.ashwinsathian.com) is air hockey in the browser, and it takes the last route, with the table itself deciding who has authority. Each player's mallet stays in their own half. So if the puck's in my half, only my mallet can hit it, and my browser can run the puck and be right by definition. The other screen watches. When the puck crosses the centre line, it changes hands and the authority goes with it. The rule turns out to be only nearly true, and the places where it isn't are where latency and reconnects start to bite.
 
 ## A room that keeps the score and nothing else
 
@@ -66,11 +67,11 @@ The receiver gets the `h` some tens of milliseconds later. By then the puck's mo
 
 `coast` is the free-puck function from `src/sim.ts`, and its comment says what it's for: "Where a free puck goes: walls only, no mallets... Used by the bot to predict and by the online code to fast-forward." It builds a throwaway world with the mallets parked at (9, 9) and (-9, -9), off the table, and switched off.
 
-For the bot that's fine. For the handover, it means the receiver's own mallet doesn't exist for the `latency` seconds that `coast` covers. Picture the receiver standing right in the puck's path. On their screen, before the `h` arrives, the puck's a forecast and their mallet is live in it, so they see the puck hit their mallet. Then the `h` lands. `coast` replays that stretch of time without their mallet, and `Object.assign` writes the result over the save they just made. The puck's suddenly further down the table, past them.
+For the bot that's fine. For the handover, it meant the receiver's own mallet didn't exist for the `latency` seconds that `coast` covered. Picture the receiver standing right in the puck's path. On their screen, before the `h` arrived, the puck was a forecast and their mallet was live in it, so they saw the puck hit their mallet. Then the `h` landed. `coast` replayed that stretch of time without their mallet, and `Object.assign` wrote the result over the save they'd just made. The puck was suddenly further down the table, past them.
 
-At 50 ms one-way and 7.5 m/s, that's 37 cm of travel with no defender in the way - a bit over a third of the receiver's half.
+At 50 ms one-way and 7.5 m/s, that was 37 cm of travel with no defender in the way - a bit over a third of the receiver's half.
 
-To see what this does to a game, we copied the online path of `main.ts` (`onNet`, `netFrame` and the online branch of `simulate`) into a Node script. It runs two Shark-level bots as the players, with a fixed one-way delay between them. It's a reimplementation with bots, not the shipped client with people. The bots react to their own screen's forecast, as a person would, but they don't learn to play around the lag. So read the numbers as a direction, not a measurement of the live game:
+To see what this did to a game, we copied the online path of `main.ts` (`onNet`, `netFrame` and the online branch of `simulate`) into a Node script. It runs two Shark-level bots as the players, with a fixed one-way delay between them. It's a reimplementation with bots, not the shipped client with people. The bots react to their own screen's forecast, as a person would, but they don't learn to play around the lag. So read the numbers as a direction, not a measurement of the live game:
 
 | One-way delay | Seconds of live play per goal | Handovers that erased a local hit |
 |---|---|---|
@@ -81,9 +82,9 @@ To see what this does to a game, we copied the online path of `main.ts` (`onNet`
 
 The 1 ms row isn't zero. At that delay `coast` hardly runs at all, so its 29 erased hits out of 882 handovers come from the rest of the design: the frame-long overshoot and the strip at the centre line (more on that below).
 
-At 100 ms the trace is nearly monotonous. The serving bot hits the puck at 7.5 to 9 m/s, the puck crosses, the `h` arrives, `coast` runs it 75 to 90 cm past a defender who isn't there, and the goal follows about 15 to 35 ms after the handover (17 ms at the tenth percentile, 33 ms at the median and the ninetieth). Defence still exists at that latency - just not in the first tenth of a second after a crossing, which is when a fast shot is in the receiver's half.
+At 100 ms the trace was nearly monotonous. The serving bot hit the puck at 7.5 to 9 m/s, the puck crossed, the `h` arrived, `coast` ran it 75 to 90 cm past a defender who wasn't there, and the goal followed about 15 to 35 ms after the handover (17 ms at the tenth percentile, 33 ms at the median and the ninetieth). Defence still existed at that latency - just not in the first tenth of a second after a crossing, which is when a fast shot is in the receiver's half.
 
-The obvious change would be to fast-forward with the receiver's mallet switched on, stepping the real world instead of coasting a copy. It hasn't been tried, so there's no number for it. It also wouldn't bring back the motion the receiver's mallet made before the `h` arrived. It'd only stop the puck passing through where the mallet is now.
+The obvious change was to fast-forward with the receiver's mallet switched on, stepping the real world instead of coasting a copy. It hadn't been tried when this was written, so there was no number for it. On its own it also wouldn't bring back the motion the receiver's mallet made before the `h` arrived. It'd only stop the puck passing through where the mallet is now.
 
 ## The strip where both mallets reach
 
@@ -134,18 +135,22 @@ if (owner === me) {
 }
 ```
 
-That `phaseT = -9` is a timeout. The goal phase ends when `phaseT` passes 1.6 s, so if the room's `score` never arrives, the owner gives up after 10.6 s. It isn't clean, though. `afterGoal()` may play a replay first. Then `serve()` places the puck and sets `owner = lastConceded` - but only on the owner's screen, and `lastConceded` still names whoever conceded the previous goal. The other screen never left play. If `lastConceded` is the other seat, each side now thinks the other has the puck, and nobody runs it.
+That `phaseT = -9` is a timeout. The goal phase ends when `phaseT` passes 1.6 s, so if the room's `score` never arrives, the owner gives up after 10.6 s. It wasn't clean, though. `afterGoal()` could play a replay first. Then `serve()` placed the puck and set `owner = lastConceded` - but only on the owner's screen, and `lastConceded` still named whoever conceded the previous goal. The other screen never left play. If `lastConceded` was the other seat, each side then thought the other had the puck, and nobody ran it.
 
 ## Reconnects and the goal counter
 
-`Net` in `src/online.ts` keeps a seat token in `sessionStorage`, so a reload gets the same seat back. After a dropped socket it retries at 600 ms and again at 1.2 s. If both fail, it stops and shows "That room has closed. Make a new link from the menu." The backoff formula would go up to 8 s, if it ever got that far - it doesn't. After that, only the browser's `online` event or the tab becoming visible again triggers another try.
+`Net` in `src/online.ts` keeps a seat token in `sessionStorage`, so a reload gets the same seat back. After a dropped socket it retried at 600 ms and again at 1.2 s. If both failed, it stopped and showed "That room has closed. Make a new link from the menu." The backoff formula would go up to 8 s, if it ever got that far - it didn't. After that, only the browser's `online` event or the tab becoming visible again triggered another try.
 
-When a player does come back mid-game, the room sends `start` to both, with the current score and the serve in the returning player's half. Each client runs `startMatch()` and then `serve()`, so `owner` is reset on both sides. That also clears up an `h` lost in the drop.
+When a player did come back mid-game, the room sent `start` to both, with the current score and the serve in the returning player's half. Each client ran `startMatch()` and then `serve()`, so `owner` was reset on both sides. That also cleared up an `h` lost in the drop.
 
-It also breaks the score. `startMatch()` sets `goalsSeen = 0`, and the next goal is reported as `n: goalsSeen + 1`, so `n: 1`. The room's count isn't reset, and it wants `room.goals + 1`. Driving `worker/room.ts` directly - two goals, a reconnect, then a report with `n: 1` - the room returns `changed: false` and `room.goals` stays at 2. Once a goal has been scored, a reconnect means no later goal counts: each one sends the owner into the 10.6 s timeout above, and the score stays where it was. The client never sends a `g` again, so the counter doesn't protect against a resend either, because there are no resends. For goals to count after a reconnect, the client's count has to survive the reconnect too. It doesn't.
+It also broke the score. `startMatch()` set `goalsSeen = 0`, and the next goal was reported as `n: goalsSeen + 1`, so `n: 1`. The room's count wasn't reset, and it wants `room.goals + 1`. Driving `worker/room.ts` directly - two goals, a reconnect, then a report with `n: 1` - the room returns `changed: false` and `room.goals` stays at 2. Once a goal had been scored, a reconnect meant no later goal counted: each one sent the owner into the 10.6 s timeout above, and the score stayed where it was. The client never sent a `g` again, so the counter didn't protect against a resend either, because there were no resends. For goals to count after a reconnect, the client's count had to survive the reconnect too. It didn't.
 
 ## What it trusts
 
 The room trusts both clients completely. A player who never reports a goal against themselves never concedes one, and nothing checks that the puck states in `s` and `h` follow from any physics. Room codes are 8 characters from a 28-letter alphabet with no vowels, so no words, about 380 billion of them. Room lookups and creation are rate limited per IP. A stranger guessing their way into your room isn't practical. The only person who could cheat you is the one you sent the link to.
 
 How close do two real players on the same continent come to the 20 ms row? And do people defend through the handover window any better than bots do?
+
+## Since this was published
+
+A fix on 24 November closed the reconnect and handover gaps. The `start` message now carries the room's goal count, so a client that reconnects keeps its score and its count, and goals after a reconnect count again. The socket backs off up to every 8 s and asks whether the room exists before each try, and only a room that's actually gone shows "That room has closed". If the room never confirms a goal, the reporter now serves from its own half after the 10.6 s timeout (the other screen already treats it as the owner), and a report sent while the link was down is sent again. On a handover the receiver replays its own mallet's last positions over the delay window, in `catchUp` in `src/sim.ts`. In the same bot harness, at 10 simulated minutes a run, handovers that erased the receiver's hit fell from 59 to 7 at 30 ms one way, 41 to 7 at 50 ms and 76 to 5 at 80 ms, and live play per goal went from 2.37 to 2.94 seconds at 50 ms and from 1.28 to 1.97 at 80 ms - still bots in a reimplementation, so still a direction rather than a measurement.

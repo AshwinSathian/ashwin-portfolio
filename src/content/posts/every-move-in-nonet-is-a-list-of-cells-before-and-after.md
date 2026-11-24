@@ -1,6 +1,7 @@
 ---
 title: "Every move in Nonet is a list of cells, before and after"
 date: "2026-11-24"
+updatedAt: "2026-11-24"
 description: "In a sudoku, one tap can change dozens of cells, and undo has to take back all of them at once. How Nonet records every kind of move as the cells it changed, what undo leaves alone, and how the whole history is saved after every move."
 seoDescription: "How a browser sudoku records every move as a before-and-after diff of cells, so undo, redo, hints, restart and saving all share one log."
 tags: ["typescript", "gamedev"]
@@ -115,7 +116,7 @@ if (d !== answer(g, i)) {
 
 Neither `g.wrong` nor `g.mistakes` is part of a `Move`, so undo can't reach them. If we place a wrong digit on Easy seed 2 and undo it, `mistakes` is still 1. Hints are no different. The counter goes up when the hint panel opens, and undoing the step it applied doesn't bring it down. In Adaptive mode those two numbers feed the player's rating.
 
-There's a gap next to this, though. When a player leaves an Adaptive game for a new puzzle, `abandon()` records it as unfinished, which costs rating - but only if `G.undo.length` is non-zero. Undoing every move empties that stack. So place a wrong digit, undo it, and start a new puzzle: the mistake was counted (1, in the same Easy game), the undo stack is at 0, and the game is never recorded at all. Opening hints without applying any leaves the stack empty too. The comment above `abandon()` calls this "a started adaptive game", and a non-empty undo stack is the only test for started. A player who undid everything looks exactly like one who never touched the board.
+There was a gap next to this, though. When a player left an Adaptive game for a new puzzle, `abandon()` recorded it as unfinished, which costs rating - but only if `G.undo.length` was non-zero. Undoing every move empties that stack. So place a wrong digit, undo it, and start a new puzzle: the mistake was counted (1, in the same Easy game), the undo stack was at 0, and the game was never recorded at all. Opening hints without applying any left the stack empty too. The comment above `abandon()` calls this "a started adaptive game", and a non-empty undo stack was the only test for started. A player who undid everything looked exactly like one who never touched the board.
 
 New moves clear the redo stack, with one line in `commit`, `g.redo = []`. Undo twice, toggle a note, and the redo stack goes from 2 to 0. There's one line of history.
 
@@ -152,6 +153,10 @@ Measured in Node 24, the game object from the hint-only Master game above is 7.6
 
 ## One slot
 
-The save holds one game. `S.game` is a single field, and starting any new puzzle replaces it. Leave a Daily half done to try a Hard puzzle and the Daily in progress is gone. Tap Daily again and you'll get the same puzzle, since it comes from the date, but from the start, with an empty history and the clock at zero. Nonet resumes a Daily only when the current game is that day's Daily. An Adaptive game swapped out this way is recorded as unfinished when its undo stack isn't empty, with the gap described above when it is.
+The save holds one game. `S.game` is a single field, and starting any new puzzle replaces it. Leave a Daily half done to try a Hard puzzle and the Daily in progress is gone. Tap Daily again and you'll get the same puzzle, since it comes from the date, but from the start, with an empty history and the clock at zero. Nonet resumes a Daily only when the current game is that day's Daily. An Adaptive game swapped out this way is recorded as unfinished, as long as the player did anything in it.
 
 A second slot would be a small change to the data, since a `Game` already carries everything needed to resume it, history included. Which behaviour a second slot should have - one game per mode, or a list of games in progress - isn't something the code or the game's notes settle.
+
+## Since this was published
+
+A fix on 24 November closed the gap in `abandon()`. A new `started()` counts an Adaptive game as started after any move (even one that's been undone), a mistake or an opened hint, so the wrong-digit-then-undo game and the hints-only one are now recorded as unfinished like any other. The same fix sorted out long-press notes on Android, where the 420 ms timer and the `contextmenu` event both fired and the note went on and straight back off - whichever comes first now wins.

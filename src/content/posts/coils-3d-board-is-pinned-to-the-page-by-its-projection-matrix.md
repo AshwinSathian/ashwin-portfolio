@@ -1,6 +1,7 @@
 ---
 title: "Coil's 3D board is pinned to the page by its projection matrix"
 date: "2026-11-24"
+updatedAt: "2026-11-24"
 description: "Coil draws a lit 3D board behind an ordinary HTML layout, and the floor has to land on the same pixels the layout reserved for it. How a fixed full-screen canvas, a placeholder element and an off-axis projection keep the two in step, and what drawing the whole screen costs."
 seoDescription: "A WebGL 2 board behind an HTML layout: a fixed canvas, a placeholder rect and an off-axis projection that pins the floor to page pixels."
 tags: ["typescript", "gamedev", "webgl", "performance"]
@@ -42,7 +43,7 @@ resize() {
 
 `W` is 21, the board's width in cells, and `MARGIN` is 0.78 of a cell of rim on each side. So `rect` says where cell (0, 0) starts on the page and how many CSS pixels a cell is. Everything else in the camera comes from those three numbers.
 
-The rest of `resize()` only reallocates the drawing buffers when the canvas's pixel size actually changes. That makes it cheap enough to call often, and `main.ts` calls it from a `ResizeObserver` on the wrapper, from `resize`, and from a passive `scroll` listener in the capture phase. A scrolling panel that moves the placeholder gets the floor moved with it. But something that shifted the wrapper without a resize or a scroll wouldn't - `rect` is only re-read on those three events, and the floor would sit where the wrapper used to be until the next one.
+The rest of `resize()` only reallocates the drawing buffers when the canvas's pixel size actually changes. That makes it cheap enough to call often, and `main.ts` calls it from a `ResizeObserver` on the wrapper, from `resize`, and from a passive `scroll` listener in the capture phase. A scrolling panel that moves the placeholder gets the floor moved with it. But something that shifted the wrapper without a resize or a scroll wouldn't - `rect` was only re-read on those three events, and the floor would sit where the wrapper used to be until the next one.
 
 Without WebGL 2 (or with `?flat` in the URL) none of this runs. The canvas stays in its box and `src/render.ts` draws a flat 2D board into it.
 
@@ -143,3 +144,7 @@ But the renderer does watch its own frame time. If a device can't keep up it low
 The download grew too. Coil inlines its whole build into one `index.html`, and the 3D commit (39db724, "Rebuild the board as a top-down 3D world") took that file from 24.98 KB to 40.79 KB gzipped, building the commits either side. The same commit raised the size budget in `docs/PLAN.md` from 30 KB to 45 KB. `render3d.ts` and `shaders.ts` are 1,425 lines between them, with no 3D library underneath.
 
 The only GPU behind any of these numbers is SwiftShader, Chromium's software renderer, which says little about how a phone's GPU handles 77 MB of render targets.
+
+## Since this was published
+
+A fix on 24 November has the renderer read the wrapper's position every frame, not only on a resize or a scroll, so a layout shift that moves the board without resizing it no longer leaves the floor behind. An 80 px change in the header's height was enough to show the old gap. The resolution governor is now a class of its own and steps both ways. Slow frames count however slow they are, clamped to 100 ms (before, a frame over 120 ms was ignored, so a GPU under about 8 fps never stepped down at all), and gaps over a second are left out as a hidden tab or a pause. After about 600 smooth frames it tries a size up, and a step up that turns slow again becomes the ceiling.

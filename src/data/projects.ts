@@ -391,13 +391,13 @@ export const PROJECTS: Project[] = [
     category: "Browser game",
     tagline: "Minesweeper where every board can be cleared by logic, checked before you see it by an exact solver that also gives the hints.",
     description: [
-      "Minefield is Minesweeper for phone, tablet and desktop: Beginner, Intermediate, Expert, custom sizes up to 60 by 40, and a Daily Expert board that is the same for everyone each UTC day. The app is one HTML file of about 21 KB gzipped with no fonts or images to fetch, and it installs as an app and plays offline.",
+      "Minefield is Minesweeper for phone, tablet and desktop: Beginner, Intermediate, Expert, custom sizes up to 60 by 40, and a Daily Expert board that is the same for everyone each UTC day. The app is one HTML file of about 22 KB gzipped with no fonts or images to fetch, and it installs as an app and plays offline.",
       "With No guessing on, a board is dealt only after a solver has cleared it from the first click without a guess. The solver works in layers: single numbers, overlapping pairs, then a count of every mine arrangement on each frontier component, weighted by how the leftover mines fit the unexplored interior. Certainty is decided from which mine totals are feasible, never from floating-point probabilities.",
       "The same solver gives hints that ring the numbers behind a move, shades every hidden cell by its exact chance of being a mine, and tells you after a loss whether a safe move was open.",
     ],
     stack: ["TypeScript", "Web Workers", "CSS Grid", "Web Audio", "Vite", "Cloudflare Workers"],
     facts: [
-      { label: "Page", value: "One HTML file, about 21 KB gzipped" },
+      { label: "Page", value: "One HTML file, about 22 KB gzipped" },
       { label: "No-guess Expert boards", value: "15.8% of random deals; 2.5 ms median to find one" },
     ],
     highlights: [

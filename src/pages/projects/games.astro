@@ -1,14 +1,14 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ArrowLink from "../../components/ArrowLink.astro";
-import { GAMES, GAMES_CATALOGUE } from "../../data/games";
+import { GAMES, GAMES_ARCADE } from "../../data/games";
 import { getPosts } from "../../lib/posts";
 import { breadcrumbs, collectionPage } from "../../lib/schema";
 import { capitalize, numberWord } from "../../lib/text";
 
 const posts = new Map((await getPosts()).map((p) => [p.id, p]));
 const count = capitalize(numberWord(GAMES.length));
-const description = `${count} small browser games I built: Snake, pinball, Minesweeper, sudoku, noughts and crosses, table tennis and a typing race. Nothing to install.`;
+const description = `${count} small browser games I built, from snake and pinball to a 3D endless runner and a hedge maze chase, gathered in a 3D arcade. Nothing to install.`;
 ---
 
 <Base title="Games" description={description} path="/projects/games" image="/og/projects/games.png" schema={[collectionPage("/projects/games", "Games", description, GAMES.map((g) => ({ name: g.name, path: g.project ? `/projects/${g.project}` : "/projects/games" }))), breadcrumbs([["Home", ""], ["Projects", "/projects"], ["Games", "/projects/games"]])]}>
@@ -25,10 +25,10 @@ const description = `${count} small browser games I built: Snake, pinball, Mines
     <p class="pill tone-yellow load-rise mb-6">Browser games</p>
     <h1 class="load-rise max-w-5xl text-display-xl font-bold tracking-[-0.035em] [--d:80ms]">{count} small games for your browser.</h1>
     <div class="load-rise mt-6 flex max-w-2xl flex-col gap-4 text-fg-2 lg:mt-8 lg:text-[1.1875rem] [--d:200ms]">
-      <p>Each one opens in a tab on a phone or a laptop. Nothing to install, no account to make. Four of them have a write-up on the engineering underneath.</p>
+      <p>Each one opens in a tab on a phone or a laptop. Nothing to install, no account to make. They stand in a 3D arcade drawn live in WebGL 2, where every machine’s screen plays its game and the lights follow your day or night setting. Four of them have a write-up on the engineering underneath.</p>
     </div>
     <div class="load-rise mt-6 flex flex-wrap gap-x-8 [--d:300ms]">
-      <ArrowLink href={GAMES_CATALOGUE} external>Open the catalogue</ArrowLink>
+      <ArrowLink href={GAMES_ARCADE} external>Enter the arcade</ArrowLink>
     </div>
   </header>
 

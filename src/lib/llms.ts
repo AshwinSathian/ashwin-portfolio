@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { GAMES, GAMES_CATALOGUE } from "../data/games";
+import { GAMES, GAMES_ARCADE } from "../data/games";
 import { SECTIONS } from "../data/home";
 import { ALSO_SHIPPED, PROJECTS, type Project } from "../data/projects";
 import { ORDERED_PROJECTS } from "./projects";
@@ -53,7 +53,7 @@ export async function llmsTxt() {
     const a = ALSO_SHIPPED.find((x) => x.name === name)!;
     return `- [${a.name}](${a.href})${a.status ? ` (${a.status})` : ""}: ${a.description}`;
   };
-  const gamesLine = `- [Games](${SITE.website}/projects/games): ${numberWord(GAMES.length)} small browser games (${GAMES.map((g) => g.name).join(", ")}). Catalogue: ${GAMES_CATALOGUE}. The ones with a full page are listed below.`;
+  const gamesLine = `- [Games](${SITE.website}/projects/games): ${numberWord(GAMES.length)} small browser games (${GAMES.map((g) => g.name).join(", ")}). Arcade: ${GAMES_ARCADE}. The ones with a full page are listed below.`;
   const projects = SECTIONS.map((s) => {
     const body = s.view === "games" ? [gamesLine, ...s.slugs.map(line)] : [...s.slugs.map(line), ...(s.also ?? []).map(also)];
     return `### ${s.title}\n\n${s.blurb}\n\n${body.join("\n")}`;

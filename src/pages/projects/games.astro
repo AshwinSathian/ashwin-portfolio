@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import ArrowLink from "../../components/ArrowLink.astro";
-import { GAMES, GAMES_ARCADE, GAMES_REPO } from "../../data/games";
+import { GAMES, GAMES_ARCADE, GAMES_ARCADE_POST, GAMES_REPO } from "../../data/games";
 import { getPosts } from "../../lib/posts";
 import { breadcrumbs, collectionPage } from "../../lib/schema";
 import { capitalize, numberWord } from "../../lib/text";
@@ -25,11 +25,12 @@ const description = `${count} small browser games I built, from snake and pinbal
     <p class="pill tone-yellow load-rise mb-6">Browser games</p>
     <h1 class="load-rise max-w-5xl text-display-xl font-bold tracking-[-0.035em] [--d:80ms]">{count} small games for your browser.</h1>
     <div class="load-rise mt-6 flex max-w-2xl flex-col gap-4 text-fg-2 lg:mt-8 lg:text-[1.1875rem] [--d:200ms]">
-      <p>Each one opens in a tab on a phone or a laptop. Nothing to install, no account to make. They stand in a 3D arcade drawn live in WebGL 2, where every machine’s screen plays its game and the lights follow your day or night setting. Four of them have a write-up on the engineering underneath.</p>
+      <p>Each one opens in a tab on a phone or a laptop. Nothing to install, no account to make. They stand in a 3D arcade drawn live in WebGL 2, where every machine’s screen plays its game and the lights follow your day or night setting. Each game has a write-up on one piece of the engineering underneath it, and so does the arcade.</p>
     </div>
     <div class="load-rise mt-6 flex flex-wrap gap-x-8 [--d:300ms]">
       <ArrowLink href={GAMES_ARCADE} external>Enter the arcade</ArrowLink>
       <ArrowLink href={GAMES_REPO} external>The arcade’s source</ArrowLink>
+      <ArrowLink href={`/writing/${GAMES_ARCADE_POST}`}>How the arcade’s tokens work</ArrowLink>
     </div>
   </header>
 

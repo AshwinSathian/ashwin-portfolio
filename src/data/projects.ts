@@ -335,15 +335,15 @@ export const PROJECTS: Project[] = [
     slug: "coil",
     name: "Coil",
     category: "Browser game",
-    tagline: "Snake for phone, tablet and desktop in a 25 KB page, with replays you can share as links and a leaderboard that scores every run on the server.",
+    tagline: "Snake for phone, tablet and desktop in a 41 KB page, with replays you can share as links and a leaderboard that scores every run on the server.",
     description: [
-      "Coil is a snake game with five modes: Classic, Gates, Daily, Blitz and Zen. The whole app is one HTML file of about 25 KB gzipped, plus a 28 KB cut of the Anybody font. Every sound is synthesised with Web Audio, it installs as an app and it plays offline after the first visit. Swipe, the arrow keys or a gamepad all steer it, and it has two looks, Retro and Modern, each in a light and a dark theme.",
-      "The game is one integer-only simulation with a seeded random generator and no clock, and the same seed and turns always replay to the same game. A run is stored as its seed and the ticks where it turned, so a 55-segment Classic game fits in 192 characters of a link. The Daily leaderboard is a Cloudflare Worker that imports the same simulation, replays each submitted run and stores the score it computes. The browser never sends one.",
+      "Coil is a snake game with five modes: Classic, Gates, Daily, Blitz and Zen. The whole app is one HTML file of about 41 KB gzipped, plus a 28 KB cut of the Anybody font. The board is drawn in 3D with raw WebGL 2, and devices without it get a flat 2D board. Every sound is synthesised with Web Audio, it installs as an app and it plays offline after the first visit. Swipe, the arrow keys or a gamepad all steer it, and it has two looks, Retro and Modern, each in a light and a dark theme.",
+      "The game is one integer-only simulation with a seeded random generator and no clock, and the same seed and turns always replay to the same game. A run is stored as its seed and the ticks where it turned, so a 55-segment Classic game fits in about 190 characters of a link. The Daily leaderboard is a Cloudflare Worker that imports the same simulation, replays each submitted run and stores the score it computes. The browser never sends one.",
       "Edges are decided cell by cell: a stretch is a wall or a gate that brings the snake in on the opposite edge, in the same row or column. Gates mode is a run of generated rooms, each with fewer gates and more inner walls than the last, and Daily is one generated room a day.",
     ],
-    stack: ["TypeScript", "Canvas 2D", "Web Audio", "Vite", "Cloudflare Workers", "D1"],
+    stack: ["TypeScript", "WebGL 2", "Web Audio", "Vite", "Cloudflare Workers", "D1"],
     facts: [
-      { label: "Page", value: "One HTML file, about 25 KB gzipped, plus a 28 KB font" },
+      { label: "Page", value: "One HTML file, about 41 KB gzipped, plus a 28 KB font" },
       { label: "Replays", value: "Seed plus turns, varint and base64url, in the link fragment" },
     ],
     highlights: [
@@ -391,7 +391,7 @@ export const PROJECTS: Project[] = [
     category: "Browser game",
     tagline: "Minesweeper where every board can be cleared by logic, checked before you see it by an exact solver that also gives the hints.",
     description: [
-      "Minefield is Minesweeper for phone, tablet and desktop: Beginner, Intermediate, Expert, custom sizes up to 60 by 40, and a Daily board that is the same for everyone. The app is one HTML file of about 21 KB gzipped with no fonts or images to fetch, and it installs as an app and plays offline.",
+      "Minefield is Minesweeper for phone, tablet and desktop: Beginner, Intermediate, Expert, custom sizes up to 60 by 40, and a Daily Expert board that is the same for everyone each UTC day. The app is one HTML file of about 21 KB gzipped with no fonts or images to fetch, and it installs as an app and plays offline.",
       "With No guessing on, a board is dealt only after a solver has cleared it from the first click without a guess. The solver works in layers: single numbers, overlapping pairs, then a count of every mine arrangement on each frontier component, weighted by how the leftover mines fit the unexplored interior. Certainty is decided from which mine totals are feasible, never from floating-point probabilities.",
       "The same solver gives hints that ring the numbers behind a move, shades every hidden cell by its exact chance of being a mine, and tells you after a loss whether a safe move was open.",
     ],
@@ -404,7 +404,7 @@ export const PROJECTS: Project[] = [
       {
         title: "A solver that is sound and complete",
         detail:
-          "Single and pair rules alone would accept 17 random Expert boards in 1,000. Counting every arrangement on the frontier, combined with the global mine count, accepts 158. Tests compare its probabilities and certainties with brute-force enumeration on 400 random positions.",
+          "Single and pair rules alone would accept 17 random Expert boards in 1,000. Counting every arrangement on the frontier, combined with the global mine count, accepts 158. Tests compare its probabilities and certainties with brute-force enumeration on small random boards.",
       },
       {
         title: "Certainty without floats",
@@ -452,12 +452,12 @@ export const PROJECTS: Project[] = [
       {
         title: "Graded like a person solves",
         detail:
-          "Across 2,000 random minimal puzzles, a backtracking search's effort has a rank correlation of 0.39 with the technique grade, and its median effort is the same for Hard, Expert and Master. So levels come from the hardest technique each puzzle needs.",
+          "Across 2,000 random minimal puzzles, a backtracking search's effort has a rank correlation of 0.39 with the technique grade, and its median effort is about the same for Hard, Expert and Master. So levels come from the hardest technique each puzzle needs.",
       },
       {
         title: "Generated to a level",
         detail:
-          "Clues come out in symmetric pairs while the puzzle keeps one solution and, below Master, while the solver capped at the level's hardest technique can still finish it. Puzzles take 1 to 8 ms each in a Web Worker, and the Daily is the same seeded puzzle on every device with no server.",
+          "Clues come out in symmetric pairs while the puzzle keeps one solution and, below Master, while the solver capped at the level's hardest technique can still finish it. Puzzles take 1 to 8 ms each in a Web Worker, and the Daily is seeded from the local date, so every device makes the same puzzle for that date with no server.",
       },
       {
         title: "Elo with a continuous score",
@@ -549,20 +549,20 @@ export const PROJECTS: Project[] = [
     category: "Browser game",
     tagline: "A keyboard-first typing speed game: chase a streak multiplier, beat your best score.",
     description: [
-      "Typester is a ground-up rebuild of a 2018 Angular 7 app that keeps only the core idea. The original manipulated the DOM directly with getElementById and setInterval outside Angular’s reactivity, gated navigation through a mutable bag of untyped booleans, and shipped a settings screen that saved nothing. Every architectural decision in the rebuild traces back to one of those defects, logged with its own before/after reasoning in the project’s ARCHITECTURE.md.",
-      "The result is zoneless, standalone, and signals-first with no NgRx. A game session is a couple of plain injectable signal services, unit-tested without TestBed. Game configuration lives in the URL, not shared-service state, so a round is shareable, bookmarkable, and safe to refresh mid-game. It builds to a fully static, prerendered site with no Node server at runtime, deployed straight from Git through Cloudflare Workers Builds, with no CI pipeline and no server to patch.",
+      "Typester began as a 2018 Angular 7 app. The original manipulated the DOM directly with getElementById and setInterval outside Angular’s reactivity, gated navigation through a mutable bag of untyped booleans, and shipped a settings screen that saved nothing. A 2026 rebuild on Angular 22 replaced all of it, and Typester 3 rewrote that again, keeping the stack and replacing the game, the screens and the data model.",
+      "The result is zoneless, standalone, and signals-first with no NgRx. The game engine is a plain TypeScript class with no Angular imports, unit-tested with plain Vitest, and one signal store keeps settings, bests and history in localStorage. It builds to a fully static, prerendered site with no Node server at runtime, served as Cloudflare Workers static assets and deployed with wrangler deploy, with no server to patch.",
     ],
     stack: ["Angular 22 (zoneless, signals)", "Tailwind CSS v4", "Vitest", "Playwright"],
     facts: [
-      { label: "Modes", value: "Quick, Timed, Endless, Daily" },
+      { label: "Modes", value: "Rush, Sprint, Daily, Drill" },
       { label: "Testing", value: "Vitest + Playwright, incl. axe a11y" },
-      { label: "Platform", value: "Installable PWA, offline-capable, WCAG AA" },
+      { label: "Platform", value: "Installable PWA, offline-capable, no serious axe violations" },
     ],
     highlights: [
       {
-        title: "URL-driven game state",
+        title: "A ghost of your best run",
         detail:
-          "The entire game config is validated route params, not a mutable service, so a round survives a refresh and can be shared or bookmarked mid-play.",
+          "Each best stores when every word was finished, so during a run a counter shows how many words ahead of or behind your best you are at that second, and the results chart both runs.",
       },
       {
         title: "Deterministic daily challenge",
@@ -572,12 +572,12 @@ export const PROJECTS: Project[] = [
       {
         title: "Zoneless, signals-first, no NgRx",
         detail:
-          "The game engine, daily challenge, and stats/settings each live in a small, pure, testable signal service, with no external state library.",
+          "The engine is a plain Run class with no Angular imports. Keystrokes and the time are passed in, so tests control the clock. Two signal services, the store plus component state, cover the rest, with no external state library.",
       },
       {
-        title: "Static, zero-ops deploy",
+        title: "Static deploy, no server",
         detail:
-          "Prerendered output with no Node server at runtime, deployed straight from Git through Cloudflare Workers Builds, with no GitHub Actions and no server to maintain.",
+          "Prerendered output with no Node server at runtime, served as Cloudflare Workers static assets and deployed by hand with wrangler deploy, with no server to maintain.",
       },
     ],
     links: {
@@ -593,8 +593,8 @@ export const PROJECTS: Project[] = [
     decisionRecord: {
       date: "2026-07",
       before: "2018 Angular 7 app: direct DOM manipulation outside Angular’s reactivity, navigation gated by a mutable bag of untyped booleans, a settings screen that saved nothing",
-      after: "Zoneless Angular 22, signals-first, no NgRx, URL-driven game state, static prerendered deploy",
-      why: "Every architectural decision in the rebuild traces back to a specific defect in the original, logged with its own before/after reasoning in the project’s ARCHITECTURE.md.",
+      after: "Zoneless Angular 22, signals-first, no NgRx, a pure game engine, static prerendered deploy",
+      why: "The original kept its timer in DOM code outside Angular and its game setup in untyped flags, so neither could be tested. The rebuild moved the game into an engine with no Angular imports, tested with plain Vitest, and Typester 3 kept that split when it replaced the game itself.",
     },
   },
   {

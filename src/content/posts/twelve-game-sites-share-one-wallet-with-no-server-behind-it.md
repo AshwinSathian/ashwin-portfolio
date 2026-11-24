@@ -1,6 +1,7 @@
 ---
 title: "Twelve game sites share one wallet with no server behind it"
 date: "2026-11-24"
+updatedAt: "2026-11-24"
 description: "Twelve browser games on twelve subdomains carry one player card and one token balance, kept in a single cookie that a script from the arcade writes from inside each game's origin. How the integration comes down to one return value, why the cookie is parsed as hostile input, what it costs on every request, and which limits the design accepts."
 seoDescription: "One token wallet across twelve subdomains with no server: a parent-domain cookie, a fail-open event API, hostile-input parsing and cache-header deploys."
 tags: ["typescript", "gamedev", "security", "cloudflare"]
@@ -23,7 +24,7 @@ const setCookie = (k: string, v: string, age: number) => { try { document.cookie
 
 Off the real domain (localhost, a preview URL), the card is host-only. The card is written with `Max-Age=34560000`, which is 400 days. And with cookies blocked, the card lives in a variable for the life of the page, so at least it isn't dealt afresh on every read.
 
-The pass is built as an IIFE by `scripts/pass.ts`. It's a classic script, and it has to be. The site tests fail if `pass.js` contains an `import` or `export`, or goes over 14 KB gzipped. The current build is 33,484 bytes, 12,780 gzipped.
+The pass is built as an IIFE by `scripts/pass.ts`. It's a classic script, and it has to be. The site tests fail if `pass.js` contains an `import` or `export`, or goes over 14 KB gzipped. The current build is 34,011 bytes, 12,962 gzipped.
 
 ## The whole API is a return value
 
@@ -67,11 +68,11 @@ if (modes ? !(k.includes(".") && known.has(slug) && /^[a-z]{1,12}(\.[a-z]{1,12})
 
 Run the parser from before that commit and the current one against the same forged cookie and we can see the change. The old one returns a card whose `serialise()` throws `InvalidCharacterError`. The new one drops the key and serialises without complaint.
 
-It isn't the only way to make the card unwritable, though, and the other one's still open. The check is on the shape of a key, not on how many there are, and numbers are written back in full. Say we forge a cookie of 4,079 bytes (name included). It can hold 214 keys like `"coil.ab":1e9`. `parse()` accepts all 214, since each one matches the pattern and 1e9 is the clamp. `serialise()` then writes each value as `1000000000`, and the card comes back at 6,124 characters with the receipt already cut to nothing. That won't fit in a cookie. In Chromium, driven by Playwright, setting a cookie that size does nothing: no exception, and the old cookie stays where it was. So every change is read, applied, written, ignored - and gone on the next read. The only person this hurts is whoever forged their own cookie, since every subdomain that could write one is the arcade's. The fix is easy enough to see (keep only modes the economy table knows, or cap the number of bests). It isn't in the code yet.
+It wasn't the only way to make the card unwritable, though, and when this was written the other one was still open. The check was on the shape of a key, not on how many there were, and numbers are written back in full. Say we forge a cookie of 4,079 bytes (name included). It can hold 214 keys like `"coil.ab":1e9`. `parse()` accepted all 214, since each one matched the pattern and 1e9 is the clamp. `serialise()` then wrote each value as `1000000000`, and the card came back at 6,124 characters with the receipt already cut to nothing. That won't fit in a cookie. In Chromium, driven by Playwright, setting a cookie that size does nothing: no exception, and the old cookie stays where it was. So every change was read, applied, written, ignored - and gone on the next read. The only person this hurts is whoever forged their own cookie, since every subdomain that could write one is the arcade's. The fix was easy enough to see (keep only modes the economy table knows, or cap the number of bests). It wasn't in the code yet.
 
 ## 3,200 of 4,096 bytes, on every request
 
-A cookie can hold about 4,096 bytes. This one isn't allowed near that. `serialise()` aims for 3,200 and gives up receipt lines until it fits:
+A cookie can hold about 4,096 bytes. This one isn't allowed near that. `serialise()` aims for 3,200. When this was written it gave up receipt lines until it fit:
 
 ```ts
 /** Base64url of the JSON: cookie-safe, and a third smaller than percent-encoding it. Everything in a card is ASCII. */
@@ -99,7 +100,7 @@ A handful of rules in `src/pass/economy.ts` and `main.ts` each close one cheap t
 - The cup holds 99. Below 3, one token comes back every 15 minutes, up to 3.
 - Forgetting your card gives you a new one with 3 tokens, not the welcome 12. From 0 that's still a top-up of 3, which is no more than waiting 45 minutes.
 
-The sessionStorage rule has a gap we haven't run but expect from how browsers work. Duplicating a tab copies its sessionStorage, so one start could be ended, and paid, in both copies.
+The sessionStorage rule had a gap, which we hadn't run at the time but expected from how browsers work. Duplicating a tab copies its sessionStorage, so one start could be ended, and paid, in both copies.
 
 Then there's devtools, which no rule touches. The card is base64url JSON; decode it, set `tok` to 99, encode it, done. `pass-check.ts` edits the card exactly that way to put the page into its out-of-tokens state. The design doc says so up front: the wallet is "a cookie the player can edit", and the architecture notes add that tokens have no value outside the arcade. The rules are there for people who aren't doing that, and they don't pretend otherwise.
 
@@ -135,3 +136,7 @@ The other side of this is that each game lets a script from another origin run i
 That headers file had its own accident. In Cloudflare's format an unindented line starts a new path, and an indented line under it is a header. When the `/pass.js` block was first added (5857ffc), it was pasted into the middle of the `/*` block - between `Speculation-Rules: "` and the rest of its value. The paste's `/pass.js` line started a new rule, the dangling `/speculation.json"` became a path of its own, and the site-wide Content Security Policy ended up under that path, where it would match nothing. The Speculation-Rules header got the pasted comment as its value. The next commit, 46f8aab, put it back 83 seconds later, on the same branch, before the pull request merged, so the broken file never shipped. The same commit added a test that checks the CSP and the speculation rules sit inside the `/*` block.
 
 The card still says `v: 1`. A card with any other version is treated as malformed and replaced, keeping only the tag, and an older `pass.js` writes back only the fields it knows. So the first time the card needs a new field, an old copy of the script, open in some tab since last week, will drop it. And if the version goes up instead, that old copy will throw the card away.
+
+## Since this was published
+
+A fix on 24 November closed both gaps. The parser now keeps bests only for the modes `economy.ts` lists, and `serialise()` always fits under `MAX`, dropping the receipt first and then the smallest bests, so the forged 214-key cookie above now comes back at 134 characters. The duplicated tab turned out to be real - a repro paid 17 tokens where one tab would have paid 16. Each run now carries an id listed in localStorage, and the first tab to end the run takes the id off and gets paid, while the copy finds it gone and gets nothing.

@@ -1,6 +1,7 @@
 ---
 title: "A pinball table painted at boot costs less than its pictures"
 date: "2026-11-24"
+updatedAt: "2026-11-24"
 description: "Lightkeeper ships no image files. Its playfield, plastics and sprites are painted with Canvas 2D from the same table description the physics reads, at the screen's own scale, and WebGL 2 only puts the layers together. What that costs at boot, what it saves on the wire, and where it falls short."
 seoDescription: "How a browser pinball table paints its art with Canvas 2D at boot, at screen scale, and composites it in WebGL 2: measured costs, sizes and limits."
 tags: ["typescript", "gamedev", "webgl", "performance"]
@@ -87,15 +88,19 @@ The last pass tilts the table on wide screens too, with no 3D camera. The finish
 
 ## Where it falls short
 
-Effects quality only ever goes down - in play, `main.ts` averages frame times over 120 frames:
+When this was written, effects quality only ever went down - in play, `main.ts` averages frame times over 120 frames:
 
 ```ts
       if (avg > 21 && renderer.bloom) renderer.bloom = false;
       else if (avg > 24 && quality > 0.7) { quality = 0.7; doLayout(); }
 ```
 
-A slow window turns bloom off, and a second slow one drops the resolution to 70%. Nothing turns them back on. A phone that stutters for a couple of seconds (a notification arriving, say) plays the rest of the session without bloom, unless the player picks an effects setting by hand.
+A slow window turns bloom off, and a second slow one drops the resolution to 70%. Nothing turned them back on, so a phone that stuttered for a couple of seconds (a notification arriving, say) played the rest of the session without bloom, unless the player picked an effects setting by hand.
 
-The font's a dependency of the painting, too. The table's lettering is drawn in Big Shoulders, so boot waits for the font, but only for 1.5 seconds. If it hasn't arrived by then, the table's painted in the fallback face, and going by the code it stays that way until something repaints. That's a resize past the 4% rule, or the drop to 70% itself - `dpr` includes `quality`, so the drop changes `k` and every texture's painted again, smaller. This hasn't been tried on a slow connection.
+The font's a dependency of the painting, too. The table's lettering is drawn in Big Shoulders, so boot waits for the font, but only for 1.5 seconds. If it hasn't arrived by then, the table's painted in the fallback face, and going by the code it stayed that way until something repainted. That was a resize past the 4% rule, or the drop to 70% itself - `dpr` includes `quality`, so the drop changes `k` and every texture's painted again, smaller. This hadn't been tried on a slow connection.
 
 And every timing above comes from a Mac running headless Chromium on its own GPU. Does a few milliseconds of painting stay a few milliseconds on a mid-range Android?
+
+## Since this was published
+
+A fix on 24 November dealt with both. If the display face misses the 1.5 second wait, the table is now painted again as soon as the font arrives. And effects come back: after ten smooth seconds the resolution returns first, then bloom, while a level that's had to be dropped twice stays off for the session, so a borderline phone doesn't flicker between the two.

@@ -42,3 +42,12 @@ for (const file of pages) {
     for (const [, alt] of html.matchAll(/<img[^>]*?alt="([^"]*)"/g)) assert.ok(alt.length > 0);
   });
 }
+
+// Every game repository is private; the arcade's is the only public one. No built file may link a game repo.
+const GAME_REPOS = ["clover", "coil", "glide", "lightkeeper", "minefield", "nonet", "noughts", "pinfall", "rally", "spillway", "swish", "typester", "games"];
+test("no page links to a private game repository", () => {
+  const files = walk(DIST).filter((f) => /\.(html|md|txt|xml|json)$/.test(f));
+  const pattern = new RegExp(`github\\.com/AshwinSathian/(${GAME_REPOS.join("|")})(?![\\w.-])`, "i");
+  const hits = files.filter((f) => pattern.test(fs.readFileSync(f, "utf8")));
+  assert.deepEqual(hits, [], `links to a private game repo: ${hits.join(", ")}`);
+});

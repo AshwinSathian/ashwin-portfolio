@@ -1,6 +1,7 @@
 ---
 title: "A worn lane hooks later before it hooks earlier"
 date: "2026-11-24"
+updatedAt: "2026-11-24"
 description: "Pinfall's lane carries an oil field that the ball wears off and drags down the lane as you play. For the first ten to seventeen balls on one line, the wear makes the ball hook less, and then it flips. Why the friction curve hides half of the wear, when each oil pattern flips, and what oil can never change in this model."
 seoDescription: "How lane oil wear and carry-down change the hook in a browser bowling sim, measured ball by ball, and why oil can't change the entry angle."
 tags: ["typescript", "gamedev", "physics", "algorithms"]
@@ -8,7 +9,7 @@ tags: ["typescript", "gamedev", "physics", "algorithms"]
 
 When a simulation has two effects pulling in opposite directions, the one you can see in the code isn't always the one the player meets first. Each effect is written down on its own and each reads fine - only running them together tells you which one wins, and when.
 
-[Pinfall](https://pinfall.ashwinsathian.com) is a ten-pin bowling game in the browser, and its lane has oil on it. The README puts the promise in one line: "A line that strikes in the first frame hooks earlier by the eighth." But measured ball by ball, the same line does the opposite for the first ten to seventeen balls. It breaks later and hooks less. Then it flips. Both halves come out of about a dozen lines in [`src/sim.ts`](https://github.com/AshwinSathian/pinfall/blob/main/src/sim.ts), and neither half is a bug.
+[Pinfall](https://pinfall.ashwinsathian.com) is a ten-pin bowling game in the browser, and its lane has oil on it. When this was written, the README put the promise in one line: "A line that strikes in the first frame hooks earlier by the eighth." But measured ball by ball, the same line does the opposite for the first ten to seventeen balls. It breaks later and hooks less. Then it flips. Both halves come out of about a dozen lines in `src/sim.ts`, and neither half is a bug.
 
 ## Where the hook comes from
 
@@ -62,7 +63,7 @@ On House the first ball breaks 11.52 m down the lane and enters 58 mm right of t
 
 Which oil does it? We'll split the ten-ball lane into parts and throw the same ball over each part on its own. Wear on the cells that started above 0.6 leaves the entry exactly where it was on a fresh lane, at 56.7 mm. Carry-down onto boards that started dry moves it to 66.2 mm. The changes in the thin end of the taper, cells that started between zero and 0.6, move it to 67.5 mm. The whole worn lane gives 78.5 mm. So about half the drift is oil pushed into the taper, still inside the pattern, and the other half is oil on the dry back end. After ten balls the taper cells have gained up to 0.227 and the dry cells up to 0.214. On a dry cell that cuts the friction from 0.24 to about 0.17.
 
-Then it turns. At ball 18 the entry starts back towards the hook. By ball 20 the break has come forward to 11.30 m, and by ball 30 it breaks at 9.23 m, enters 13 mm from the head pin, high on the nose, and leaves pins. That's the earlier hook the README describes, roughly a game late.
+Then it turns. At ball 18 the entry starts back towards the hook. By ball 20 the break has come forward to 11.30 m, and by ball 30 it breaks at 9.23 m, enters 13 mm from the head pin, high on the nose, and leaves pins. That's the earlier hook the README described, roughly a game late.
 
 The first phase isn't the model getting it wrong - carry-down does the same thing on real lanes, where it makes balls skid further and hit light. Pinfall just shows it for a long stretch before the front end gives way.
 
@@ -83,23 +84,23 @@ Long shows it from a different side. Its breakpoint stays at 10.56 m for twelve 
 
 Less than the table suggests. A ten-frame game for one player is between 11 and 21 balls. A run's oil is created once when it starts and every player bowls on it, so four players can put up to 84 balls down one lane - those games go through the flip.
 
-The bot never sees it. It doesn't repeat a throw: `angleFor` bisects a fresh aim every ball, on the current worn oil. A person sees it through the aiming guide, which has a small gap of its own.
+The bot never sees it. It doesn't repeat a throw: `angleFor` bisects a fresh aim every ball, on the current worn oil. A person sees it through the aiming guide, which had a small gap of its own.
 
-## The dotted line doesn't wear the lane
+## The dotted line didn't wear the lane
 
-The dotted line you see while pulling back is the solver itself, run with no pins:
+The dotted line you see while pulling back is the solver itself, run with no pins. When this was written it was called like this:
 
 ```ts
     guidePath = simulate(makeThrow(x0, angle, speed, spin), oil, standing, { pins: false, record: false }).path;
 ```
 
-It runs on the current `oil`, so with the full path showing, it already bends with every earlier ball's wear. What it leaves out is the wear of the throw it's drawing. `wear` defaults to off, and the solver then works on a copy of the field (`o.wear ? oil : oil.clone()` in the `Roll` constructor). The real throw starts with `{ wear: true }`.
+It ran on the current `oil`, so with the full path showing, it already bent with every earlier ball's wear. What it left out was the wear of the throw it was drawing. `wear` defaults to off, and the solver then works on a copy of the field (`o.wear ? oil : oil.clone()` in the `Roll` constructor). The real throw starts with `{ wear: true }`.
 
 That matters because a ball can run into oil it's carried down a moment earlier. Its own wear changes the throw doing the wearing. On a grid of 209 throws across a fresh House lane, pinfall with wear on differed from pinfall with wear off in 40 of them.
 
-For a throw close to the bot's on a fresh House lane, the guide and the real ball agree to the last bit for 1.38 seconds, out to 11.2 m. Then the carry-down under the ball pulls them apart, and they cross the head pin 1.56 mm apart.
+For a throw close to the bot's on a fresh House lane, the guide and the real ball agreed to the last bit for 1.38 seconds, out to 11.2 m. Then the carry-down under the ball pulled them apart, and they crossed the head pin 1.56 mm apart.
 
-By default it's hidden. The guide stops at the arrows - the code draws it to 0.6 m past them, 5.17 m out, well before the paths split. With Settings showing the full path, the line's exact for the first 11 m and a millimetre or two out at the pins. And the guide's test in `sim.test.ts` couldn't catch it, because it runs the real throw without `wear: true` as well.
+By default it's hidden. The guide stops at the arrows - the code draws it to 0.6 m past them, 5.17 m out, well before the paths split. With Settings showing the full path, the line was exact for the first 11 m and a millimetre or two out at the pins. And the guide's test in `sim.test.ts` couldn't catch it, because it ran the real throw without `wear: true` as well.
 
 ## What oil can't touch
 
@@ -135,6 +136,10 @@ A real ball, though, has a core whose inertia differs by axis, so its spin axis 
 
 ## What it leaves open
 
-The renderer has a flat top of its own. Lane gloss is `clamp(oil * 1.35, 0., 1.)` in `src/shaders.ts`. A cell looks fully glossy until it drops below about 0.74, so front-end wear only shows on screen once it's well along. How visible the carry-down is in a real game hasn't been checked.
+The renderer has a flat top of its own. Lane gloss was `clamp(oil * 1.35, 0., 1.)` in `src/shaders.ts`. A cell looked fully glossy until it dropped below about 0.74, so front-end wear only showed on screen once it was well along. How visible the carry-down is in a real game hasn't been checked.
 
 Lowering the 0.6 threshold, or starting the patterns nearer to it, would bring the earlier hook into a solo game. It'd also change how every shared Daily link replays, which is what `VERSION` in `src/rules.ts` is there for. Whether a lane that tightens for a whole game before it opens out is worse to play on, or just less familiar, would take people bowling on it to say.
+
+## Since this was published
+
+A fix on 24 November changed the README and the guide. The README no longer says the line hooks earlier by the eighth frame - it now describes carry-down first and track wear after it, the order the game actually plays in. The guide goes through a new `preview()`, which rolls the ball on a cloned lane with wear on, and the bot aims with the same function, so the dotted line now matches the throw all the way to the pins. Lane gloss is now a plain `clamp(oil, 0., 1.)`, so wear shows across the whole range. And links now refuse throws the controls can't make: spin about the vertical, a speed outside 5.5 to 10 m/s, or an aim beyond 0.1 rad.

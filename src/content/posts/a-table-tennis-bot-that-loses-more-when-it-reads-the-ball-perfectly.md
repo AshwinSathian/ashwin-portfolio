@@ -1,6 +1,7 @@
 ---
 title: "A table tennis bot that loses more when it reads the ball perfectly"
 date: "2026-11-24"
+updatedAt: "2026-11-24"
 description: "Rally's computer opponent predicts the ball exactly with the game's own physics, then misreads it, reacts late and moves under a speed limit. Take any one of those away and it should get better. Two of them do. Take away the misread and the Casual and Club bots start losing."
 seoDescription: "A table tennis bot that predicts the ball exactly, then misreads, reacts late and moves slowly. Removing the misread makes two of its levels worse."
 tags: ["typescript", "gamedev", "algorithms", "physics"]
@@ -145,8 +146,6 @@ What does change is where the points go. Over 100 Casual matches, the stock bot 
 
 Between levels the bench is lopsided. Bots at different levels sit far apart in it: Club beats Casual in all 100 matches, Pro beats Club in all 100, and two Pros average 108.6 shots a rally against 6.4 for two Casuals. Losing isn't only about being late, either - between 15% and 34% of points in each pairing end on a wide ball, and the stock Pro in a 40-match run lost 82 points wide against 322 by not returning the ball.
 
-People are a different case. The levels were tuned against a model of a human player rather than against the bots, but that model isn't published, so its numbers aren't quoted here.
-
-You aren't held to the bot's body, for one thing. Steered by a mouse, your paddle goes wherever the pointer is, clamped to its zone. On touch it moves by however far your finger moves, also with no speed limit. Either way its velocity is smoothed over about 30 ms, "so one jittery pointer sample can't turn into a smash", as the comment in `sim.ts` puts it. The keyboard's the exception - arrow keys move the paddle at 2.8 m/s, slower than Pro's 4.5.
+People are a different case. You aren't held to the bot's body, for one thing. Steered by a mouse, your paddle goes wherever the pointer is, clamped to its zone. On touch it moves by however far your finger moves, also with no speed limit. Either way its velocity is smoothed over about 30 ms, "so one jittery pointer sample can't turn into a smash", as the comment in `sim.ts` puts it. The keyboard's the exception - arrow keys move the paddle at 2.8 m/s, slower than Pro's 4.5.
 
 Which leaves the misread. It was written as a handicap. Against a bot of its own level it works as a weapon, and nothing checked so far says what kind.

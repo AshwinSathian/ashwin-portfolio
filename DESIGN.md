@@ -35,7 +35,7 @@ Projects are grouped by kind in `SECTIONS` (`src/data/home.ts`), the single sour
 | Libraries | teal | rows | rows |
 | AI tooling | blue | rows | rows, plus the smaller GitHub repos |
 
-The games are one item. `/projects/games` lists all of them (`src/data/games.ts`, matching the arcade at games.ashwinsathian.com); the four with a full page keep it, under `Projects / Games / name`. The count is never written as a number in copy: it comes from the data.
+The games are one item. `/projects/games` lists all of them (`src/data/games.ts`, matching the arcade at arcade.ashwinsathian.com); the four with a full page keep it, under `Projects / Games / name`. The count is never written as a number in copy: it comes from the data.
 
 ## Type
 

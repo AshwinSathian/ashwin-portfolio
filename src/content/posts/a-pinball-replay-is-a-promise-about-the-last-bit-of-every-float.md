@@ -99,4 +99,4 @@ const at = q ? t0 + Math.max(0, Math.min(n, Math.floor(((q.t - prev) / span) * n
 
 The log records the tick each input was applied on, so a replay feeds it back on exactly that tick. At 60 frames a second that's 8 ticks a frame, so a flip lands within about 2 ms of the press, where rounding to the frame could put it 16 ms off. The 480 Hz step also handles tunnelling without extra code. The ball's speed is capped at 4,200 units a second, which is 8.75 units a step, and a ball 15 units in radius can't skip through a wall in that.
 
-The game is at [lightkeeper.ashwinsathian.com](https://lightkeeper.ashwinsathian.com) and the code at [github.com/AshwinSathian/lightkeeper](https://github.com/AshwinSathian/lightkeeper). The three stubs are segments 68, 99 and 116 of `SEGS`, if you want to watch one take down a ball.
+The game is at [lightkeeper.ashwinsathian.com](https://lightkeeper.ashwinsathian.com). The three stubs are segments 68, 99 and 116 of `SEGS`, if you want to watch one take down a ball.

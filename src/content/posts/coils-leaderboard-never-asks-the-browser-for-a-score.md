@@ -95,4 +95,4 @@ Versioned replays turned up one more place where two copies of the code can disa
 
 Now the service worker compares the fresh page's ETag (or Last-Modified, or length) with the cached one and tells open tabs when they differ. The app reloads onto the new version only when that interrupts nothing: on the menu, or when a link is waiting for a version that can read it. The new decoder also says why it refused, "replay is from a newer version of Coil", so the app keeps the link and asks the service worker for an update instead of throwing it away. A browser holding the very first service worker still gets one load of the old app, because that code has nothing listening.
 
-Coil is at [coil.ashwinsathian.com](https://coil.ashwinsathian.com) and the code is at [github.com/AshwinSathian/coil](https://github.com/AshwinSathian/coil). Everything above lives in `src/sim.ts`, `src/replay.ts` and `worker/index.ts`, 587 lines between the three.
+Coil is at [coil.ashwinsathian.com](https://coil.ashwinsathian.com). Everything above lives in `src/sim.ts`, `src/replay.ts` and `worker/index.ts`, 587 lines between the three.
